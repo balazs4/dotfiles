@@ -5,3 +5,6 @@
 
 !.gitignore
 !.file
+
+# .xinitrc
+!.xinitrc
