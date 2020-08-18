@@ -8,3 +8,8 @@
 
 # .xinitrc
 !.xinitrc
+
+# .config/i3/config
+!.config
+!.config/i3
+!.config/i3/config
