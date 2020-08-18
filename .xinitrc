@@ -40,5 +40,6 @@ xset r rate 200 30
 pulseaudio --start
 pulsemixer --set-volume 20
 pulsemixer --mute
+xbacklight \=20
 
 dunst & exec i3
