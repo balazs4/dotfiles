@@ -69,4 +69,11 @@ function dark(){
   " >> ~/.vimrc
 }
 
-
+function yt(){
+  if [ -z $1 ]
+  then
+    mpv `cat ~/.youtube | sort | uniq | fzf | cut -f1`
+  else
+    (sleep 10s; playerctl metadata --format "{{xesam:url}}	{{title}}" >> ~/.youtube) &  mpv $1
+  fi
+}
