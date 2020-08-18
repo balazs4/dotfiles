@@ -19,3 +19,8 @@
 
 # .i3blocks.conf
 !.i3blocks.conf
+
+# .config/mpv/mpv.conf
+!.config
+!.config/mpv
+!.config/mpv/mpv.conf
