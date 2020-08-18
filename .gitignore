@@ -16,3 +16,6 @@
 
 # .zshrc
 !.zshrc
+
+# .i3blocks.conf
+!.i3blocks.conf
