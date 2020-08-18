@@ -24,6 +24,7 @@ export BROWSER=chromium
 export EDITOR=vim
 export NPM_CONFIG_LOGLEVEL=http
 export NPM_CONFIG_PREFIX=$HOME/.node_modules_global
+export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
 
 alias zshrc="vim $HOME/.zshrc; source $HOME/.zshrc"
 alias vimrc="vim $HOME/.vimrc; vim +PlugInstall +PlugClean +qall"
