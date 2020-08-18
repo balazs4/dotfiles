@@ -1,0 +1,7 @@
+# ignore everything
+*
+# dotfiles too
+*. 
+
+!.gitignore
+!.file
