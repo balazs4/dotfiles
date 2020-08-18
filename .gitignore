@@ -24,3 +24,16 @@
 !.config
 !.config/mpv
 !.config/mpv/mpv.conf
+
+# /home/balazs4/.config/dunst/dunstrc
+!
+!/home
+!/home/balazs4
+!/home/balazs4/.config
+!/home/balazs4/.config/dunst
+!/home/balazs4/.config/dunst/dunstrc
+
+# .config/dunst/dunstrc
+!.config
+!.config/dunst
+!.config/dunst/dunstrc
