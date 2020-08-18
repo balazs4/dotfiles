@@ -20,9 +20,10 @@ ZSH_THEME_GIT_PROMPT_DIRTY=" $RED⦿ "
 ZSH_THEME_GIT_PROMPT_CLEAN=" $GREEN⦾ "
 
 export LANG=en_US.UTF-8
-export NPM_CONFIG_LOGLEVEL=http
 export BROWSER=chromium
 export EDITOR=vim
+export NPM_CONFIG_LOGLEVEL=http
+export NPM_CONFIG_PREFIX=$HOME/.node_modules_global
 
 alias zshrc="vim $HOME/.zshrc; source $HOME/.zshrc"
 alias vimrc="vim $HOME/.vimrc; vim +PlugInstall +PlugClean +qall"
