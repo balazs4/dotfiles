@@ -1,9 +1,3 @@
-export TERM=xterm-termite
-export LANG=en_US.UTF-8
-function notignore(){
-  $HOME/.file $1 >> $HOME/.gitignore && git add .gitignore $1 && git commit -m "add: $1"
-}
-
 export ZSH=$HOME/.oh-my-zsh/
 plugins=(git z fzf)
 source $ZSH/oh-my-zsh.sh
@@ -25,6 +19,8 @@ ZSH_THEME_GIT_PROMPT_SUFFIX=""
 ZSH_THEME_GIT_PROMPT_DIRTY=" $RED⦿ "
 ZSH_THEME_GIT_PROMPT_CLEAN=" $GREEN⦾ "
 
+export LANG=en_US.UTF-8
+export NPM_CONFIG_LOGLEVEL=http
 export BROWSER=chromium
 export EDITOR=vim
 
@@ -33,15 +29,22 @@ alias vimrc="vim $HOME/.vimrc; vim +PlugInstall +PlugClean +qall"
 alias wttr="curl -s 'http://wttr.in/91341?format=4'"
 alias xx='xclip -selection clipboard'
 alias v='vim +Rg!'
-
+alias ls='ls --color=auto'
+alias grep='grep --color'
+alias tree='tree -I node_modules'
+alias :q='exit'
+alias :x='exit'
+alias ll='ls -lsh'
+alias rm='rm -i'
 alias yolo='git add . && git commit -m "chore: `curl -s https://krautipsum.com/api/noun | fx .noun` :see_no_evil:" && sleep 2s && git push && curl --max-time 3 -s parrot.live || true'
-
-export NPM_CONFIG_LOGLEVEL=http
-
 alias foo='echo bar'
+alias now=vercel
+alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
+alias video='mpv --playlist=-'
+alias audio='mpv --no-video --playlist=-'
 
-function http(){
-  node -e 'Object.entries(require("http").STATUS_CODES).map(x=> x.join("-")).forEach(x=> process.stdout.write(`${x}\n`))'
+function notignore(){
+  $HOME/.file $1 >> $HOME/.gitignore && git add .gitignore $1 && git commit -m "add: $1"
 }
 
 function light(){
@@ -63,3 +66,5 @@ function dark(){
   let g:lightline = { 'colorscheme' : 'powerline' }
   " >> ~/.vimrc
 }
+
+
