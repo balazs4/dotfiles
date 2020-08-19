@@ -204,8 +204,8 @@ bindsym --release Shift+Control+Print exec --no-startup-id screenshot --select -
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86MonBrightnessUp exec xbacklight +20
-bindsym XF86MonBrightnessDown exec xbacklight -20
+bindsym XF86MonBrightnessUp exec xbacklight +5
+bindsym XF86MonBrightnessDown exec xbacklight -5
 bindsym XF86AudioRaiseVolume exec pulsemixer --change-volume +5
 bindsym XF86AudioLowerVolume exec pulsemixer --change-volume -5
 bindsym XF86AudioMute exec pulsemixer --toggle-mute
