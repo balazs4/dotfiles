@@ -29,3 +29,6 @@
 !.config
 !.config/dunst
 !.config/dunst/dunstrc
+
+# .vimrc
+!.vimrc
