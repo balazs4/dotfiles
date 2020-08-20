@@ -64,6 +64,7 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'fxn/vim-monochrome'
   Plug 'cormacrelf/vim-colors-github'
+  Plug 'pgdouyon/vim-yin-yang'
 
 call plug#end()
 
