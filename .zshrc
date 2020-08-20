@@ -38,7 +38,7 @@ alias :q='exit'
 alias :x='exit'
 alias ll='ls -lsh'
 alias rm='rm -i'
-alias yolo='git add . && git commit -m "chore: `curl -s https://krautipsum.com/api/noun | fx .noun` :see_no_evil:" && sleep 2s && git push && curl --max-time 3 -s parrot.live || true'
+alias yolo='git add . && git commit -m "chore: `curl -s https://krautipsum.com/api/noun | fx .noun` :see_no_evil:"  && git push || true'
 alias foo='echo bar'
 alias now=vercel
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
