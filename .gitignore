@@ -32,3 +32,8 @@
 
 # .vimrc
 !.vimrc
+
+# .config/rofi/config
+!.config
+!.config/rofi
+!.config/rofi/config
