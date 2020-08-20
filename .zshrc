@@ -1,6 +1,6 @@
 export ZSH=$HOME/.oh-my-zsh/
 plugins=(git z fzf)
-source $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh 
 
 #ZSH_THEME="node"
 
@@ -44,7 +44,9 @@ alias now=vercel
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
 alias video='mpv --playlist=-'
 alias audio='mpv --no-video --playlist=-'
-alias emoji='emojify --list | sed "0,/Supported emojis/d" | fzf'
+alias emoji='emojify --list | sed "0,/Supported emojis/d"'
+alias whatsapp='chromium --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
+alias spotify='google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify --app=https://open.spotify.com/'
 
 function notignore(){
   $HOME/.file $1 >> $HOME/.gitignore && git add .gitignore $1 && git commit -m "add: $1"

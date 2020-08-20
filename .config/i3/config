@@ -196,8 +196,8 @@ for_window [class="^.*"] border pixel 1
 focus_on_window_activation focus
 
 bindsym $mod+c exec $BROWSER 
-bindsym $mod+a exec rofi -show combi 
-bindsym $mod+x exec rofi -show emoji -modi emoji
+bindsym $mod+a exec rofi -show window 
+bindsym $mod+d exec zsh -i -c `cat ~/.zshrc | grep alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | bemenu`
 bindsym --release Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h.png' -q 100 -e 'xclip -selection c -t image/png < $f && dunstify -r 6868 "$f" "fullscreen" && mv $f /tmp/$f ' 
 bindsym --release Control+Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h.png' -q 100 --focused -e 'xclip -selection c -t image/png < $f && dunstify -r 6868 "$f" "focused window" && mv $f /tmp/$f ' 
 bindsym --release Shift+Control+Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h.png' -q 100 --select -e 'xclip -selection c -t image/png < $f && dunstify -r 6868 "$f" "selected area" && mv $f /tmp/$f ' 
@@ -217,4 +217,4 @@ smart_gaps on
 gaps inner 2
 gaps outer 2
 
-bindsym $mod+grave exec rofi -modi todo:$HOME/bin/todo -show todo
+#bindsym $mod+grave exec rofi -modi todo:$HOME/bin/todo -show todo
