@@ -44,6 +44,7 @@ alias now=vercel
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
 alias video='mpv --playlist=-'
 alias audio='mpv --no-video --playlist=-'
+alias emoji='emojify --list | sed "0,/Supported emojis/d" | fzf'
 
 function notignore(){
   $HOME/.file $1 >> $HOME/.gitignore && git add .gitignore $1 && git commit -m "add: $1"
