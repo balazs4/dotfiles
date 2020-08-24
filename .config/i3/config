@@ -204,8 +204,8 @@ bindsym --release Shift+Control+Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86MonBrightnessUp exec xbacklight +5
-bindsym XF86MonBrightnessDown exec xbacklight -5
+bindsym XF86MonBrightnessUp exec xbacklight +10
+bindsym XF86MonBrightnessDown exec xbacklight -10
 bindsym XF86AudioRaiseVolume exec pulsemixer --change-volume +5
 bindsym XF86AudioLowerVolume exec pulsemixer --change-volume -5
 bindsym XF86AudioMute exec pulsemixer --toggle-mute
@@ -217,4 +217,4 @@ smart_gaps on
 gaps inner 2
 gaps outer 2
 
-#bindsym $mod+grave exec rofi -modi todo:$HOME/bin/todo -show todo
+bindcode 66 exec --no-startup-id [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us

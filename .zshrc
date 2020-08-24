@@ -1,5 +1,5 @@
 export ZSH=$HOME/.oh-my-zsh/
-plugins=(git z fzf)
+plugins=(git z fzf) 
 source $ZSH/oh-my-zsh.sh 
 
 #ZSH_THEME="node"
