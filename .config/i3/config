@@ -222,3 +222,4 @@ bindsym $mod+a exec zsh -i -c `cat ~/.zshrc | grep alias | grep webapp | sed -e 
 bindsym $mod+Shift+a exec  termite -e 'zsh -c "vim ~/.todos"'
 bindsym --release $mod+l exec --no-startup-id sudo systemctl suspend
 
+bindsym $mod+x exec --no-startup-id emojify --list | tail -n +5 | bemenu --prompt emoji --fn 'Inter 16' -l 16 --nb='#333333' | cut -d' '  -f2 | tr '\n' ' ' | xclip -selection clipboard

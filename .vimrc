@@ -54,8 +54,7 @@ call plug#begin('~/.vim/plugged')
 
   Plug '/usr/bin/fzf'
   Plug 'junegunn/fzf.vim'
-
-  Plug 'easymotion/vim-easymotion'
+  nnoremap <C-P> :Files<CR>
 
   Plug 'matze/vim-move'
   let g:move_key_modifier = 'C'
@@ -67,7 +66,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'pgdouyon/vim-yin-yang'
 
 call plug#end()
-
 
   " mode: dark
   colorscheme monochrome
