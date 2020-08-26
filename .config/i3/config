@@ -214,7 +214,8 @@ bindsym XF86MonBrightnessDown exec xbacklight -10
 bindsym XF86AudioRaiseVolume exec pulsemixer --change-volume +5
 bindsym XF86AudioLowerVolume exec pulsemixer --change-volume -5
 bindsym XF86AudioMute exec pulsemixer --toggle-mute
-#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec pulsemixer --toggle-mute --id source-1 # external mic only since internal not recognized
+
 bindsym $mod+c exec $BROWSER 
 bindsym $mod+grave exec quickswitch
 bindsym $mod+a exec zsh -i -c `cat ~/.zshrc | grep alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | dmenu -p webapp -sb "#777"`
