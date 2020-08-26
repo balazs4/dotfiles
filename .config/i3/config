@@ -195,9 +195,6 @@ client.focused #000000 #000000 #FFFFFF #000000
 for_window [class="^.*"] border pixel 1
 focus_on_window_activation focus
 
-bindsym $mod+c exec $BROWSER 
-bindsym $mod+a exec rofi -show window 
-bindsym $mod+d exec zsh -i -c `cat ~/.zshrc | grep alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | bemenu`
 bindsym --release Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h.png' -q 100 -e 'xclip -selection c -t image/png < $f && dunstify -r 6868 "$f" "fullscreen" && mv $f /tmp/$f ' 
 bindsym --release Control+Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h.png' -q 100 --focused -e 'xclip -selection c -t image/png < $f && dunstify -r 6868 "$f" "focused window" && mv $f /tmp/$f ' 
 bindsym --release Shift+Control+Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h.png' -q 100 --select -e 'xclip -selection c -t image/png < $f && dunstify -r 6868 "$f" "selected area" && mv $f /tmp/$f ' 
@@ -210,6 +207,12 @@ bindsym XF86AudioRaiseVolume exec pulsemixer --change-volume +5
 bindsym XF86AudioLowerVolume exec pulsemixer --change-volume -5
 bindsym XF86AudioMute exec pulsemixer --toggle-mute
 #bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym $mod+c exec $BROWSER 
+bindsym $mod+grave exec quickswitch
+bindsym $mod+a exec zsh -i -c `cat ~/.zshrc | grep alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | dmenu -p /// -l 10 -b`
+bindsym $mod+Shift+a exec  termite -e 'zsh -c "vim ~/.todos"'
+
+bindcode 66 exec --no-startup-id [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us
 
 exec_always feh --bg-fill https://images.unsplash.com/photo-1445359179985-460648949e10
 
@@ -217,4 +220,3 @@ smart_gaps on
 gaps inner 2
 gaps outer 2
 
-bindcode 66 exec --no-startup-id [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us
