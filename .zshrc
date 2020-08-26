@@ -45,7 +45,12 @@ alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.joi
 alias video='mpv --playlist=-'
 alias audio='mpv --no-video --playlist=-'
 alias emoji='emojify --list | sed "0,/Supported emojis/d"'
-alias whatsapp='chromium --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
+alias docker='sudo docker'
+alias todos='cat ~/.todos | fzf'
+
+# webapps
+alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
+alias outlook='google-chrome-stable --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
 alias spotify='google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify --app=https://open.spotify.com/'
 
 function notignore(){
@@ -80,3 +85,4 @@ function yt(){
     (sleep 10s; playerctl metadata --format "{{xesam:url}}	{{title}}" >> ~/.youtube) &  mpv $1
   fi
 }
+

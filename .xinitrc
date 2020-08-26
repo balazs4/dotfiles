@@ -36,10 +36,11 @@ fi
 xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Accel Speed' 0.5
 xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Tapping Enabled' 1
 xset r rate 200 30
+setxkbmap -option caps:none
+xbacklight \=20
 
 pulseaudio --start
 pulsemixer --set-volume 20
 pulsemixer --mute
-xbacklight \=20
 
 dunst & exec i3
