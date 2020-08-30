@@ -217,9 +217,9 @@ bindsym XF86AudioMute exec pulsemixer --toggle-mute
 bindsym XF86AudioMicMute exec pulsemixer --toggle-mute --id source-1 # external mic only since internal not recognized
 
 bindsym $mod+c exec $BROWSER 
-bindsym $mod+grave exec quickswitch
+bindsym $mod+q exec quickswitch
 bindsym $mod+a exec zsh -i -c `cat ~/.zshrc | grep alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | dmenu -p webapp -sb "#777"`
-bindsym $mod+Shift+a exec  termite -e 'zsh -c "vim ~/.todos"'
+bindsym $mod+grave exec  termite -e 'zsh -c "vim ~/.todos"'
 bindsym --release $mod+l exec --no-startup-id sudo systemctl suspend
 
 bindsym $mod+x exec --no-startup-id emojify --list | tail -n +5 | bemenu --prompt emoji --fn 'Inter 16' -l 16 --nb='#333333' | cut -d' '  -f2 | tr '\n' ' ' | xclip -selection clipboard

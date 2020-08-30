@@ -25,7 +25,7 @@ export EDITOR=vim
 export NPM_CONFIG_LOGLEVEL=http
 export NPM_CONFIG_PREFIX=$HOME/.node_modules_global
 export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
-export FZF_DEFAULT_COMMAND="find -type f -not -path './node_modules/*' -not -path './.git/*'"
+export FZF_DEFAULT_COMMAND="find . -type f -not -path './node_modules/*' -not -path './.git/*' | sed 's/\.\///'"
 
 alias zshrc="vim $HOME/.zshrc; source $HOME/.zshrc"
 alias vimrc="vim $HOME/.vimrc; vim +PlugInstall +PlugClean +qall"
@@ -53,6 +53,7 @@ alias todos='cat ~/.todos | fzf'
 alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
 alias outlook='google-chrome-stable --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
 alias spotify='google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify --app=https://open.spotify.com/'
+alias blau='google-chrome-stable --user-data-dir=$HOME/.config/webapp/shop https://blau.de'
 
 function notignore(){
   $HOME/.file $1 >> $HOME/.gitignore && git add .gitignore $1 && git commit -m "add: $1"
@@ -87,3 +88,11 @@ function yt(){
   fi
 }
 
+function checks(){
+  OWNER=$USER
+  REPO=`basename $PWD`
+  BRANCH=`git rev-parse --abbrev-ref HEAD`
+
+  gh api repos/$OWNER/$REPO/actions/runs\?branch=$BRANCH \
+    | fx 'xx=>xx.workflow_runs.map(x=>[x.html_url, x.created_at, x.status, x.conclusion.toUpperCase()  ].join("\t")).join("\n")'
+}

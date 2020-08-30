@@ -54,7 +54,8 @@ call plug#begin('~/.vim/plugged')
 
   Plug '/usr/bin/fzf'
   Plug 'junegunn/fzf.vim'
-  nnoremap <C-P> :Files<CR>
+  nnoremap <C-p> :GFiles<CR>
+  nnoremap <C-S-o> :Rg!<CR>
 
   Plug 'matze/vim-move'
   let g:move_key_modifier = 'C'
