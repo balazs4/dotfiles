@@ -33,11 +33,6 @@
 # .vimrc
 !.vimrc
 
-# .config/rofi/config
-!.config
-!.config/rofi
-!.config/rofi/config
-
 # .config/termite/config
 !.config
 !.config/termite
