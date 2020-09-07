@@ -37,3 +37,8 @@
 !.config
 !.config/termite
 !.config/termite/config
+
+# .config/gh/config.yml
+!.config
+!.config/gh
+!.config/gh/config.yml
