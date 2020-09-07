@@ -23,7 +23,7 @@ export LANG=en_US.UTF-8
 export BROWSER=chromium
 export EDITOR=vim
 export NPM_CONFIG_LOGLEVEL=http
-export NPM_CONFIG_PREFIX=$HOME/.node_modules_global
+export NPM_CONFIG_PREFIX=$HOME/.npm_global
 export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
 export FZF_DEFAULT_COMMAND="find . -type f -not -path './node_modules/*' -not -path './.git/*' | sed 's/\.\///'"
 
@@ -86,13 +86,4 @@ function yt(){
   else
     (sleep 10s; playerctl metadata --format "{{xesam:url}}	{{title}}" >> ~/.youtube) &  mpv $1
   fi
-}
-
-function checks(){
-  OWNER=$USER
-  REPO=`basename $PWD`
-  BRANCH=`git rev-parse --abbrev-ref HEAD`
-
-  gh api repos/$OWNER/$REPO/actions/runs\?branch=$BRANCH \
-    | fx 'xx=>xx.workflow_runs.map(x=>[x.html_url, x.created_at, x.status, x.conclusion.toUpperCase()  ].join("\t")).join("\n")'
 }
