@@ -1,4 +1,5 @@
 export ZSH=$HOME/.oh-my-zsh/
+DISABLE_AUTO_UPDATE=true
 plugins=(git z fzf) 
 source $ZSH/oh-my-zsh.sh 
 
@@ -54,6 +55,7 @@ alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsa
 alias outlook='google-chrome-stable --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
 alias spotify='google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify --app=https://open.spotify.com/'
 alias blau='google-chrome-stable --user-data-dir=$HOME/.config/webapp/shop https://blau.de'
+alias bank='google-chrome-stable --user-data-dir=$HOME/.config/webapp/bank'
 
 function notignore(){
   $HOME/.file $1 >> $HOME/.gitignore && git add .gitignore $1 && git commit -m "add: $1"
