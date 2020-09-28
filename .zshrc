@@ -100,4 +100,5 @@ function radio(){
     | mpv --playlist=-
 }
 
-alias one-time-server='node -p "require(\"http\").createServer((q,s) => process.stdin.on(\"end\", process.exit).pipe(s)).listen().address().port"'
+alias one-time-server='node -p "require(\"http\").createServer((q,s) => {s.writeHead(200, { \"content-type\": process.argv[1] || \"text/plain\"}); process.stdin.on(\"end\", process.exit).pipe(s); }).listen().address().port"'
+
