@@ -99,3 +99,5 @@ function radio(){
     | cut -f1 \
     | mpv --playlist=-
 }
+
+alias one-time-server='node -p "require(\"http\").createServer((q,s) => process.stdin.on(\"end\", process.exit).pipe(s)).listen().address().port"'
