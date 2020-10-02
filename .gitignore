@@ -42,3 +42,7 @@
 !.config
 !.config/gh
 !.config/gh/config.yml
+
+# .config/mimeapps.list
+!.config
+!.config/mimeapps.list
