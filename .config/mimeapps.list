@@ -6,5 +6,3 @@ x-scheme-handler/ftp=chromium.desktop
 x-scheme-handler/http=chromium.desktop
 x-scheme-handler/https=chromium.desktop
 x-scheme-handler/mailto=chromium.desktop
-x-scheme-handler/vscode=chromium.desktop
-x-scheme-handler/msteams=teams.desktop
