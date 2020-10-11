@@ -199,7 +199,7 @@ smart_gaps on
 gaps inner 2
 gaps outer 2
 
-exec_always feh --bg-fill https://images.unsplash.com/photo-1445359179985-460648949e10
+exec_always feh --bg-fill https://unsplash.com/photos/Ji_G7Bu1MoM/download?force=true&w=1920
 
 bindcode 66 exec --no-startup-id [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us
 
