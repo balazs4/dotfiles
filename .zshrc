@@ -95,7 +95,7 @@ function yt(){
 function radio(){
   term=$(echo $* | sed -r 's/\s/\+/g')
   curl http://opml.radiotime.com/Search.ashx\?query\=$term -s \
-    | xml2js \
+    | npx -p fast-xml-parser xml2js \
     | fx 'xx => xx.opml.body.outline.filter(x => x["@_item"] === "station").map(x=>[ x["@_URL"], x["@_reliability"], x["@_text"], x["@_subtext"] ].join("\t")).join("\n")' \
     | fzf \
     | cut -f1 \
