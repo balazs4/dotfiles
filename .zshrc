@@ -95,7 +95,7 @@ function yt(){
 function radio(){
   term=$(echo $* | sed -r 's/\s/\+/g')
   curl http://opml.radiotime.com/Search.ashx\?query\=$term -s \
-    | npx -p fast-xml-parser xml2js \
+    | npx -q -p fast-xml-parser xml2js \
     | fx 'xx => xx.opml.body.outline.filter(x => x["@_item"] === "station").map(x=>[ x["@_URL"], x["@_reliability"], x["@_text"], x["@_subtext"] ].join("\t")).join("\n")' \
     | fzf \
     | cut -f1 \
@@ -105,5 +105,3 @@ function radio(){
 function one-time-server() {
   node -p "require('http').createServer((q,s) => {s.writeHead(200, { 'content-type': process.argv[1] || 'text/plain'}); process.stdin.on('end', process.exit).pipe(s); }).listen().address().port"
 }
-
-alias one-time-server-qr='one-time-server | npx -q qrcode-terminal'
