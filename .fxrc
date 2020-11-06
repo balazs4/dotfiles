@@ -1,0 +1,24 @@
+// vim: ft=javascript
+
+global.i3windows = (json) => {
+  const select = (item, parent) => {
+    if (item?.window_type !== "normal") return null;
+    return [
+      item?.id,
+      parent?.name,
+      item?.window_properties?.class.padEnd(24, ' '),
+      item?.window_properties?.title,
+    ].join("  ");
+  };
+  const traverse = (item, parent = null) => {
+    return [
+      select(item, parent),
+      ...item.nodes
+        .map((child) =>
+          traverse(child, item.type === "workspace" ? item : parent)
+        )
+        .flat(),
+    ];
+  };
+  return traverse(json).filter(Boolean).join("\n");
+};

@@ -46,3 +46,6 @@
 # .config/mimeapps.list
 !.config
 !.config/mimeapps.list
+
+# .fxrc
+!.fxrc
