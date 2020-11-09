@@ -49,3 +49,7 @@
 
 # .fxrc
 !.fxrc
+
+# .hooks/pre-commit
+!.hooks
+!.hooks/pre-commit
