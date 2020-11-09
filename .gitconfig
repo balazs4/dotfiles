@@ -1,0 +1,7 @@
+[user]
+	email = balazs4@users.noreply.github.com
+	name = balazs4
+[pull]
+	rebase = true
+[core]
+	hooksPath = /home/balazs4/.hooks
