@@ -1,5 +1,0 @@
-#! /bin/bash
-
-[ -f "$PWD/package.json" ] || exit 0;
-
-npm run lint:fix --silent --if-present && git add --verbose $PWD/.
