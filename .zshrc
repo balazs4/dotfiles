@@ -26,10 +26,10 @@ export EDITOR=vim
 export NPM_CONFIG_LOGLEVEL=http
 export NPM_CONFIG_PREFIX=$HOME/.npm_global
 export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
-export FZF_DEFAULT_COMMAND="find . -type f -not -path './node_modules/*' -not -path './.git/*' | sed 's/\.\///'"
+export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
 
 alias zshrc="vim $HOME/.zshrc; source $HOME/.zshrc"
-alias vimrc="vim $HOME/.vimrc; vim +PlugInstall +PlugClean +qall"
+alias vimrc="vim $HOME/.vimrc"
 alias wttr="curl -s 'http://wttr.in/91341?format=4'"
 alias xx='xclip -selection clipboard'
 alias v='vim +Rg!'
@@ -49,10 +49,11 @@ alias audio='mpv --no-video --playlist=-'
 alias emoji='emojify --list | sed "0,/Supported emojis/d"'
 alias docker='sudo docker'
 alias todos='cat ~/.todos | fzf'
+alias mc='mc -b'
 
 # webapps
 alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
-alias outlook='google-chrome-stable --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
+alias outlook='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
 alias spotify='google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify --app=https://open.spotify.com/'
 alias blau='google-chrome-stable --user-data-dir=$HOME/.config/webapp/shop https://blau.de'
 alias amazon='google-chrome-stable --user-data-dir=$HOME/.config/webapp/shop https://amazon.de'
@@ -66,21 +67,11 @@ function notignore(){
 function light(){
   curl -sf https://raw.githubusercontent.com/khamer/base16-termite/master/themes/base16-github.config >> ~/.config/termite/config
   killall -USR1 termite
-  echo -e "
-  \" mode: light
-  colorscheme github
-  let g:lightline = { 'colorscheme' : 'github' }
-  " >> ~/.vimrc
 }
 
 function dark(){
   curl -sf https://raw.githubusercontent.com/khamer/base16-termite/master/themes/base16-brewer.config >> ~/.config/termite/config
   killall -USR1 termite
-  echo -e "
-  \" mode: dark
-  colorscheme monochrome
-  let g:lightline = { 'colorscheme' : 'powerline' }
-  " >> ~/.vimrc
 }
 
 function yt(){

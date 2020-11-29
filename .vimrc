@@ -1,74 +1,35 @@
-set nocompatible
-set ignorecase
-syntax enable
-colorscheme industry
-filetype plugin indent on
-
-set path=$PWD/**
-set noshowmode
-set wildmenu
-set laststatus=2
-set showcmd
+syntax off
 set t_Co=256
-set noswapfile
+filetype plugin indent on
 set nowrap
-set backupcopy=yes
-set timeoutlen=400 ttimeoutlen=0
-set number
-set relativenumber
+set noswapfile
+set wildmenu
+set showcmd
 set shiftwidth=2
 set expandtab
-set splitbelow
-set splitright
+set autoread
 set incsearch
 set hlsearch
-set autoread
+set ignorecase
+set timeoutlen=400 ttimeoutlen=0
 
-set nocul
-autocmd InsertEnter,InsertLeave * set cul!
-autocmd BufNewFile,BufReadPost .babelrc set filetype=json
-autocmd BufNewFile,BufReadPost vifmrc set filetype=vim
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+" status bar
+set laststatus=2
+set statusline=%<%F%m%r%h%w\ %=%(%y\ \ %l,%c%V\ %=\ %P%)
+hi statusline ctermfg=darkgray ctermbg=white
+au InsertEnter * hi statusline ctermfg=blue ctermbg=white
+au InsertLeave * hi statusline ctermfg=darkgray ctermbg=white
 
-cnoremap Q q
-cnoremap W w
-cnoremap X x
+" -/fzf
+nnoremap <C-p> :FZF<CR>
 
-" PLUGINS
-call plug#begin('~/.vim/plugged')
+" matze/vim-move
+let g:move_key_modifier = 'C'
 
-  Plug 'mattn/emmet-vim'
-  let g:jsx_ext_required = 0
-  let g:user_emmet_leader_key='<C-Z>'
+" mattn/emmet-vim
+let g:jsx_ext_require = 0
+let g:user_emmet_leader_key='<C-z>'
 
-  Plug 'tpope/vim-surround'
+" prettier/vim-prettier
+nmap <Leader>p :PrettierAsync<CR>
 
-  Plug 'airblade/vim-gitgutter', { 'commit': '67d5dc11d6ab8199397481aa89672a57340106d6', 'frozen': 'true'}
-  set signcolumn=yes
-
-  Plug 'prettier/vim-prettier', { 'branch': 'issue/232-adding-support-for-prettier-2.x'} 
-  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,.fxrc Prettier
-
-  Plug 'itchyny/lightline.vim'
-  let g:lightline = { 'colorscheme' : 'powerline' }
-
-  Plug '/usr/bin/fzf'
-  Plug 'junegunn/fzf.vim'
-  nnoremap <C-p> :GFiles<CR>
-  nnoremap <C-S-o> :Rg!<CR>
-
-  Plug 'matze/vim-move'
-  let g:move_key_modifier = 'C'
-
-  Plug 'tpope/vim-commentary'
-
-  Plug 'fxn/vim-monochrome'
-  Plug 'cormacrelf/vim-colors-github'
-  Plug 'pgdouyon/vim-yin-yang'
-
-call plug#end()
-
-  " mode: dark
-  colorscheme monochrome
-  let g:lightline = { 'colorscheme' : 'powerline' }
-  
