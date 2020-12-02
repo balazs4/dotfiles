@@ -1,8 +1,6 @@
-# What protocol to use when performing git operations. Supported values: ssh, https
 git_protocol: ssh
-# What editor gh should run when creating issues, pull requests, etc. If blank, will refer to environment.
-editor:
-# Aliases allow you to create nicknames for gh commands
 aliases:
-  actions: '!gh api repos/:owner/:repo/actions/runs\?per_page=1\&branch=`git rev-parse --abbrev-ref HEAD` | npx -q fx "xx=>xx.workflow_runs.map(x=>[x.html_url, x.head_commit.id,x.status, x.conclusion,  \"///\", x.head_commit.message.split(\"\n\")[0]].join(\"\t\")).join(\"\n\")"'
+  docs: '!xdg-open https://docs.github.com/en/free-pro-team@latest/rest/reference'
+  actions: '!gh api repos/:owner/:repo/actions/runs\?per_page=1\&branch=`git rev-parse --abbrev-ref HEAD` | npx -q fx "xx=>xx.workflow_runs.map(x=>[x.html_url.padEnd(66, \" \"), x.head_commit.id,x.status, x.conclusion.padEnd(10, \" \"), x.head_commit.message.split(\"\n\")[0]].join(\"\t\")).join(\"\n\")"'
   action: '!gh actions | head -1'
+  
