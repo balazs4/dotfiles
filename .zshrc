@@ -50,6 +50,8 @@ alias emoji='emojify --list | sed "0,/Supported emojis/d"'
 alias docker='sudo docker'
 alias todos='cat ~/.todos | fzf'
 alias mc='mc -b'
+alias blueon='sudo systemctl start bluetooth.service && bluetoothctl power on && bluetoothctl connect 17:50:01:B0:02:71'
+alias blueoff='bluetoothctl power off && sudo systemctl start bluetooth.service'
 
 # webapps
 alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
