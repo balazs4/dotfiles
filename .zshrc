@@ -30,7 +30,7 @@ export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
 
 alias zshrc="vim $HOME/.zshrc; source $HOME/.zshrc"
 alias vimrc="vim $HOME/.vimrc"
-alias wttr="curl -s 'http://wttr.in/91341?format=4'"
+alias wttr="curl -s 'http://wttr.in/91341?format=3'"
 alias xx='xclip -selection clipboard'
 alias v='vim +Rg!'
 alias ls='ls --color=auto'
@@ -97,4 +97,10 @@ function radio(){
 
 function one-time-server() {
   node -p "require('http').createServer((q,s) => {s.writeHead(200, { 'content-type': process.argv[1] || 'text/plain'}); process.stdin.on('end', process.exit).pipe(s); }).listen().address().port"
+}
+
+function dw(){
+  url="https://de.wiktionary.org/wiki/$1"
+  curl -s "$url" | pup 'table.wikitable' | w3m -dump -T text/html | sed '/^$/d'
+  echo $url
 }
