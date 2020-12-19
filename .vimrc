@@ -20,16 +20,17 @@ hi statusline ctermfg=darkgray ctermbg=white
 au InsertEnter * hi statusline ctermfg=blue ctermbg=white
 au InsertLeave * hi statusline ctermfg=darkgray ctermbg=white
 
-" -/fzf
-nnoremap <C-p> :FZF<CR>
+" https://github.com/junegunn/fzf.vim
+nnoremap <C-P> :GFiles<CR>
+nnoremap <C-O> :Rg!<CR>
 
-" matze/vim-move
+" https://github.com/matze/vim-move
 let g:move_key_modifier = 'C'
 
-" mattn/emmet-vim
+" https://github.com/mattn/emmet-vim
 let g:jsx_ext_require = 0
 let g:user_emmet_leader_key='<C-z>'
 
-" prettier/vim-prettier
+" https://github.com/prettier/vim-prettier
 nmap <Leader>p :PrettierAsync<CR>
 

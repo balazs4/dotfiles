@@ -27,6 +27,7 @@ export NPM_CONFIG_LOGLEVEL=http
 export NPM_CONFIG_PREFIX=$HOME/.npm_global
 export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
 export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
+export FZF_DEFAULT_OPTS="--sync"
 
 alias zshrc="vim $HOME/.zshrc; source $HOME/.zshrc"
 alias vimrc="vim $HOME/.vimrc"
