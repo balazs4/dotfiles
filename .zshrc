@@ -53,6 +53,7 @@ alias todos='cat ~/.todos | fzf'
 alias mc='mc -b'
 alias blueon='sudo systemctl start bluetooth.service && bluetoothctl power on && bluetoothctl connect 17:50:01:B0:02:71'
 alias blueoff='bluetoothctl power off && sudo systemctl start bluetooth.service'
+alias ssh='TERM=xterm-256color ssh'
 
 # webapps
 alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
