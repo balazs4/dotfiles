@@ -32,16 +32,24 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+pulseaudio --start
+pulsemixer --set-volume 20
+pulsemixer --mute --id sink-1
+pulsemixer --mute --id sink-2
+pulsemixer --mute --id sink-3
+pulsemixer --mute --id sink-4
+pulsemixer --mute --id source-0
+pulsemixer --mute --id source-6
+pulsemixer --mute --id source-7
+
+sudo hda-verb /dev/snd/hwC0D0 0x1d SET_PIN_WIDGET_CONTROL 0x0
+
 xinput set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' 0.001
 xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Accel Speed' 0.5
 xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Tapping Enabled' 1
 xset r rate 200 50
 setxkbmap -option caps:none
 xbacklight \=20
-
-pulseaudio --start
-pulsemixer --set-volume 20
-pulsemixer --mute
 
 dunst &
 exec i3
