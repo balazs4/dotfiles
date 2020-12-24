@@ -219,5 +219,5 @@ bindsym $mod+grave exec termite --name=todos -e 'zsh -c "vim ~/.todos"'
 for_window [instance="todos"] move scratchpad
 for_window [instance="todos"] scratchpad show
 
-bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+Shift+plus scratchpad show
+bindsym $mod+Shift+plus move scratchpad
+bindsym XF86Favorites scratchpad show

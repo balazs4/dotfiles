@@ -45,8 +45,6 @@ alias yolo='git add . && git commit -m "chore: `curl -s https://krautipsum.com/a
 alias foo='echo bar'
 alias now=vercel
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
-alias video='mpv --playlist=-'
-alias audio='mpv --no-video --playlist=-'
 alias emoji='emojify --list | sed "0,/Supported emojis/d"'
 alias docker='sudo docker'
 alias todos='cat ~/.todos | fzf'
