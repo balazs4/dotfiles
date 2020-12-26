@@ -19,16 +19,12 @@ function zsh-git() {
   local repogitbranch=`git rev-parse --abbrev-ref HEAD`
   [[ $repogitstatus -eq 0 ]] \
     && echo "$repogitbranch $repogitstatus " \
-    || echo "$repogitbranch %F{red}$repogitstatus▲%f "
+    || echo "$repogitbranch %F{red}$repogitstatus%f "
 }
 
 PROMPT='%F{green}⬢%f %B%F{yellow}%~%f%b %B%F{white}$(zsh-git)▲%f%b '
 RPROMPT='%(?.%F{white}.%F{red})%?%f'
 
-#ZSH_THEME_GIT_PROMPT_PREFIX=" $CYAN"
-#ZSH_THEME_GIT_PROMPT_SUFFIX=""
-#ZSH_THEME_GIT_PROMPT_DIRTY=" $RED⦿ "
-#ZSH_THEME_GIT_PROMPT_CLEAN=" $GREEN⦾ "
 
 ######################### non-zsh-related stuff
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
