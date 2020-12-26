@@ -1,4 +1,5 @@
 syntax off
+nnoremap <Leader>] :if exists("g:syntax_on") <Bar> syntax off <Bar> else <Bar> syntax on <Bar> endif<CR>
 set t_Co=256
 filetype plugin indent on
 set nowrap
