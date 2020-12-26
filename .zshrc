@@ -1,19 +1,19 @@
-#
-# TODO: without oh-my-zsh?
-# search > history with up arrow
-# search > share between instances
-# vi-mode > change cursor?
-
 # ZSH
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
+setopt appendhistory     #Append history to the history file (no overwriting)
+setopt sharehistory      #Share history across terminals
+setopt incappendhistory  #Immediately append to the history file, not just when a term is killed
 
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
-setopt PROMPT_SUBST
+
 export KEYTIMEOUT=1
+
+bindkey '\e[A' history-search-backward
+bindkey '\e[B' history-search-forward
 
 function zsh-git() {
   [[ -d $PWD/.git ]] || exit 0
@@ -30,11 +30,10 @@ function zsh-git() {
   echo " $_branch«$_staged«$_changed"
 }
 
+setopt PROMPT_SUBST
 PROMPT='%B%F{white} ▲%f%b %F{white}%~%f$(zsh-git) '
 RPROMPT='%(?.%F{white}.%F{red})%?%f'
 
-
-######################### non-zsh-related stuff
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 [[ -r "/usr/share/fzf/completion.zsh" ]] && source /usr/share/fzf/completion.zsh
 [[ -r "/usr/share/fzf/key-bindings.zsh" ]] && source /usr/share/fzf/key-bindings.zsh
