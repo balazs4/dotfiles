@@ -1,7 +1,8 @@
 #
 # TODO: without oh-my-zsh?
-# search > history
-# search > share
+# search > history with up arrow
+# search > share between instances
+# vi-mode > change cursor?
 
 # ZSH
 HISTFILE=~/.zsh_history
@@ -26,7 +27,7 @@ function zsh-git() {
   echo " $_branch«$_staged«$_changed"
 }
 
-PROMPT='%F{green}⬢%f %F{white}%~%f$(zsh-git)%B%F{white} ▲%f%b '
+PROMPT='%B%F{white} ▲%f%b %F{white}%~%f$(zsh-git) '
 RPROMPT='%(?.%F{white}.%F{red})%?%f'
 
 
@@ -67,6 +68,10 @@ alias mc='mc -b'
 alias blueon='sudo systemctl start bluetooth.service && bluetoothctl power on && bluetoothctl connect 17:50:01:B0:02:71'
 alias blueoff='bluetoothctl power off && sudo systemctl start bluetooth.service'
 alias ssh='TERM=xterm-256color ssh'
+alias gd='git diff'
+alias gst='git status'
+alias gco='git checkout'
+alias gpp='git pull --prune --tags'
 
 # webapps
 alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
