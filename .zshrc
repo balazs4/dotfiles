@@ -1,6 +1,5 @@
 #
 # TODO: without oh-my-zsh?
-# plugin > git info
 # search > history
 # search > share
 
@@ -15,14 +14,19 @@ setopt PROMPT_SUBST
 function zsh-git() {
   [[ -d $PWD/.git ]] || exit 0
   [[ $PWD = $HOME ]] && exit 0
-  local repogitstatus=`git status --porcelain | wc -l`
-  local repogitbranch=`git rev-parse --abbrev-ref HEAD`
-  [[ $repogitstatus -eq 0 ]] \
-    && echo "$repogitbranch $repogitstatus " \
-    || echo "$repogitbranch %F{red}$repogitstatus%f "
+
+  local __branch=`git rev-parse --abbrev-ref HEAD`
+  local __staged=`PAGER= git diff --name-only --staged | wc -l`
+  local __changed=`PAGER= git diff --name-only | wc -l`
+
+  local _branch=`echo %B%F{white}$__branch%f%b`
+  local _staged=`[[ __staged -eq 0 ]] && echo $__staged || echo %B%F{green}$__staged%f%b`
+  local _changed=`[[ __changed -eq 0 ]] && echo $__changed || echo %B%F{red}$__changed%f%b`
+
+  echo " $_branch«$_staged«$_changed"
 }
 
-PROMPT='%F{green}⬢%f %B%F{yellow}%~%f%b %B%F{white}$(zsh-git)▲%f%b '
+PROMPT='%F{green}⬢%f %F{white}%~%f$(zsh-git)%B%F{white} ▲%f%b '
 RPROMPT='%(?.%F{white}.%F{red})%?%f'
 
 
