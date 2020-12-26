@@ -1,24 +1,39 @@
-export ZSH=$HOME/.oh-my-zsh/
-DISABLE_AUTO_UPDATE=true
-plugins=(git z fzf) 
-source $ZSH/oh-my-zsh.sh 
+#
+# TODO: without oh-my-zsh?
+# plugin > git info
+# search > history
+# search > share
 
-#ZSH_THEME="node"
+# ZSH
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
 
-GREEN="%{$fg_bold[green]%}"
-YELLOW="%{$fg_bold[yellow]%}"
-CYAN="%{$fg_bold[cyan]%}"
-RED="%{$fg_bold[red]%}"
-GREY="%{$fg_bold[grey]%}"
-RESET="%{$reset_color%}"
+autoload -Uz compinit && compinit
+setopt PROMPT_SUBST
 
-PROMPT='$GREEN⬢ $YELLOW%~ $(git_prompt_info)$RESET'
-RPROMPT='%(?.$GREY.$RED)$?$GREY ⬢ $RESET'
+function zsh-git() {
+  [[ -d $PWD/.git ]] || exit 0
+  [[ $PWD = $HOME ]] && exit 0
+  local repogitstatus=`git status --porcelain | wc -l`
+  local repogitbranch=`git rev-parse --abbrev-ref HEAD`
+  [[ $repogitstatus -eq 0 ]] \
+    && echo "$repogitbranch $repogitstatus " \
+    || echo "$repogitbranch %F{red}$repogitstatus▲%f "
+}
 
-ZSH_THEME_GIT_PROMPT_PREFIX=" $CYAN"
-ZSH_THEME_GIT_PROMPT_SUFFIX=""
-ZSH_THEME_GIT_PROMPT_DIRTY=" $RED⦿ "
-ZSH_THEME_GIT_PROMPT_CLEAN=" $GREEN⦾ "
+PROMPT='%F{green}⬢%f %B%F{yellow}%~%f%b %B%F{white}$(zsh-git)▲%f%b '
+RPROMPT='%(?.%F{white}.%F{red})%?%f'
+
+#ZSH_THEME_GIT_PROMPT_PREFIX=" $CYAN"
+#ZSH_THEME_GIT_PROMPT_SUFFIX=""
+#ZSH_THEME_GIT_PROMPT_DIRTY=" $RED⦿ "
+#ZSH_THEME_GIT_PROMPT_CLEAN=" $GREEN⦾ "
+
+######################### non-zsh-related stuff
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+[[ -r "/usr/share/fzf/completion.zsh" ]] && source /usr/share/fzf/completion.zsh
+[[ -r "/usr/share/fzf/key-bindings.zsh" ]] && source /usr/share/fzf/key-bindings.zsh
 
 export LANG=en_US.UTF-8
 export BROWSER=chromium

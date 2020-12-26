@@ -16,9 +16,9 @@ set timeoutlen=400 ttimeoutlen=0
 " status bar
 set laststatus=2
 set statusline=%<%F%m%r%h%w\ %=%(%y\ \ %l,%c%V\ %=\ %P%)
-hi statusline ctermfg=darkgray ctermbg=white
+hi statusline ctermfg=black ctermbg=white
+au InsertLeave * hi statusline ctermfg=black ctermbg=white
 au InsertEnter * hi statusline ctermfg=blue ctermbg=white
-au InsertLeave * hi statusline ctermfg=darkgray ctermbg=white
 
 " https://github.com/junegunn/fzf.vim
 nnoremap <C-P> :GFiles<CR>
