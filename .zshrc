@@ -10,7 +10,10 @@ HISTSIZE=1000
 SAVEHIST=1000
 
 autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
 setopt PROMPT_SUBST
+export KEYTIMEOUT=1
 
 function zsh-git() {
   [[ -d $PWD/.git ]] || exit 0
