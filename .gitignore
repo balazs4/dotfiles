@@ -56,3 +56,8 @@
 
 # .gitconfig
 !.gitconfig
+
+# .config/vimb/config
+!.config
+!.config/vimb
+!.config/vimb/config
