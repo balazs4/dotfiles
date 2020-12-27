@@ -23,15 +23,15 @@ function zsh-git() {
   local __staged=`PAGER= git diff --name-only --staged | wc -l`
   local __changed=`PAGER= git diff --name-only | wc -l`
 
-  local _branch=`echo %B%F{white}$__branch%f%b`
+  local _branch=`echo %F{white}$__branch%f`
   local _staged=`[[ __staged -eq 0 ]] && echo $__staged || echo %B%F{green}$__staged%f%b`
   local _changed=`[[ __changed -eq 0 ]] && echo $__changed || echo %B%F{red}$__changed%f%b`
 
-  echo " $_branch«$_staged«$_changed"
+  echo " [ $_branch«$_staged«$_changed ]"
 }
 
 setopt PROMPT_SUBST
-PROMPT='%B%F{white} ▲%f%b %F{white}%~%f$(zsh-git) '
+PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git) %B%F{white}»%f%b '
 RPROMPT='%(?.%F{white}.%F{red})%?%f'
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
@@ -74,6 +74,7 @@ alias gd='git diff'
 alias gst='git status'
 alias gco='git checkout'
 alias gpp='git pull --prune --tags'
+alias gcm='git checkout master'
 
 # webapps
 alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
@@ -99,7 +100,7 @@ function dark(){
 }
 
 function yt(){
-  local search=`echo $1 | sed 's/\s/+/g'`
+  local search=`echo $* | sed 's/\s/+/g'`
   curl -s "https://www.youtube.com/results?search_query=$search" \
     | pup 'script:contains("var ytInitialData") text{}' \
     | sed 's/var ytInitialData = //g;s/};/}/' \
