@@ -99,12 +99,15 @@ function dark(){
 }
 
 function yt(){
-  if [ -z $1 ]
-  then
-    mpv `cat ~/.youtube | sort | uniq | fzf | cut -f1`
-  else
-    (sleep 10s; playerctl metadata --format "{{xesam:url}}	{{title}}" >> ~/.youtube) &  mpv $1
-  fi
+  local search=`echo $1 | sed 's/\s/+/g'`
+  curl -s "https://www.youtube.com/results?search_query=$search" \
+    | pup 'script:contains("var ytInitialData") text{}' \
+    | sed 's/var ytInitialData = //g;s/};/}/' \
+    | fx 'x => x.contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents[0].itemSectionRenderer.contents' \
+    | fx 'x => x.map(xx => xx.videoRenderer).filter(xx =>xx).map(xx => [xx.videoId, xx.title.runs[0].text].join("\t")).join("\n")' \
+    | fzf \
+    | cut -f1 \
+    | xargs -Iid mpv https://youtu.be/id
 }
 
 function radio(){
