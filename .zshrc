@@ -31,7 +31,7 @@ function zsh-git() {
 }
 
 setopt PROMPT_SUBST
-PROMPT='%B%F{white} ▲ %d%f%b$(zsh-git) %B%F{white}»%f%b '
+PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git) %B%F{white}»%f%b '
 RPROMPT='%(?.%F{white}.%F{red})%?%f'
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
