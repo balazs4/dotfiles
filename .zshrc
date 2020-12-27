@@ -31,7 +31,7 @@ function zsh-git() {
 }
 
 setopt PROMPT_SUBST
-PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git) %B%F{white}»%f%b '
+PROMPT='%B%F{white} ▲ %d%f%b$(zsh-git) %B%F{white}»%f%b '
 RPROMPT='%(?.%F{white}.%F{red})%?%f'
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
@@ -104,8 +104,7 @@ function yt(){
   curl -s "https://www.youtube.com/results?search_query=$search" \
     | pup 'script:contains("var ytInitialData") text{}' \
     | sed 's/var ytInitialData = //g;s/};/}/' \
-    | fx 'x => x.contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents[0].itemSectionRenderer.contents' \
-    | fx 'x => x.map(xx => xx.videoRenderer).filter(xx =>xx).map(xx => [xx.videoId, xx.title.runs[0].text].join("\t")).join("\n")' \
+    | fx youtubevideos \
     | fzf \
     | cut -f1 \
     | xargs -Iid mpv https://youtu.be/id
