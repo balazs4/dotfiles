@@ -17,9 +17,11 @@ bindkey '\e[B' history-search-forward
 
 function zsh-git() {
   [[ $PWD = $HOME ]] && exit 0
-  [[ `git config --worktree --get remote.origin.url` = "git@github.com:balazs4/dotfiles.git" ]] && exit 0
 
-  local __branch=`git rev-parse --abbrev-ref HEAD`
+  local __branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
+  [[ -z $__branch ]] && exit 0
+  [[ `git config --worktree --get remote.origin.url 2>/dev/null` = "git@github.com:$USER/dotfiles.git" ]] && exit 0
+
   local __staged=`PAGER= git diff --name-only --staged | wc -l`
   local __changed=`PAGER= git diff --name-only | wc -l`
 
