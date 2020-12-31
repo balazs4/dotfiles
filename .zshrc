@@ -16,8 +16,8 @@ bindkey '\e[A' history-search-backward
 bindkey '\e[B' history-search-forward
 
 function zsh-git() {
-  [[ -d $PWD/.git ]] || exit 0
   [[ $PWD = $HOME ]] && exit 0
+  [[ `git config --worktree --get remote.origin.url` = "git@github.com:balazs4/dotfiles.git" ]] && exit 0
 
   local __branch=`git rev-parse --abbrev-ref HEAD`
   local __staged=`PAGER= git diff --name-only --staged | wc -l`
@@ -107,8 +107,9 @@ function yt(){
     | fx youtubevideos \
     | fzf \
     | cut -f1 \
-    | xargs -Iid mpv https://youtu.be/id
+    | xargs -Iwatch mpv $MPV https://youtu.be/watch
 }
+alias yta="MPV='--no-video' yt"
 
 function radio(){
   term=$(echo $* | sed -r 's/\s/\+/g')
