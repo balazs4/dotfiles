@@ -64,11 +64,9 @@ alias ll='ls -lsh'
 alias rm='rm -i'
 alias yolo='git add . && git commit -m "chore: `curl -s https://krautipsum.com/api/noun | fx .noun` :see_no_evil:"  && git push || true'
 alias foo='echo bar'
-alias now=vercel
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
 alias emoji='emojify --list | sed "0,/Supported emojis/d"'
 alias docker='sudo docker'
-alias todos='cat ~/.todos | fzf'
 alias mc='mc -b'
 alias blueon='sudo systemctl start bluetooth.service && bluetoothctl power on && bluetoothctl connect 17:50:01:B0:02:71'
 alias blueoff='bluetoothctl power off && sudo systemctl start bluetooth.service'
@@ -78,6 +76,9 @@ alias gst='git status'
 alias gco='git checkout'
 alias gpp='git pull --prune --tags'
 alias gcm='git checkout master'
+alias vercel='npx -q vercel -t $VERCEL_TOKEN'
+alias vc='npx -q vercel -t $VERCEL_TOKEN'
+alias now='npx -q vercel -t $VERCEL_TOKEN'
 
 # webapps
 alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
@@ -132,4 +133,15 @@ function dw(){
   url="https://de.wiktionary.org/wiki/$1"
   curl -s "$url" | pup 'table.wikitable' | w3m -dump -T text/html | sed '/^$/d'
   echo $url
+}
+
+function todos(){
+  case "$1" in
+    edit)
+      vim "+set number" $HOME/.todos
+      ;;
+    *)
+      cat $HOME/.todos | fzf
+      ;;
+  esac
 }

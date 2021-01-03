@@ -193,6 +193,7 @@ gaps inner 2
 gaps outer 2
 
 exec_always feh --bg-fill https://unsplash.com/photos/J-LMPtk8tmg/download?force=true&w=1920
+exec_always sudo hda-verb /dev/snd/hwC0D0 0x1d SET_PIN_WIDGET_CONTROL 0x0
 
 bindcode 66 exec --no-startup-id [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us
 
@@ -215,7 +216,7 @@ bindsym $mod+Shift+d exec zsh -i -c `cat ~/.zshrc | grep alias | grep webapp | s
 bindsym $mod+d exec dmenu_run -i
 bindsym $mod+a exec i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 
 bindsym $mod+c exec $BROWSER 
-bindsym $mod+grave exec termite --name=todos -e 'zsh -c "vim ~/.todos"'
+bindsym $mod+grave exec termite --name=todos -e 'zsh -i -c "todos edit"'
 for_window [instance="todos"] move scratchpad
 for_window [instance="todos"] scratchpad show
 

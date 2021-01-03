@@ -42,7 +42,6 @@ pulsemixer --mute --id source-0
 pulsemixer --mute --id source-6
 pulsemixer --mute --id source-7
 
-sudo hda-verb /dev/snd/hwC0D0 0x1d SET_PIN_WIDGET_CONTROL 0x0
 
 xinput set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' 0.001
 xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Accel Speed' 0.5
