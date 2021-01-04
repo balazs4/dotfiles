@@ -5,3 +5,5 @@
 	rebase = true
 [core]
 	hooksPath = /home/balazs4/.hooks
+[init]
+	defaultBranch = master

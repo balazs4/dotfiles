@@ -24,7 +24,7 @@ function zsh-git() {
 
   local __staged=`PAGER= git diff --name-only --staged | wc -l`
   local __changed=`PAGER= git diff --name-only | wc -l`
-  local __notpushed=`PAGER= git diff --name-only origin..HEAD | wc -l`
+  local __notpushed=`PAGER= git diff --name-only origin..HEAD 2>/dev/null | wc -l`
 
   local _branch=`[[ __notpushed -eq 0 ]] && echo %F{white}$__branch%f || echo %F{yellow}$__branch%f`
   local _staged=`[[ __staged -eq 0 ]] && echo $__staged || echo %B%F{green}$__staged%f%b`
