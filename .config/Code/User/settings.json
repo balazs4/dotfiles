@@ -1,0 +1,99 @@
+{
+  "editor.dragAndDrop": false,
+  "editor.autoClosingBrackets": "beforeWhitespace",
+  "workbench.editor.showTabs": false,
+  "workbench.editor.enablePreview": false,
+  "breadcrumbs.enabled": false,
+  "git.confirmSync": false,
+  "window.menuBarVisibility": "toggle",
+  "workbench.iconTheme": "atom-icons",
+  "editor.wordWrap": "off",
+  "editor.minimap.enabled": false,
+  "editor.minimap.maxColumn": 80,
+  "editor.minimap.renderCharacters": false,
+  "window.zoomLevel": 0,
+  
+  "workbench.startupEditor": "none",
+  "extensions.ignoreRecommendations": true,
+  "git.enableSmartCommit": true,
+  "explorer.openEditors.visible": 0,
+  "editor.tabSize": 2,
+  "editor.useTabStops": false,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "explorer.confirmDragAndDrop": false,
+  "editor.suggestOnTriggerCharacters": false,
+  "editor.snippetSuggestions": "none",
+  "editor.suggest.snippetsPreventQuickSuggestions": true,
+  "workbench.settings.editor": "json",
+  "editor.fontSize": 14,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "liveshare.accountProvider": "github",
+  "editor.suggest.maxVisibleSuggestions": 12,
+  "editor.quickSuggestions": {
+    "other": false,
+    "comments": false,
+    "strings": false
+  },
+  "editor.parameterHints.enabled": false,
+  "workbench.activityBar.visible": true,
+  "editor.hover.enabled": false,
+  "javascript.autoClosingTags": false,
+  "javascript.suggestionActions.enabled": false,
+  "editor.tokenColorCustomizations": {
+    "[GitHub Dark]": {
+      "strings":{
+        "foreground": "#fff5b1",
+      },
+    },
+    "[Monochrome Dark]": {
+      "functions":{
+        "fontStyle": "bold",
+        "foreground": "#ccc"
+      },
+      "strings":{
+        "foreground": "#d1bcf9",
+      },
+      "keywords":{
+        "foreground": "#586069"
+      },
+      "variables": {
+        "fontStyle": "bold",
+        "foreground": "#999"
+      }
+    }
+  },
+  "workbench.colorCustomizations": {
+    "[Monochrome Dark]": {
+      "editor.background": "#24292e"
+    }
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+  ,"editor.cursorSmoothCaretAnimation": false
+  ,"editor.cursorBlinking": "solid",
+  "zenMode.centerLayout": false,
+  "liveshare.allowInvites": "contacts",
+  "debug.javascript.codelens.npmScripts": "never",
+  "explorer.confirmDelete": false,
+  "explorer.compactFolders": false,
+  "liveshare.presence": true,
+  "workbench.colorTheme": "GitHub Dark"
+}

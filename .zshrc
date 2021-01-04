@@ -1,3 +1,9 @@
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey '\e[A' history-beginning-search-backward-end
+bindkey '\e[B' history-beginning-search-forward-end
+
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
@@ -11,8 +17,6 @@ zmodload zsh/complist
 
 export KEYTIMEOUT=1
 
-bindkey '\e[A' history-search-backward
-bindkey '\e[B' history-search-forward
 
 function zsh-git() {
   [[ $PWD = $HOME ]] && exit 0
@@ -43,8 +47,6 @@ export LANG=en_US.UTF-8
 export BROWSER=chromium
 export EDITOR=vim
 export NPM_CONFIG_LOGLEVEL=http
-export NPM_CONFIG_PREFIX=$HOME/.npm_global
-export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
 export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
 export FZF_DEFAULT_OPTS="--sync"
 
@@ -65,26 +67,19 @@ alias foo='echo bar'
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
 alias emoji='emojify --list | sed "0,/Supported emojis/d"'
 alias mc='mc -b'
-alias blueon='sudo systemctl start bluetooth.service && bluetoothctl power on && bluetoothctl connect 17:50:01:B0:02:71'
-alias blueoff='bluetoothctl power off && sudo systemctl start bluetooth.service'
 alias ssh='TERM=xterm-256color ssh'
 alias gd='git diff'
 alias gst='git status'
 alias gco='git checkout'
 alias gpp='git pull --prune --tags'
 alias gcm='git checkout master'
-alias vercel='npx -q vercel -t $VERCEL_TOKEN'
-alias vc='npx -q vercel -t $VERCEL_TOKEN'
-alias now='npx -q vercel -t $VERCEL_TOKEN'
-
-# webapps
-alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
-alias outlook='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
-alias spotify='google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify --app=https://open.spotify.com/'
-alias blau='google-chrome-stable --user-data-dir=$HOME/.config/webapp/shop https://blau.de'
-alias amazon='google-chrome-stable --user-data-dir=$HOME/.config/webapp/shop https://amazon.de'
-alias bank='google-chrome-stable --user-data-dir=$HOME/.config/webapp/bank'
-alias google='google-chrome-stable --user-data-dir=$HOME/.config/webapp/google'
+alias shrug='curl -s http://shrug.io | xx'
+alias markdownlint='npx -q -p markdownlint-cli markdownlint **/*.md --ignore node_modules --fix'
+alias wipe='docker rm -f `docker ps -aq`; docker volume prune -f'
+alias dco='docker-compose'
+alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
+alias root='cd `git rev-parse --show-toplevel`'
+alias rg='rg --hidden'
 
 function notignore(){
   $HOME/.file $1 >> $HOME/.gitignore && git add .gitignore $1 && git commit -m "add: $1"
@@ -135,6 +130,102 @@ function todos(){
       ;;
     *)
       cat $HOME/.todos | fzf
+      ;;
+  esac
+}
+
+function npmrc(){
+  NPMRC_SUFFIX=${1:-`find $HOME -maxdepth 1 -name '.npmrc.*' | fzf --preview 'cat {}' | cut -d "." -f3`}
+  cp -f ~/.npmrc ~/.npmrc.prev
+  cp -f ~/.npmrc.$NPMRC_SUFFIX ~/.npmrc
+  NPM_CONFIG_LOGLEVEL=silent npm cache clean -f
+}
+
+function npmrc_current(){
+  cat ~/.npmrc | grep registry= | cut -f3 -d"/"
+}
+
+export N_PREFIX=$HOME/.n/prefix
+export PATH=$HOME/.n/:$N_PREFIX/bin/:$HOME/.gem/ruby/2.7.0/bin:${PATH}
+export RUBYOPT="-W0"  # ruby warnings
+export HOST_IP=`ip addr show ens33 | grep -Po 'inet \K[\d.]+'`
+export ELASTICSEARCH_IP=`ip addr show ens33 | grep -Po 'inet \K[\d.]+'`
+
+alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
+alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
+alias slack='chromium --app="$SLACK_URL"' #webapp
+alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:4.2.9'
+alias fa='curl -isL ${TIMESHEET_URL}/api/office/`date "+%Y-%m-%d"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola | fx "x => x.body[0].human_readable"'
+alias checkin='curl -isL ${TIMESHEET_URL}/api/office/checkin/`date -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola'
+alias checkout='curl -isL ${TIMESHEET_URL}/api/office/checkout/`date -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola'
+alias mahlzeit='curl -isL ${TIMESHEET_URL}/api/office/break/`date -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola'
+function bcs() {
+  curl -isL ${TIMESHEET_URL}/api/office/${1:-`date +%Y-%m`} -H "Authorization: ${TIMESHEET_TOKEN}" \
+    | alola \
+    | fx 'x => x.body.reduce((acc,obj)=> ({...acc, [obj._id]: new Date(obj.checkout) - new Date(obj.checkin)})  ,{})'
+}
+
+function avg() { 
+  curl -isL ${TIMESHEET_URL}/api/office/${1:-`date +%Y-%m`} -H "Authorization: ${TIMESHEET_TOKEN}" \
+    | ALOLA_REPORT=silent alola 'status should be 200'\
+    | fx 'x => x.body.map(obj => ({...obj, day: new Date(obj._id).getDay(), diff: new Date(obj.checkout) - new Date(obj.checkin) }))' \
+    | fx 'x => x.reduce((sum, xx) => sum + xx.diff, 0) / x.filter(xx => xx.day >=1 && xx.day <=5).length' \
+    | fx 'x => new Date(Math.ceil(x.value)).toJSON().split("T")[1]'
+}
+
+function az-ssh(){
+  echo "Circle Build Num: ${1}"
+  vm=`az resource list --tag circle_build_num=${1} --query "[?type=='Microsoft.Compute/virtualMachines'].[resourceGroup,name,id]" -o tsv | fzf`
+  resourceGroup=`echo $vm | cut -f1`
+  name=`echo $vm | cut -f2`
+  id=`echo $vm | cut -f3`
+  echo "Update ssh-key-value on $name for $USER"
+  az vm user update -n $name -g $resourceGroup -u $USER --ssh-key-value "$(< ~/.ssh/id_rsa.pub)"
+  echo "connect to $name as $USER via ssh"
+  az vm show -n $name -g $resourceGroup --query "tags.image_name" -o tsv
+  ip=`az vm list-ip-addresses -n $name -g $resourceGroup --query "[].virtualMachine.network.publicIpAddresses[].ipAddress" -o tsv`
+  echo "mkdir -p  $HOME/circleci/$1 && scp $ip:/var/log/seal/* $HOME/circle/$1/"
+  echo "$TERM=xterm-256color ssh $ip"
+}
+
+function jira(){
+  curl -u "$JIRA_AUTH" -is "$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | alola | fx jira | glow -
+}
+
+function rapid(){
+  curl -u "$JIRA_AUTH" -is "$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=$1" | alola | fx rapid
+}
+
+function comment(){
+  node -p "JSON.stringify({body: process.argv.splice(1).join()})" "`echo | vipe | prettier --stdin-filepath comment.md | j2m --stdin --toJ`" \
+    | xargs -d'\n' curl -u "$JIRA_AUTH" -is "$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d \
+    | alola 'status should be 201'
+  jira $1
+}
+alias winter='jira `rapid 117 | fzf --reverse | cut -f1`'
+
+function re(){
+  docker-compose rm -sf $1
+  docker-compose up $1
+}
+
+function co(){
+  for handle in "$@"
+  do
+    echo "Co-authored-by: $handle <$handle@users.noreply.github.com>"
+  done
+}
+
+function seal(){
+  case "$1" in
+    list)
+      curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | sed 's/- //'
+      ;;
+    latest)
+      curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | tail -1 | sed 's/- //'
+      ;;
+    *)
+      curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | shuf -n1 | sed 's/- //'
       ;;
   esac
 }

@@ -186,32 +186,23 @@ client.focused_inactive #333333 #333333 #FFFFFF #000000
 client.focused #000000 #000000 #FFFFFF #000000
 
 for_window [class="^.*"] border pixel 1
+for_window [instance="slack*"] move workspace10
+for_window [instance="teams.microsoft.com"] move workspace10
+for_window [instance="open.spotify.com"] move workspace9
 focus_on_window_activation focus
 
 smart_gaps on
 gaps inner 2
 gaps outer 2
 
-exec_always feh --bg-fill https://unsplash.com/photos/J-LMPtk8tmg/download?force=true&w=1920
-exec_always sudo hda-verb /dev/snd/hwC0D0 0x1d SET_PIN_WIDGET_CONTROL 0x0
-
-bindcode 66 exec --no-startup-id [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us
-
-bindsym --release $mod+l exec --no-startup-id sudo systemctl suspend
 bindsym --release Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h.png' -q 100 -e 'xclip -selection c -t image/png < $f && dunstify -r 6868 "$f" "fullscreen" && mv $f /tmp/$f ' 
 bindsym --release Control+Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h.png' -q 100 --focused -e 'xclip -selection c -t image/png < $f && dunstify -r 6868 "$f" "focused window" && mv $f /tmp/$f ' 
 bindsym --release Shift+Control+Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h.png' -q 100 --select -e 'xclip -selection c -t image/png < $f && dunstify -r 6868 "$f" "selected area" && mv $f /tmp/$f ' 
 
+bindsym $mod+space exec [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86MonBrightnessUp exec xbacklight +10
-bindsym XF86MonBrightnessDown exec xbacklight -10
-bindsym XF86AudioRaiseVolume exec pulsemixer --change-volume +5
-bindsym XF86AudioLowerVolume exec pulsemixer --change-volume -5
-bindsym XF86AudioMute exec pulsemixer --toggle-mute
-bindsym XF86AudioMicMute exec pulsemixer --toggle-mute --id source-7 
-
 bindsym $mod+Shift+d exec zsh -i -c `cat ~/.zshrc | grep alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#777"`
 bindsym $mod+d exec dmenu_run -i
 bindsym $mod+a exec i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 
@@ -219,6 +210,9 @@ bindsym $mod+c exec $BROWSER
 bindsym $mod+grave exec termite --name=todos -e 'zsh -i -c "todos edit"'
 for_window [instance="todos"] move scratchpad
 for_window [instance="todos"] scratchpad show
+
+exec_always sudo systemctl restart vmtoolsd
+exec_always feh --bg-fill https://unsplash.com/photos/U_cWnDl5LgU/download?force=true&w=1920
 
 bindsym $mod+Shift+plus move scratchpad
 bindsym XF86Favorites scratchpad show

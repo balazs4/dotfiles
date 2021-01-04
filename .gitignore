@@ -61,3 +61,19 @@
 !.config
 !.config/vimb
 !.config/vimb/config
+
+# .config/Code/User/keybindings.json
+!.config
+!.config/Code
+!.config/Code/User
+!.config/Code/User/keybindings.json
+
+# .config/Code/User/settings.json
+!.config
+!.config/Code
+!.config/Code/User
+!.config/Code/User/settings.json
+
+# .prettierrc.yaml
+!.prettierrc.yaml
+

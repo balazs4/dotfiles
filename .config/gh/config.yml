@@ -1,5 +1,19 @@
 git_protocol: ssh
 aliases:
-  docs: '!xdg-open https://docs.github.com/en/free-pro-team@latest/rest/reference'
-  actions: '!gh api repos/:owner/:repo/actions/runs\?per_page=1\&branch=`git rev-parse --abbrev-ref HEAD` | npx -q fx "xx=>xx.workflow_runs.map(x=>[ (x.conclusion || x.status).padEnd(8, \" \"), require(\"ago\")(x.updated_at), x.head_commit.id, x.html_url].join(\"\t\")).join(\"\n\")" | sed "s/success/\x1b[32m&\x1b[0m/g;s/failure/\x1b[31m&\x1b[0m/g"'
-  action: '!gh actions | head -1'
+    docs: '!xdg-open https://docs.github.com/en/free-pro-team@latest/rest/reference'
+    actions: '!gh api repos/:owner/:repo/actions/runs\?per_page=10\&branch=`git rev-parse --abbrev-ref HEAD` | npx -q fx "xx=>xx.workflow_runs.map(x=>[ (x.conclusion || x.status).padEnd(8, \" \"), require(\"ago\")(x.created_at), x.head_commit.id, x.html_url].join(\"\t\")).join(\"\n\")"'
+    action: '!gh api repos/:owner/:repo/actions/runs\?per_page=1\&branch=`git rev-parse --abbrev-ref HEAD` | npx -q fx "xx=>xx.workflow_runs.map(x=>[ (x.conclusion || x.status).padEnd(8, \" \"), x.head_repository.full_name, x.head_commit.id, x.html_url].join(\"\t\")).join(\"\n\")"'
+    notify: >-
+      !fn(){
+        while [[ `gh action | grep 'queued\|in_progress'` ]]; do sleep ${SLEEP:-5s}; done
+        output=`gh action`
+        outcome=`echo $output | cut -f1 -d" "`
+        project=`echo $output | cut -f2 -d" "`
+        commit=`echo $output | cut -f3 -d" "`
+        url=`echo $output | cut -f4 -d" "`
+        message=`git log --format=%B -n 1 $commit`
+        color=`echo $outcome | sed -r 's/\s//g;s/success/A3BE8C/g;s/failure/BF616A/g'`
+        [[ -f /tmp/github-action-$color.svg ]] || `curl -Lks https://cdn.svgporn.com/logos/github-icon.svg | sed "s/#161614/#${color:-161614}/g" > /tmp/github-action-$color.svg`
+        click=`dunstify --action="default,open" -I /tmp/github-action-$color.svg "$project" "$outcome\n$commit\n$message"`
+        [[ $click = 'default' ]] && xdg-open $url >/dev/null
+      };fn &
