@@ -1,4 +1,3 @@
-# ZSH
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
@@ -24,7 +23,7 @@ function zsh-git() {
 
   local __staged=`PAGER= git diff --name-only --staged | wc -l`
   local __changed=`PAGER= git diff --name-only | wc -l`
-  local __notpushed=`PAGER= git diff --name-only origin..HEAD 2>/dev/null | wc -l`
+  local __notpushed=`PAGER= git diff --name-only origin/$__branch..HEAD 2>/dev/null | wc -l`
 
   local _branch=`[[ __notpushed -eq 0 ]] && echo %F{white}$__branch%f || echo %F{yellow}$__branch%f`
   local _staged=`[[ __staged -eq 0 ]] && echo $__staged || echo %B%F{green}$__staged%f%b`
@@ -66,7 +65,6 @@ alias yolo='git add . && git commit -m "chore: `curl -s https://krautipsum.com/a
 alias foo='echo bar'
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
 alias emoji='emojify --list | sed "0,/Supported emojis/d"'
-alias docker='sudo docker'
 alias mc='mc -b'
 alias blueon='sudo systemctl start bluetooth.service && bluetoothctl power on && bluetoothctl connect 17:50:01:B0:02:71'
 alias blueoff='bluetoothctl power off && sudo systemctl start bluetooth.service'
@@ -123,10 +121,6 @@ function radio(){
     | fzf \
     | cut -f1 \
     | mpv --playlist=-
-}
-
-function one-time-server() {
-  node -p "require('http').createServer((q,s) => {s.writeHead(200, { 'content-type': process.argv[1] || 'text/plain'}); process.stdin.on('end', process.exit).pipe(s); }).listen().address().port"
 }
 
 function dw(){
