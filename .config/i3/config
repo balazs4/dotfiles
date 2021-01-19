@@ -207,9 +207,16 @@ bindsym $mod+Shift+d exec zsh -i -c `cat ~/.zshrc | grep alias | grep webapp | s
 bindsym $mod+d exec dmenu_run -i
 bindsym $mod+a exec i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 
 bindsym $mod+c exec $BROWSER 
+bindsym $mod+x exec rofi -show emoji
+
 bindsym $mod+grave exec termite --name=todos -e 'zsh -i -c "todos edit"'
 for_window [instance="todos"] move scratchpad
 for_window [instance="todos"] scratchpad show
+
+bindsym XF86AudioRaiseVolume exec termite --name=pulsemixer -e 'zsh -i -c "pulsemixer"'
+bindsym XF86AudioLowerVolume exec termite --name=pulsemixer -e 'zsh -i -c "pulsemixer"'
+for_window [instance="pulsemixer"] move scratchpad
+for_window [instance="pulsemixer"] scratchpad show
 
 exec_always sudo systemctl restart vmtoolsd
 exec_always feh --bg-fill https://unsplash.com/photos/U_cWnDl5LgU/download?force=true&w=1920

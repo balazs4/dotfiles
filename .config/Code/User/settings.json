@@ -12,7 +12,7 @@
   "editor.minimap.maxColumn": 80,
   "editor.minimap.renderCharacters": false,
   "window.zoomLevel": 0,
-  
+
   "workbench.startupEditor": "none",
   "extensions.ignoreRecommendations": true,
   "git.enableSmartCommit": true,
@@ -44,8 +44,6 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "liveshare.accountProvider": "github",
-  "editor.suggest.maxVisibleSuggestions": 12,
   "editor.quickSuggestions": {
     "other": false,
     "comments": false,
@@ -58,19 +56,19 @@
   "javascript.suggestionActions.enabled": false,
   "editor.tokenColorCustomizations": {
     "[GitHub Dark]": {
-      "strings":{
-        "foreground": "#fff5b1",
-      },
+      "strings": {
+        "foreground": "#fff5b1"
+      }
     },
     "[Monochrome Dark]": {
-      "functions":{
+      "functions": {
         "fontStyle": "bold",
         "foreground": "#ccc"
       },
-      "strings":{
-        "foreground": "#d1bcf9",
+      "strings": {
+        "foreground": "#d1bcf9"
       },
-      "keywords":{
+      "keywords": {
         "foreground": "#586069"
       },
       "variables": {
@@ -86,14 +84,21 @@
   },
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
-  ,"editor.cursorSmoothCaretAnimation": false
-  ,"editor.cursorBlinking": "solid",
+  },
+  "editor.cursorSmoothCaretAnimation": false,
+  "editor.cursorBlinking": "solid",
   "zenMode.centerLayout": false,
   "liveshare.allowInvites": "contacts",
   "debug.javascript.codelens.npmScripts": "never",
   "explorer.confirmDelete": false,
   "explorer.compactFolders": false,
   "liveshare.presence": true,
-  "workbench.colorTheme": "GitHub Dark"
+  "workbench.colorTheme": "Nord",
+  "vim.startInInsertMode": true,
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["leader", "p"],
+      "commands": ["editor.action.formatDocument"]
+    }
+  ]
 }

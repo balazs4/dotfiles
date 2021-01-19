@@ -49,6 +49,7 @@ export EDITOR=vim
 export NPM_CONFIG_LOGLEVEL=http
 export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
 export FZF_DEFAULT_OPTS="--sync"
+export GPG_TTY=`tty`
 
 alias zshrc="vim $HOME/.zshrc; source $HOME/.zshrc"
 alias vimrc="vim $HOME/.vimrc"
@@ -134,15 +135,32 @@ function todos(){
   esac
 }
 
-function npmrc(){
-  NPMRC_SUFFIX=${1:-`find $HOME -maxdepth 1 -name '.npmrc.*' | fzf --preview 'cat {}' | cut -d "." -f3`}
-  cp -f ~/.npmrc ~/.npmrc.prev
-  cp -f ~/.npmrc.$NPMRC_SUFFIX ~/.npmrc
-  NPM_CONFIG_LOGLEVEL=silent npm cache clean -f
+
+function record(){
+  if [ "$1" = "window" ]
+  then
+    eval $(xwininfo |
+      sed -n -e "s/^ \+Absolute upper-left X: \+\([0-9]\+\).*/x=\1/p" \
+             -e "s/^ \+Absolute upper-left Y: \+\([0-9]\+\).*/y=\1/p" \
+             -e "s/^ \+Width: \+\([0-9]\+\).*/w=\1/p" \
+             -e "s/^ \+Height: \+\([0-9]\+\).*/h=\1/p" )
+  fi
+
+  FILENAME=/tmp/$(date "+%Y%m%d_%H%M%S").mp4
+  ffmpeg -f x11grab -r 30 -s ${w:-1920}x${h:-1080} -i :0.0+${x:-0},${y:-0} -q:v 0 -q:a 0 $FILENAME
+  echo $FILENAME
 }
 
-function npmrc_current(){
-  cat ~/.npmrc | grep registry= | cut -f3 -d"/"
+function npmrc(){
+  if [[ $1 = 'current' ]]
+  then
+    cat ~/.npmrc | grep registry= | cut -f3 -d"/"
+  else
+    NPMRC_SUFFIX=${1:-`find $HOME -maxdepth 1 -name '.npmrc.*' | fzf --preview 'cat {}' | cut -d "." -f3`}
+    cp -f ~/.npmrc ~/.npmrc.prev
+    cp -f ~/.npmrc.$NPMRC_SUFFIX ~/.npmrc
+    NPM_CONFIG_LOGLEVEL=silent npm cache clean -f
+  fi
 }
 
 export N_PREFIX=$HOME/.n/prefix
@@ -154,9 +172,11 @@ export ELASTICSEARCH_IP=`ip addr show ens33 | grep -Po 'inet \K[\d.]+'`
 alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
 alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
 alias slack='chromium --app="$SLACK_URL"' #webapp
-alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:4.2.9'
+alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:3.6.17'
 alias fa='curl -isL ${TIMESHEET_URL}/api/office/`date "+%Y-%m-%d"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola | fx "x => x.body[0].human_readable"'
-alias checkin='curl -isL ${TIMESHEET_URL}/api/office/checkin/`date -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola'
+function checkin() {
+  curl -isL ${TIMESHEET_URL}/api/office/checkin/`date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola
+}
 alias checkout='curl -isL ${TIMESHEET_URL}/api/office/checkout/`date -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola'
 alias mahlzeit='curl -isL ${TIMESHEET_URL}/api/office/break/`date -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola'
 function bcs() {
@@ -188,8 +208,12 @@ function az-ssh(){
   echo "$TERM=xterm-256color ssh $ip"
 }
 
+function jira-md(){
+  curl -u "$JIRA_AUTH" -is "$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | alola | fx jira 
+}
+
 function jira(){
-  curl -u "$JIRA_AUTH" -is "$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | alola | fx jira | glow -
+  jira-md $1 | glow -
 }
 
 function rapid(){
@@ -202,7 +226,7 @@ function comment(){
     | alola 'status should be 201'
   jira $1
 }
-alias winter='jira `rapid 117 | fzf --reverse | cut -f1`'
+alias sprint='jira `rapid 38 | fzf --reverse | cut -f1`'
 
 function re(){
   docker-compose rm -sf $1
