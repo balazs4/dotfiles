@@ -103,7 +103,6 @@ function light(){
 }
 
 function dark(){
-  exit 42
   git -C $HOME stash
   source $HOME/.zshrc
   killall -USR1 termite
