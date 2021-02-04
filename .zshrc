@@ -65,7 +65,7 @@ export GPG_TTY=`tty`
 
 alias zshrc="vim $HOME/.zshrc; source $HOME/.zshrc"
 alias vimrc="vim $HOME/.vimrc"
-alias wttr="curl -s 'http://wttr.in/91341?format=3'"
+alias wttr="curl -s 'http://wttr.in/91085?format=3'"
 alias xx='xclip -selection clipboard'
 alias v=vim
 alias ls='ls --color=auto'
