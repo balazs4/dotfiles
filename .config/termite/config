@@ -91,6 +91,7 @@ padding = 0
 #roundness = 2.0
 
 # vim: ft=dosini cms=#%s
+
 [colors]
 # Base16 Brewer
 # Author: Timothée Poisot (http://github.com/tpoisot)
@@ -140,5 +141,56 @@ color18 = #2e2f30
 color19 = #515253
 color20 = #959697
 color21 = #dadbdc
+
+
+#light [colors]
+#light # Base16 Github
+#light # Author: Defman21
+#light 
+#light foreground          = #333333
+#light foreground_bold     = #333333
+#light cursor              = #333333
+#light cursor_foreground   = #ffffff
+#light background          = #ffffff
+#light 
+#light # 16 color space
+#light 
+#light # Black, Gray, Silver, White
+#light color0  = #ffffff
+#light color8  = #969896
+#light color7  = #333333
+#light color15 = #ffffff
+#light 
+#light # Red
+#light color1  = #ed6a43
+#light color9  = #ed6a43
+#light 
+#light # Green
+#light color2  = #183691
+#light color10 = #183691
+#light 
+#light # Yellow
+#light color3  = #795da3
+#light color11 = #795da3
+#light 
+#light # Blue
+#light color4  = #795da3
+#light color12 = #795da3
+#light 
+#light # Purple
+#light color5  = #a71d5d
+#light color13 = #a71d5d
+#light 
+#light # Teal
+#light color6  = #183691
+#light color14 = #183691
+#light 
+#light # Extra colors
+#light color16 = #0086b3
+#light color17 = #333333
+#light color18 = #f5f5f5
+#light color19 = #c8c8fa
+#light color20 = #e8e8e8
+#light color21 = #ffffff
 
 cursor = #f81ce5

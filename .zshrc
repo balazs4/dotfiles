@@ -36,6 +36,7 @@ function zsh-git() {
   local __notpushed=`PAGER= git diff --name-only origin/$__branch..HEAD 2>/dev/null | wc -l`
 
   local _branch=`[[ __notpushed -eq 0 ]] && echo %F{white}$__branch%f || echo %F{yellow}$__branch%f`
+  #light local _branch=`[[ __notpushed -eq 0 ]] && echo %F{black}$__branch%f || echo %F{yellow}$__branch%f`
   local _staged=`[[ __staged -eq 0 ]] && echo $__staged || echo %B%F{green}$__staged%f%b`
   local _changed=`[[ __changed -eq 0 ]] && echo $__changed || echo %B%F{red}$__changed%f%b`
 
@@ -45,6 +46,9 @@ function zsh-git() {
 setopt PROMPT_SUBST
 PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git) %B%F{white}»%f%b '
 RPROMPT='%(?.%F{white}.%F{red})%?%f'
+
+#light PROMPT='%B%F{black} ▲ %~%f%b$(zsh-git) %B%F{black}»%f%b '
+#light RPROMPT='%(?.%F{black}.%F{red})%?%f'
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 [[ -r "/usr/share/fzf/completion.zsh" ]] && source /usr/share/fzf/completion.zsh
@@ -94,12 +98,14 @@ function notignore(){
 }
 
 function light(){
-  curl -sf https://raw.githubusercontent.com/khamer/base16-termite/master/themes/base16-github.config >> ~/.config/termite/config
-  killall -USR1 termite
+  sed -i 's/#light //g' $HOME/.config/termite/config && killall -USR1 termite
+  sed -i 's/#light //g' $HOME/.zshrc && source $HOME/.zshrc
 }
 
 function dark(){
-  curl -sf https://raw.githubusercontent.com/khamer/base16-termite/master/themes/base16-brewer.config >> ~/.config/termite/config
+  exit 42
+  git -C $HOME stash
+  source $HOME/.zshrc
   killall -USR1 termite
 }
 
