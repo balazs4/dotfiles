@@ -266,3 +266,10 @@ function seal(){
       ;;
   esac
 }
+
+function mirrorlist() {
+  COUNTRIES=`echo ${*:-DE NL}| xargs -d" " -I{} echo -n "&country={}"`
+  curl -s "https://archlinux.org/mirrorlist/?protocol=https&ip_version=4${COUNTRIES}" \
+    | sed "s/#Server/Server/g" \
+    | sudo tee /etc/pacman.d/mirrorlist
+}
