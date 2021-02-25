@@ -17,3 +17,25 @@ aliases:
         click=`dunstify --action="default,open" -I /tmp/github-action-$color.svg "$project" "$outcome\n$commit\n$message"`
         [[ $click = 'default' ]] && xdg-open $url >/dev/null
       };fn &
+
+    todo: >-
+      !gh api graphql -f query="
+          {
+            search(query: \"type:pr state:open author:$USER\", type: ISSUE, first: 100) {
+              issueCount
+              pageInfo {
+                endCursor
+                startCursor
+              }
+              edges {
+                node {
+                  ... on PullRequest {
+                    title
+                    url
+                    updatedAt
+                  }
+                }
+              }
+            }
+          }
+      " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.url, xx.node.title].join("\t")).join("\n")' | sort -r
