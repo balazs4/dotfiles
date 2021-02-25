@@ -21,7 +21,7 @@ aliases:
     todo: >-
       !gh api graphql -f query="
           {
-            search(query: \"type:pr state:open author:$USER\", type: ISSUE, first: 100) {
+            search(query: \"type:pr state:open review-requested:$USER\", type: ISSUE, first: 100) {
               issueCount
               pageInfo {
                 endCursor
