@@ -18,15 +18,10 @@ aliases:
         [[ $click = 'default' ]] && xdg-open $url >/dev/null
       };fn &
 
-    todo: >-
+    review: >-
       !gh api graphql -f query="
           {
             search(query: \"type:pr state:open review-requested:$USER\", type: ISSUE, first: 100) {
-              issueCount
-              pageInfo {
-                endCursor
-                startCursor
-              }
               edges {
                 node {
                   ... on PullRequest {
@@ -39,3 +34,30 @@ aliases:
             }
           }
       " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.url, xx.node.title].join("\t")).join("\n")' | sort -r
+
+    author: >-
+      !gh api graphql -f query="
+          {
+            search(query: \"type:pr state:open author:$USER\", type: ISSUE, first: 100) {
+              edges {
+                node {
+                  ... on PullRequest {
+                    title
+                    url
+                    updatedAt
+                    reviews(first: 20){
+                     nodes{
+                       author{
+                         ... on User{
+                           login
+                         }
+                       }
+                       state
+                     }
+                    }
+                  }
+                }
+              }
+            }
+          }
+      " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.url, xx.node.title, xx.node.reviews.nodes.map(xxx => `${xxx.state.replace("APPROVED", "✅")} ${xxx.author.login}`)].flat().join("\t")).join("\n")' | sort -r
