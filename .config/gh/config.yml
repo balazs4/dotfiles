@@ -60,4 +60,4 @@ aliases:
               }
             }
           }
-      " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.url, xx.node.title, xx.node.reviews.nodes.map(xxx => `${xxx.state.replace("APPROVED", "✅")} ${xxx.author.login}`)].flat().join("\t")).join("\n")' | sort -r
+      " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.url, xx.node.title, ">>>>>", xx.node.reviews.nodes.map(xxx => `${xxx.state.replace("APPROVED", "✅").replace("COMMENTED", "🗨️")} ${xxx.author.login}`)].flat().join("\t")).join("\n")' | sort -r

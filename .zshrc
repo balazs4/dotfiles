@@ -95,6 +95,7 @@ alias youtube='chromium --app=https://youtube.com/' #webapp
 alias root='cd `git rev-parse --show-toplevel`'
 alias rg='rg --hidden'
 alias p5="docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml"
+alias infra="GH_REPO=sealsystems/com-infrastructure gh"
 
 function notignore(){
   $HOME/.file $1 >> $HOME/.gitignore && git add .gitignore $1 && git commit -m "add: $1"
@@ -206,21 +207,6 @@ function avg() {
     | fx 'x => x.body.map(obj => ({...obj, day: new Date(obj._id).getDay(), diff: new Date(obj.checkout) - new Date(obj.checkin) }))' \
     | fx 'x => x.reduce((sum, xx) => sum + xx.diff, 0) / x.filter(xx => xx.day >=1 && xx.day <=5).length' \
     | fx 'x => new Date(Math.ceil(x.value)).toJSON().split("T")[1]'
-}
-
-function az-ssh(){
-  echo "Circle Build Num: ${1}"
-  vm=`az resource list --tag circle_build_num=${1} --query "[?type=='Microsoft.Compute/virtualMachines'].[resourceGroup,name,id]" -o tsv | fzf`
-  resourceGroup=`echo $vm | cut -f1`
-  name=`echo $vm | cut -f2`
-  id=`echo $vm | cut -f3`
-  echo "Update ssh-key-value on $name for $USER"
-  az vm user update -n $name -g $resourceGroup -u $USER --ssh-key-value "$(< ~/.ssh/id_rsa.pub)"
-  echo "connect to $name as $USER via ssh"
-  az vm show -n $name -g $resourceGroup --query "tags.image_name" -o tsv
-  ip=`az vm list-ip-addresses -n $name -g $resourceGroup --query "[].virtualMachine.network.publicIpAddresses[].ipAddress" -o tsv`
-  echo "mkdir -p  $HOME/circleci/$1 && scp $ip:/var/log/seal/* $HOME/circle/$1/"
-  echo "$TERM=xterm-256color ssh $ip"
 }
 
 function jira-md(){
