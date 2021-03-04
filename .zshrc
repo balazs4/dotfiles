@@ -261,3 +261,6 @@ function mirrorlist() {
     | sed "s/#Server/Server/g" \
     | sudo tee /etc/pacman.d/mirrorlist
 }
+
+
+alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map((c,i)=>i%3===1?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
