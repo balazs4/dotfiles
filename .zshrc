@@ -193,12 +193,14 @@ alias fa='curl -isL ${TIMESHEET_URL}/api/office/`date "+%Y-%m-%d"` -H "Authoriza
 function checkin() {
   curl -isL ${TIMESHEET_URL}/api/office/checkin/`date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola
 }
-alias checkout='curl -isL ${TIMESHEET_URL}/api/office/checkout/`date -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola'
+function checkout(){
+  curl -isL ${TIMESHEET_URL}/api/office/checkout/`date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola
+}
 alias mahlzeit='curl -isL ${TIMESHEET_URL}/api/office/break/`date -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola'
 function bcs() {
   curl -isL ${TIMESHEET_URL}/api/office/${1:-`date +%Y-%m`} -H "Authorization: ${TIMESHEET_TOKEN}" \
     | alola \
-    | fx 'x => x.body.reduce((acc,obj)=> ({...acc, [obj._id]: new Date(obj.checkout) - new Date(obj.checkin)})  ,{})'
+    | fx 'x => x.body.reduce((acc,obj)=> ({...acc, [obj._id]: obj.human_readable})  ,{})'
 }
 
 function avg() { 
