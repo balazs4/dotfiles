@@ -266,3 +266,8 @@ function mirrorlist() {
 
 
 alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map((c,i)=>i%3===1?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
+
+function q() {
+  docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml exec db mongo --ssl --sslAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
+    | sed '0,/server version/d'
+}
