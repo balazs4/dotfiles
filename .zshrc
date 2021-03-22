@@ -189,7 +189,6 @@ alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
 alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
 alias slack='chromium --app="$SLACK_URL"' #webapp
 alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:3.6.17'
-alias fa='curl -isL ${TIMESHEET_URL}/api/office/`date "+%Y-%m-%d"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola | fx "x => x.body[0].human_readable"'
 function checkin() {
   npm run --silent --prefix=$HOME/src/timesheet checkin `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
   git -C $HOME/src/timesheet commit -am '☕ checkin'
