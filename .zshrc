@@ -191,24 +191,26 @@ alias slack='chromium --app="$SLACK_URL"' #webapp
 alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:3.6.17'
 alias fa='curl -isL ${TIMESHEET_URL}/api/office/`date "+%Y-%m-%d"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola | fx "x => x.body[0].human_readable"'
 function checkin() {
-  curl -isL ${TIMESHEET_URL}/api/office/checkin/`date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola
+  npm run --silent --prefix=$HOME/src/timesheet checkin `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
+  git -C $HOME/src/timesheet commit -am 'checkin'
+  git -C $HOME/src/timesheet push --no-verify
 }
 function checkout(){
-  curl -isL ${TIMESHEET_URL}/api/office/checkout/`date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola
+  npm run --silent --prefix=$HOME/src/timesheet checkout `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
+  git -C $HOME/src/timesheet commit -am 'checkout'
+  git -C $HOME/src/timesheet push --no-verify
 }
-alias mahlzeit='curl -isL ${TIMESHEET_URL}/api/office/break/`date -u "+%Y-%m-%dT%TZ"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola'
 function bcs() {
-  curl -isL ${TIMESHEET_URL}/api/office/${1:-`date +%Y-%m`} -H "Authorization: ${TIMESHEET_TOKEN}" \
-    | alola \
-    | fx 'x => x.body.reduce((acc,obj)=> ({...acc, [obj._id]: obj.human_readable})  ,{})'
+  npm run --silent --prefix=$HOME/src/timesheet start \
+    | fx 'x => Object.entries(x).map(([day,duration]) => `${day}\t${duration}`).join("\n")' \
+    | fzf --layout=reverse
 }
-
-function avg() { 
-  curl -isL ${TIMESHEET_URL}/api/office/${1:-`date +%Y-%m`} -H "Authorization: ${TIMESHEET_TOKEN}" \
-    | ALOLA_REPORT=silent alola 'status should be 200'\
-    | fx 'x => x.body.map(obj => ({...obj, day: new Date(obj._id).getDay(), diff: new Date(obj.checkout) - new Date(obj.checkin) }))' \
-    | fx 'x => x.reduce((sum, xx) => sum + xx.diff, 0) / x.filter(xx => xx.day >=1 && xx.day <=5).length' \
-    | fx 'x => new Date(Math.ceil(x.value)).toJSON().split("T")[1]'
+function fa(){
+  npm run --silent --prefix=$HOME/src/timesheet start \
+    | fx 'x => Object.entries(x).map(([day,duration]) => `${day}\t${duration}`).join("\n")' \
+    | sort \
+    | tail -1 \
+    | cut -f2
 }
 
 function jira-md(){
