@@ -192,12 +192,12 @@ alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-r
 alias fa='curl -isL ${TIMESHEET_URL}/api/office/`date "+%Y-%m-%d"` -H "Authorization: ${TIMESHEET_TOKEN}" | alola | fx "x => x.body[0].human_readable"'
 function checkin() {
   npm run --silent --prefix=$HOME/src/timesheet checkin `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
-  git -C $HOME/src/timesheet commit -am 'checkin'
+  git -C $HOME/src/timesheet commit -am '☕ checkin'
   git -C $HOME/src/timesheet push --no-verify
 }
 function checkout(){
   npm run --silent --prefix=$HOME/src/timesheet checkout `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
-  git -C $HOME/src/timesheet commit -am 'checkout'
+  git -C $HOME/src/timesheet commit -am '🍺 checkout'
   git -C $HOME/src/timesheet push --no-verify
 }
 function bcs() {
