@@ -213,7 +213,7 @@ function fa(){
 }
 
 function jira-md(){
-  curl -u "$JIRA_AUTH" -is "$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | alola | fx jira 
+  curl -u "`pass seal/jira`" -is "$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | alola | fx jira 
 }
 
 function jira(){
@@ -221,16 +221,13 @@ function jira(){
 }
 
 function rapid(){
-  curl -u "$JIRA_AUTH" -is "$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=$1" | alola | fx rapid
+  curl -u "`pass seal/jira`" -is "$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=$1" | alola | fx rapid
 }
 
-function comment(){
-  node -p "JSON.stringify({body: process.argv.splice(1).join()})" "`echo | vipe | prettier --stdin-filepath comment.md | j2m --stdin --toJ`" \
-    | xargs -d'\n' curl -u "$JIRA_AUTH" -is "$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d \
-    | alola 'status should be 201'
-  jira $1
+function sprint(){
+  rapid 131 | fzf -q "'bv" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"'
 }
-alias sprint='jira `rapid 38 | fzf --reverse | cut -f1`'
+
 
 function re(){
   docker-compose rm -sf $1
