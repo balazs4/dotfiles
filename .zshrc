@@ -75,7 +75,7 @@ alias :q='exit'
 alias :x='exit'
 alias ll='ls -lsh'
 alias rm='rm -i'
-alias yolo='git add . && git commit -m "`bob yolo commit` :sponge:"'
+alias yolo='git add . && git commit -m "`bob yolo commit` :sponge:" && git push || true'
 alias foo='echo bar'
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
 alias emoji='emojify --list | sed "0,/Supported emojis/d"'
