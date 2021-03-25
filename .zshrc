@@ -75,7 +75,7 @@ alias :q='exit'
 alias :x='exit'
 alias ll='ls -lsh'
 alias rm='rm -i'
-alias yolo='git add . && git commit -m "`date +%s` :see_no_evil:"  && git push || true'
+alias yolo='git add . && git commit -m "`bob yolo commit` :sponge:"'
 alias foo='echo bar'
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
 alias emoji='emojify --list | sed "0,/Supported emojis/d"'
@@ -263,7 +263,7 @@ function mirrorlist() {
 }
 
 
-alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map((c,i)=>i%3===1?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
+alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map((c,i)=>Math.random()>0.5?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
 
 function q() {
   docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml exec db mongo --ssl --sslAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
