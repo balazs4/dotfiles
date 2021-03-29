@@ -218,8 +218,7 @@ bindsym XF86AudioLowerVolume exec termite --name=pulsemixer -e 'zsh -i -c "pulse
 for_window [instance="pulsemixer"] move scratchpad
 for_window [instance="pulsemixer"] scratchpad show
 
-exec_always sudo systemctl restart vmtoolsd
-exec_always feh --bg-fill https://unsplash.com/photos/eKTUtA74uN0/download?force=true&w=1920
+exec_always feh --bg-fill https://unsplash.com/photos/MzCeUhY3Xy0/download?force=true&w=1920
 
 bindsym $mod+Shift+plus move scratchpad
 bindsym XF86Favorites scratchpad show

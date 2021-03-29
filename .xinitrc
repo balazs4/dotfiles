@@ -37,6 +37,7 @@ pulsemixer --set-volume 12
 xset r rate 200 100
 imwheel
 
+sudo systemctl restart vmtoolsd &
 vmware-user &
 dunst &
 exec i3

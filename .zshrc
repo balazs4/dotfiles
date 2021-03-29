@@ -92,6 +92,7 @@ alias wipe='docker rm -f `docker ps -aq`; docker volume prune -f'
 alias dco='docker-compose'
 alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
 alias youtube='chromium --app=https://youtube.com/' #webapp
+alias whatsapp='chromium --app=https://web.whatsapp.com/' #webapp
 alias root='cd `git rev-parse --show-toplevel`'
 alias rg='rg --hidden'
 alias p5="docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml"
