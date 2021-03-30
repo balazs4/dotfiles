@@ -213,8 +213,9 @@ bindsym $mod+grave exec termite --name=todos -e 'zsh -i -c "todos edit"'
 for_window [instance="todos"] move scratchpad
 for_window [instance="todos"] scratchpad show
 
-bindsym XF86AudioRaiseVolume exec termite --name=pulsemixer -e 'zsh -i -c "pulsemixer"'
-bindsym XF86AudioLowerVolume exec termite --name=pulsemixer -e 'zsh -i -c "pulsemixer"'
+bindsym XF86AudioRaiseVolume exec pulsemixer --change-volume +10
+bindsym XF86AudioLowerVolume exec pulsemixer --change-volume -10
+bindsym XF86AudioMute exec termite --name=pulsemixer -e 'zsh -i -c "pulsemixer"'
 for_window [instance="pulsemixer"] move scratchpad
 for_window [instance="pulsemixer"] scratchpad show
 
