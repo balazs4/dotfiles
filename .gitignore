@@ -43,24 +43,11 @@
 !.config/gh
 !.config/gh/config.yml
 
-# .config/mimeapps.list
-!.config
-!.config/mimeapps.list
-
 # .fxrc
 !.fxrc
 
-# .hooks/pre-commit
-!.hooks
-!.hooks/pre-commit
-
 # .gitconfig
 !.gitconfig
-
-# .config/vimb/config
-!.config
-!.config/vimb
-!.config/vimb/config
 
 # .config/Code/User/keybindings.json
 !.config
@@ -76,4 +63,3 @@
 
 # .prettierrc.yaml
 !.prettierrc.yaml
-
