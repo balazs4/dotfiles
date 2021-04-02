@@ -74,10 +74,10 @@ alias :q='exit'
 alias :x='exit'
 alias ll='ls -lsh'
 alias rm='rm -i'
+alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map((c,i)=>Math.random()>0.5?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
 alias yolo='git add . && git commit -m "`bob yolo commit` :sponge:" && git push || true'
 alias foo='echo bar'
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
-alias emoji='emojify --list | sed "0,/Supported emojis/d"'
 alias mc='mc -b'
 alias ssh='TERM=xterm-256color ssh'
 alias gd='git diff'
@@ -86,16 +86,12 @@ alias gco='git checkout'
 alias gpp='git pull --prune --tags'
 alias gcm='git checkout master'
 alias shrug='curl -s http://shrug.io | xx'
-alias markdownlint='npx -q -p markdownlint-cli markdownlint **/*.md --ignore node_modules --fix'
 alias wipe='docker rm -f `docker ps -aq`; docker volume prune -f'
 alias dco='docker-compose'
-alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
-alias youtube='chromium --app=https://youtube.com/' #webapp
-alias whatsapp='chromium --app=https://web.whatsapp.com/' #webapp
-alias root='cd `git rev-parse --show-toplevel`'
 alias rg='rg --hidden'
-alias p5="docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml"
-alias infra="GH_REPO=sealsystems/com-infrastructure gh"
+alias dmesg='sudo dmesg'
+alias cal='LC_ALL=de_DE.utf8 cal'
+alias yay='yay --editmenu'
 
 function notignore(){
   $HOME/.file $1 >> $HOME/.gitignore && git add .gitignore $1 && git commit -m "add: $1"
@@ -111,18 +107,6 @@ function dark(){
   source $HOME/.zshrc
   killall -USR1 termite
 }
-
-function yt(){
-  local search=`echo $* | sed 's/\s/+/g'`
-  curl -s "https://www.youtube.com/results?search_query=$search" \
-    | pup 'script:contains("var ytInitialData") text{}' \
-    | sed 's/var ytInitialData = //g;s/};/}/' \
-    | fx youtubevideos \
-    | fzf \
-    | cut -f1 \
-    | xargs -Iwatch mpv $MPV https://youtu.be/watch
-}
-alias yta="MPV='--no-video' yt"
 
 function radio(){
   term=$(echo $* | sed -r 's/\s/\+/g')
@@ -151,7 +135,6 @@ function todos(){
   esac
 }
 
-
 function record(){
   if [ "$1" = "window" ]
   then
@@ -167,68 +150,6 @@ function record(){
   echo $FILENAME
 }
 
-function npmrc(){
-  if [[ $1 = 'current' ]]
-  then
-    cat ~/.npmrc | grep registry= | cut -f3 -d"/"
-  else
-    NPMRC_SUFFIX=${1:-`find $HOME -maxdepth 1 -name '.npmrc.*' | fzf --preview 'cat {}' | cut -d "." -f3`}
-    cp -f ~/.npmrc ~/.npmrc.prev
-    cp -f ~/.npmrc.$NPMRC_SUFFIX ~/.npmrc
-    NPM_CONFIG_LOGLEVEL=silent npm cache clean -f
-  fi
-}
-
-export N_PREFIX=$HOME/.n/prefix
-export PATH=$HOME/.n/:$N_PREFIX/bin/:$HOME/.gem/ruby/2.7.0/bin:${PATH}
-export RUBYOPT="-W0"  # ruby warnings
-export HOST_IP=`ip addr show ens33 | grep -Po 'inet \K[\d.]+'`
-export ELASTICSEARCH_IP=`ip addr show ens33 | grep -Po 'inet \K[\d.]+'`
-
-alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
-alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
-alias slack='chromium --app="$SLACK_URL"' #webapp
-alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:3.6.17'
-function checkin() {
-  npm run --silent --prefix=$HOME/src/timesheet checkin `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
-  git -C $HOME/src/timesheet commit -am '☕ checkin'
-  git -C $HOME/src/timesheet push --no-verify
-}
-function checkout(){
-  npm run --silent --prefix=$HOME/src/timesheet checkout `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
-  git -C $HOME/src/timesheet commit -am '🍺 checkout'
-  git -C $HOME/src/timesheet push --no-verify
-}
-function bcs() {
-  npm run --silent --prefix=$HOME/src/timesheet start \
-    | fx 'x => Object.entries(x).map(([day,duration]) => `${day}\t${duration}`).join("\n")' \
-    | fzf --layout=reverse
-}
-function fa(){
-  npm run --silent --prefix=$HOME/src/timesheet start \
-    | fx 'x => Object.entries(x).map(([day,duration]) => `${day}\t${duration}`).join("\n")' \
-    | sort \
-    | tail -1 \
-    | cut -f2
-}
-
-function jira-md(){
-  curl -u "`pass seal/jira`" -is "$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | alola | fx jira 
-}
-
-function jira(){
-  jira-md $1 | glow -
-}
-
-function rapid(){
-  curl -u "`pass seal/jira`" -is "$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=$1" | alola | fx rapid
-}
-
-function sprint(){
-  rapid 131 | fzf -q "'bv" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"'
-}
-
-
 function re(){
   docker-compose rm -sf $1
   docker-compose up $1
@@ -241,20 +162,6 @@ function co(){
   done
 }
 
-function seal(){
-  case "$1" in
-    list)
-      curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | sed 's/- //'
-      ;;
-    latest)
-      curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | tail -1 | sed 's/- //'
-      ;;
-    *)
-      curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | shuf -n1 | sed 's/- //'
-      ;;
-  esac
-}
-
 function mirrorlist() {
   COUNTRIES=`echo ${*:-DE NL}| xargs -d" " -I{} echo -n "&country={}"`
   curl -s "https://archlinux.org/mirrorlist/?protocol=https&ip_version=4${COUNTRIES}" \
@@ -262,10 +169,4 @@ function mirrorlist() {
     | sudo tee /etc/pacman.d/mirrorlist
 }
 
-
-alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map((c,i)=>Math.random()>0.5?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
-
-function q() {
-  docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml exec db mongo --ssl --sslAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
-    | sed '0,/server version/d'
-}
+[[ -r "$HOME/.zshrc.$HOST" ]] && source "$HOME/.zshrc.$HOST"

@@ -17,11 +17,12 @@
 # .zshrc
 !.zshrc
 
-# .i3blocks.conf
-!.i3blocks.conf
+# .zshrc.carbon
+!.zshrc.carbon
 
-# .config/mpv/mpv.conf
-!.config
+# .zshrc.vmware
+!.zshrc.vmware
+
 !.config/mpv
 !.config/mpv/mpv.conf
 
