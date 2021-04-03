@@ -62,5 +62,5 @@
 !.config/Code/User
 !.config/Code/User/settings.json
 
-# .prettierrc.yaml
-!.prettierrc.yaml
+# .prettierrc.js
+!.prettierrc.js
