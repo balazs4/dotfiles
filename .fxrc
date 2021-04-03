@@ -23,65 +23,50 @@ global.i3windows = (json) => {
   return traverse(json).filter(Boolean).join("\n");
 };
 
-global.youtubevideos = json => {
-  const findarrays = (obj) => {
-    if (obj.length) return obj;
-    return Object.values(obj).map(child => findarrays(child)).flat();
-  }
-  const arrays = findarrays(json).flat();
-  if (arrays === null || arrays === undefined) return undefined;
-  const videos = arrays.find(x => x.itemSectionRenderer.contents.find(xx => xx.videoRenderer)).itemSectionRenderer.contents;
-  if (videos === null || videos === undefined) return undefined;
-  return videos
-    .filter(x => x.videoRenderer.videoId)
-    .filter(x=>x)
-    .map(x => [x.videoRenderer.videoId, x.videoRenderer.title.runs[0].text].join("\t"))
-    .join("\n");
-}
-
 const find = (predicate) => (level) => {
   if (predicate(level)) return level;
   const [found = null] = level.nodes.map((node) => find(predicate)(node)).filter((x) => x);
   return found;
 };
 
-global.slack = (json) => {
-  const predicate = (node) => node.window_type === 'normal' && /slack/gi.test(node.window_properties.title);
-  const found = find(predicate)(json);
-  if (found === null) return '';
-  const title = found.window_properties.title;
-  const [name, , , notification = null] = title.split('|').map((x) => x.trim());
-  const txt = notification === null ? name : notification;
-  return `<span ${notification !== null ? 'background="#ddd" color="#222" font-weight="bold"' : ''}>${txt}</span>`;
-};
+if (process.env.HOST === 'vmware'){
+  global.slack = (json) => {
+    const predicate = (node) => node.window_type === 'normal' && /slack/gi.test(node.window_properties.title);
+    const found = find(predicate)(json);
+    if (found === null) return '';
+    const title = found.window_properties.title;
+    const [name, , , notification = null] = title.split('|').map((x) => x.trim());
+    const txt = notification === null ? name : notification;
+    return `<span ${notification !== null ? 'background="#ddd" color="#222" font-weight="bold"' : ''}>${txt}</span>`;
+  };
 
-global.teams = (json) => {
-  const predicate = (node) => node.window_type === 'normal' && /Teams/gi.test(node.window_properties.title);
-  const found = find(predicate)(json);
-  if (found === null) return '';
-  const title = found.window_properties.title;
-  const [status, app] = title.split('|').map((x) => x.trim());
-  const [count] = status.match(/\(\d+\)/) || [null];
-  return count === null
-    ? `<span>${app}</span>`
-    : `<span background="#ddd" color="#222" font-weight="bold">${count} ${app}</span>`;
-};
+  global.teams = (json) => {
+    const predicate = (node) => node.window_type === 'normal' && /Teams/gi.test(node.window_properties.title);
+    const found = find(predicate)(json);
+    if (found === null) return '';
+    const title = found.window_properties.title;
+    const [status, app] = title.split('|').map((x) => x.trim());
+    const [count] = status.match(/\(\d+\)/) || [null];
+    return count === null
+      ? `<span>${app}</span>`
+      : `<span background="#ddd" color="#222" font-weight="bold">${count} ${app}</span>`;
+  };
 
-global.jira = json => {
-  const [ issue ] = json.body.issues;
-  if (!issue) return 'Not found';
-  const weburl = issue.self.replace(/\/rest\/api\/.*/, `/browse/${issue.key}`);
+  global.jira = json => {
+    const [ issue ] = json.body.issues;
+    if (!issue) return 'Not found';
+    const weburl = issue.self.replace(/\/rest\/api\/.*/, `/browse/${issue.key}`);
 
-  const statusIcon = {
-    "Open": "☁️",
-    "Accepted": "📝",
-    "In Progress": "💻",
-    "Validation": "👍",
-    "Resolved": "🥼",
-    "Closed": "🏁",
-  }[issue.fields.status.name] || '';
+    const statusIcon = {
+      "Open": "☁️",
+      "Accepted": "📝",
+      "In Progress": "💻",
+      "Validation": "👍",
+      "Resolved": "🥼",
+      "Closed": "🏁",
+    }[issue.fields.status.name] || '';
 
-  return `
+    return `
 
 # JIRA
 
@@ -94,17 +79,36 @@ global.jira = json => {
 > labels: ${issue.fields.labels.join(", ")}
 
 ${issue.fields.description ? issue.fields.description.replace(/\(\/\)/g,"✅").replace(/\(x\)/, "❌") : 'no descrtiption'}
-  `;
+    `;
+  }
+
+  global.rapid = json => {
+    const {issues} = json.body.issuesData;
+    const by = (...keys) => (a,b) => {
+      return keys.reduce((result, key) => {
+        if (result !== 0) return result;
+        if (a[key] === b[key]) return 0;
+        return a[key] > b[key] ? 1 : -1;
+      }, 0);
+    }
+    return issues.map(i => ({...i, project: i.key.split("-")[0]})).sort(by()).map(issue => [issue.key.padEnd(8, " "), issue.statusName.padEnd(12, " "), issue.assignee.padEnd(8, " "), issue.summary, issue.epicField ? `#${issue.epicField.text}` : '#epicless' ].join("\t") ).join("\n");
+  }
 }
 
-global.rapid = json => {
-  const {issues} = json.body.issuesData;
-  const by = (...keys) => (a,b) => {
-    return keys.reduce((result, key) => {
-      if (result !== 0) return result;
-      if (a[key] === b[key]) return 0;
-      return a[key] > b[key] ? 1 : -1;
-    }, 0);
+if (process.env.HOST === 'carbon'){
+  global.youtubevideos = json => {
+    const findarrays = (obj) => {
+      if (obj.length) return obj;
+      return Object.values(obj).map(child => findarrays(child)).flat();
+    }
+    const arrays = findarrays(json).flat();
+    if (arrays === null || arrays === undefined) return undefined;
+    const videos = arrays.find(x => x?.itemSectionRenderer?.contents.find(xx => xx?.videoRenderer))?.itemSectionRenderer?.contents;
+    if (videos === null || videos === undefined) return undefined;
+    return videos
+      .filter(x => x?.videoRenderer?.videoId)
+      .filter(x=>x)
+      .map(x => [x.videoRenderer.videoId, x.videoRenderer?.title?.runs[0]?.text].join("\t"))
+      .join("\n");
   }
-  return issues.map(i => ({...i, project: i.key.split("-")[0]})).sort(by()).map(issue => [issue.key.padEnd(8, " "), issue.statusName.padEnd(12, " "), issue.assignee.padEnd(8, " "), issue.summary, issue.epicField ? `#${issue.epicField.text}` : '#epicless' ].join("\t") ).join("\n");
 }
