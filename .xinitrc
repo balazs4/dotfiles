@@ -30,31 +30,23 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-case "$HOST" in
-  vmware)
-    imwheel &
-    sudo systemctl restart vmtoolsd &
-    vmware-user &
-    pulsemixer --set-volume 20
-    ;;
+#vmware imwheel &
+#vmware sudo systemctl restart vmtoolsd &
+#vmware vmware-user &
+#vmware pulsemixer --set-volume 20
 
-  carbon)
-    pulseaudio --start # why do I need this?
-    pulsemixer --mute --id sink-1
-    pulsemixer --mute --id sink-2
-    pulsemixer --mute --id sink-3
-    pulsemixer --mute --id sink-4
-    pulsemixer --mute --id source-0
-    pulsemixer --mute --id source-6
-    pulsemixer --mute --id source-7
-
-    xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Accel Speed' 0.5
-    xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Tapping Enabled' 1
-    xinput set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' 0.01
-
-    xbacklight \=20
-    ;;
-esac
+#carbon pulseaudio --start # why do I need this?
+#carbon pulsemixer --mute --id sink-1
+#carbon pulsemixer --mute --id sink-2
+#carbon pulsemixer --mute --id sink-3
+#carbon pulsemixer --mute --id sink-4
+#carbon pulsemixer --mute --id source-0
+#carbon pulsemixer --mute --id source-6
+#carbon pulsemixer --mute --id source-7
+#carbon xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Accel Speed' 0.5
+#carbon xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Tapping Enabled' 1
+#carbon xinput set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' 0.01
+#carbon xbacklight \=20
 
 xset r rate 200 100
 dunst &
