@@ -1,5 +1,5 @@
-for dotfile in "`git -C $HOME/.files ls-files | xargs`"
+for dotfile in `git -C ${SOURCE:-$HOME/.files} ls-files`
 do
-  mkdir -p `dirname $HOME/$dotfile`
-  sed "s|[;#/\"]\+$HOSTNAME ||g" $dofile > $HOME/$dotfile
+  [[ $HOME = `dirname ${TARGET:-$HOME}/$dotfile` ]] || mkdir -p `dirname ${TARGET:-$HOME}/$dotfile`
+  sed "s|[;#/\"]\+`hostname` ||g" $dotfile > ${TARGET:-$HOME}/$dotfile
 done
