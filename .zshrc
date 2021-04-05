@@ -169,123 +169,118 @@ function mirrorlist() {
     | sudo tee /etc/pacman.d/mirrorlist
 }
 
+# host-specific config
 
-case "$HOST" in
-  vmware)
-    export N_PREFIX=$HOME/.n/prefix
-    export PATH=$HOME/.n/:$N_PREFIX/bin/:$HOME/.gem/ruby/2.7.0/bin:${PATH}
-    export RUBYOPT="-W0"  # ruby warnings
+#vmware export N_PREFIX=$HOME/.n/prefix
+#vmware export PATH=$HOME/.n/:$N_PREFIX/bin/:$HOME/.gem/ruby/2.7.0/bin:${PATH}
+#vmware export RUBYOPT="-W0"  # ruby warnings
+#vmware 
+#vmware alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
+#vmware alias youtube='chromium --app=https://youtube.com/' #webapp
+#vmware alias whatsapp='chromium --app=https://web.whatsapp.com/' #webapp
+#vmware alias p5="docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml"
+#vmware alias infra="GH_REPO=sealsystems/com-infrastructure gh"
+#vmware alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
+#vmware alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
+#vmware alias slack='chromium --app="$SLACK_URL"' #webapp
+#vmware alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:3.6.17'
+#vmware 
+#vmware function npmrc(){
+#vmware   if [[ $1 = 'current' ]]
+#vmware   then
+#vmware     cat ~/.npmrc | grep registry= | cut -f3 -d"/"
+#vmware   else
+#vmware     NPMRC_SUFFIX=${1:-`find $HOME -maxdepth 1 -name '.npmrc.*' | fzf --preview 'cat {}' | cut -d "." -f3`}
+#vmware     cp -f ~/.npmrc ~/.npmrc.prev
+#vmware     cp -f ~/.npmrc.$NPMRC_SUFFIX ~/.npmrc
+#vmware     NPM_CONFIG_LOGLEVEL=silent npm cache clean -f
+#vmware   fi
+#vmware }
+#vmware 
+#vmware function checkin() {
+#vmware   npm run --silent --prefix=$HOME/src/timesheet checkin `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
+#vmware   git -C $HOME/src/timesheet commit -am '☕ checkin'
+#vmware   git -C $HOME/src/timesheet push --no-verify
+#vmware }
+#vmware 
+#vmware function checkout(){
+#vmware   npm run --silent --prefix=$HOME/src/timesheet checkout `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
+#vmware   git -C $HOME/src/timesheet commit -am '🍺 checkout'
+#vmware   git -C $HOME/src/timesheet push --no-verify
+#vmware }
+#vmware 
+#vmware function bcs() {
+#vmware   npm run --silent --prefix=$HOME/src/timesheet start \
+#vmware     | fx 'x => Object.entries(x).map(([day,duration]) => `${day}\t${duration}`).join("\n")' \
+#vmware     | fzf --layout=reverse
+#vmware }
+#vmware 
+#vmware function fa(){
+#vmware   npm run --silent --prefix=$HOME/src/timesheet start \
+#vmware     | fx 'x => Object.entries(x).map(([day,duration]) => `${day}\t${duration}`).join("\n")' \
+#vmware     | sort \
+#vmware     | tail -1 \
+#vmware     | cut -f2
+#vmware }
+#vmware 
+#vmware function jira-md(){
+#vmware   curl -u "`pass seal/jira`" -is "$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | alola | fx jira 
+#vmware }
+#vmware 
+#vmware function jira(){
+#vmware   jira-md $1 | glow -
+#vmware }
+#vmware 
+#vmware function rapid(){
+#vmware   curl -u "`pass seal/jira`" -is "$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=$1" | alola | fx rapid
+#vmware }
+#vmware 
+#vmware function sprint(){
+#vmware   rapid 131 | fzf -q "'bv" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"'
+#vmware }
+#vmware 
+#vmware function seal(){
+#vmware   case "$1" in
+#vmware     list)
+#vmware       curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | sed 's/- //'
+#vmware       ;;
+#vmware     latest)
+#vmware       curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | sed 's/- //' | tail -1 
+#vmware       ;;
+#vmware     *)
+#vmware       curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | sed 's/- //' | shuf -n1 
+#vmware       ;;
+#vmware   esac
+#vmware }
+#vmware 
+#vmware function q() {
+#vmware   docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml exec db mongo --ssl --sslAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
+#vmware     | sed '0,/server version/d'
+#vmware }
 
-    alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
-    alias youtube='chromium --app=https://youtube.com/' #webapp
-    alias whatsapp='chromium --app=https://web.whatsapp.com/' #webapp
-    alias p5="docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml"
-    alias infra="GH_REPO=sealsystems/com-infrastructure gh"
-    alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
-    alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
-    alias slack='chromium --app="$SLACK_URL"' #webapp
-    alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:3.6.17'
-
-    function npmrc(){
-      if [[ $1 = 'current' ]]
-      then
-        cat ~/.npmrc | grep registry= | cut -f3 -d"/"
-      else
-        NPMRC_SUFFIX=${1:-`find $HOME -maxdepth 1 -name '.npmrc.*' | fzf --preview 'cat {}' | cut -d "." -f3`}
-        cp -f ~/.npmrc ~/.npmrc.prev
-        cp -f ~/.npmrc.$NPMRC_SUFFIX ~/.npmrc
-        NPM_CONFIG_LOGLEVEL=silent npm cache clean -f
-      fi
-    }
-
-    function checkin() {
-      npm run --silent --prefix=$HOME/src/timesheet checkin `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
-      git -C $HOME/src/timesheet commit -am '☕ checkin'
-      git -C $HOME/src/timesheet push --no-verify
-    }
-
-    function checkout(){
-      npm run --silent --prefix=$HOME/src/timesheet checkout `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
-      git -C $HOME/src/timesheet commit -am '🍺 checkout'
-      git -C $HOME/src/timesheet push --no-verify
-    }
-
-    function bcs() {
-      npm run --silent --prefix=$HOME/src/timesheet start \
-        | fx 'x => Object.entries(x).map(([day,duration]) => `${day}\t${duration}`).join("\n")' \
-        | fzf --layout=reverse
-    }
-
-    function fa(){
-      npm run --silent --prefix=$HOME/src/timesheet start \
-        | fx 'x => Object.entries(x).map(([day,duration]) => `${day}\t${duration}`).join("\n")' \
-        | sort \
-        | tail -1 \
-        | cut -f2
-    }
-
-    function jira-md(){
-      curl -u "`pass seal/jira`" -is "$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | alola | fx jira 
-    }
-
-    function jira(){
-      jira-md $1 | glow -
-    }
-
-    function rapid(){
-      curl -u "`pass seal/jira`" -is "$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=$1" | alola | fx rapid
-    }
-
-    function sprint(){
-      rapid 131 | fzf -q "'bv" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"'
-    }
-
-    function seal(){
-      case "$1" in
-        list)
-          curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | sed 's/- //'
-          ;;
-        latest)
-          curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | sed 's/- //' | tail -1 
-          ;;
-        *)
-          curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | sed 's/- //' | shuf -n1 
-          ;;
-      esac
-    }
-
-    function q() {
-      docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml exec db mongo --ssl --sslAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
-        | sed '0,/server version/d'
-    }
-    ;;
-
-  carbon)
-    export NPM_CONFIG_PREFIX=$HOME/.npm_global
-    export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
-
-    function yt(){
-      local search=`echo $* | sed 's/\s/+/g'`
-      curl -s "https://www.youtube.com/results?search_query=$search" \
-        | pup 'script:contains("var ytInitialData") text{}' \
-        | sed 's/var ytInitialData = //g;s/};/}/' \
-        | fx youtubevideos \
-        | fzf \
-        | cut -f1 \
-        | xargs -Iwatch mpv $MPV https://youtu.be/watch
-    }
-    alias yta="MPV='--no-video' yt"
-    alias blueon='sudo systemctl start bluetooth.service && bluetoothctl power on && bluetoothctl connect 17:50:01:B0:02:71'
-    alias blueoff='bluetoothctl power off && sudo systemctl start bluetooth.service'
-    alias vercel='npx -q vercel -t $VERCEL_TOKEN'
-    alias vc='npx -q vercel -t $VERCEL_TOKEN'
-    alias now='npx -q vercel -t $VERCEL_TOKEN'
-    alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
-    alias outlook='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
-    alias spotify='google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify --app=https://open.spotify.com/'
-    alias shop='google-chrome-stable --user-data-dir=$HOME/.config/webapp/shop'
-    alias bank='google-chrome-stable --user-data-dir=$HOME/.config/webapp/bank'
-    alias google='google-chrome-stable --user-data-dir=$HOME/.config/webapp/google'
-    alias teams='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft365 https://teams.microsoft.com'
-    ;;
-esac
+#carbon export NPM_CONFIG_PREFIX=$HOME/.npm_global
+#carbon export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
+#carbon 
+#carbon function yt(){
+#carbon   local search=`echo $* | sed 's/\s/+/g'`
+#carbon   curl -s "https://www.youtube.com/results?search_query=$search" \
+#carbon     | pup 'script:contains("var ytInitialData") text{}' \
+#carbon     | sed 's/var ytInitialData = //g;s/};/}/' \
+#carbon     | fx youtubevideos \
+#carbon     | fzf \
+#carbon     | cut -f1 \
+#carbon     | xargs -Iwatch mpv $MPV https://youtu.be/watch
+#carbon }
+#carbon alias yta="MPV='--no-video' yt"
+#carbon alias blueon='sudo systemctl start bluetooth.service && bluetoothctl power on && bluetoothctl connect 17:50:01:B0:02:71'
+#carbon alias blueoff='bluetoothctl power off && sudo systemctl start bluetooth.service'
+#carbon alias vercel='npx -q vercel -t $VERCEL_TOKEN'
+#carbon alias vc='npx -q vercel -t $VERCEL_TOKEN'
+#carbon alias now='npx -q vercel -t $VERCEL_TOKEN'
+#carbon alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
+#carbon alias outlook='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
+#carbon alias spotify='google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify --app=https://open.spotify.com/'
+#carbon alias shop='google-chrome-stable --user-data-dir=$HOME/.config/webapp/shop'
+#carbon alias bank='google-chrome-stable --user-data-dir=$HOME/.config/webapp/bank'
+#carbon alias google='google-chrome-stable --user-data-dir=$HOME/.config/webapp/google'
+#carbon alias teams='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft365 https://teams.microsoft.com'
