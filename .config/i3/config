@@ -106,10 +106,8 @@ for_window [instance="todos"] scratchpad show
 bindsym XF86AudioRaiseVolume exec pulsemixer --change-volume +5 && pkill -SIGRTMIN+1 i3blocks
 bindsym XF86AudioLowerVolume exec pulsemixer --change-volume -5 && pkill -SIGRTMIN+1 i3blocks
 bindsym XF86AudioMute exec pulsemixer --toggle-mute && pkill -SIGRTMIN+1 i3blocks
-for_window [instance="pulsemixer"] move scratchpad
-for_window [instance="pulsemixer"] scratchpad show
 
-#vmware exec_always feh --bg-fill https://unsplash.com/photos/z-fpG7D7buk/download?force=true&w=1920
+#vmware exec_always feh --bg-fill https://unsplash.com/photos/z-fpG7D7buk/download?force=true&w=3840
 #vmware bindsym $mod+x exec rofi -show emoji
 
 #carbon exec_always feh --bg-fill https://unsplash.com/photos/8UbfPcWwj9Y/download?force=true&w=1920
