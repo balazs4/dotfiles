@@ -65,7 +65,7 @@ export GPG_TTY=`tty`
 function dot(){
   pushd $HOME/.files > /dev/null
     vim ${1:-$PWD}
-    git diff -p
+    PAGER= git diff -p
     cp -f $PWD/.zprofile $HOME/.zprofile
     source $HOME/.zprofile
   popd > /dev/null
@@ -107,12 +107,13 @@ function notignore(){
 }
 
 function light(){
-  sed -i 's/#light //g' $HOME/.config/termite/config && killall -USR1 termite
-  sed -i 's/#light //g' $HOME/.zshrc && source $HOME/.zshrc
+  MODE=light source $HOME/.zprofile
+  source $HOME/.zshrc
+  killall -USR1 termite
 }
 
 function dark(){
-  git -C $HOME stash
+  MODE=dark source $HOME/.zprofile
   source $HOME/.zshrc
   killall -USR1 termite
 }
