@@ -1,4 +1,4 @@
-for dotfile in `git -C $HOME/.files ls-files`
+for dotfile in `git -C $HOME/.files ls-files -- ':!:readme.md'`
 do
   echo $dotfile
   mkdir -p `dirname $HOME/$dotfile`
