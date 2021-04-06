@@ -66,9 +66,7 @@ function dot(){
   pushd $HOME/.files > /dev/null
     vim ${1:-$PWD}
     git diff -p
-    echo ">> Apply <<"
-    cp -fv $PWD/.zprofile $HOME/.zprofile
-    echo "source $HOME/.zprofile"
+    cp -f $PWD/.zprofile $HOME/.zprofile
     source $HOME/.zprofile
   popd > /dev/null
 }
