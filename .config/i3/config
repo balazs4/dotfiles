@@ -94,7 +94,7 @@ bindsym --release Control+Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h
 bindsym --release Shift+Control+Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h.png' -q 100 --select -e 'xclip -selection c -t image/png < $f && dunstify -r 6868 "$f" "selected area" && mv $f /tmp/$f ' 
 
 bindsym $mod+space exec [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us, exec pkill -SIGRTMIN+2 i3blocks
-bindsym $mod+Shift+d exec zsh -i -c `cat ~/.zshrc | grep alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#777"`
+bindsym $mod+Shift+d exec zsh -i -c `cat ~/.zshrc | grep -e ^alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#777"`
 bindsym $mod+d exec dmenu_run -i
 bindsym $mod+a exec i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 
 bindsym $mod+c exec $BROWSER 
