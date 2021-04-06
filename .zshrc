@@ -63,15 +63,14 @@ export FZF_DEFAULT_OPTS="--sync"
 export GPG_TTY=`tty`
 
 function dot(){
-  pushd $HOME/.files
+  pushd $HOME/.files > /dev/null
     vim ${1:-$PWD}
-    git status
+    git diff -p
+    echo ">> Apply <<"
     cp -fv $PWD/.zprofile $HOME/.zprofile
-  popd
-  source $HOME/.zprofile
-  source $HOME/.zshrc
-  [[ $I3SOCK ]] && i3-msg reload
-  dunstify "up-to-date"
+    echo "source $HOME/.zprofile"
+    source $HOME/.zprofile
+  popd > /dev/null
 }
 
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
