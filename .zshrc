@@ -193,7 +193,6 @@ function remind(){
   CONTENT="$*"
 
   echo "
-    DISPLAY=:0 dunstify 'remind' '$CONTENT'
     echo \"$CONTENT @ \`date\`\" > /tmp/remind
     pkill -SIGRTMIN+4 i3blocks
   " | at $TIME
