@@ -196,7 +196,7 @@ function remind(){
     DISPLAY=:0 dunstify 'remind' '$CONTENT'
     echo \"$CONTENT @ \`date\`\" > /tmp/remind
     pkill -SIGRTMIN+4 i3blocks
-  " | at now$TIME
+  " | at $TIME
 }
 
 # host-specific config
