@@ -1,3 +1,4 @@
 singleQuote: true
 #vmware arrowParens: 'always'
 #vmware printWidth: 120
+#vmware trailingComma: 'none'

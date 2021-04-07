@@ -48,6 +48,6 @@ fi
 #carbon xinput set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' 0.01
 #carbon xbacklight \=20
 
-xset r rate 200 100
+xset r rate 250 100
 dunst &
 exec i3
