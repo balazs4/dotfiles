@@ -36,13 +36,8 @@ fi
 #vmware pulsemixer --set-volume 20
 
 #carbon pulseaudio --start # why do I need this?
-#carbon pulsemixer --mute --id sink-1
-#carbon pulsemixer --mute --id sink-2
-#carbon pulsemixer --mute --id sink-3
-#carbon pulsemixer --mute --id sink-4
-#carbon pulsemixer --mute --id source-0
-#carbon pulsemixer --mute --id source-6
-#carbon pulsemixer --mute --id source-7
+#carbon pulsemixer --list-sources | cut -d":" -f3 | cut -d"," -f1 | xargs -I{} pulsemixer --mute --id {}
+#carbon pulsemixer --list-sinks | cut -d":" -f3 | cut -d"," -f1 | xargs -I{} pulsemixer --mute --id {}
 #carbon xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Accel Speed' 0.5
 #carbon xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Tapping Enabled' 1
 #carbon xinput set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' 0.01
