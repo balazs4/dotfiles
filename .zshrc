@@ -179,6 +179,26 @@ function mirrorlist() {
     | sudo tee /etc/pacman.d/mirrorlist
 }
 
+
+function remind(){
+  if [ "$#" -eq 0 ]
+  then
+    rm -f /tmp/remind
+    pkill -SIGRTMIN+4 i3blocks
+    return
+  fi
+
+  TIME="$1"
+  shift
+  CONTENT="$*"
+
+  echo "
+    DISPLAY=:0 dunstify 'remind' '$CONTENT'
+    echo \"$CONTENT @ \`date\`\" > /tmp/remind
+    pkill -SIGRTMIN+4 i3blocks
+  " | at now$TIME
+}
+
 # host-specific config
 
 #vmware export N_PREFIX=$HOME/.n/prefix
@@ -267,6 +287,7 @@ function mirrorlist() {
 #vmware   docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml exec db mongo --ssl --sslAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
 #vmware     | sed '0,/server version/d'
 #vmware }
+#vmware alias cf='aws cloudformation'
 
 #carbon export NPM_CONFIG_PREFIX=$HOME/.npm_global
 #carbon export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
