@@ -66,8 +66,7 @@ function dot(){
   pushd $HOME/.files > /dev/null
     vim ${1:-$PWD}
     PAGER= git diff -p
-    cp -f $PWD/.zprofile $HOME/.zprofile
-    source $HOME/.zprofile
+    source $PWD/.zprofile
   popd > /dev/null
 }
 
@@ -266,6 +265,15 @@ function remind(){
 #vmware 
 #vmware function sprint(){
 #vmware   rapid 131 | fzf -q "'bv" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"'
+#vmware }
+#vmware 
+#vmware function linktojira(){
+#vmware     id=`gh pr view | grep -e '^https://jira' | cut -d"/" -f6 | tr -d '\r\n'` 
+#vmware     url=`gh pr view | grep url | grep github.com | cut -f2`
+#vmware     [[ -z "$url" ]] && return
+#vmware     echo "$url => $id"
+#vmware     curl -u "`pass seal/jira`" -Lis "$JIRA_URL/jira/rest/api/2/issue/$id/comment" -H "Content-Type: application/json" -XPOST -d "{\"body\": \"$url\" }" \
+#vmware       | alola 'status should be 201'
 #vmware }
 #vmware 
 #vmware function seal(){
