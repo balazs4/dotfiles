@@ -1,7 +1,7 @@
 git_protocol: ssh
 aliases:
     docs: '!xdg-open https://docs.github.com/en/free-pro-team@latest/rest/reference'
-    actions: '!gh api repos/:owner/:repo/actions/runs\?per_page=10\&branch=`git rev-parse --abbrev-ref HEAD` | npx -q fx "xx=>xx.workflow_runs.map(x=>[ (x.conclusion || x.status).padEnd(8, \" \"), require(\"ago\")(x.created_at), x.head_commit.id, x.html_url].join(\"\t\")).join(\"\n\")"'
+    actionss: '!gh api repos/:owner/:repo/actions/runs\?per_page=10\&branch=`git rev-parse --abbrev-ref HEAD` | npx -q fx "xx=>xx.workflow_runs.map(x=>[ (x.conclusion || x.status).padEnd(8, \" \"), require(\"ago\")(x.created_at), x.head_commit.id, x.html_url].join(\"\t\")).join(\"\n\")"'
     action: '!gh api repos/:owner/:repo/actions/runs\?per_page=1\&branch=`git rev-parse --abbrev-ref HEAD` | npx -q fx "xx=>xx.workflow_runs.map(x=>[ (x.conclusion || x.status).padEnd(8, \" \"), x.head_repository.full_name, x.head_commit.id, x.html_url].join(\"\t\")).join(\"\n\")"'
     notify: >-
       !fn(){

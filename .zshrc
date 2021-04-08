@@ -291,7 +291,8 @@ function remind(){
 #vmware }
 #vmware 
 #vmware function q() {
-#vmware   docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml exec db mongo --ssl --sslAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
+#vmware   DOCKER_COMPOSE=`[[ -f $PWD/docker-compose.yml ]] && echo "$PWD/docker-compose.yml" || echo "$HOME/git/plossys-bundle/docker-compose.yml"`
+#vmware   docker-compose --file "$DOCKER_COMPOSE" exec db mongo --ssl --sslAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
 #vmware     | sed '0,/server version/d'
 #vmware }
 #vmware alias cf='aws cloudformation'
