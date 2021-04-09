@@ -273,13 +273,13 @@ function remind(){
 #vmware   rapid 131 | fzf -q "'bv" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"'
 #vmware }
 #vmware 
-#vmware function linktojira(){
-#vmware     id=`gh pr view | grep -e '^https://jira' | cut -d"/" -f6 | tr -d '\r\n'` 
-#vmware     url=`gh pr view | grep url | grep github.com | cut -f2`
-#vmware     [[ -z "$url" ]] && return
-#vmware     echo "$url => $id"
-#vmware     curl -u "`pass seal/jira`" -Lis "$JIRA_URL/jira/rest/api/2/issue/$id/comment" -H "Content-Type: application/json" -XPOST -d "{\"body\": \"$url\" }" \
-#vmware       | alola 'status should be 201'
+#vmware function comment(){
+#vmware   id=$1
+#vmware   [[ -z "$id" ]] && return
+#vmware   local txt; read txt; 
+#vmware   [[ -z "$txt" ]] && return
+#vmware   curl -u "`pass seal/jira`" -Lis "$JIRA_URL/jira/rest/api/2/issue/$id/comment" -H "Content-Type: application/json" -XPOST -d "{\"body\": \"$txt\" }" \
+#vmware     | alola 'status should be 201'
 #vmware }
 #vmware 
 #vmware function seal(){
