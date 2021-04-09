@@ -1,9 +1,13 @@
 git_protocol: ssh
 aliases:
     docs: '!xdg-open https://docs.github.com/en/free-pro-team@latest/rest/reference'
-    actionss: '!gh api repos/:owner/:repo/actions/runs\?per_page=10\&branch=`git rev-parse --abbrev-ref HEAD` | npx -q fx "xx=>xx.workflow_runs.map(x=>[ (x.conclusion || x.status).padEnd(8, \" \"), require(\"ago\")(x.created_at), x.head_commit.id, x.html_url].join(\"\t\")).join(\"\n\")"'
-    action: '!gh api repos/:owner/:repo/actions/runs\?per_page=1\&branch=`git rev-parse --abbrev-ref HEAD` | npx -q fx "xx=>xx.workflow_runs.map(x=>[ (x.conclusion || x.status).padEnd(8, \" \"), x.head_repository.full_name, x.head_commit.id, x.html_url].join(\"\t\")).join(\"\n\")"'
-    notify: >-
+    _release: >-
+      !gh api /repos/:owner/:repo/releases\?per_page=1 | npx fx 'x=>x.map(xx => [require("ago")(xx.published_at), xx.html_url].join("\t")).join("\n")'
+    _actions: >-
+      !gh api repos/:owner/:repo/actions/runs\?per_page=10\&branch=`git rev-parse --abbrev-ref HEAD` | npx -q fx 'xx=>xx.workflow_runs.map(x=>[ (x.conclusion || x.status).padEnd(8, " "), require("ago")(x.created_at), x.head_commit.id, x.html_url].join("\t")).join("\n")'
+    _action: >-
+      !gh api repos/:owner/:repo/actions/runs\?per_page=1\&branch=`git rev-parse --abbrev-ref HEAD` | npx -q fx 'xx=>xx.workflow_runs.map(x=>[ (x.conclusion || x.status).padEnd(8, " "), x.head_repository.full_name, x.head_commit.id, x.html_url].join("\t")).join("\n")'
+    _notify: >-
       !fn(){
         while [[ `gh action | grep 'queued\|in_progress'` ]]; do sleep ${SLEEP:-5s}; done
         output=`gh action`
@@ -18,7 +22,7 @@ aliases:
         [[ $click = 'default' ]] && xdg-open $url >/dev/null
       };fn &
 
-    review: >-
+    _review: >-
       !gh api graphql -f query="
           {
             search(query: \"type:pr state:open review-requested:${1:-$USER}\", type: ISSUE, first: 100) {
@@ -35,7 +39,7 @@ aliases:
           }
       " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.url, xx.node.title].join("\t")).join("\n")' | sort -r
 
-    author: >-
+    _author: >-
       !gh api graphql -f query="
           {
             search(query: \"type:pr state:open author:${1:-$USER}\", type: ISSUE, first: 100) {
