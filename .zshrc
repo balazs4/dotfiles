@@ -70,6 +70,15 @@ function dot(){
   popd > /dev/null
 }
 
+function track(){
+  [[ -e "$HOME/$1" ]] || return
+  dir=`dirname "$HOME/.files/$1"`
+  mkdir -p $dir
+  cp -v "$HOME/$1" "$HOME/.files/$1"
+  git -C "$HOME/.files/" add "$1" 
+  git -C "$HOME/.files/" commit -m "add: $1"
+}
+
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
 alias wttr="curl -s 'http://wttr.in/91085?format=3'"
@@ -101,9 +110,6 @@ alias dmesg='sudo dmesg'
 alias cal='LC_ALL=de_DE.utf8 cal'
 alias yay='yay --editmenu'
 
-function notignore(){
-  $HOME/.file $1 >> $HOME/.gitignore && git add .gitignore $1 && git commit -m "add: $1"
-}
 
 function light(){
   MODE=light source $HOME/.zprofile
