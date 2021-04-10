@@ -137,7 +137,7 @@ function dw(){
 }
 
 function todos(){
-  gh gist ${*:-view} $GITHUB_GIST_TODOS
+  gh gist ${*:-view} ${GITHUB_GIST_TODOS:-`gh gist list | grep .todos | cut -f1`}
 }
 
 function record(){
