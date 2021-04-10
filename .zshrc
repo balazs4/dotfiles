@@ -137,14 +137,7 @@ function dw(){
 }
 
 function todos(){
-  case "$1" in
-    edit)
-      vim "+set number" $HOME/.todos
-      ;;
-    *)
-      cat $HOME/.todos | fzf
-      ;;
-  esac
+  gh gist ${*:-view} $GITHUB_GIST_TODOS
 }
 
 function record(){
