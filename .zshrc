@@ -63,7 +63,6 @@ export GPG_TTY=`tty`
 function dot(){
   pushd $HOME/.files > /dev/null
     vim ${1:-$PWD}
-    PAGER= git diff -p
     source $PWD/.zprofile
   popd > /dev/null
 }
