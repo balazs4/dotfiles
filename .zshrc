@@ -25,10 +25,8 @@ bindkey '\e[A' history-beginning-search-backward-end
 bindkey '\e[B' history-beginning-search-forward-end
 
 function zsh-git() {
-  [[ $PWD = $HOME ]] && exit 0
   local __branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
-  [[ -z $__branch ]] && exit 0
-  [[ `git rev-parse --show-toplevel` = "$HOME" ]] && exit 0
+  [[ -z $__branch ]] && return
 
   local __staged=`PAGER= git diff --name-only --staged | wc -l`
   local __changed=`PAGER= git diff --name-only | wc -l`
