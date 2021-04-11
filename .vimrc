@@ -14,9 +14,24 @@ set hlsearch
 set ignorecase
 set timeoutlen=400 ttimeoutlen=0
 
+nnoremap <Leader>l :Buffers<CR>
+nnoremap <Leader>b :bp<CR>
+nnoremap <Leader>f :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>
+
 " status bar
 set laststatus=2
-set statusline=%<%F%m%r%h%w\ %=%(%y\ \ %l,%c%V\ %=\ %P%)
+set statusline=[%2n]\ %<%F%m%r%h%w\ %=%(%y\ \ %l,%c%V\ %=\ %P%)
 hi statusline ctermfg=black ctermbg=white
 au InsertLeave * hi statusline ctermfg=black ctermbg=white
 au InsertEnter * hi statusline ctermfg=blue ctermbg=white
