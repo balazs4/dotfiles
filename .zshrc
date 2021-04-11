@@ -300,7 +300,8 @@ function remind(){
 #carbon export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
 #carbon 
 #carbon function yt(){
-#carbon   local search=`echo ${*:-$(read)} | sed 's/\s/+/g'`
+#carbon   [[ $# -eq 0 ]] && read stdin
+#carbon   local search=`echo ${stdin:-*} | sed 's/\s/+/g'`
 #carbon   curl -Lfs "https://www.youtube.com/results?search_query=$search" \
 #carbon     | pup 'script:contains("var ytInitialData") text{}' \
 #carbon     | sed 's/var ytInitialData = //g;s/};/}/' \
