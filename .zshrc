@@ -140,6 +140,12 @@ function todos(){
   gh gist ${*:-view} ${GITHUB_GIST_TODOS:-`gh gist list | grep .todos | cut -f1`}
 }
 
+function song(){
+  EDITOR='vim "+read! playerctl metadata title" "+x"' gh gist edit `gh gist list | grep songs | cut -f1`
+}
+
+alias songs='gh gist view `gh gist list | grep songs | cut -f1` -f songs'
+
 function record(){
   if [ "$1" = "window" ]
   then
