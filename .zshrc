@@ -140,10 +140,7 @@ function todos(){
   gh gist ${*:-view} ${GITHUB_GIST_TODOS:-`gh gist list | grep .todos | cut -f1`}
 }
 
-function song(){
-  EDITOR='vim "+read! playerctl metadata title" "+x"' gh gist edit `gh gist list | grep songs | cut -f1`
-}
-
+alias song='playerctl metadata title | EDITOR="sponge -a" gh gist edit `gh gist list | grep songs | cut -f1`'
 alias songs='gh gist view `gh gist list | grep songs | cut -f1` -f songs'
 
 function record(){
@@ -303,8 +300,8 @@ function remind(){
 #carbon export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
 #carbon 
 #carbon function yt(){
-#carbon   local search=`echo $* | sed 's/\s/+/g'`
-#carbon   curl -s "https://www.youtube.com/results?search_query=$search" \
+#carbon   local search=`echo ${*:-$(read)} | sed 's/\s/+/g'`
+#carbon   curl -Lfs "https://www.youtube.com/results?search_query=$search" \
 #carbon     | pup 'script:contains("var ytInitialData") text{}' \
 #carbon     | sed 's/var ytInitialData = //g;s/};/}/' \
 #carbon     | fx youtubevideos \
