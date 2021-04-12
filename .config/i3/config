@@ -89,9 +89,7 @@ smart_gaps on
 gaps inner 2
 gaps outer 2
 
-bindsym --release               Print exec --no-startup-id maim --quiet --select                                                    | tee /tmp/$(date +%Y%m%d_%H%M%S_select).png | xclip -selection clipboard -t image/png && dunstify -r 6868 "MAke IMage" "select"
-bindsym --release       Control+Print exec --no-startup-id maim --quiet --window=`xwininfo -int | grep 'Window id' | cut -d' ' -f4` | tee /tmp/$(date +%Y%m%d_%H%M%S_window).png | xclip -selection clipboard -t image/png && dunstify -r 6868 "MAke IMage" "window"
-bindsym --release Shift+Control+Print exec --no-startup-id maim --quiet --window=root                                               | tee /tmp/$(date +%Y%m%d_%H%M%S_screen).png | xclip -selection clipboard -t image/png && dunstify -r 6868 "MAke IMage" "fullscreen"
+bindsym --release $mod+Print exec --no-startup-id shotgun `hacksaw -f "-i %i -g %g"` - | xclip -t 'image/png' -selection clipboard && dunstify -I "shotgun" "copied to clipboard"
 
 bindsym $mod+space exec [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us, exec pkill -SIGRTMIN+2 i3blocks
 bindsym $mod+Shift+d exec zsh -i -c `cat ~/.zshrc | grep -e ^alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#777"`
