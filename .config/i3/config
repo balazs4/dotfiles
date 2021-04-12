@@ -89,9 +89,9 @@ smart_gaps on
 gaps inner 2
 gaps outer 2
 
-bindsym --release Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h.png' -q 100 -e 'xclip -selection c -t image/png < $f && dunstify -r 6868 "$f" "fullscreen" && mv $f /tmp/$f ' 
-bindsym --release Control+Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h.png' -q 100 --focused -e 'xclip -selection c -t image/png < $f && dunstify -r 6868 "$f" "focused window" && mv $f /tmp/$f ' 
-bindsym --release Shift+Control+Print exec --no-startup-id scrot '%Y_%m_%d_%H_%M_$w_$h.png' -q 100 --select -e 'xclip -selection c -t image/png < $f && dunstify -r 6868 "$f" "selected area" && mv $f /tmp/$f ' 
+bindsym --release               Print exec --no-startup-id maim --quiet --select                                                    | tee /tmp/$(date +%Y-%m-%dT%H-%M-%SMselect).png | xclip -selection clipboard -t image/png && dunstify -r 6868 "MAke IMage" "select"
+bindsym --release       Control+Print exec --no-startup-id maim --quiet --window=`xwininfo -int | grep 'Window id' | cut -d' ' -f4` | tee /tmp/$(date +%Y-%m-%dT%H-%M-%SMwindow).png | xclip -selection clipboard -t image/png && dunstify -r 6868 "MAke IMage" "window"
+bindsym --release Shift+Control+Print exec --no-startup-id maim --quiet --window=root                                               | tee /tmp/$(date +%Y-%m-%dT%H-%M-%SMfullscreen).png | xclip -selection clipboard -t image/png && dunstify -r 6868 "MAke IMage" "fullscreen"
 
 bindsym $mod+space exec [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us, exec pkill -SIGRTMIN+2 i3blocks
 bindsym $mod+Shift+d exec zsh -i -c `cat ~/.zshrc | grep -e ^alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#777"`
