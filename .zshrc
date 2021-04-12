@@ -140,7 +140,7 @@ function todos(){
   gh gist ${*:-view} ${GITHUB_GIST_TODOS:-`gh gist list | grep .todos | cut -f1`}
 }
 
-alias song='playerctl metadata title | EDITOR="sponge -a" gh gist edit `gh gist list | grep songs | cut -f1`'
+alias song='playerctl metadata title | EDITOR="tee -a" gh gist edit `gh gist list | grep songs | cut -f1`'
 alias songs='gh gist view `gh gist list | grep songs | cut -f1` -f songs'
 
 function record(){
