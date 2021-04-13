@@ -203,7 +203,7 @@ function remind(){
 #vmware export RUBYOPT="-W0"  # ruby warnings
 #vmware 
 #vmware alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
-#vmware alias youtube='chromium --app=https://youtube.com/' #webapp
+#vmware alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware alias whatsapp='chromium --app=https://web.whatsapp.com/' #webapp
 #vmware alias p5="docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml"
 #vmware alias infra="GH_REPO=sealsystems/com-infrastructure gh"
