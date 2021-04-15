@@ -144,17 +144,8 @@ alias song='playerctl metadata title | EDITOR="tee -a" gh gist edit `gh gist lis
 alias songs='gh gist view `gh gist list | grep songs | cut -f1` -f songs'
 
 function record(){
-  if [ "$1" = "window" ]
-  then
-    eval $(xwininfo |
-      sed -n -e "s/^ \+Absolute upper-left X: \+\([0-9]\+\).*/x=\1/p" \
-             -e "s/^ \+Absolute upper-left Y: \+\([0-9]\+\).*/y=\1/p" \
-             -e "s/^ \+Width: \+\([0-9]\+\).*/w=\1/p" \
-             -e "s/^ \+Height: \+\([0-9]\+\).*/h=\1/p" )
-  fi
-
   FILENAME=/tmp/$(date "+%Y%m%d_%H%M%S").mp4
-  ffmpeg -f x11grab -r 30 -s ${w:-1920}x${h:-1080} -i :0.0+${x:-0},${y:-0} -q:v 0 -q:a 0 $FILENAME
+  ffmpeg -f x11grab -r 30 `hacksaw -f "-s %wx%h -i :0.0+%x,%y"` -q:v 0 -q:a 0 $FILENAME
   echo $FILENAME
 }
 
