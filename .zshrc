@@ -144,7 +144,7 @@ alias song='playerctl metadata title | EDITOR="tee -a" gh gist edit `gh gist lis
 alias songs='gh gist view `gh gist list | grep songs | cut -f1` -f songs'
 
 function record(){
-  FILENAME=/tmp/$(date "+%Y%m%d_%H%M%S").mp4
+  FILENAME=${1:-/tmp/`date "+%Y%m%d_%H%M%S"`.mp4}
   ffmpeg -f x11grab -r 30 `hacksaw -f "-s %wx%h -i :0.0+%x,%y"` -q:v 0 -q:a 0 $FILENAME
   echo $FILENAME
 }
