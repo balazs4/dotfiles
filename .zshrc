@@ -53,6 +53,7 @@ RPROMPT='%(?.%F{white}.%F{red})%?%f'
 [[ -r "/usr/share/fzf/key-bindings.zsh" ]] && source /usr/share/fzf/key-bindings.zsh
 
 export LANG=en_US.UTF-8
+export TERMINAL=termite
 export BROWSER=chromium
 export EDITOR=vim
 export NPM_CONFIG_LOGLEVEL=http

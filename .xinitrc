@@ -13,6 +13,7 @@
 #carbon xinput set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' 0.01
 #carbon xbacklight \=20
 
+xrdb -merge $HOME/.Xresources
 xset r rate 250 100
 
 sxhkd &
