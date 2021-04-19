@@ -5,7 +5,8 @@ super + Print
   shotgun `hacksaw -f "-i %i -g %g"` - | xclip -t 'image/png' -selection clipboard && dunstify "shotgun" "copied to clipboard"
 
 super + space
-  [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us
+  [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us \
+    ;pkill -SIGRTMIN+2 i3blocks
 
 super + c
   $BROWSER
@@ -23,10 +24,16 @@ super + grave
   termite --name=todos -e 'zsh -i -c "todos edit"' 
 
 XF86Audio{RaiseVolume,LowerVolume}
-  pulsemixer --change-volume {+5,-5}
+  pulsemixer --change-volume {+5,-5} \
+    ;pkill -SIGRTMIN+1 i3blocks
 
 XF86AudioMute
-  pulsemixer --toggle-mute
+  pulsemixer --toggle-mute \
+    ;pkill -SIGRTMIN+1 i3blocks
+
+#carbon XF86AudioMicMute
+#carbon   pulsemixer --toggle-mute --id source-7 \
+#carbon     ;pkill -SIGRTMIN+1 i3blocks
 
 #vmware XF86Search
 #vmware  playerctl next
@@ -42,6 +49,3 @@ XF86AudioMute
 
 #carbon XF86MonBrightness{Up,Down}
 #carbon   xbacklight {+10,-10}
-
-#carbon XF86AudioMicMute
-#carbon   pulsemixer --toggle-mute --id source-7
