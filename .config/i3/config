@@ -101,6 +101,9 @@ bindsym $mod+grave exec termite --name=todos -e 'zsh -i -c "todos edit"' && pkil
 for_window [instance="todos"] move scratchpad
 for_window [instance="todos"] scratchpad show
 
+bindsym $mod+shift+grave scratchpad show
+for_window [instance="teams.microsoft.com*"] move scratchpad
+
 bindsym XF86AudioRaiseVolume exec pulsemixer --change-volume +5 && pkill -SIGRTMIN+1 i3blocks
 bindsym XF86AudioLowerVolume exec pulsemixer --change-volume -5 && pkill -SIGRTMIN+1 i3blocks
 bindsym XF86AudioMute exec pulsemixer --toggle-mute && pkill -SIGRTMIN+1 i3blocks
