@@ -1,0 +1,2 @@
+super + t
+	dunstify 'Hello' 'World'
