@@ -80,7 +80,7 @@ function track(){
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
 alias wttr="curl -s 'http://wttr.in/91085?format=3'"
-alias xx='xclip -selection clipboard'
+alias xx='xclip -rmlastnl -selection clipboard'
 alias v=vim
 alias ls='ls --color=auto'
 alias grep='grep --color'
