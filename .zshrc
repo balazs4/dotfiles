@@ -141,6 +141,12 @@ function todos(){
   gh gist ${*:-view} ${GITHUB_GIST_TODOS:-`gh gist list | grep .todos | cut -f1`}
 }
 
+function emojis(){
+  e=`emojify --list | sed '0,/Supported emojis/d' | sort | fzf --reverse`
+  echo $e | cut -d" " -f1 | xclip -rmlastnl -selection primary
+  echo $e | cut -d" " -f2 | xclip -rmlastnl -selection clipboard
+}
+
 alias song='playerctl metadata title | EDITOR="tee -a" gh gist edit `gh gist list | grep songs | cut -f1`'
 alias songs='gh gist view `gh gist list | grep songs | cut -f1` -f songs'
 
@@ -202,7 +208,7 @@ function remind(){
 #vmware alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
 #vmware alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
 #vmware alias slack='chromium --app="$SLACK_URL"' #webapp
-#vmware alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:3.6.17'
+#vmware alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:4.4.4'
 #vmware 
 #vmware function npmrc(){
 #vmware   if [[ $1 = 'current' ]]

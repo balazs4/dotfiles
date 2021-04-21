@@ -20,6 +20,9 @@ super + shift + d
 super + grave
   termite --name=todos -e 'zsh -i -c "todos edit"' 
 
+super + x
+  termite --name=emojis -e 'zsh -i -c "emojis"' 
+
 XF86Audio{RaiseVolume,LowerVolume}
   pulsemixer --change-volume {+5,-5} \
     ;pkill -SIGRTMIN+1 i3blocks
@@ -37,9 +40,6 @@ XF86AudioMute
 
 #vmware super + XF86Search
 #vmware  playerctl play-pause
-
-#vmware super + x
-#vmware   exec rofi -show emoji
 
 #carbon super + l
 #carbon   sudo systemctl suspend

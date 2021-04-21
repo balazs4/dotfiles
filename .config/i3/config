@@ -87,18 +87,18 @@ gaps outer 2
 bindsym $mod+space exec pkill -SIGRTMIN+2 i3blocks
 bindsym $mod+a exec i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 
 
+bindsym $mod+shift+grave scratchpad show
 for_window [instance="todos"] move scratchpad
 for_window [instance="todos"] scratchpad show
 
-bindsym $mod+shift+grave scratchpad show
-for_window [instance="teams.microsoft.com*"] move scratchpad
+for_window [instance="emojis"] move scratchpad
+for_window [instance="emojis"] scratchpad show
 
-bindsym XF86AudioRaiseVolume pkill -SIGRTMIN+1 i3blocks
-bindsym XF86AudioLowerVolume pkill -SIGRTMIN+1 i3blocks
-bindsym XF86AudioMute pkill -SIGRTMIN+1 i3blocks
+for_window [instance="teams.microsoft.com*"] move scratchpad
+for_window [instance="teams.microsoft.com*"] scratchpad show
+
 
 #vmware exec_always feh --bg-fill https://unsplash.com/photos/z-fpG7D7buk/download?force=true&w=3840
-#vmware bindsym $mod+x exec rofi -show emoji
 
 #carbon exec_always feh --bg-fill https://unsplash.com/photos/8UbfPcWwj9Y/download?force=true&w=1920
 #carbon exec_always sudo hda-verb /dev/snd/hwC0D0 0x1d SET_PIN_WIDGET_CONTROL 0x0
