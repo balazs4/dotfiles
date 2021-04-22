@@ -68,7 +68,9 @@ function dot(){
   popd > /dev/null
 }
 
-function track(){
+alias dotfiles='git -C "$HOME/.files/"'
+
+function dotfile(){
   [[ -e "$HOME/$1" ]] || return
   dir=`dirname "$HOME/.files/$1"`
   mkdir -p $dir
@@ -79,6 +81,7 @@ function track(){
 
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
+alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -s 'http://wttr.in/91085?format=3'"
 alias xx='xclip -rmlastnl -selection clipboard'
 alias v=vim

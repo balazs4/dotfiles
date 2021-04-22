@@ -9,7 +9,7 @@ super + c
   $BROWSER
 
 super + Return
-  $TERMINAL
+  termite
 
 super + d
   dmenu_run -i
@@ -23,6 +23,12 @@ super + grave
 super + x
   termite --name=emojis -e 'zsh -i -c "emojis"' 
 
+super + {Next,Prior,Control_R}
+  playerctl {next,previous,play-pause}
+
+#carbon super + l
+#carbon   sudo systemctl suspend
+
 XF86Audio{RaiseVolume,LowerVolume}
   pulsemixer --change-volume {+5,-5} \
     ;pkill -SIGRTMIN+1 i3blocks
@@ -31,18 +37,10 @@ XF86AudioMute
   pulsemixer --toggle-mute \
     ;pkill -SIGRTMIN+1 i3blocks
 
+#carbon XF86MonBrightness{Up,Down}
+#carbon   xbacklight {+10,-10}
+
 #carbon XF86AudioMicMute
 #carbon   pulsemixer --toggle-mute --id source-7 \
 #carbon     ;pkill -SIGRTMIN+1 i3blocks
 
-#vmware XF86Search
-#vmware  playerctl next
-
-#vmware super + XF86Search
-#vmware  playerctl play-pause
-
-#carbon super + l
-#carbon   sudo systemctl suspend
-
-#carbon XF86MonBrightness{Up,Down}
-#carbon   xbacklight {+10,-10}
