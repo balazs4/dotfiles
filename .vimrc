@@ -60,4 +60,3 @@ nmap <Leader>p :PrettierAsync<CR>
 "https://github.com/ayu-theme/ayu-vim
 let ayucolor="dark"
 "light let ayucolor="light"
-colorscheme ayu
