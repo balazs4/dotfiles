@@ -79,6 +79,20 @@ function dotfile(){
   git -C "$HOME/.files/" commit -m "add: $1"
 }
 
+function vimplug(){
+  if [[ ! -z "$1" ]]
+  then
+    echo "\n\"$1" >> $HOME/.files/.vimrc
+    source $HOME/.files/.zprofile
+  fi
+
+  rm -rf $HOME/.vim/pack/_/start/*
+  pushd $HOME/.vim/pack/_/start/
+    cat $HOME/.vimrc | grep github | sed 's/"//g' \
+      | xargs -I{} git clone {} --depth 1
+  popd
+}
+
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
 alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"

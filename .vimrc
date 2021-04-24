@@ -1,6 +1,7 @@
 syntax off
 nnoremap <silent> <Leader>] :if exists("g:syntax_on") <Bar> syntax off <Bar> else <Bar> syntax on <Bar> endif<CR>
 set t_Co=256
+set termguicolors
 filetype plugin indent on
 set nowrap
 set noswapfile
@@ -29,24 +30,34 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
 
-" status bar
+"status bar
 set laststatus=2
 set statusline=[%2n]\ %<%F%m%r%h%w\ %=%(%y\ \ %l,%c%V\ %=\ %P%)
 hi statusline ctermfg=black ctermbg=white
 au InsertLeave * hi statusline ctermfg=black ctermbg=white
 au InsertEnter * hi statusline ctermfg=blue ctermbg=white
 
-" https://github.com/junegunn/fzf.vim
+"https://github.com/junegunn/fzf.vim
 nnoremap <C-P> :GFiles<CR>
 nnoremap <C-O> :Rg!<CR>
 
-" https://github.com/matze/vim-move
+"https://github.com/matze/vim-move
 let g:move_key_modifier = 'C'
 
-" https://github.com/mattn/emmet-vim
+"https://github.com/mattn/emmet-vim
 let g:jsx_ext_require = 0
 let g:user_emmet_leader_key='<C-z>'
 
-" https://github.com/prettier/vim-prettier
+"https://github.com/prettier/vim-prettier
 nmap <Leader>p :PrettierAsync<CR>
 
+"https://github.com/tpope/vim-commentary
+
+"https://github.com/fxn/vim-monochrome
+
+"https://github.com/tpope/vim-surround
+
+"https://github.com/ayu-theme/ayu-vim
+let ayucolor="dark"
+"light let ayucolor="light"
+colorscheme ayu
