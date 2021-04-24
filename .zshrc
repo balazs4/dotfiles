@@ -338,3 +338,12 @@ alias blueoff='bluetoothctl power off && sudo systemctl start bluetooth.service 
 #carbon alias bank='google-chrome-stable --user-data-dir=$HOME/.config/webapp/bank'
 #carbon alias google='google-chrome-stable --user-data-dir=$HOME/.config/webapp/google'
 #carbon alias teams='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft365 https://teams.microsoft.com'
+
+function helloworld() {
+  curl \
+    -H 'accept: application/json'\
+    -H "private-token: $GITLAB_AUTH_TOKEN" \
+    https://gitlab.com/api/v4/projects/balazs4%2Flebenslauf/issues/40/notes -Lisk \
+    | npx -q alola \
+    | npx -q fx  'x => x.body.map(xx => xx.body).join("\n")'
+}
