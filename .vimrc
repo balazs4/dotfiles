@@ -1,7 +1,6 @@
 syntax off
 nnoremap <silent> <Leader>] :if exists("g:syntax_on") <Bar> syntax off <Bar> else <Bar> syntax on <Bar> endif<CR>
 set t_Co=256
-set termguicolors
 filetype plugin indent on
 set nowrap
 set noswapfile
@@ -58,5 +57,8 @@ nmap <Leader>p :PrettierAsync<CR>
 "https://github.com/tpope/vim-surround
 
 "https://github.com/ayu-theme/ayu-vim
-let ayucolor="dark"
+" set termguicolors
+" colorscheme ayu
+" syntax on
+" let ayucolor="dark"
 "light let ayucolor="light"
