@@ -54,7 +54,7 @@ RPROMPT='%(?.%F{white}.%F{red})%?%f'
 
 export LANG=en_US.UTF-8
 export TERMINAL=termite
-export TERM=xterm-color
+export TERM=xterm-256color
 export BROWSER=chromium
 export EDITOR=vim
 export NPM_CONFIG_LOGLEVEL=http
