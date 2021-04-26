@@ -1,6 +1,5 @@
 syntax off
 nnoremap <silent> <Leader>] :if exists("g:syntax_on") <Bar> syntax off <Bar> else <Bar> syntax on <Bar> endif<CR>
-set t_Co=8
 filetype plugin indent on
 set nowrap
 set noswapfile
@@ -32,9 +31,9 @@ nnoremap <Leader>0 :10b<CR>
 "status bar
 set laststatus=2
 set statusline=[%2n]\ %<%F%m%r%h%w\ %=%(%y\ \ %l,%c%V\ %=\ %P%)
-                 hi statusline ctermfg=white ctermbg=magenta cterm=bold
-au InsertLeave * hi statusline ctermfg=white ctermbg=magenta cterm=bold
-au InsertEnter * hi statusline ctermfg=black ctermbg=magenta cterm=reverse
+                 hi statusline ctermfg=white ctermbg=black cterm=bold 
+au InsertLeave * hi statusline ctermfg=white ctermbg=black cterm=bold 
+au InsertEnter * hi statusline ctermfg=white ctermbg=blue cterm=bold 
 
 "https://github.com/junegunn/fzf.vim
 nnoremap <C-P> :GFiles<CR>
