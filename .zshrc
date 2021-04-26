@@ -288,7 +288,8 @@ function remind(){
 #vmware   local txt; read txt; 
 #vmware   [[ -z "$txt" ]] && return
 #vmware   curl -u "`pass seal/jira`" -Lis "$JIRA_URL/jira/rest/api/2/issue/$id/comment" -H "Content-Type: application/json" -XPOST -d "{\"body\": \"$txt\" }" \
-#vmware     | alola 'status should be 201'
+#vmware     -o /dev/null -w "%{http_code}"
+#vmware   jira $id
 #vmware }
 #vmware 
 #vmware function seal(){
