@@ -10,6 +10,7 @@ set expandtab
 set autoread
 set incsearch
 set hlsearch
+nnoremap <silent> <Leader>[ :noh<CR>
 set ignorecase
 set timeoutlen=400 ttimeoutlen=0
 
