@@ -32,9 +32,9 @@ nnoremap <Leader>0 :10b<CR>
 "status bar
 set laststatus=2
 set statusline=[%2n]\ %<%F%m%r%h%w\ %=%(%y\ \ %l,%c%V\ %=\ %P%)
-                 hi statusline ctermfg=white ctermbg=black
-au InsertLeave * hi statusline ctermfg=white ctermbg=black
-au InsertEnter * hi statusline ctermfg=green ctermbg=black
+                 hi statusline ctermfg=white ctermbg=magenta cterm=bold
+au InsertLeave * hi statusline ctermfg=white ctermbg=magenta cterm=bold
+au InsertEnter * hi statusline ctermfg=black ctermbg=magenta cterm=reverse
 
 "https://github.com/junegunn/fzf.vim
 nnoremap <C-P> :GFiles<CR>
