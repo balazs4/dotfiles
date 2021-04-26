@@ -12,7 +12,7 @@
 #carbon xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Tapping Enabled' 1
 #carbon xinput set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' 0.0
 #carbon xbacklight \=20
-#carbon xss-lock -- i3lock -n -c 555555
+#carbon xss-lock -- i3lock -n -c 555555 &
 
 xrdb -merge $HOME/.Xresources
 xset r rate 250 100
