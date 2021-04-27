@@ -12,10 +12,10 @@ super + Return
   termite
 
 super + d
-  dmenu_run -i
+  dmenu_run -i -sb "#777777"
 
 super + shift + d 
-  zsh -i -c `cat ~/.zshrc | grep -e ^alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#777"`
+  zsh -i -c `cat ~/.zshrc | grep -e ^alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#f81ce5"`
 
 super + grave
   termite --name=todos -e 'zsh -i -c "todos edit"' 
