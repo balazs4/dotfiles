@@ -40,9 +40,12 @@ nnoremap <C-P> :packadd fzf.vim <bar> :GFiles<CR>
 nnoremap <C-O> :packadd fzf.vim <bar> :Rg!<CR>
 
 "https://github.com/matze/vim-move
+packadd vim-move
 let g:move_key_modifier = 'C'
 
 "https://github.com/mattn/emmet-vim
+au FileType javascript packadd emmet-vim
+au FileType html packadd emmet-vim
 let g:jsx_ext_require = 0
 let g:user_emmet_leader_key='<C-z>'
 
