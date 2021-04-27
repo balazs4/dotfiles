@@ -36,8 +36,8 @@ au InsertLeave * hi statusline ctermfg=white ctermbg=black cterm=bold
 au InsertEnter * hi statusline ctermfg=white ctermbg=blue cterm=bold 
 
 "https://github.com/junegunn/fzf.vim
-nnoremap <C-P> :GFiles<CR>
-nnoremap <C-O> :Rg!<CR>
+nnoremap <C-P> :packadd fzf.vim <bar> :GFiles<CR>
+nnoremap <C-O> :packadd fzf.vim <bar> :Rg!<CR>
 
 "https://github.com/matze/vim-move
 let g:move_key_modifier = 'C'
@@ -47,13 +47,15 @@ let g:jsx_ext_require = 0
 let g:user_emmet_leader_key='<C-z>'
 
 "https://github.com/prettier/vim-prettier
-nmap <Leader>p :PrettierAsync<CR>
+nmap <Leader>p :packadd prettier <bar> :PrettierAsync<CR>
 
 "https://github.com/tpope/vim-commentary
-
-"https://github.com/fxn/vim-monochrome
+packadd vim-commentary
 
 "https://github.com/tpope/vim-surround
+packadd vim-surround
+
+"https://github.com/fxn/vim-monochrome
 
 "https://github.com/ayu-theme/ayu-vim
 " set termguicolors

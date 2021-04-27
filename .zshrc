@@ -87,8 +87,8 @@ function vimplug(){
     source $HOME/.files/.zprofile
   fi
 
-  rm -rf $HOME/.vim/pack/_/start/*
-  pushd $HOME/.vim/pack/_/start/
+  rm -rf $HOME/.vim/pack/_/opt/*
+  pushd $HOME/.vim/pack/_/opt/
     cat $HOME/.vimrc | grep github | sed 's/"//g' \
       | xargs -I{} git clone {} --depth 1
   popd
