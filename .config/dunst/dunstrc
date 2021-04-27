@@ -29,8 +29,8 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    #carbon geometry = "396x24-0+32"
-    #vmware geometry = "512x64-0+40"
+#carbon geometry = "396x24-0+32"
+#vmware geometry = "512x64-0+40"
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
