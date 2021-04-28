@@ -13,7 +13,7 @@ aliases:
       gh run watch $id
       (
         outcome=`gh run list | grep $id | cut -f2`
-        color=`echo $outcome | sed -r 's/\s//g;s/success/A3BE8C/g;s/failure/BF616A/g'`
+        color=`echo $outcome | sed -r 's/\s//g;s/success/00ff33/g;s/failure/ff4747/g'`
         [[ -f /tmp/github-action-$color.svg ]] || `curl -Lks https://cdn.svgporn.com/logos/github-icon.svg | sed "s/#161614/#${color:-161614}/g" > /tmp/github-action-$color.svg`
         origin=`git config --get remote.origin.url`
         click=`dunstify --action="default,open" -I /tmp/github-action-$color.svg "$outcome" "$branch\n$origin"`
