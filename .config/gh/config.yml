@@ -8,17 +8,18 @@ aliases:
       do
         echo "Looking for in_progress run on '$branch'..."
         id=`gh run list --limit 5 | grep $branch | grep in_progress | head -1 | cut -f8` 
-        [[ -z $id ]] && sleep 1s || break
+        [[ -z $id ]] && sleep 3s || break
       done
       gh run watch $id
+      (
+        outcome=`gh run list | grep $id | cut -f2`
+        color=`echo $outcome | sed -r 's/\s//g;s/success/A3BE8C/g;s/failure/BF616A/g'`
+        [[ -f /tmp/github-action-$color.svg ]] || `curl -Lks https://cdn.svgporn.com/logos/github-icon.svg | sed "s/#161614/#${color:-161614}/g" > /tmp/github-action-$color.svg`
+        origin=`git config --get remote.origin.url`
+        click=`dunstify --action="default,open" -I /tmp/github-action-$color.svg "$outcome" "$branch\n$origin"`
+        [[ $click = 'default' ]] && gh run view $id -w
+      ) &
       gh run view $id --log-failed
-
-      outcome=`gh run list | grep $id | cut -f2`
-      color=`echo $outcome | sed -r 's/\s//g;s/success/A3BE8C/g;s/failure/BF616A/g'`
-      [[ -f /tmp/github-action-$color.svg ]] || `curl -Lks https://cdn.svgporn.com/logos/github-icon.svg | sed "s/#161614/#${color:-161614}/g" > /tmp/github-action-$color.svg`
-      origin=`git config --get remote.origin.url`
-      click=`dunstify --action="default,open" -I /tmp/github-action-$color.svg "$outcome" "$branch\n$origin"`
-      [[ $click = 'default' ]] && gh run view $id -w
     }; fn
 
   review: >-
