@@ -4,13 +4,15 @@ aliases:
     !fn(){
       branch=`git rev-parse --abbrev-ref HEAD`
       id=`gh run list | grep $branch | grep in_progress | head -1 | cut -f8` 
-      [[ -z $id ]] && return
+      [[ -z $id ]] && return 1
       gh run watch $id
+      gh run view $id --log-failed
       outcome=`gh run list | grep $id | cut -f2`
       color=`echo $outcome | sed -r 's/\s//g;s/success/A3BE8C/g;s/failure/BF616A/g'`
       [[ -f /tmp/github-action-$color.svg ]] || `curl -Lks https://cdn.svgporn.com/logos/github-icon.svg | sed "s/#161614/#${color:-161614}/g" > /tmp/github-action-$color.svg`
-      dunstify -I /tmp/github-action-$color.svg "$outcome" "$branch\n`git config --get remote.origin.url | cut -f2 -d':'`"
-      gh run view $id --log-failed
+      origin=`git config --get remote.origin.url`
+      click=`dunstify --action="default,open" -I /tmp/github-action-$color.svg "$outcome" "$branch\n$origin"`
+      [[ $click = 'default' ]] && gh run view $id -w
     }; fn
 
   review: >-
