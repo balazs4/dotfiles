@@ -28,6 +28,12 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
 
+" move
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
 "status bar
 set laststatus=2
 set statusline=[%2n]\ %<%F%m%r%h%w\ %=%(%y\ \ %l,%c%V\ %=\ %P%)
@@ -38,10 +44,6 @@ au InsertEnter * hi statusline ctermfg=white ctermbg=blue cterm=bold
 "https://github.com/junegunn/fzf.vim
 nnoremap <C-P> :packadd fzf.vim <bar> :GFiles<CR>
 nnoremap <C-O> :packadd fzf.vim <bar> :Rg!<CR>
-
-"https://github.com/matze/vim-move
-packadd vim-move
-let g:move_key_modifier = 'C'
 
 "https://github.com/mattn/emmet-vim
 au FileType javascript packadd emmet-vim
