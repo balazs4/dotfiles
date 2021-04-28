@@ -212,6 +212,10 @@ function remind(){
   " | at $TIME
 }
 
+function touchd(){
+  mkdir -p `dirname "$1"` && touch "$1"
+}
+
 # host-specific config
 
 #vmware export N_PREFIX=$HOME/.n/prefix
