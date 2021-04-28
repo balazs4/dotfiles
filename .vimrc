@@ -50,7 +50,7 @@ let g:jsx_ext_require = 0
 let g:user_emmet_leader_key='<C-z>'
 
 "https://github.com/prettier/vim-prettier
-nmap <Leader>p :packadd prettier <bar> :PrettierAsync<CR>
+nmap <Leader>p :packadd vim-prettier <bar> :PrettierAsync<CR>
 
 "https://github.com/tpope/vim-commentary
 packadd vim-commentary

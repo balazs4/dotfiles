@@ -311,7 +311,13 @@ function remind(){
 #vmware   docker-compose --file "$DOCKER_COMPOSE" exec db mongo --ssl --sslAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
 #vmware     | sed '0,/server version/d'
 #vmware }
-#vmware alias cf='aws cloudformation'
+#vmware 
+#vmware function fixup(){
+#vmware   npm run lint:fix || return 1
+#vmware   git commit -a --fixup=HEAD
+#vmware   git rebase -i origin --autosquash
+#vmware   PAGER= git log --oneline -10
+#vmware }
 
 #carbon export NPM_CONFIG_PREFIX=$HOME/.npm_global
 #carbon export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
