@@ -87,7 +87,8 @@
 
     ### Text ###
 
-    font = Roboto Mono 10
+#carbon    font = Roboto Mono 10
+#vmware    font = Roboto Mono 8
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
