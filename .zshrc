@@ -216,6 +216,12 @@ function touchd(){
   mkdir -p `dirname "$1"` && touch "$1"
 }
 
+function wall(){
+  sed -i "s|#`hostname` exec_always feh --no-fehbg --bg-fill \(https://unsplash.com/photos/.*\)/download?force=true|#`hostname` exec_always feh --no-fehbg --bg-fill $1/download?force=true|g" $HOME/.files/.config/i3/config
+  source $HOME/.files/.zprofile
+  i3-msg restart
+}
+
 # host-specific config
 
 #vmware export N_PREFIX=$HOME/.n/prefix
