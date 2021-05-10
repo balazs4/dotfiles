@@ -14,7 +14,7 @@ nnoremap <silent> <Leader>[ :noh<CR>
 set ignorecase
 set timeoutlen=400 ttimeoutlen=0
 
-nnoremap <Leader>l :Buffers<CR>
+nnoremap <Leader>l :packadd fzf.vim <bar> :Buffers<CR>
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 nnoremap <Leader>1 :1b<CR>
