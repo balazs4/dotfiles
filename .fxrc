@@ -105,6 +105,6 @@ const find = (predicate) => (level) => {
 //carbon   return videos
 //carbon     .filter(x => x?.videoRenderer?.videoId)
 //carbon     .filter(x=>x)
-//carbon     .map(x => [x.videoRenderer.videoId, x.videoRenderer?.title?.runs[0]?.text].join("\t"))
+//carbon     .map(x => [x.videoRenderer.videoId, x.videoRenderer?.title?.accessibility?.accessibilityData?.label].join("\t"))
 //carbon     .join("\n");
 //carbon }

@@ -346,7 +346,7 @@ function wall(){
 #carbon function yt(){
 #carbon   [[ $# -eq 0 ]] && read stdin
 #carbon   local search=`echo ${stdin:-*} | sed 's/\s/+/g'`
-#carbon   curl -Lfs "https://www.youtube.com/results?search_query=$search" \
+#carbon   curl -Lfs -H 'accept-language: en' "https://www.youtube.com/results?search_query=$search" \
 #carbon     | pup 'script:contains("var ytInitialData") text{}' \
 #carbon     | sed 's/var ytInitialData = //g;s/};/}/' \
 #carbon     | fx youtubevideos \
