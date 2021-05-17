@@ -63,8 +63,8 @@ packadd vim-surround
 "https://github.com/fxn/vim-monochrome
 
 "https://github.com/ayu-theme/ayu-vim
-" set termguicolors
-" colorscheme ayu
-" syntax on
-" let ayucolor="dark"
-"light let ayucolor="light"
+"vmware set termguicolors
+"vmware syntax on
+"vmware let ayucolor="dark"
+"vmware"light let ayucolor="light"
+"vmware colorscheme ayu
