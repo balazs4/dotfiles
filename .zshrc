@@ -104,7 +104,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color'
 alias tree='tree -I node_modules'
 alias :q='exit'
-alias :x='exit'
+alias :q!='exit'
 alias ll='ls -lsh'
 alias rm='rm -i'
 alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map((c,i)=>Math.random()>0.5?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
