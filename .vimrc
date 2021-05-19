@@ -13,6 +13,7 @@ set hlsearch
 nnoremap <silent> <Leader>[ :noh<CR>
 set ignorecase
 set timeoutlen=400 ttimeoutlen=0
+set laststatus=2
 
 nnoremap <Leader>l :packadd fzf.vim <bar> :Buffers<CR>
 nnoremap <Leader>b :bp<CR>
