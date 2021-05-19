@@ -237,12 +237,13 @@ function wall(){
 #vmware alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
 #vmware alias slack='chromium --app="$SLACK_URL"' #webapp
 #vmware alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:4.4.4'
-#vmware function aws(){
+#vmware function awson(){
 #vmware   export AWS_ACCESS_KEY_ID=`pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_ACCESS_KEY_ID | cut -d"=" -f2`
 #vmware   export AWS_SECRET_ACCESS_KEY=`pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_SECRET_ACCESS_KEY | cut -d"=" -f2`
 #vmware   export AWS_DEFAULT_REGION=`pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_DEFAULT_REGION | cut -d"=" -f2`
 #vmware   export AWS_DEFAULT_OUTPUT=`pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_DEFAULT_OUTPUT | cut -d"=" -f2`
-#vmware   /usr/bin/aws $*
+#vmware }
+#vmware function awsoff(){
 #vmware   export AWS_ACCESS_KEY_ID=
 #vmware   export AWS_SECRET_ACCESS_KEY=
 #vmware   export AWS_DEFAULT_REGION=
@@ -288,7 +289,7 @@ function wall(){
 #vmware }
 #vmware 
 #vmware function jira-md(){
-#vmware   curl -u "`pass seal/jira`" -is "$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | alola | fx jira 
+#vmware   curl -u "`pass seal/$JIRA_URL`" -is "https://$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | alola | fx jira 
 #vmware }
 #vmware 
 #vmware function jira(){
@@ -296,7 +297,7 @@ function wall(){
 #vmware }
 #vmware 
 #vmware function rapid(){
-#vmware   curl -u "`pass seal/jira`" -is "$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=$1" | alola | fx rapid
+#vmware   curl -u "`pass seal/$JIRA_URL`" -is "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=$1" | alola | fx rapid
 #vmware }
 #vmware 
 #vmware function sprint(){
@@ -308,7 +309,7 @@ function wall(){
 #vmware   [[ -z "$id" ]] && return
 #vmware   local txt; read txt; 
 #vmware   [[ -z "$txt" ]] && return
-#vmware   curl -u "`pass seal/jira`" -Lis "$JIRA_URL/jira/rest/api/2/issue/$id/comment" -H "Content-Type: application/json" -XPOST -d "{\"body\": \"$txt\" }" \
+#vmware   curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$id/comment" -H "Content-Type: application/json" -XPOST -d "{\"body\": \"$txt\" }" \
 #vmware     -o /dev/null -w "%{http_code}"
 #vmware   jira $id
 #vmware }

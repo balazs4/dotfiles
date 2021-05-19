@@ -17,16 +17,6 @@ set timeoutlen=400 ttimeoutlen=0
 nnoremap <Leader>l :packadd fzf.vim <bar> :Buffers<CR>
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-nnoremap <Leader>0 :10b<CR>
 
 " move
 nnoremap <C-j> :m .+1<CR>==
@@ -34,12 +24,6 @@ nnoremap <C-k> :m .-2<CR>==
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
-"status bar
-set laststatus=2
-set statusline=[%2n]\ %<%F%m%r%h%w\ %=%(%y\ \ %l,%c%V\ %=\ %P%)
-                 hi statusline ctermfg=white ctermbg=black cterm=bold 
-au InsertLeave * hi statusline ctermfg=white ctermbg=black cterm=bold 
-au InsertEnter * hi statusline ctermfg=white ctermbg=blue cterm=bold 
 
 "https://github.com/junegunn/fzf.vim
 nnoremap <C-P> :packadd fzf.vim <bar> :GFiles<CR>
