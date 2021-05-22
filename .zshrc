@@ -69,7 +69,12 @@ function dot(){
   popd > /dev/null
 }
 
-alias dotfiles='git -C "$HOME/.files/"'
+function dotsync(){
+  git -C $HOME/.files commit -am "`date +%s`@`hostname`"
+  git -C $HOME/.files push
+  git -C $HOME/.files pull
+  source $HOME/.files/.zprofile
+}
 
 function dotfile(){
   [[ -e "$HOME/$1" ]] || return

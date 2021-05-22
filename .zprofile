@@ -1,4 +1,5 @@
-PAGER= git -C $HOME/.files diff -p
+git -C $HOME/.files pull || PAGER= git -C $HOME/.files diff -p 
+
 for dotfile in `git -C $HOME/.files ls-files -- ':!:readme.md'`
 do
   mkdir -p `dirname $HOME/$dotfile`
