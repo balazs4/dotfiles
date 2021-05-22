@@ -1,7 +1,7 @@
 syntax off
 nnoremap <silent> <Leader>] :if exists("g:syntax_on") <Bar> syntax off <Bar> else <Bar> syntax on <Bar> endif<CR>
 filetype plugin indent on
-set nowrap
+set wrap
 set noswapfile
 set wildmenu
 set showcmd
