@@ -131,6 +131,10 @@ alias dmesg='sudo dmesg'
 alias cal='LC_ALL=de_DE.utf8 cal'
 alias yay='yay --editmenu'
 
+function rgv(){
+  rg --vimgrep $* | vim -q /dev/stdin
+}
+
 
 function light(){
   MODE=light source $HOME/.zprofile
