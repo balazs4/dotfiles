@@ -28,7 +28,7 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 
 "https://github.com/junegunn/fzf.vim
 nnoremap <C-P> :packadd fzf.vim <bar> :GFiles<CR>
-nnoremap <C-O> :packadd fzf.vim <bar> :Rg!<CR>
+nnoremap <C-O> :packadd fzf.vim <bar> :Rg<CR>
 
 "https://github.com/mattn/emmet-vim
 au FileType javascript packadd emmet-vim
