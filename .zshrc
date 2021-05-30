@@ -231,6 +231,14 @@ function wall(){
   i3-msg restart
 }
 
+function dockeron() {
+  echo "{ \"auths\":{ \"ghcr.io\":{ \"auth\":\"`echo "$USER:$GITHUB_TOKEN" | base64`\"  }}}" > ${DOCKER_CONFIG:-$HOME/.docker/config.json}
+}
+
+function dockeroff() {
+  rm -v ${DOCKER_CONFIG:-$HOME/.docker/config.json}
+}
+
 # host-specific config
 
 #vmware export N_PREFIX=$HOME/.n/prefix
@@ -257,18 +265,6 @@ function wall(){
 #vmware   export AWS_SECRET_ACCESS_KEY=
 #vmware   export AWS_DEFAULT_REGION=
 #vmware   export AWS_DEFAULT_OUTPUT=
-#vmware }
-#vmware 
-#vmware function npmrc(){
-#vmware   if [[ $1 = 'current' ]]
-#vmware   then
-#vmware     cat ~/.npmrc | grep registry= | cut -f3 -d"/"
-#vmware   else
-#vmware     NPMRC_SUFFIX=${1:-`find $HOME -maxdepth 1 -name '.npmrc.*' | fzf --preview 'cat {}' | cut -d "." -f3`}
-#vmware     cp -f ~/.npmrc ~/.npmrc.prev
-#vmware     cp -f ~/.npmrc.$NPMRC_SUFFIX ~/.npmrc
-#vmware     NPM_CONFIG_LOGLEVEL=silent npm cache clean -f
-#vmware   fi
 #vmware }
 #vmware 
 #vmware function checkin() {
