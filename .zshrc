@@ -135,17 +135,22 @@ function rgv(){
   rg --vimgrep $* | vim -q /dev/stdin
 }
 
+# persist MODE between sessions
+#dark export MODE=dark
+#light export MODE=light
 
 function light(){
   MODE=light source $HOME/.zprofile
   source $HOME/.zshrc
   killall -USR1 termite
+  i3-msg restart
 }
 
 function dark(){
   MODE=dark source $HOME/.zprofile
   source $HOME/.zshrc
   killall -USR1 termite
+  i3-msg restart
 }
 
 function radio(){
