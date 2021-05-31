@@ -244,6 +244,21 @@ function dockeroff() {
   rm -v ${DOCKER_CONFIG:-$HOME/.docker/config.json}
 }
 
+function awson(){
+  export AWS_ACCESS_KEY_ID=`    pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_ACCESS_KEY_ID     | cut -d"=" -f2`
+  export AWS_SECRET_ACCESS_KEY=`pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_SECRET_ACCESS_KEY | cut -d"=" -f2`
+  export AWS_DEFAULT_REGION=`   pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_DEFAULT_REGION    | cut -d"=" -f2`
+  export AWS_DEFAULT_OUTPUT=`   pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_DEFAULT_OUTPUT    | cut -d"=" -f2`
+}
+
+function awsoff(){
+  export AWS_ACCESS_KEY_ID=
+  export AWS_SECRET_ACCESS_KEY=
+  export AWS_DEFAULT_REGION=
+  export AWS_DEFAULT_OUTPUT=
+}
+
+
 # host-specific config
 
 #vmware export N_PREFIX=$HOME/.n/prefix
@@ -259,19 +274,6 @@ function dockeroff() {
 #vmware alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
 #vmware alias slack='chromium --app="$SLACK_URL"' #webapp
 #vmware alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:4.4.4'
-#vmware function awson(){
-#vmware   export AWS_ACCESS_KEY_ID=`pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_ACCESS_KEY_ID | cut -d"=" -f2`
-#vmware   export AWS_SECRET_ACCESS_KEY=`pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_SECRET_ACCESS_KEY | cut -d"=" -f2`
-#vmware   export AWS_DEFAULT_REGION=`pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_DEFAULT_REGION | cut -d"=" -f2`
-#vmware   export AWS_DEFAULT_OUTPUT=`pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_DEFAULT_OUTPUT | cut -d"=" -f2`
-#vmware }
-#vmware function awsoff(){
-#vmware   export AWS_ACCESS_KEY_ID=
-#vmware   export AWS_SECRET_ACCESS_KEY=
-#vmware   export AWS_DEFAULT_REGION=
-#vmware   export AWS_DEFAULT_OUTPUT=
-#vmware }
-#vmware 
 #vmware function checkin() {
 #vmware   npm run --silent --prefix=$HOME/src/timesheet checkin `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
 #vmware   git -C $HOME/src/timesheet commit -am '☕ checkin'
