@@ -25,6 +25,8 @@ nnoremap <C-k> :m .-2<CR>==
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
+iabbrev jsonstr JSON.stringify()
+iabbrev inspect console.log(JSON.stringify({},null,2));
 
 "https://github.com/junegunn/fzf.vim
 nnoremap <C-P> :packadd fzf.vim <bar> :GFiles<CR>
@@ -48,8 +50,8 @@ packadd vim-surround
 "https://github.com/fxn/vim-monochrome
 
 "https://github.com/ayu-theme/ayu-vim
-"vmware set termguicolors
-"vmware syntax on
-"vmware let ayucolor="dark"
-"vmware"light let ayucolor="light"
-"vmware colorscheme ayu
+set termguicolors
+syntax on
+let ayucolor="dark"
+"light let ayucolor="light"
+colorscheme ayu
