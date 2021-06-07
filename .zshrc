@@ -258,7 +258,7 @@ function awsoff(){
   export AWS_DEFAULT_OUTPUT=
 }
 
-function eb(){
+function m4(){
   curl -Ls 'https://onlinestream.live/?search=m4' \
     | pup 'a[href^="/play."] attr{href}' \
     | sed 's/amp;//g' \
