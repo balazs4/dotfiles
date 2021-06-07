@@ -258,6 +258,14 @@ function awsoff(){
   export AWS_DEFAULT_OUTPUT=
 }
 
+function eb(){
+  curl -Ls 'https://onlinestream.live/?search=m4' \
+    | pup 'a[href^="/play."] attr{href}' \
+    | sed 's/amp;//g' \
+    | grep 5903 \
+    | xargs -I{} mpv https://onlinestream.live{} --cache-pause-initial=yes --cache-pause=yes
+}
+
 
 # host-specific config
 
