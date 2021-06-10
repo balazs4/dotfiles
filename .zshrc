@@ -321,7 +321,7 @@ function m4(){
 #vmware }
 #vmware 
 #vmware function sprint(){
-#vmware   rapid 131 | fzf -q "'${1:-bv}" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"' | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"
+#vmware   rapid 131 | fzf -q "'${1:-bv}" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"' | cut -f1
 #vmware }
 #vmware 
 #vmware function comment(){
