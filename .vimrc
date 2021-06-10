@@ -16,14 +16,18 @@ set timeoutlen=400 ttimeoutlen=0
 set laststatus=2
 
 nnoremap <Leader>l :packadd fzf.vim <bar> :Buffers<CR>
-nnoremap <Leader>b :bp<CR>
-nnoremap <Leader>f :bn<CR>
+nnoremap <Leader>f :bp<CR>
+nnoremap <Leader>j :bn<CR>
+nnoremap <Leader><Leader> :bn<CR>
 
 " move
 nnoremap <C-j> :m .+1<CR>==
 nnoremap <C-k> :m .-2<CR>==
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
+
+" clipboard
+vnoremap <silent> <Leader>y :'<,'>w !xclip -rmlastnl -selection clipboard<CR>
 
 iabbrev jsonstr JSON.stringify()
 iabbrev inspect console.log(JSON.stringify({},null,2));

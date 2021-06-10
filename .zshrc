@@ -260,10 +260,10 @@ function awsoff(){
 
 function m4(){
   curl -Ls 'https://onlinestream.live/?search=m4' \
-    | pup 'a[href^="/play."] attr{href}' \
+    | pup 'a[href^="/play.m3u8"] attr{href}' \
     | sed 's/amp;//g' \
     | grep 5903 \
-    | xargs -I{} mpv https://onlinestream.live{} --cache-pause-initial=yes --cache-pause=yes
+    | xargs -I{} curl -Ls https://onlinestream.live{} 
 }
 
 
