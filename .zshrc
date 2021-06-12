@@ -261,9 +261,11 @@ function awsoff(){
 function m4(){
   curl -Ls 'https://onlinestream.live/?search=m4' \
     | pup 'a[href^="/play.m3u8"] attr{href}' \
-    | sed 's/amp;//g' \
     | grep 5903 \
-    | xargs -I{} curl -Ls https://onlinestream.live{} 
+    | sed 's/amp;//g' \
+    | xargs -I{} curl -Ls https://onlinestream.live{} \
+    | grep mytvback \
+    | sed 's/stream.m3u8/stream-br1872000.m3u8/g' 
 }
 
 

@@ -27,7 +27,7 @@ vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " clipboard
-vnoremap <silent> <Leader>y :'<,'>w !xclip -rmlastnl -selection clipboard<CR>
+vnoremap <silent> <Leader>y :'<,'>w !xclip -rmlastnl -selection clipboard<CR><CR>
 
 iabbrev jsonstr JSON.stringify()
 iabbrev inspect console.log(JSON.stringify({},null,2));
