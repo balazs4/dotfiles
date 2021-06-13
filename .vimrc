@@ -52,10 +52,13 @@ packadd vim-commentary
 packadd vim-surround
 
 "https://github.com/fxn/vim-monochrome
-
-"https://github.com/ayu-theme/ayu-vim
 set termguicolors
 syntax on
-let ayucolor="dark"
+colorscheme monochrome
+
+"https://github.com/ayu-theme/ayu-vim
+" set termguicolors
+" syntax on
+" let ayucolor="dark"
 "light let ayucolor="light"
-colorscheme ayu
+" colorscheme ayu
