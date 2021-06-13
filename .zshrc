@@ -259,9 +259,11 @@ function awsoff(){
 }
 
 function m4(){
-  curl -Ls 'https://onlinestream.live/play.m3u8?id=5903&ch=6&ext=.m3u8' \
-    | grep -v '#' \
-    | xargs mpv --cache-pause-initial=yes --cache-pause-wait=5 --vid=3 --aid=5
+   mpv 'https://onlinestream.live/play.m3u8?id=5903&ch=6&ext=.m3u8' \
+     --cache-pause-initial=yes \
+     --cache-pause-wait=5 \
+     --vid=3 \
+     --aid=5  
 }
 
 
