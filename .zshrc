@@ -266,7 +266,8 @@ function euro2020(){
         | sed 's/amp;//g' \
         | xargs -I{} curl -Ls 'https://onlinestream.live{}' \
         | grep -v '#' \
-        | xargs mpv --cache-pause-initial=yes --cache-pause-wait=5 --vid=3 --aid=5  
+        | sort -r \
+        | xargs mpv --cache-pause-initial=yes --cache-pause-wait=5 --vid=3 --aid=5
       ;;
 
     ard)
