@@ -258,14 +258,26 @@ function awsoff(){
   export AWS_DEFAULT_OUTPUT=
 }
 
-function m4(){
-   mpv 'https://onlinestream.live/play.m3u8?id=5903&ch=6&ext=.m3u8' \
-     --cache-pause-initial=yes \
-     --cache-pause-wait=5 \
-     --vid=3 \
-     --aid=5  
-}
+function euro2020(){
+  case "$1" in
+    m4)
+      mpv 'https://onlinestream.live/play.m3u8?id=5903&ch=6&ext=.m3u8' \
+        --cache-pause-initial=yes \
+        --cache-pause-wait=5 \
+        --vid=3 \
+        --aid=5  
+      ;;
 
+    ard)
+      mpv 'https://mcdn.daserste.de/daserste/de/master.m3u8'
+      ;;
+
+    zdf)
+      mpv 'http://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8'
+      ;;
+
+  esac
+}
 
 # host-specific config
 
