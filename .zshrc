@@ -261,11 +261,12 @@ function awsoff(){
 function euro2020(){
   case "$1" in
     m4)
-      mpv 'https://onlinestream.live/play.m3u8?id=5903&ch=6&ext=.m3u8' \
-        --cache-pause-initial=yes \
-        --cache-pause-wait=5 \
-        --vid=3 \
-        --aid=5  
+      curl -Ls 'https://onlinestream.live/?search=m4' \
+        | pup 'a[href^="/play.m3u8?id=5903"] attr{href}' \
+        | sed 's/amp;//g' \
+        | xargs -I{} curl -Ls 'https://onlinestream.live{}' \
+        | grep -v '#' \
+        | xargs mpv --cache-pause-initial=yes --cache-pause-wait=5 --vid=3 --aid=5  
       ;;
 
     ard)
