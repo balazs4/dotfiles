@@ -262,20 +262,25 @@ function euro2020(){
   case "$1" in
     m4)
       curl -Ls 'https://onlinestream.live/?search=m4' \
-        | pup 'a[href^="/play.m3u8?id=5903"] attr{href}' \
+        | pup 'a[href^="/play"] attr{href}' \
+        | grep 5903 \
         | sed 's/amp;//g' \
         | xargs -I{} curl -Ls 'https://onlinestream.live{}' \
-        | grep -v '#' \
+        | grep http \
+        | grep -v xspf \
+        | sed -r 's|<location>(.*)</location>|\1|g' \
+        | grep -v node \
         | sort -r \
-        | xargs mpv --cache-pause-initial=yes --cache-pause-wait=5 --vid=3 --aid=5
+        | xargs -L1 mpv --fullscreen
+
       ;;
 
     ard)
-      mpv 'https://mcdn.daserste.de/daserste/de/master.m3u8'
+      mpv --fullscreen 'https://mcdn.daserste.de/daserste/de/master.m3u8'
       ;;
 
     zdf)
-      mpv 'http://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8'
+      mpv --fullscreen 'http://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8'
       ;;
 
   esac
