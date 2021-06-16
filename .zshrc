@@ -41,6 +41,22 @@ function zsh-git() {
   echo " [ $_branch«$_staged«$_changed ]"
 }
 
+zle-keymap-select () {
+  if [ $KEYMAP = vicmd ]; then
+    echo -ne "\033]12;Orange1\007"
+  else
+    echo -ne "\033]12;Magenta1\007"
+  fi
+}
+zle -N zle-keymap-select
+
+zle-line-init () {
+  zle -K viins
+  echo -ne "\033]12;Magenta1\007"
+}
+zle -N zle-line-init
+
+
 setopt PROMPT_SUBST
 PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git) %B%F{white}»%f%b '
 RPROMPT='%(?.%F{white}.%F{red})%?%f'
