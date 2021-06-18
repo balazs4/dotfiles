@@ -285,8 +285,6 @@ function euro2020(){
         | grep http \
         | grep -v xspf \
         | sed -r 's|<location>(.*)</location>|\1|g' \
-        | grep -v connectmedia \
-        | sort -r \
         | fzf \
         | xargs -L1 mpv --fullscreen
       ;;
