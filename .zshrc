@@ -284,17 +284,15 @@ function euro2020(){
         | xargs -I{} curl -Ls 'https://onlinestream.live{}' \
         | grep http \
         | grep -v xspf \
-        | sed -r 's|<location>(.*)</location>|\1|g' \
-        | fzf \
-        | xargs -L1 mpv --fullscreen
+        | sed -r 's|<location>(.*)</location>|\1|g' 
       ;;
 
     ard)
-      mpv --fullscreen 'https://mcdn.daserste.de/daserste/de/master.m3u8'
+      mpv 'https://mcdn.daserste.de/daserste/de/master.m3u8'
       ;;
 
     zdf)
-      mpv --fullscreen 'http://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8'
+      mpv 'http://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8'
       ;;
 
   esac
