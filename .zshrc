@@ -298,14 +298,12 @@ function euro2020(){
   esac
 }
 
-# host-specific config
-
 #vmware export N_PREFIX=$HOME/.n/prefix
 #vmware export PATH=$HOME/.n/:$N_PREFIX/bin/:$HOME/.gem/ruby/2.7.0/bin:${PATH}
 #vmware export RUBYOPT="-W0"  # ruby warnings
 #vmware 
 #vmware alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
-#vmware alias youtube='google-chrome-stable https://youtube.com/' #webapp
+alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware alias whatsapp='chromium --app=https://web.whatsapp.com/' #webapp
 #vmware alias p5="docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml"
 #vmware alias infra="GH_REPO=sealsystems/com-infrastructure gh"
