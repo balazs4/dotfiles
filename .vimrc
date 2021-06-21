@@ -11,13 +11,11 @@ set shiftwidth=2
 set expandtab
 set autoread
 set incsearch
-set hlsearch
-nnoremap <silent> <Leader>[ :noh<CR>
+set nohlsearch
 set ignorecase
 set timeoutlen=400 ttimeoutlen=0
 set laststatus=2
 
-nnoremap <Leader>l :packadd fzf.vim <bar> :Buffers<CR>
 nnoremap <Leader>f :bp<CR>
 nnoremap <Leader>j :bn<CR>
 nnoremap <Leader><Leader> :bn<CR>
@@ -35,8 +33,15 @@ iabbrev jsonstr JSON.stringify()
 iabbrev inspect console.log(JSON.stringify({},null,2));
 
 "https://github.com/junegunn/fzf.vim
-nnoremap <C-P> :packadd fzf.vim <bar> :GFiles<CR>
-nnoremap <C-O> :packadd fzf.vim <bar> :Rg<CR>
+packadd fzf.vim
+nnoremap <Leader>l :Buffers<CR>
+nnoremap <C-p> :GFiles<CR>
+nnoremap <Leader>[ :Rg<CR>
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --hidden --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 
 "https://github.com/mattn/emmet-vim
 au FileType javascript packadd emmet-vim
