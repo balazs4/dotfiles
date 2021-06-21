@@ -4,6 +4,7 @@ filetype plugin indent on
 set wrap
 set noswapfile
 set backup
+set hidden
 set wildmenu
 set showcmd
 set shiftwidth=2
