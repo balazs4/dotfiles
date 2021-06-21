@@ -3,6 +3,7 @@ nnoremap <silent> <Leader>] :if exists("g:syntax_on") <Bar> syntax off <Bar> els
 filetype plugin indent on
 set wrap
 set noswapfile
+set backup
 set wildmenu
 set showcmd
 set shiftwidth=2
