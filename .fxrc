@@ -56,28 +56,21 @@ const find = (predicate) => (level) => {
 //vmware   if (!issue) return 'Not found';
 //vmware   const weburl = issue.self.replace(/\/rest\/api\/.*/, `/browse/${issue.key}`);
 //vmware 
-//vmware   const statusIcon = {
-//vmware     "Open": "☁️",
-//vmware     "Accepted": "📝",
-//vmware     "In Progress": "💻",
-//vmware     "Validation": "👍",
-//vmware     "Resolved": "🥼",
-//vmware     "Closed": "🏁",
-//vmware   }[issue.fields.status.name] || '';
-//vmware 
 //vmware   return `
 //vmware 
 //vmware # JIRA
 //vmware 
 //vmware ## ${issue.key} ${issue.fields.summary} 
 //vmware 
-//vmware [${statusIcon} ${issue.fields.status.name}](${weburl})  
+//vmware [${issue.fields.status.name.toUpperCase()}](${weburl})  
 //vmware 
 //vmware > assignee: ${issue.fields.assignee.displayName} 
 //vmware > reporter: ${issue.fields.reporter.displayName}
 //vmware > labels: ${issue.fields.labels.join(", ")}
 //vmware 
 //vmware ${issue.fields.description ? issue.fields.description.replace(/\(\/\)/g,"✅").replace(/\(x\)/, "❌") : 'no descrtiption'}
+//vmware 
+//vmware ${weburl}
 //vmware   `;
 //vmware }
 //vmware 

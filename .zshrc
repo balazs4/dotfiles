@@ -337,30 +337,30 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware     | cut -f2
 #vmware }
 #vmware 
-#vmware function jira-md(){
-#vmware   curl -u "`pass seal/$JIRA_URL`" -is "https://$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | alola | fx jira 
-#vmware }
-#vmware 
 #vmware function jira(){
-#vmware   jira-md $1 | glow -
-#vmware }
+#vmware   case "$1" in
+#vmware     board)
+#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=131" \
+#vmware         | npx alola \
+#vmware         | npx fx rapid \
+#vmware         | fzf -q "'${2:-bv}" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"' \
+#vmware         | cut -f1
+#vmware       ;;
 #vmware 
-#vmware function rapid(){
-#vmware   curl -u "`pass seal/$JIRA_URL`" -is "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=$1" | alola | fx rapid
-#vmware }
+#vmware     comment)
+#vmware       txt=${3:-`read txt`}
+#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$2/comment" -H "Content-Type: application/json" -XPOST -d "{\"body\": \"$txt\" }"  -o /dev/null -w "%{http_code}"
+#vmware       ;;
 #vmware 
-#vmware function sprint(){
-#vmware   rapid 131 | fzf -q "'${1:-bv}" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"' | cut -f1
-#vmware }
+#vmware     web)
+#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/search?jql=key=$2" | npx alola | npx fx jira | grep $JIRA_URL | tail -1 | xargs xdg-open
+#vmware       ;;
 #vmware 
-#vmware function comment(){
-#vmware   id=$1
-#vmware   [[ -z "$id" ]] && return
-#vmware   local txt; read txt; 
-#vmware   [[ -z "$txt" ]] && return
-#vmware   curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$id/comment" -H "Content-Type: application/json" -XPOST -d "{\"body\": \"$txt\" }" \
-#vmware     -o /dev/null -w "%{http_code}"
-#vmware   jira $id
+#vmware     *)
+#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | npx alola | npx fx jira | glow -
+#vmware       ;;
+#vmware 
+#vmware   esac
 #vmware }
 #vmware 
 #vmware function seal(){
