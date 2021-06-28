@@ -76,6 +76,7 @@ export EDITOR=vim
 export NPM_CONFIG_LOGLEVEL=http
 export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
 export FZF_DEFAULT_OPTS="--sync"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export GPG_TTY=`tty`
 
 function dot(){
