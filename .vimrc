@@ -11,7 +11,7 @@ set shiftwidth=2
 set expandtab
 set autoread
 set incsearch
-set nohlsearch
+set hlsearch
 set ignorecase
 set timeoutlen=400 ttimeoutlen=0
 set laststatus=2
