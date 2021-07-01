@@ -306,7 +306,7 @@ function euro2020(){
 #vmware alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
 alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware alias whatsapp='chromium --app=https://web.whatsapp.com/' #webapp
-#vmware alias p5="docker compose --file $HOME/git/plossys-bundle/docker compose.yml"
+#vmware alias p5="docker compose --file $HOME/git/plossys-bundle/docker-compose.yml"
 #vmware alias infra="GH_REPO=sealsystems/com-infrastructure gh"
 #vmware alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
 #vmware alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
@@ -379,8 +379,8 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware }
 #vmware 
 #vmware function q() {
-#vmware   DOCKER_COMPOSE=`[[ -f $PWD/docker compose.yml ]] && echo "$PWD/docker compose.yml" || echo "$HOME/git/plossys-bundle/docker compose.yml"`
-#vmware   docker compose --file "$DOCKER_COMPOSE" exec db mongo --ssl --sslAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
+#vmware   DOCKER_COMPOSE=`[[ -f $PWD/docker-compose.yml ]] && echo "$PWD/docker-compose.yml" || echo "$HOME/git/plossys-bundle/docker-compose.yml"`
+#vmware   docker compose -f "$DOCKER_COMPOSE" exec db mongo --ssl --sslAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
 #vmware     | sed '0,/server version/d'
 #vmware }
 #vmware 
