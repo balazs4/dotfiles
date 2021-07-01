@@ -1,5 +1,5 @@
 syntax off
-nnoremap <silent> <Leader>] :if exists("g:syntax_on") <Bar> syntax off <Bar> else <Bar> syntax on <Bar> endif<CR>
+nnoremap <silent> <Leader><CR> :if exists("g:syntax_on") <Bar> syntax off <Bar> else <Bar> syntax on <Bar> endif<CR>
 filetype plugin indent on
 set wrap
 set noswapfile
@@ -16,9 +16,8 @@ set ignorecase
 set timeoutlen=400 ttimeoutlen=0
 set laststatus=2
 
-nnoremap <Leader>f :bp<CR>
-nnoremap <Leader>j :bn<CR>
-nnoremap <Leader><Leader> :bn<CR>
+nnoremap <Leader>[ :bp<CR>
+nnoremap <Leader>] :bn<CR>
 
 " move
 nnoremap <C-j> :m .+1<CR>==
@@ -36,7 +35,7 @@ iabbrev inspect console.log(JSON.stringify({},null,2));
 packadd fzf.vim
 nnoremap <Leader>l :Buffers<CR>
 nnoremap <C-p> :GFiles<CR>
-nnoremap <Leader>[ :Rg<CR>
+nnoremap <Leader><Leader> :Rg<CR>
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
