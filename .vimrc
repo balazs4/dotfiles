@@ -29,7 +29,6 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 vnoremap <silent> <Leader>y :'<,'>w !xclip -rmlastnl -selection clipboard<CR><CR>
 
 iabbrev jsonstr JSON.stringify()
-iabbrev inspect console.log(JSON.stringify({},null,2));
 
 "https://github.com/junegunn/fzf.vim
 packadd fzf.vim
