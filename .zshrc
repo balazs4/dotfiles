@@ -278,27 +278,7 @@ function awsoff(){
 }
 
 function euro2020(){
-  case "$1" in
-    m4)
-      curl -Ls 'https://onlinestream.live/?search=m4' \
-        | pup 'a[href^="/play"] attr{href}' \
-        | grep 5903 \
-        | sed 's/amp;//g' \
-        | xargs -I{} curl -Ls 'https://onlinestream.live{}' \
-        | grep http \
-        | grep -v xspf \
-        | sed -r 's|<location>(.*)</location>|\1|g' 
-      ;;
-
-    ard)
-      mpv 'https://mcdn.daserste.de/daserste/de/master.m3u8'
-      ;;
-
-    zdf)
-      mpv 'http://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8'
-      ;;
-
-  esac
+  echo "Forza Azzurri! :flag_it:"
 }
 
 #vmware export N_PREFIX=$HOME/.n/prefix
