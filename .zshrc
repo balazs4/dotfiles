@@ -135,6 +135,8 @@ alias foo='echo bar'
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
 alias mc='mc -b'
 alias ssh='TERM=xterm-256color ssh'
+alias scpignore="scp -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
+alias sshignore="ssh -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
 alias gd='git diff'
 alias gst='git status'
 alias gco='git checkout'
