@@ -6,11 +6,8 @@ aliases:
       id=''
       while true
       do
-        echo "Looking for in_progress run on '$branch'..."
-        id=`gh run list --limit 5 | grep $branch | grep in_progress | head -1 | cut -f7` 
-        [[ -z $id ]] && sleep 3s || break
-        echo "Looking for queued run on '$branch'..."
-        id=`gh run list --limit 5 | grep $branch | grep queued | head -1 | cut -f7` 
+        echo "Looking for 'in_progress' or 'queued' run on '$branch'..."
+        id=`gh run list --limit 5 | grep $branch | grep 'in_progress\|queued' | head -1 | cut -f7` 
         [[ -z $id ]] && sleep 3s || break
       done
       echo $id
