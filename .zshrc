@@ -295,29 +295,27 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware alias slack='chromium --app="$SLACK_URL"' #webapp
 #vmware alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:4.4.4'
 #vmware function checkin() {
-#vmware   npm run --silent --prefix=$HOME/src/timesheet checkin `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
-#vmware   git -C $HOME/src/timesheet commit -am '☕ checkin'
-#vmware   git -C $HOME/src/timesheet push --no-verify
+#vmware   echo "`date -u "+%Y-%m-%d"`\t`date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%T.000Z"`" >> $HOME/src/timesheet/timesheet
+#vmware   PAGER= git -C $HOME/src/timesheet diff -p
+#vmware   #git -C $HOME/src/timesheet commit -am ':coffee: checkin'
+#vmware   #git -C $HOME/src/timesheet push --no-verify
 #vmware }
 #vmware 
 #vmware function checkout(){
-#vmware   npm run --silent --prefix=$HOME/src/timesheet checkout `date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%TZ"`
-#vmware   git -C $HOME/src/timesheet commit -am '🍺 checkout'
-#vmware   git -C $HOME/src/timesheet push --no-verify
-#vmware }
-#vmware 
-#vmware function bcs() {
-#vmware   npm run --silent --prefix=$HOME/src/timesheet start \
-#vmware     | fx 'x => Object.entries(x).map(([day,duration]) => `${day}\t${duration}`).join("\n")' \
-#vmware     | fzf --layout=reverse
+#vmware   sed -i "\$ s/\$/\t`date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%T.000Z"`/" $HOME/src/timesheet/timesheet 
+#vmware   PAGER= git -C $HOME/src/timesheet diff -p
+#vmware   #git -C $HOME/src/timesheet commit -am ':beer: checkout'
+#vmware   #git -C $HOME/src/timesheet push --no-verify
 #vmware }
 #vmware 
 #vmware function fa(){
-#vmware   npm run --silent --prefix=$HOME/src/timesheet start \
-#vmware     | fx 'x => Object.entries(x).map(([day,duration]) => `${day}\t${duration}`).join("\n")' \
-#vmware     | sort \
-#vmware     | tail -1 \
-#vmware     | cut -f2
+#vmware   tail -1 $HOME/src/timesheet/timesheet \
+#vmware     | xargs node -p 'new Date(new Date(process.argv[3]||Date.now()) - new Date(process.argv[2])).toJSON().split("T")[1]'
+#vmware }
+#vmware 
+#vmware function bcs(){
+#vmware    cat $HOME/src/timesheet/timesheet \
+#vmware     | fzf --layout=reverse --preview 'echo {} | xargs node -p "new Date(new Date(process.argv[3]||Date.now()) - new Date(process.argv[2])).toJSON().split(\"T\")[1]"'
 #vmware }
 #vmware 
 #vmware function jira(){
