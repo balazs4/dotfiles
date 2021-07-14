@@ -62,8 +62,8 @@ syntax on
 colorscheme monochrome
 
 "https://github.com/ayu-theme/ayu-vim
-set termguicolors
-syntax on
-let ayucolor="dark"
-"light let ayucolor="light"
-colorscheme ayu
+"set termguicolors
+"syntax on
+"let ayucolor="dark"
+""light let ayucolor="light"
+"colorscheme ayu
