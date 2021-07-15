@@ -88,8 +88,8 @@ function dot(){
 
 function dotsync(){
   git -C $HOME/.files commit -am "`date +%s`@`hostname`"
-  git -C $HOME/.files push
   git -C $HOME/.files pull
+  git -C $HOME/.files push
   source $HOME/.files/.zprofile
 }
 
