@@ -402,7 +402,7 @@ alias blueoff='bluetoothctl power off && sudo systemctl start bluetooth.service 
 function helloworld() {
   curl \
     -H 'accept: application/json'\
-    -H "private-token: $GITLAB_AUTH_TOKEN" \
+    -H "private-token: $GITLAB_TOKEN" \
     https://gitlab.com/api/v4/projects/balazs4%2Flebenslauf/issues/40/notes -Lisk \
     | npx -q alola \
     | npx -q fx  'x => x.body.map(xx => xx.body).join("\n")'
