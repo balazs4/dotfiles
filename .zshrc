@@ -407,3 +407,8 @@ function helloworld() {
     | npx -q alola \
     | npx -q fx  'x => x.body.map(xx => xx.body).join("\n")'
 }
+
+function piserver(){
+  curl -Lis http://piserver:180/admin/api.php | npx alola | npx fx .
+  curl -Lis http://piserver/uptime
+}
