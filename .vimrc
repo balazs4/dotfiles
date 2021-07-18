@@ -35,6 +35,7 @@ packadd fzf.vim
 nnoremap <Leader>l :Buffers<CR>
 nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader><Leader> :Rg<CR>
+nnoremap <Leader>t :Rg <C-r>=
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
