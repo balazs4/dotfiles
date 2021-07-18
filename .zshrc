@@ -296,14 +296,14 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:4.4.4'
 #vmware function checkin() {
 #vmware   echo "`date -u "+%Y-%m-%d"`\t`date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%T.000Z"`" >> $HOME/src/timesheet/timesheet
-#vmware   git -C $HOME/src/timesheet diff -p
+#vmware   PAGER= git -C $HOME/src/timesheet diff -p
 #vmware   git -C $HOME/src/timesheet commit -am ':coffee: checkin'
 #vmware   git -C $HOME/src/timesheet push --no-verify
 #vmware }
 #vmware 
 #vmware function checkout(){
 #vmware   sed -i "\$ s/\$/\t`date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%T.000Z"`/" $HOME/src/timesheet/timesheet 
-#vmware   git -C $HOME/src/timesheet diff -p
+#vmware   PAGER= git -C $HOME/src/timesheet diff -p
 #vmware   git -C $HOME/src/timesheet commit -am ':beer: checkout'
 #vmware   git -C $HOME/src/timesheet push --no-verify
 #vmware }
