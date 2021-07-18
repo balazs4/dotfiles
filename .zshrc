@@ -409,6 +409,6 @@ function helloworld() {
 }
 
 function piserver(){
-  curl -Lis http://piserver:180/admin/api.php | npx alola | npx fx .
-  curl -Lis http://piserver/uptime
+  curl -Lis http://192.168.178.42:180/admin/api.php | npx alola | npx fx .
+  curl -Lis http://192.168.178.42/uptime
 }
