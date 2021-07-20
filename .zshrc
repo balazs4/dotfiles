@@ -360,8 +360,8 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware 
 #vmware function q() {
 #vmware   DOCKER_COMPOSE=`[[ -f $PWD/docker-compose.yml ]] && echo "$PWD/docker-compose.yml" || echo "$HOME/git/plossys-bundle/docker-compose.yml"`
-#vmware   docker compose -f "$DOCKER_COMPOSE" exec db mongo --ssl --sslAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
-#vmware     | sed '0,/server version/d'
+#vmware   docker compose -f "$DOCKER_COMPOSE" exec db mongo --tls --tlsAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
+#vmware     | sed '0,/MongoDB server version: 4.4.4/d'
 #vmware }
 #vmware 
 #vmware function fixup(){
