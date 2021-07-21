@@ -1,5 +1,5 @@
 HISTFILE=~/.zsh_history
-HISTSIZE=50000
+HISTSIZE=100000
 SAVEHIST=10000
 setopt appendhistory     #Append history to the history file (no overwriting)
 setopt sharehistory      #Share history across terminals
