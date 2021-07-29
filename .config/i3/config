@@ -104,5 +104,5 @@ for_window [instance="teams.microsoft.com*"] scratchpad show
 
 #vmware exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/JkJ2zXzoEx0/download?force=true
 
-#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/Ny0C6Iwou40/download?force=true&w=1920
+#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/k1bO_VTiZSs/download?force=true&w=1920
 #carbon exec_always sudo hda-verb /dev/snd/hwC0D0 0x1d SET_PIN_WIDGET_CONTROL 0x0
