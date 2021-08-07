@@ -42,10 +42,18 @@ function zsh-git() {
 }
 
 setopt PROMPT_SUBST
-PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git) %B%F{white}»%f%b '
-RPROMPT='%(?.%F{white}.%F{red})%?%f'
+
+function zle-line-init zle-keymap-select {
+  PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git) %B%F{white}»%f%b '
+  RPROMPT="%(?.%F{white}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
 #light PROMPT='%B%F{black} ▲ %~%f%b$(zsh-git) %B%F{black}»%f%b '
-#light RPROMPT='%(?.%F{black}.%F{red})%?%f'
+#light RPROMPT="%(?.%F{black}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
+  zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+export KEYTIMEOUT=1
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 [[ -r "/usr/share/fzf/completion.zsh" ]] && source /usr/share/fzf/completion.zsh
@@ -131,6 +139,7 @@ alias rg='rg --hidden'
 alias dmesg='sudo dmesg'
 alias cal='LC_ALL=de_DE.utf8 cal'
 alias yay='yay --editmenu'
+alias srv='npx -y https://gist.github.com/balazs4/35efa8495fba2dc8fc52e56de9baf562'
 
 function rgv(){
   rg --vimgrep $* | vim -q /dev/stdin
