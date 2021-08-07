@@ -69,7 +69,7 @@ RPROMPT='%(?.%F{white}.%F{red})%?%f'
 [[ -r "/usr/share/fzf/key-bindings.zsh" ]] && source /usr/share/fzf/key-bindings.zsh
 
 export LANG=en_US.UTF-8
-export TERMINAL=termite
+export TERMINAL=alacritty
 export TERM=xterm-256color
 export BROWSER=chromium
 export EDITOR=vim
@@ -121,7 +121,6 @@ alias vimrc="dot .vimrc"
 alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -s 'http://wttr.in/91085?format=3'"
 alias xx='xclip -rmlastnl -selection clipboard'
-alias v=vim
 alias ls='ls --color=auto'
 alias grep='grep --color'
 alias tree='tree -I node_modules'

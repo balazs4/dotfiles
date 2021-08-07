@@ -85,8 +85,8 @@ for_window [class="^.*"] border pixel 1
 focus_on_window_activation focus
 
 smart_gaps on
-gaps inner 2
-gaps outer 2
+gaps inner 1
+gaps outer 1
 
 bindsym $mod+space exec pkill -SIGRTMIN+2 i3blocks
 bindsym $mod+a exec i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 

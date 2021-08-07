@@ -9,7 +9,7 @@ super + c
   $BROWSER
 
 super + Return
-  termite
+  $TERMINAL
 
 super + d
   dmenu_run -i -sb "#777777"
