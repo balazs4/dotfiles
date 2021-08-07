@@ -44,21 +44,8 @@ function zsh-git() {
 setopt PROMPT_SUBST
 PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git) %B%F{white}»%f%b '
 RPROMPT='%(?.%F{white}.%F{red})%?%f'
-
 #light PROMPT='%B%F{black} ▲ %~%f%b$(zsh-git) %B%F{black}»%f%b '
 #light RPROMPT='%(?.%F{black}.%F{red})%?%f'
-
-zle-keymap-select () {
-  if [ $KEYMAP = vicmd ]; then
-    RPROMPT='%F{white}--NORMAL--%f'
-#light RPROMPT='%F{black}--NORMAL--%f'
-  else
-    RPROMPT='%(?.%F{white}.%F{red})%?%f'
-#light RPROMPT='%(?.%F{black}.%F{red})%?%f'
-  fi
-  zle reset-prompt
-}
-zle -N zle-keymap-select
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 [[ -r "/usr/share/fzf/completion.zsh" ]] && source /usr/share/fzf/completion.zsh
