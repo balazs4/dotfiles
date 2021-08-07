@@ -67,4 +67,4 @@ colorscheme monochrome
 "syntax on
 "let ayucolor="dark"
 ""light let ayucolor="light"
-"colorscheme ayu
+""light colorscheme ayu

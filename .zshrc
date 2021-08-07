@@ -33,9 +33,9 @@ function zsh-git() {
   local __notpushed=`PAGER= git diff --name-only origin/$__branch..HEAD 2>/dev/null | wc -l`
 
   local _branch=`[[ __notpushed -eq 0 ]] && echo %F{white}$__branch%f || echo %F{yellow}$__branch%f`
-  #light local _branch=`[[ __notpushed -eq 0 ]] && echo $__branch || echo %F{yellow}$__branch%f`
+#light local _branch=`[[ __notpushed -eq 0 ]] && echo $__branch || echo %F{yellow}$__branch%f`
   local _staged=`[[ __staged -eq 0 ]] && echo $__staged || echo %B%F{green}$__staged%f%b`
-  #light local _staged=`[[ __staged -eq 0 ]] && echo $__staged || echo %B%F{blue}$__staged%f%b`
+#light local _staged=`[[ __staged -eq 0 ]] && echo $__staged || echo %B%F{blue}$__staged%f%b`
   local _changed=`[[ __changed -eq 0 ]] && echo $__changed || echo %B%F{red}$__changed%f%b`
 
   echo " [ $_branch«$_staged«$_changed ]"
@@ -51,10 +51,10 @@ RPROMPT='%(?.%F{white}.%F{red})%?%f'
 zle-keymap-select () {
   if [ $KEYMAP = vicmd ]; then
     RPROMPT='%F{white}--NORMAL--%f'
-    #light RPROMPT='%F{black}--NORMAL--%f'
+#light RPROMPT='%F{black}--NORMAL--%f'
   else
     RPROMPT='%(?.%F{white}.%F{red})%?%f'
-    #light RPROMPT='%(?.%F{black}.%F{red})%?%f'
+#light RPROMPT='%(?.%F{black}.%F{red})%?%f'
   fi
   zle reset-prompt
 }
@@ -156,14 +156,12 @@ function rgv(){
 function light(){
   MODE=light source $HOME/.zprofile
   source $HOME/.zshrc
-  killall -USR1 termite
   i3-msg restart
 }
 
 function dark(){
   MODE=dark source $HOME/.zprofile
   source $HOME/.zshrc
-  killall -USR1 termite
   i3-msg restart
 }
 

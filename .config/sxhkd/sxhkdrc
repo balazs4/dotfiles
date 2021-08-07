@@ -18,10 +18,10 @@ super + shift + d
   zsh -i -c `cat ~/.zshrc | grep -e ^alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#f81ce5"`
 
 super + grave
-  termite --name=todos -e 'zsh -i -c "todos edit"' 
+  alacritty --class=todos --command zsh -i -c "todos edit"
 
 super + x
-  termite --name=emojis -e 'zsh -i -c "emojis"' 
+  alacritty --class=emojis --command zsh -i -c "emojis" 
 
 super + {Next,Prior,Control_R}
   playerctl {next,previous,play-pause}
