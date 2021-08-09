@@ -40,15 +40,15 @@ function zsh-git() {
   local _changed=`[[ __changed -eq 0 ]] && echo $__changed || echo %B%F{red}$__changed%f%b`
   local _newfiles=`[[ __newfiles -eq 0 ]] && echo $__newfiles || echo %B%F{red}$__newfiles%f%b`
 
-  echo " [ $_branch«$_staged«$_changed«$_newfiles ] "
+  echo " [ $_branch«$_staged«$_changed«$_newfiles ]"
 }
 
 setopt PROMPT_SUBST
 
 function zle-line-init zle-keymap-select {
-  PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git)%B%F{white}»%f%b '
+  PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git) %B%F{white}»%f%b '
   RPROMPT="%(?.%F{white}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
-#light PROMPT='%B%F{black} ▲ %~%f%b$(zsh-git)%B%F{black}»%f%b '
+#light PROMPT='%B%F{black} ▲ %~%f%b$(zsh-git) %B%F{black}»%f%b '
 #light RPROMPT="%(?.%F{black}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
   zle reset-prompt
 }
