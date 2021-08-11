@@ -377,8 +377,19 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #carbon     | xargs -Iwatch mpv $MPV https://youtu.be/watch
 #carbon }
 #carbon alias yta="MPV='--no-video' yt"
-alias blueon='sudo systemctl start bluetooth.service && bluetoothctl power on && bluetoothctl connect 17:50:01:B0:02:71;pkill -SIGRTMIN+1 i3blocks'
-alias blueoff='bluetoothctl power off && sudo systemctl start bluetooth.service; pkill -SIGRTMIN+1 i3blocks'
+function blue() {
+  if [[ "$1" == "off" ]]
+  then
+    bluetoothctl power off
+    sudo systemctl stop bluetooth.service
+  else
+    sudo systemctl start bluetooth.service
+    bluetoothctl power on
+    device=`bluetoothctl devices | fzf -q ${1:-""} | cut -d" " -f2`
+    bluetoothctl connect $device
+  fi
+  pkill -SIGRTMIN+1 i3blocks
+}
 #carbon alias vercel='npx -q vercel -t $VERCEL_TOKEN'
 #carbon alias vc='npx -q vercel -t $VERCEL_TOKEN'
 #carbon alias now='npx -q vercel -t $VERCEL_TOKEN'
