@@ -401,16 +401,14 @@ function blue() {
 #carbon alias google='google-chrome-stable --user-data-dir=$HOME/.config/webapp/google'
 #carbon alias teams='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft365 https://teams.microsoft.com'
 
-function helloworld() {
-  curl \
-    -H 'accept: application/json'\
-    -H "private-token: $GITLAB_TOKEN" \
-    https://gitlab.com/api/v4/projects/balazs4%2Flebenslauf/issues/40/notes -Lisk \
-    | npx -q alola \
-    | npx -q fx  'x => x.body.map(xx => xx.body).join("\n")'
-}
-
 function piserver(){
   curl -Lis http://192.168.178.42:180/admin/api.php | npx alola | npx fx .
   curl -Lis http://192.168.178.42/uptime
+}
+
+
+function testjob {
+  bytes=`expr 1024 \* 1024 \* ${1:-1}`
+  printer=${2:-printer1}
+  rlpr -Hlocalhost -P$printer --verbose <<< `cat /dev/urandom | base64 | head -c $bytes`
 }
