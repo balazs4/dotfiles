@@ -415,3 +415,7 @@ function testjob {
   printer=${2:-printer1}
   rlpr -Hlocalhost -P$printer --verbose <<< `cat /dev/urandom | base64 | head -c $bytes`
 }
+
+function repeatjob {
+  p5 exec rest curl -Lisk -u'x:y' "https://localhost:8080/v3/jobs/$1/repeat" -XPUT
+}
