@@ -180,7 +180,7 @@ function dw(){
 }
 
 function todos(){
-  gh gist ${*:-view} ${GITHUB_GIST_TODOS:-`gh gist list | grep .todos | cut -f1`}
+  gh gist ${*:-view} ${GITHUB_GIST_TODOS}
 }
 
 function emojis(){
