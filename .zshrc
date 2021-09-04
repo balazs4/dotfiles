@@ -418,3 +418,7 @@ function testjob {
 function repeatjob {
   p5 exec rest curl -Lisk -u'x:y' "https://localhost:8080/v3/jobs/$1/repeat" -XPUT
 }
+
+function qrdecode {
+  shotgun `hacksaw -f "-i %i -g %g"` - | zbarimg -q --raw -
+}
