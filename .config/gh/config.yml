@@ -66,3 +66,20 @@ aliases:
           }
         }
         " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.url, xx.node.title, xx.node.reviews.nodes.map(xxx => `${xxx.state} by ${xxx.author.login}`).join(",")].join("\t")).join("\n")' | sort -r
+
+
+  topic: >-
+    !gh api graphql -f query="
+    {
+      search(query: \"topic:${1:-type-node-service}\", type: REPOSITORY, first: 100) {
+        repositoryCount,
+        edges{
+          node{
+            ... on Repository {
+              name
+            }
+          }
+        }
+      }
+    }
+    "
