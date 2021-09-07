@@ -409,11 +409,11 @@ function piserver(){
 #carbon }
 
 
-function testjob {
-  bytes=`expr 1024 \* 1024 \* ${1:-1}`
-  printer=${2:-printer1}
-  rlpr -Hlocalhost -P$printer --verbose <<< `cat /dev/urandom | base64 | head -c $bytes`
-}
+#vmware function testjob {
+#vmware   bytes=`expr 1024 \* 1024 \* ${1:-1}`
+#vmware   printer=${2:-printer1}
+#vmware   rlpr -Hlocalhost -P$printer --verbose <<< `cat /dev/urandom | base64 | head -c $bytes`
+#vmware }
 
 function qrdecode {
   shotgun `hacksaw -f "-i %i -g %g"` - | zbarimg -q --raw -
