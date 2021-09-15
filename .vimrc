@@ -68,3 +68,8 @@ colorscheme monochrome
 "let ayucolor="dark"
 ""light let ayucolor="light"
 ""light colorscheme ayu
+
+"https://github.com/mrdotb/vim-tailwindcss
+nnoremap <silent> <leader>x :packadd vim-tailwindcss <bar> :set completefunc=tailwind#complete<cr> 
+autocmd CompleteDone * pclose
+
