@@ -28,8 +28,6 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 " clipboard
 vnoremap <silent> <Leader>y :'<,'>w !xclip -rmlastnl -selection clipboard<CR><CR>
 
-iabbrev jsonstr JSON.stringify()
-
 "https://github.com/junegunn/fzf.vim
 packadd fzf.vim
 nnoremap <Leader>l :Buffers<CR>
@@ -59,9 +57,9 @@ packadd vim-commentary
 packadd vim-surround
 
 "https://github.com/fxn/vim-monochrome
-set termguicolors
-syntax on
-colorscheme monochrome
+" set termguicolors
+" syntax on
+" colorscheme monochrome
 
 "https://github.com/ayu-theme/ayu-vim
 "set termguicolors
@@ -74,3 +72,9 @@ colorscheme monochrome
 nnoremap <silent> <leader>x :packadd vim-tailwindcss <bar> :set completefunc=tailwind#complete<cr> 
 autocmd CompleteDone * pclose
 
+"https://github.com/morhetz/gruvbox
+set termguicolors
+syntax on
+colorscheme gruvbox
+"dark set background=dark
+"light set background=light
