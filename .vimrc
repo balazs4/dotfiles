@@ -33,9 +33,9 @@ iabbrev jsonstr JSON.stringify()
 "https://github.com/junegunn/fzf.vim
 packadd fzf.vim
 nnoremap <Leader>l :Buffers<CR>
-nnoremap <C-p> :GFiles<CR>
+nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <Leader>o :GFiles<CR>
-nnoremap <Leader>O :GFiles<CR>
+nnoremap <Leader>O :Files<CR>
 nnoremap <Leader><Leader> :Rg<CR>
 "vmware nnoremap <Leader>t :Rg <C-r>%<Del><Del><Del>
 
