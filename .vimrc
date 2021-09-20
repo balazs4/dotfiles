@@ -35,7 +35,7 @@ packadd fzf.vim
 nnoremap <Leader>l :Buffers<CR>
 nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader><Leader> :Rg<CR>
-nnoremap <Leader>t :Rg <C-r>%<Del><Del><Del>
+"vmware nnoremap <Leader>t :Rg <C-r>%<Del><Del><Del>
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
