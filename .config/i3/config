@@ -63,13 +63,13 @@ bar {
   position top
   colors {
     statusline #AAAAAA
-#light     statusline #000000
     background #333333
-#light     background #DDDDDD
     focused_workspace #282828 #282828 #FFFFFF
-#light     focused_workspace #000000 #000000 #FFFFFF
     inactive_workspace #333333 #333333 #AAAAAA
-#light     inactive_workspace #DDDDDD #DDDDDD #000000
+#light     statusline #839496
+#light     background #fdf6e3
+#light     focused_workspace #eee8d5 #eee8d5 #839496
+#light     inactive_workspace #fdf6e3 #fdf6e3 #839496
   }
 }
 
