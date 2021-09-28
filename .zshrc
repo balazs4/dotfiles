@@ -143,10 +143,6 @@ alias cal='LC_ALL=de_DE.utf8 cal'
 alias yay='yay --editmenu'
 alias srv='npx -y https://gist.github.com/balazs4/35efa8495fba2dc8fc52e56de9baf562'
 
-function rgv(){
-  rg --vimgrep $* | vim -q /dev/stdin
-}
-
 # persist MODE between sessions
 #dark export MODE=dark
 #light export MODE=light
