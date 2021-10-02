@@ -61,13 +61,6 @@ packadd vim-surround
 " syntax on
 " colorscheme monochrome
 
-"https://github.com/ayu-theme/ayu-vim
-"set termguicolors
-"syntax on
-"let ayucolor="dark"
-""light let ayucolor="light"
-""light colorscheme ayu
-
 "https://github.com/mrdotb/vim-tailwindcss
 nnoremap <silent> <leader>x :packadd vim-tailwindcss <bar> :set completefunc=tailwind#complete<cr> 
 autocmd CompleteDone * pclose
@@ -76,5 +69,11 @@ autocmd CompleteDone * pclose
 set termguicolors
 syntax on
 colorscheme gruvbox
+let g:gruvbox_guisp_fallback = 'bg'
 "dark set background=dark
 "light set background=light
+
+"https://github.com/neoclide/coc.nvim --branch=release
+au BufNewFile,BufRead *.ts setlocal filetype=typescript
+au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
+au FileType typescript packadd coc.nvim
