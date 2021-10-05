@@ -6,7 +6,7 @@ global.i3windows = (json) => {
     return [
       item.id,
       parent.name,
-      item.window_properties.class.padEnd(24, ' '),
+      item.window_properties.instance,
       item.window_properties.title,
     ].join("  ");
   };

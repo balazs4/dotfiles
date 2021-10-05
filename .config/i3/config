@@ -88,9 +88,6 @@ smart_gaps on
 gaps inner 2
 gaps outer 2
 
-bindsym $mod+space exec pkill -SIGRTMIN+2 i3blocks
-bindsym $mod+a exec i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 
-
 bindsym $mod+shift+grave scratchpad show
 for_window [instance="temp_terminal"] move scratchpad
 for_window [instance="temp_terminal"] scratchpad show

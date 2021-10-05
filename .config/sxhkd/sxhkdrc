@@ -26,6 +26,9 @@ super + x
 super + {Next,Prior,Control_R}
   playerctl {next,previous,play-pause}
 
+super + a
+  i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 
+
 #carbon super + l
 #carbon   sudo systemctl suspend
 
