@@ -195,8 +195,8 @@ function record(){
 }
 
 function re(){
-  docker compose rm -sf $1
-  docker compose up $1
+  docker-compose rm -sf $1
+  docker-compose up $1
 }
 
 function co(){
@@ -271,7 +271,7 @@ function awsoff(){
 #vmware alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
 alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware alias whatsapp='chromium --app=https://web.whatsapp.com/' #webapp
-#vmware alias p5="docker compose --file $HOME/git/plossys-bundle/docker-compose.yml"
+#vmware alias p5="docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml"
 #vmware alias infra="GH_REPO=sealsystems/com-infrastructure gh"
 #vmware alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
 #vmware alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
@@ -342,7 +342,7 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware }
 #vmware 
 #vmware function q() {
-#vmware   docker compose -f "$HOME/git/plossys-bundle/docker-compose.yml" exec db mongo --tls --tlsAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
+#vmware   docker-compose -f "$HOME/git/plossys-bundle/docker-compose.yml" exec db mongo --tls --tlsAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
 #vmware     | sed '0,/MongoDB server version: 4.4.4/d'
 #vmware }
 #vmware 
