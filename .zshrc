@@ -264,8 +264,7 @@ function awsoff(){
   export AWS_DEFAULT_OUTPUT=
 }
 
-#vmware export N_PREFIX=$HOME/.n/prefix
-#vmware export PATH=$HOME/.n/:$N_PREFIX/bin/:$HOME/.gem/ruby/2.7.0/bin:${PATH}
+#vmware export PATH=$HOME/.n/:$HOME/.n/prefix/bin/:$HOME/.gem/ruby/2.7.0/bin:${PATH}
 #vmware export RUBYOPT="-W0"  # ruby warnings
 #vmware 
 #vmware alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
@@ -420,3 +419,9 @@ function wallomat {
   mpv "https://www.youtube.com/watch?v=$1&t=$2" --no-audio --frames=1 -o /tmp/mpv.png
   feh --no-fehbg --bg-fill /tmp/mpv.png
 }
+
+
+#vmware function sealnode {
+#vmware   curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/generator-seal-node/master/lib/constants.js" | grep "NODE_VERSION" | cut -f2 -d"'" | xargs -t n install
+#vmware   node -v; npm -v
+#vmware }
