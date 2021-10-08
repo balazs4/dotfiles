@@ -423,5 +423,6 @@ function wallomat {
 
 #vmware function sealnode {
 #vmware   curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/generator-seal-node/master/lib/constants.js" | grep "NODE_VERSION" | cut -f2 -d"'" | xargs -t n install
-#vmware   node -v; npm -v
+#vmware   node -v
+#vmware   npm -v
 #vmware }
