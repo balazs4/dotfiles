@@ -5,8 +5,8 @@ global.i3windows = (json) => {
     if (item.window_type !== "normal") return null;
     return [
       item.id,
-      parent.name,
-      item.window_properties.instance,
+      parent.name.padStart(2, ' '),
+      item.window_properties.instance.padEnd(16, ' '),
       item.window_properties.title,
     ].join("  ");
   };

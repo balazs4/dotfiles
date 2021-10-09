@@ -63,6 +63,13 @@ colors:
 #light     white:   '0xfdf6e3'
 
 ## custom
+window:
+  title: alacritty
+  dynamic_title: true
+  class:
+    instance: alacritty
+    general: alacritty
+
 font:
   normal:
     family: Source Code Pro 

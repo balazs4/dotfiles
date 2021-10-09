@@ -56,6 +56,7 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
+preexec() { print -Pn "\e]0;$1 $PWD\a" }
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 [[ -r "/usr/share/fzf/completion.zsh" ]] && source /usr/share/fzf/completion.zsh

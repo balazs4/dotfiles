@@ -15,6 +15,7 @@ set hlsearch
 set ignorecase
 set timeoutlen=400 ttimeoutlen=0
 set laststatus=2
+set title
 
 nnoremap <Leader>[ :bp<CR>
 nnoremap <Leader>] :bn<CR>
