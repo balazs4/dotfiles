@@ -12,6 +12,8 @@
 #carbon xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Tapping Enabled' 1
 #carbon xinput set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' 0.0
 #carbon xbacklight \=20
+#carbon sudo hda-verb /dev/snd/hwC0D0 0x1d SET_PIN_WIDGET_CONTROL 0x0
+#carbon sudo iw wlan0 set power_save off
 
 xrdb -merge $HOME/.Xresources
 xset r rate 250 100
