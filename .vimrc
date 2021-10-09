@@ -66,7 +66,7 @@ packadd vim-surround
 nnoremap <silent> <leader>x :packadd vim-tailwindcss <bar> :set completefunc=tailwind#complete<cr> 
 autocmd CompleteDone * pclose
 
-"https://github.com/morhetz/gruvbox
+"https://github.com/gruvbox-community/gruvbox
 set termguicolors
 syntax on
 colorscheme gruvbox
