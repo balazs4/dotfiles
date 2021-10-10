@@ -109,7 +109,7 @@ function vimplug(){
       | xargs -L1 git clone --depth 1
   popd
 }
-
+alias v="vim -C ':GFiles'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
 alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
