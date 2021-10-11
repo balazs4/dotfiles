@@ -16,6 +16,8 @@ set ignorecase
 set timeoutlen=400 ttimeoutlen=0
 set laststatus=2
 set title
+set number
+set rnu
 
 nnoremap <Leader>[ :bp<CR>
 nnoremap <Leader>] :bn<CR>
@@ -28,6 +30,9 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " clipboard
 vnoremap <silent> <Leader>y :'<,'>w !xclip -rmlastnl -selection clipboard<CR><CR>
+
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 "https://github.com/junegunn/fzf.vim
 packadd fzf.vim
