@@ -265,6 +265,7 @@ function awsoff(){
   export AWS_DEFAULT_OUTPUT=
 }
 
+#vmware export N_PREFIX=$HOME/.n/prefix
 #vmware export PATH=$HOME/.n/:$HOME/.n/prefix/bin/:$HOME/.gem/ruby/2.7.0/bin:${PATH}
 #vmware export RUBYOPT="-W0"  # ruby warnings
 #vmware 
