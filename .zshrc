@@ -376,7 +376,7 @@ function blue() {
   else
     sudo systemctl start bluetooth.service
     bluetoothctl power on
-    device=`bluetoothctl devices | fzf -q ${1:-""} | cut -d" " -f2`
+    device=`bluetoothctl devices | fzf -1 -q ${1:-""} | cut -d" " -f2`
     bluetoothctl connect $device
   fi
   pkill -SIGRTMIN+1 i3blocks
