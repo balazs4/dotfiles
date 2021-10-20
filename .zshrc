@@ -433,82 +433,19 @@ function wallomat {
 alias feedback="npx onchange -i -k './**/*.js' -- npm run test"
 
 function ide() {
-  echo '
-  {
-      "border": "pixel",
-      "current_border_width": 1,
-      "floating": "auto_off",
-      "geometry": {
-         "height": 600,
-         "width": 800,
-         "x": 0,
-         "y": 0
-      },
-      "marks": [],
-      "name": "vim",
-      "percent": 0.6,
-      "swallows": [
-         {
-         "instance": "^alacritty$"
-         }
-      ],
-      "type": "con"
-  }
+  PROJECT=${2:-`basename $PWD`}
+  tmux new-session -s $PROJECT -d
+  # setup layout
+  tmux split-window -h -d
+  tmux select-pane -t "${PROJECT}:1.2"
+  tmux split-window -v -d
+  tmux select-pane -t "${PROJECT}:1.3"
 
-  {
-      "border": "normal",
-      "floating": "auto_off",
-      "layout": "splitv",
-      "marks": [],
-      "percent": 0.4,
-      "type": "con",
-      "nodes": [
-          {
-              "border": "pixel",
-              "current_border_width": 1,
-              "floating": "auto_off",
-              "geometry": {
-                 "height": 600,
-                 "width": 800,
-                 "x": 0,
-                 "y": 0
-              },
-              "marks": [],
-              "name": "feedback",
-              "percent": 0.7,
-              "swallows": [
-                 {
-                  "instance": "^alacritty$"
-                 }
-              ],
-              "type": "con"
-          },
-          {
-              "border": "pixel",
-              "current_border_width": 1,
-              "floating": "auto_off",
-              "geometry": {
-                 "height": 600,
-                 "width": 800,
-                 "x": 0,
-                 "y": 0
-              },
-              "marks": [],
-              "name": "git",
-              "percent": 0.3,
-              "swallows": [
-                 {
-                 "instance": "^alacritty$"
-                 }
-              ],
-              "type": "con"
-          }
-      ]
-  }
-  ' > /tmp/ide.json
-  i3-msg "workspace ${1:-4}; append_layout /tmp/ide.json" > /dev/null
-  (sleep 0s;alacritty --working-directory $PWD --command zsh -i -c 'v; zsh -i') &
-  (sleep 1s;alacritty --working-directory $PWD --command zsh -i -c 'feedback; zsh -i') &
-  (sleep 2s;alacritty --working-directory $PWD --command zsh -i -c 'gst; zsh -i') &
+  tmux send-keys -t "${PROJECT}:1.1" 'v' Enter
+  tmux send-keys -t "${PROJECT}:1.2" "npm run ${1:-dev}" Enter
+  tmux send-keys -t "${PROJECT}:1.3" 'gst' Enter
+
+  tmux select-pane -t "${PROJECT}:1.1"
+  tmux attach-session -t $PROJECT
 }
 
