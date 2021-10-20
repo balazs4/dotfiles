@@ -1,3 +1,4 @@
+[[ `env | grep TMUX | wc -l` -gt 0 ]] && return
 PAGER= git -C $HOME/.files diff -p 
 for dotfile in `git -C $HOME/.files ls-files -- ':!:readme.md'`
 do
