@@ -433,7 +433,7 @@ function wallomat {
 alias feedback="npx onchange -i -k './**/*.js' -- npm run test"
 
 function ide() {
-  PROJECT=${2:-`basename $PWD`}
+  PROJECT=`basename $PWD`
   tmux new-session -s $PROJECT -d
   # setup layout
   tmux split-window -h -d
@@ -441,9 +441,9 @@ function ide() {
   tmux split-window -v -d
   tmux select-pane -t "${PROJECT}:1.3"
 
-  tmux send-keys -t "${PROJECT}:1.1" 'v' Enter
-  tmux send-keys -t "${PROJECT}:1.2" "npm run ${1:-dev}" Enter
-  tmux send-keys -t "${PROJECT}:1.3" 'gst' Enter
+  tmux send-keys -t "${PROJECT}:1.1" "v" Enter
+  tmux send-keys -t "${PROJECT}:1.2" "feedback" Enter
+  tmux send-keys -t "${PROJECT}:1.3" "gst" Enter
 
   tmux select-pane -t "${PROJECT}:1.1"
   tmux attach-session -t $PROJECT
