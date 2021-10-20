@@ -2,4 +2,4 @@
 
 #vmware [ -f "$PWD/package.json" ] || exit 0;
 #vmware echo "$0 >> npm run lint --silent --if-present"
-#vmware npm run lint --silent --if-present
+#vmware npm run lint --silent --if-present || dunsitfy "[FAILED] pre-push" "$PWD"

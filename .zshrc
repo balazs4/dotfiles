@@ -445,6 +445,9 @@ function ide() {
   tmux send-keys -t "${PROJECT}:1.2" "feedback" Enter
   tmux send-keys -t "${PROJECT}:1.3" "gst" Enter
 
+  tmux resize-pane -t "${PROJECT}:1.1" -R 24
+  tmux resize-pane -t "${PROJECT}:1.2" -D 8
+
   tmux select-pane -t "${PROJECT}:1.1"
   tmux attach-session -t $PROJECT
 }
