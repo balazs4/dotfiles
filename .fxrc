@@ -86,18 +86,18 @@ const find = (predicate) => (level) => {
 //vmware   return issues.map(i => ({...i, project: i.key.split("-")[0]})).sort(by()).map(issue => [issue.key.padEnd(8, " "), issue.statusName.padEnd(12, " "), issue.assignee.padEnd(8, " "), issue.summary, issue.epicField ? `#${issue.epicField.text}` : '#epicless' ].join("\t") ).join("\n");
 //vmware }
 
-//carbon global.youtubevideos = json => {
-//carbon   const findarrays = (obj) => {
-//carbon     if (obj.length) return obj;
-//carbon     return Object.values(obj).map(child => findarrays(child)).flat();
-//carbon   }
-//carbon   const arrays = findarrays(json).flat();
-//carbon   if (arrays === null || arrays === undefined) return undefined;
-//carbon   const videos = arrays.find(x => x?.itemSectionRenderer?.contents.find(xx => xx?.videoRenderer))?.itemSectionRenderer?.contents;
-//carbon   if (videos === null || videos === undefined) return undefined;
-//carbon   return videos
-//carbon     .filter(x => x?.videoRenderer?.videoId)
-//carbon     .filter(x=>x)
-//carbon     .map(x => [x.videoRenderer.videoId, x.videoRenderer?.title?.accessibility?.accessibilityData?.label].join("\t"))
-//carbon     .join("\n");
-//carbon }
+global.youtubevideos = json => {
+  const findarrays = (obj) => {
+    if (obj.length) return obj;
+    return Object.values(obj).map(child => findarrays(child)).flat();
+  }
+  const arrays = findarrays(json).flat();
+  if (arrays === null || arrays === undefined) return undefined;
+  const videos = arrays.find(x => x?.itemSectionRenderer?.contents.find(xx => xx?.videoRenderer))?.itemSectionRenderer?.contents;
+  if (videos === null || videos === undefined) return undefined;
+  return videos
+    .filter(x => x?.videoRenderer?.videoId)
+    .filter(x=>x)
+    .map(x => [x.videoRenderer.videoId, x.videoRenderer?.title?.accessibility?.accessibilityData?.label].join("\t"))
+    .join("\n");
+}

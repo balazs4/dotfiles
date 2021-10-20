@@ -355,19 +355,20 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 
 #carbon export NPM_CONFIG_PREFIX=$HOME/.npm_global
 #carbon export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
-#carbon 
-#carbon function yt(){
-#carbon   [[ $# -eq 0 ]] && read stdin
-#carbon   local search=`echo ${stdin:-*} | sed 's/\s/+/g'`
-#carbon   curl -Lfs -H 'accept-language: en' "https://www.youtube.com/results?search_query=$search" \
-#carbon     | pup 'script:contains("var ytInitialData") text{}' \
-#carbon     | sed 's/var ytInitialData = //g;s/};/}/' \
-#carbon     | fx youtubevideos \
-#carbon     | fzf \
-#carbon     | cut -f1 \
-#carbon     | xargs -Iwatch mpv $MPV https://youtu.be/watch
-#carbon }
-#carbon alias yta="MPV='--no-video' yt"
+
+function yt(){
+  [[ $# -eq 0 ]] && read stdin
+  local search=`echo ${stdin:-*} | sed 's/\s/+/g'`
+  curl -Lfs -H 'accept-language: en' "https://www.youtube.com/results?search_query=$search" \
+    | pup 'script:contains("var ytInitialData") text{}' \
+    | sed 's/var ytInitialData = //g;s/};/}/' \
+    | fx youtubevideos \
+    | fzf \
+    | cut -f1 \
+    | xargs -Iwatch mpv $MPV https://youtu.be/watch
+}
+alias yta="MPV='--no-video' yt"
+
 function blue() {
   if [[ "$1" == "off" ]]
   then
