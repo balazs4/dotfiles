@@ -58,7 +58,11 @@ zle -N zle-keymap-select
 export KEYTIMEOUT=1
 preexec() { print -Pn "\e]0;$1 $PWD\a" }
 
-[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+function z() {
+  to=`find $HOME -maxdepth 2 -type d | fzf -q "'${*:-}" -1`
+  [[ ! -z $to ]] && cd $to
+}
+
 [[ -r "/usr/share/fzf/completion.zsh" ]] && source /usr/share/fzf/completion.zsh
 [[ -r "/usr/share/fzf/key-bindings.zsh" ]] && source /usr/share/fzf/key-bindings.zsh
 
@@ -443,7 +447,7 @@ function ide() {
 
   tmux send-keys -t "${PROJECT}:1.1" "v" Enter
   tmux send-keys -t "${PROJECT}:1.2" "feedback" Enter
-  tmux send-keys -t "${PROJECT}:1.3" "gst" Enter
+  tmux send-keys -t "${PROJECT}:1.3" "PAGER= gd; gst" Enter
 
   tmux resize-pane -t "${PROJECT}:1.1" -R 24
   tmux resize-pane -t "${PROJECT}:1.2" -D 8

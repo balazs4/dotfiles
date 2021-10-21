@@ -19,8 +19,9 @@ set title
 set number
 set rnu
 set foldmethod=manual
+
 " https://stackoverflow.com/questions/2816719/clear-certain-criteria-from-viminfo-file
-set viminfo='0,:0,<0,@0
+" set viminfo='0,:0,<0,@0
 
 nnoremap <Leader>[ :bp<CR>
 nnoremap <Leader>] :bn<CR>
