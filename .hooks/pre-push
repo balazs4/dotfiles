@@ -1,5 +1,15 @@
 #! /bin/bash
 
-#vmware [ -f "$PWD/package.json" ] || exit 0;
-#vmware echo "$0 >> npm run lint --silent --if-present"
-#vmware npm run lint --silent --if-present 
+[ -f "$PWD/package.json" ] || exit 0;
+echo "$0 >> npm run lint --silent --if-present"
+npm run lint --silent --if-present 
+exitcode=$?
+if [[ $exitcode -eq 0 ]]
+then
+  [[ -f /tmp/eslint-00ff33.svg ]] || `curl -Lks https://cdn.svgporn.com/logos/eslint.svg | sed "s/#4B32C3/#00ff33/g;s/#8080F2/#00ff33/g" > /tmp/eslint-00ff33.svg`
+  dunstify -I /tmp/eslint-00ff33.svg "$PWD" "eslint-passed"
+else
+  [[ -f /tmp/eslint-ff4747.svg ]] || `curl -Lks https://cdn.svgporn.com/logos/eslint.svg | sed "s/#4B32C3/#ff4747/g;s/#8080F2/#ff4747/g" > /tmp/eslint-ff4747.svg`
+  dunstify -I /tmp/eslint-ff4747.svg "$PWD" "eslint-failed"
+fi
+exit $exitcode
