@@ -65,7 +65,7 @@ aliases:
             }
           }
         }
-        " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.url, xx.node.title, xx.node.reviews.nodes.map(xxx => `${xxx.state} by ${xxx.author.login}`).join(",")].join("\t")).join("\n")' | sort -r
+        " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.url, xx.node.title, xx.node.reviews.nodes.map(xxx => [xxx.author.login,xxx.state].join(":")).join(",")].join("\t")).join("\n")' | sort -r
 
 
   topic: >-
