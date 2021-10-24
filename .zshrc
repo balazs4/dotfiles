@@ -59,7 +59,7 @@ export KEYTIMEOUT=1
 preexec() { print -Pn "\e]0;$1 $PWD\a" }
 
 function z() {
-  to=`find $HOME -maxdepth 2 -type d | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
+  to=`find $HOME -maxdepth 2 -type d -not -path "$HOME/.cache*" | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
   [[ ! -z $to ]] && cd $to
 }
 
