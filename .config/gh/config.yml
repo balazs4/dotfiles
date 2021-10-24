@@ -26,7 +26,7 @@ aliases:
   review: >-
     !gh api graphql -f query="
         {
-          search(query: \"type:pr state:open review-requested:${1:-$USER}\", type: ISSUE, first: 100) {
+          search(query: \"type:pr state:open -author:comgit review-requested:${1:-$USER}\", type: ISSUE, first: 10) {
             edges {
               node {
                 ... on PullRequest {
