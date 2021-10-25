@@ -56,7 +56,7 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
-preexec() { print -Pn "\e]0;$1 $PWD\a" }
+preexec() { print -Pn "\e]0;$1 $PWD\a" 2>/dev/null }
 
 function z() {
   to=`find $HOME -maxdepth 2 -type d -not -path "$HOME/.cache*" | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
