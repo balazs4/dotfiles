@@ -80,5 +80,6 @@ set termguicolors
 syntax on
 colorscheme gruvbox
 let g:gruvbox_guisp_fallback = 'bg'
+let g:gruvbox_contrast_dark = 'hard'
 "dark set background=dark
 "light set background=light
