@@ -305,31 +305,31 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware     | fzf --layout=reverse --preview 'echo {} | xargs node -p "new Date(new Date(process.argv[3]||Date.now()) - new Date(process.argv[2])).toJSON().split(\"T\")[1]"'
 #vmware }
 #vmware 
-#vmware function jira(){
-#vmware   case "$1" in
-#vmware     board)
-#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=131" \
-#vmware         | npx alola \
-#vmware         | npx fx rapid \
-#vmware         | fzf -q "'${2:-bv}" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"' \
-#vmware         | cut -f1
-#vmware       ;;
-#vmware 
-#vmware     comment)
-#vmware       txt=${3:-`read txt`}
-#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$2/comment" -H "Content-Type: application/json" -XPOST -d "{\"body\": \"$txt\" }"  -o /dev/null -w "%{http_code}"
-#vmware       ;;
-#vmware 
-#vmware     web)
-#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/search?jql=key=$2" | npx alola | npx fx jira | grep $JIRA_URL | tail -1 | xargs xdg-open
-#vmware       ;;
-#vmware 
-#vmware     *)
-#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | npx alola | npx fx jira | glow -
-#vmware       ;;
-#vmware 
-#vmware   esac
-#vmware }
+function jira(){
+  case "$1" in
+    board)
+      shift
+      curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=131" \
+        | npx alola \
+        | npx fx rapid \
+        | fzf -q "'${1:-bv}" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"' \
+        | cut -f1 \
+        | xargs -Iid zsh -c "source ~/.zshrc; jira id"
+      ;;
+
+    comment)
+      NODE_PATH=$HOME/.n/prefix/lib/node_modules node -p "JSON.stringify({body: require('jira2md').to_jira(require('fs').readFileSync(process.stdin.fd, 'utf-8'))})" \
+        | xargs -t
+        # | xargs -t -I{} curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d "{}"  -o /dev/null -w "%{http_code}"
+
+      ;;
+
+    *)
+      curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | npx alola | npx fx jira | glow -
+      ;;
+
+  esac
+}
 #vmware 
 #vmware function seal(){
 #vmware   case "$1" in
@@ -447,7 +447,7 @@ function ide() {
 
   tmux send-keys -t "${PROJECT}:1.1" "v" Enter
   tmux send-keys -t "${PROJECT}:1.2" "feedback" Enter
-  tmux send-keys -t "${PROJECT}:1.3" "PAGER= gd; gst" Enter
+  tmux send-keys -t "${PROJECT}:1.3" "PAGER= gd; PAGER= git log -n 2" Enter
 
   tmux resize-pane -t "${PROJECT}:1.1" -R 24
   tmux resize-pane -t "${PROJECT}:1.2" -D 8
