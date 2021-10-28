@@ -445,9 +445,9 @@ function ide() {
   tmux split-window -v -d
   tmux select-pane -t "${PROJECT}:1.3"
 
-  tmux send-keys -t "${PROJECT}:1.1" "v" Enter
-  tmux send-keys -t "${PROJECT}:1.2" "feedback" Enter
-  tmux send-keys -t "${PROJECT}:1.3" "PAGER= gd; PAGER= git log -n 2" Enter
+  tmux send-keys -t "${PROJECT}:1.1" "vim -c ':GFiles' " Enter
+  tmux send-keys -t "${PROJECT}:1.2" "$*" Enter
+  tmux send-keys -t "${PROJECT}:1.3" "PAGER= git log -n 2" Enter
 
   tmux resize-pane -t "${PROJECT}:1.1" -R 24
   tmux resize-pane -t "${PROJECT}:1.2" -D 8

@@ -29,28 +29,6 @@ const find = (predicate) => (level) => {
   return found;
 };
 
-//vmware global.slack = (json) => {
-//vmware   const predicate = (node) => node.window_type === 'normal' && /slack/gi.test(node.window_properties.title);
-//vmware   const found = find(predicate)(json);
-//vmware   if (found === null) return '';
-//vmware   const title = found.window_properties.title;
-//vmware   const [name, , , notification = null] = title.split('|').map((x) => x.trim());
-//vmware   const txt = notification === null ? name : notification;
-//vmware   return `<span ${notification !== null ? 'background="#ddd" color="#222" font-weight="bold"' : ''}>${txt}</span>`;
-//vmware };
-//vmware 
-//vmware global.teams = (json) => {
-//vmware   const predicate = (node) => node.window_type === 'normal' && /Teams/gi.test(node.window_properties.title);
-//vmware   const found = find(predicate)(json);
-//vmware   if (found === null) return '';
-//vmware   const title = found.window_properties.title;
-//vmware   const [status, app] = title.split('|').map((x) => x.trim());
-//vmware   const [count] = status.match(/\(\d+\)/) || [null];
-//vmware   return count === null
-//vmware     ? `<span>${app}</span>`
-//vmware     : `<span background="#ddd" color="#222" font-weight="bold">${count} ${app}</span>`;
-//vmware };
-//vmware 
 //vmware global.jira = json => {
 //vmware   const [ issue ] = json.body.issues;
 //vmware   if (!issue) return 'Not found';
