@@ -95,3 +95,12 @@ colorscheme ambiance
 "https://github.com/AhmedAbdulrahman/aylin.vim
 
 "https://github.com/YorickPeterse/vim-paper
+
+"https://github.com/rakr/vim-one
+set termguicolors
+syntax on
+colorscheme one
+
+"https://github.com/davidosomething/vim-colors-meh
+
+"https://github.com/cormacrelf/vim-colors-github
