@@ -76,10 +76,26 @@ nnoremap <silent> <leader>x :packadd vim-tailwindcss <bar> :set completefunc=tai
 autocmd CompleteDone * pclose
 
 "https://github.com/gruvbox-community/gruvbox
-set termguicolors
-syntax on
-colorscheme gruvbox
-let g:gruvbox_guisp_fallback = 'bg'
-let g:gruvbox_contrast_dark = 'hard'
+" set termguicolors
+" syntax on
+" colorscheme gruvbox
+" let g:gruvbox_guisp_fallback = 'bg'
+" let g:gruvbox_contrast_dark = 'hard'
 "dark set background=dark
 "light set background=light
+
+"https://github.com/ayu-theme/ayu-vim
+" set termguicolors
+" syntax on
+" colorscheme ayu
+"dark let ayucolor="dark"
+"light let ayucolor="light"
+
+"https://github.com/romannmk/ambiance-vim
+set termguicolors
+syntax on
+colorscheme ambiance
+
+"https://github.com/AhmedAbdulrahman/aylin.vim
+
+"https://github.com/YorickPeterse/vim-paper
