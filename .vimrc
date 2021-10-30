@@ -98,6 +98,11 @@ colorscheme ambiance
 
 "https://github.com/rakr/vim-one
 
-"https://github.com/davidosomething/vim-colors-meh
-
 "https://github.com/cormacrelf/vim-colors-github
+
+"https://github.com/junegunn/goyo.vim
+packadd goyo.vim
+
+"https://github.com/junegunn/limelight.vim
+packadd limelight.vim
+
