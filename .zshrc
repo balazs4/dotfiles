@@ -112,6 +112,14 @@ function vimplug(){
   cat $HOME/.vimrc | grep github | sed 's/"//g' | xargs -L1 git clone --depth 1
   popd
 }
+
+function nvimrc(){
+  pushd $HOME/.files > /dev/null
+    nvim ./.config/nvim/init.vim
+    source $PWD/.zprofile
+  popd > /dev/null
+}
+
 alias v="vim -c ':GFiles'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"

@@ -13,7 +13,7 @@ Plug 'romannmk/ambiance-vim'
 Plug 'arzg/vim-colors-xcode'
 call plug#end()
 
-colorscheme xcodedark
+colorscheme xcodedarkhc
 
 " Plug 'mattn/emmet-vim'
 au FileType javascript packadd emmet-vim
