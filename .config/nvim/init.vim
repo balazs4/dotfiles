@@ -4,6 +4,11 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+
 Plug 'prettier/vim-prettier'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-commentary'
@@ -28,16 +33,28 @@ let g:user_emmet_leader_key='<C-z>'
 " Plug 'prettier/vim-prettier'
 nmap <Leader>p :PrettierAsync<CR>
 
-" Plug 'neovim/nvim-lspconfig'
 lua <<EOF
-  require('lspconfig').tsserver.setup{}
+local cmp = require'cmp'
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' }
+  })
+})
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+require('lspconfig').tsserver.setup{capabilities = capabilities}
 EOF
 
 " Plug 'nvim-telescope/telescope.nvim'
 nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <leader><leader> <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>/ <cmd>Telescope lsp_definitions<cr>
 
 filetype plugin indent on
 set wrap
