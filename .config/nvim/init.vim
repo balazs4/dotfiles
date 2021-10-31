@@ -42,7 +42,7 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 filetype plugin indent on
 set wrap
 set noswapfile
-set backup
+set nobackup
 set hidden
 set wildmenu
 set showcmd
