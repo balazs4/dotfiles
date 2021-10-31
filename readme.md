@@ -1,4 +1,4 @@
-# opinionated dotfiles
+# host-specific opinionated dotfiles
 
 :warning: use it at your own risk :warning:
 

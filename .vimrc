@@ -58,18 +58,16 @@ let g:jsx_ext_require = 0
 let g:user_emmet_leader_key='<C-z>'
 
 "https://github.com/prettier/vim-prettier
-nmap <Leader>p :packadd vim-prettier <bar> :PrettierAsync<CR>
+au FileType javascript packadd vim-prettier
+au FileType html packadd vim-prettier
+au FileType markdown packadd vim-prettier
+nmap <Leader>p :PrettierAsync<CR>
 
 "https://github.com/tpope/vim-commentary
 packadd vim-commentary
 
 "https://github.com/tpope/vim-surround
 packadd vim-surround
-
-"https://github.com/fxn/vim-monochrome
-" set termguicolors
-" syntax on
-" colorscheme monochrome
 
 "https://github.com/gruvbox-community/gruvbox
 " set termguicolors
@@ -91,10 +89,6 @@ packadd vim-surround
 set termguicolors
 syntax on
 colorscheme ambiance
-
-"https://github.com/AhmedAbdulrahman/aylin.vim
-
-"https://github.com/YorickPeterse/vim-paper
 
 "https://github.com/rakr/vim-one
 
