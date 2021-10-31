@@ -16,13 +16,11 @@ call plug#end()
 colorscheme xcodedarkhc
 
 " Plug 'mattn/emmet-vim'
-au FileType javascript packadd emmet-vim
-au FileType html packadd emmet-vim
 let g:jsx_ext_require = 0
 let g:user_emmet_leader_key='<C-z>'
 
 " Plug 'prettier/vim-prettier'
-nmap <Leader>p :packadd vim-prettier <bar> :PrettierAsync<CR>
+nmap <Leader>p :PrettierAsync<CR>
 
 " Plug 'nvim-telescope/telescope.nvim'
 lua <<EOF
