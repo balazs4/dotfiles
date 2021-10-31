@@ -2,7 +2,7 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter'
 
 Plug 'prettier/vim-prettier'
 Plug 'mattn/emmet-vim'
@@ -10,10 +10,16 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
 Plug 'romannmk/ambiance-vim'
-Plug 'arzg/vim-colors-xcode'
+Plug 'gruvbox-community/gruvbox'
+Plug 'Shatur/neovim-ayu'
 call plug#end()
 
-colorscheme xcodedarkhc
+set background=dark
+colorscheme ayu-mirage
+
+" colorscheme gruvbox
+" let g:gruvbox_guisp_fallback = 'bg'
+" let g:gruvbox_contrast_dark = 'hard'
 
 " Plug 'mattn/emmet-vim'
 let g:jsx_ext_require = 0
@@ -22,7 +28,7 @@ let g:user_emmet_leader_key='<C-z>'
 " Plug 'prettier/vim-prettier'
 nmap <Leader>p :PrettierAsync<CR>
 
-" Plug 'nvim-telescope/telescope.nvim'
+" Plug 'neovim/nvim-lspconfig'
 lua <<EOF
   require('lspconfig').tsserver.setup{}
 EOF
