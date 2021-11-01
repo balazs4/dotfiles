@@ -448,21 +448,17 @@ alias feedback="npx onchange -i -k './**/*.js' -- npm run test"
 
 function ide() {
   PROJECT=`basename $PWD`
+
   tmux new-session -s $PROJECT -d
-  # setup layout
-  tmux split-window -h -d
-  tmux select-pane -t "${PROJECT}:1.2"
-  tmux split-window -v -d
-  tmux select-pane -t "${PROJECT}:1.3"
+  tmux send-keys -t "${PROJECT}:1.1" "vim -c ':GFiles'" Enter
 
-  tmux send-keys -t "${PROJECT}:1.1" "vim -c ':GFiles' " Enter
-  tmux send-keys -t "${PROJECT}:1.2" "$*" Enter
-  tmux send-keys -t "${PROJECT}:1.3" "PAGER= git log -n 2" Enter
+  tmux new-window -t "${PROJECT}"
+  tmux send-keys -t "${PROJECT}:2.1" "$*" Enter
 
-  tmux resize-pane -t "${PROJECT}:1.1" -R 24
-  tmux resize-pane -t "${PROJECT}:1.2" -D 8
+  tmux new-window -t "${PROJECT}"
+  tmux send-keys -t "${PROJECT}:3.1" "PAGER= git log -n 2" Enter
 
-  tmux select-pane -t "${PROJECT}:1.1"
+  tmux select-window -t "${PROJECT}:1.1"
   tmux attach-session -t $PROJECT
 }
 
