@@ -315,31 +315,31 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware     | fzf --layout=reverse --preview 'echo {} | xargs node -p "new Date(new Date(process.argv[3]||Date.now()) - new Date(process.argv[2])).toJSON().split(\"T\")[1]"'
 #vmware }
 #vmware 
-#vware function jira(){
-#vware   case "$1" in
-#vware     board)
-#vware       shift
-#vware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=131" \
-#vware         | npx alola \
-#vware         | npx fx rapid \
-#vware         | fzf -q "'${1:-bv}" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"' \
-#vware         | cut -f1 \
-#vware         | xargs -Iid zsh -c "source ~/.zshrc; jira id"
-#vware       ;;
-#vware 
-#vware     comment)
-#vware       NODE_PATH=$HOME/.n/prefix/lib/node_modules node -p "JSON.stringify({body: require('jira2md').to_jira(require('fs').readFileSync(process.stdin.fd, 'utf-8'))})" \
-#vware         | xargs -t
-#vware         # | xargs -t -I{} curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d "{}"  -o /dev/null -w "%{http_code}"
-#vware 
-#vware       ;;
-#vware 
-#vware     *)
-#vware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | npx alola | npx fx jira | glow -
-#vware       ;;
-#vware 
-#vware   esac
-#vware }
+#vmware function jira(){
+#vmware   case "$1" in
+#vmware     board)
+#vmware       shift
+#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=131" \
+#vmware         | npx alola \
+#vmware         | npx fx rapid \
+#vmware         | fzf -q "'${1:-bv}" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"' \
+#vmware         | cut -f1 \
+#vmware         | xargs -Iid zsh -c "source ~/.zshrc; jira id"
+#vmware       ;;
+#vmware 
+#vmware     comment)
+#vmware       NODE_PATH=$HOME/.n/prefix/lib/node_modules node -p "JSON.stringify({body: require('jira2md').to_jira(require('fs').readFileSync(process.stdin.fd, 'utf-8'))})" \
+#vmware         | xargs -t
+#vmware         # | xargs -t -I{} curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d "{}"  -o /dev/null -w "%{http_code}"
+#vmware 
+#vmware       ;;
+#vmware 
+#vmware     *)
+#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | npx alola | npx fx jira | glow -
+#vmware       ;;
+#vmware 
+#vmware   esac
+#vmware }
 #vmware 
 #vmware function seal(){
 #vmware   case "$1" in
