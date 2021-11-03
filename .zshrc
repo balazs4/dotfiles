@@ -157,6 +157,10 @@ alias yay='yay --editmenu'
 alias srv='npx -y https://gist.github.com/balazs4/35efa8495fba2dc8fc52e56de9baf562'
 alias md=glow
 
+function cs(){
+  curl -Lis cht.sh${*}
+}
+
 # persist MODE between sessions
 #dark export MODE=dark
 #light export MODE=light
