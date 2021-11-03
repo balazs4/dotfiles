@@ -453,10 +453,7 @@ function ide() {
   tmux send-keys -t "${PROJECT}:1.1" "vim -c ':GFiles'" Enter
 
   tmux new-window -t "${PROJECT}"
-  tmux send-keys -t "${PROJECT}:2.1" "$*" Enter
-
-  tmux new-window -t "${PROJECT}"
-  tmux send-keys -t "${PROJECT}:3.1" "PAGER= git log -n 2" Enter
+  tmux send-keys -t "${PROJECT}:2.1" "${*:- git log -p}" Enter
 
   tmux select-window -t "${PROJECT}:1.1"
   tmux attach-session -t $PROJECT
