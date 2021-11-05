@@ -29,6 +29,9 @@ super + {Next,Prior,Control_R}
 super + a
   i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 
 
+super + u
+  tmux capture-pane -p | grep -oP '(((http|https|ftp|gopher)|mailto):(//)?[^ <>"\t]*|(www|ftp)[0-9]?\.[-a-z0-9.]+)[^ .,;\t\n\r<">\):]?[^, <>"\t]*[^ .,;\t\n\r<">\):]' | sort | uniq | dmenu | xargs xdg-open > /dev/null
+
 #carbon super + l
 #carbon   sudo systemctl suspend
 
