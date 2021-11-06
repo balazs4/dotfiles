@@ -193,6 +193,11 @@ function dw(){
   echo $url
 }
 
+function www(){
+  curl -s "$1" | w3m -dump -T text/html 
+  echo $1
+}
+
 function todos(){
   gh gist ${*:-view} ${GITHUB_GIST_TODOS}
 }
