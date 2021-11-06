@@ -79,7 +79,7 @@ export GPG_TTY=`tty`
 
 function dot(){
   pushd $HOME/.files > /dev/null
-    vim ${1:-$PWD}
+    [[ $1 ]] && vim $1 || v
     source $PWD/.zprofile
   popd > /dev/null
 }
@@ -208,8 +208,8 @@ function emojis(){
   echo $e | cut -d" " -f2 | xclip -rmlastnl -selection clipboard
 }
 
-alias song='playerctl metadata title | EDITOR="tee -a" gh gist edit `gh gist list | grep songs | cut -f1`'
-alias songs='gh gist view `gh gist list | grep songs | cut -f1` -f songs'
+alias song='playerctl metadata title | EDITOR="tee -a" gh gist edit $GITHUB_GIST_SONGS'
+alias songs='gh gist view $GITHUB_GIST_SONGS -f songs'
 
 function record(){
   FILENAME=${1:-/tmp/`date "+%Y%m%d_%H%M%S"`.mp4}
@@ -250,8 +250,9 @@ function remind(){
   CONTENT="$*"
 
   echo "
-    echo \"$CONTENT @ \`date\`\" > /tmp/remind
+    echo \"$CONTENT\" > /tmp/remind
     pkill -SIGRTMIN+4 i3blocks
+    dunstify \"\`date\`\" \"$CONTENT\"
   " | at $TIME
 }
 
