@@ -79,7 +79,7 @@ export GPG_TTY=`tty`
 
 function dot(){
   pushd $HOME/.files > /dev/null
-    [[ $1 ]] && vim $1 || v
+    [[ $1 ]] && vim $1 || vim -c ':GFiles'
     source $PWD/.zprofile
   popd > /dev/null
 }
