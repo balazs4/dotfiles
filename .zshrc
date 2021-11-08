@@ -121,7 +121,6 @@ function nvimrc(){
 }
 
 alias v="vim -c ':GFiles'"
-alias n="nvim -c ':Telescope find_files'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
 alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
