@@ -73,7 +73,6 @@ export BROWSER=chromium
 export EDITOR=vim
 export NPM_CONFIG_LOGLEVEL=http
 export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
-export FZF_DEFAULT_OPTS="--sync"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export GPG_TTY=`tty`
 
@@ -181,7 +180,7 @@ function radio(){
   curl http://opml.radiotime.com/Search.ashx\?query\=$term -s \
     | npx -q -p fast-xml-parser xml2js \
     | fx 'xx => xx.opml.body.outline.filter(x => x["@_item"] === "station").map(x=>[ x["@_URL"], x["@_reliability"], x["@_text"], x["@_subtext"] ].join("\t")).join("\n")' \
-    | fzf \
+    | fzf --sync \
     | cut -f1 \
     | mpv --playlist=-
 }
@@ -300,30 +299,6 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
 #vmware alias slack='chromium --app="$SLACK_URL"' #webapp
 #vmware alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:4.4.4'
-#vmware function checkin() {
-#vmware   echo "`date -u "+%Y-%m-%d"`\t`date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%T.000Z"`" >> $HOME/src/timesheet/timesheet
-#vmware   PAGER= git -C $HOME/src/timesheet diff -p
-#vmware   git -C $HOME/src/timesheet commit -am ':coffee: checkin'
-#vmware   git -C $HOME/src/timesheet push --no-verify
-#vmware }
-#vmware 
-#vmware function checkout(){
-#vmware   sed -i "\$ s/\$/\t`date -d "${*:-0 minutes ago}" -u "+%Y-%m-%dT%T.000Z"`/" $HOME/src/timesheet/timesheet 
-#vmware   PAGER= git -C $HOME/src/timesheet diff -p
-#vmware   git -C $HOME/src/timesheet commit -am ':beer: checkout'
-#vmware   git -C $HOME/src/timesheet push --no-verify
-#vmware }
-#vmware 
-#vmware function fa(){
-#vmware   tail -1 $HOME/src/timesheet/timesheet \
-#vmware     | xargs node -p 'new Date(new Date(process.argv[3]||Date.now()) - new Date(process.argv[2])).toJSON().split("T")[1]'
-#vmware }
-#vmware 
-#vmware function bcs(){
-#vmware    cat $HOME/src/timesheet/timesheet \
-#vmware     | fzf --layout=reverse --preview 'echo {} | xargs node -p "new Date(new Date(process.argv[3]||Date.now()) - new Date(process.argv[2])).toJSON().split(\"T\")[1]"'
-#vmware }
-#vmware 
 #vmware function jira(){
 #vmware   case "$1" in
 #vmware     board)
