@@ -336,7 +336,7 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware       ;;
 #vmware 
 #vmware   esac
-}
+#vmware }
 #vmware 
 #vmware function seal(){
 #vmware   case "$1" in
@@ -405,8 +405,9 @@ function blue() {
 #carbon alias teams='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft365 https://teams.microsoft.com'
 
 function piserver(){
-  curl -Lis http://192.168.178.42:180/admin/api.php | npx alola | npx fx .
-  curl -Lis http://192.168.178.42/uptime
+  curl -Lis http://192.168.178.42:180/admin/api.php | ALOLA_REPORT=text npx alola \
+    'status should be 200' \
+    'headers.x-pi-hole should be The Pi-hole Web interface is working!'
 }
 
 #carbon function helloworld(){
