@@ -294,7 +294,7 @@ function awsoff(){
 alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware alias whatsapp='chromium --app=https://web.whatsapp.com/' #webapp
 #vmware alias p5="docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml"
-#vmware alias infra="GH_REPO=sealsystems/com-infrastructure gh"
+#vmware alias infra="GH_REPO=sealsystems/com-infrastructure gh issues"
 #vmware alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
 #vmware alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
 #vmware alias slack='chromium --app="$SLACK_URL"' #webapp
