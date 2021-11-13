@@ -287,7 +287,7 @@ function awsoff(){
 }
 
 #vmware export N_PREFIX=$HOME/.n/prefix
-#vmware export PATH=$HOME/.n/:$HOME/.n/prefix/bin/:$HOME/.gem/ruby/2.7.0/bin:${PATH}
+#vmware export PATH=$HOME/.n/:$N_PREFIX/bin/:$HOME/.gem/ruby/2.7.0/bin:${PATH}
 #vmware export RUBYOPT="-W0"  # ruby warnings
 #vmware 
 #vmware alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
@@ -302,7 +302,7 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware function jira(){
 #vmware   case "$1" in
 #vmware     board)
-#vmware       shift
+#vmware       shift;
 #vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=131" \
 #vmware         | npx alola \
 #vmware         | npx fx rapid \
@@ -312,9 +312,23 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware       ;;
 #vmware 
 #vmware     comment)
-#vmware       shift
-#vmware       txt=${2:-`read txt`}
-#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d "{\"body\": \"$txt\" }"  -o /dev/null -w "%{http_code}"
+#vmware       shift;
+#vmware       vipe --suffix md \
+#vmware         | npx prettier --stdin-filepath _.md \
+#vmware         | NODE_PATH=$N_PREFIX/lib/node_modules node -e "
+#vmware           const {createInterface} = require('readline');
+#vmware           const {to_jira} = require('jira2md');
+#vmware           createInterface(process.stdin)
+#vmware             .on('line', line => console.log(to_jira(line)));" \
+#vmware         | node -e '
+#vmware           const {createInterface} = require("readline");
+#vmware           const lines = [];
+#vmware           createInterface(process.stdin)
+#vmware             .on("line", line => lines.push(line))
+#vmware             .on("close", () => console.log(JSON.stringify({body: lines.join("\n")})));' \
+#vmware         | xargs -0 -I{} curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d '{}' \
+#vmware         | npx alola 'status should be 201'
+#vmware         # | xargs -0 -I{} curl -Lis http://localhost:8000/ -H "Content-Type: application/json" -d '{}' \
 #vmware       ;;
 #vmware 
 #vmware     *)
@@ -322,7 +336,7 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware       ;;
 #vmware 
 #vmware   esac
-#vmware }
+}
 #vmware 
 #vmware function seal(){
 #vmware   case "$1" in
