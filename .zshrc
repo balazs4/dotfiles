@@ -312,10 +312,9 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware       ;;
 #vmware 
 #vmware     comment)
-#vmware       NODE_PATH=$HOME/.n/prefix/lib/node_modules node -p "JSON.stringify({body: require('jira2md').to_jira(require('fs').readFileSync(process.stdin.fd, 'utf-8'))})" \
-#vmware         | xargs -t
-#vmware         # | xargs -t -I{} curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d "{}"  -o /dev/null -w "%{http_code}"
-#vmware 
+#vmware       shift
+#vmware       txt=${2:-`read txt`}
+#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d "{\"body\": \"$txt\" }"  -o /dev/null -w "%{http_code}"
 #vmware       ;;
 #vmware 
 #vmware     *)
