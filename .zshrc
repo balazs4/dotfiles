@@ -155,7 +155,7 @@ alias yay='yay --editmenu'
 alias srv='npx -y https://gist.github.com/balazs4/35efa8495fba2dc8fc52e56de9baf562'
 alias md=glow
 
-function cs(){
+function cheat(){
   curl -Lis cht.sh${*}
 }
 
