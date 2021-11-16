@@ -54,7 +54,7 @@ EOF
 " Plug 'nvim-telescope/telescope.nvim'
 nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <leader><leader> <cmd>Telescope live_grep<cr>
-nnoremap <leader>k <cmd>Telescope lsp_definitions<cr>
+nnoremap <leader>f <cmd>Telescope lsp_definitions<cr>
 
 filetype plugin indent on
 set wrap

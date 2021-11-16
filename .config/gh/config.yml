@@ -2,7 +2,7 @@ git_protocol: ssh
 aliases:
   watch: >-
     !fn(){
-      branch=`git rev-parse --abbrev-ref HEAD`
+      branch=${BRANCH:-`git rev-parse --abbrev-ref HEAD`}
       id=''
       while true
       do
