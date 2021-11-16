@@ -295,7 +295,7 @@ function awsoff(){
 alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware alias whatsapp='chromium --app=https://web.whatsapp.com/' #webapp
 #vmware alias p5="docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml"
-#vmware alias infra="GH_REPO=sealsystems/com-infrastructure gh issues"
+#vmware alias infra="GH_REPO=sealsystems/com-infrastructure gh issue"
 #vmware alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
 #vmware alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
 #vmware alias slack='chromium --app="$SLACK_URL"' #webapp
@@ -307,7 +307,7 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=131" \
 #vmware         | npx alola \
 #vmware         | npx fx rapid \
-#vmware         | fzf -q "'${1:-bv}" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"' \
+#vmware         | fzf --sync -q "'${1:-bv}" --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"' \
 #vmware         | cut -f1 \
 #vmware         | xargs -Iid zsh -c "source ~/.zshrc; jira id"
 #vmware       ;;
