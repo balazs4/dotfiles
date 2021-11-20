@@ -458,3 +458,24 @@ function ide() {
   tmux attach-session -t $PROJECT
 }
 
+function share() {
+  tee /tmp/share-docker-compose.yml <<EOF
+  services:
+    server:
+      image: nginx:alpine
+      volumes:
+        - "${1:-$PWD}:/usr/share/nginx/html/"
+    tunnel:
+      image: node:alpine
+      tty: true
+      entrypoint: /bin/sh
+      command: 
+        - -c 
+        - | 
+           npx -y localtunnel --port 80 --local-host server --print-requests
+      environment:
+        NPM_CONFIG_LOGLEVEL: error
+EOF
+
+  docker compose -f /tmp/share-docker-compose.yml up
+}
