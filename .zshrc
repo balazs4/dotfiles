@@ -481,3 +481,5 @@ services:
   docker compose -f $DOCKER_COMPOSE up
   rm -f $DOCKER_COMPOSE
 }
+
+alias pnpm='NPM_CONFIG_LOGLEVEL=error npx -y pnpm'
