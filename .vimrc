@@ -103,3 +103,5 @@ packadd goyo.vim
 "https://github.com/junegunn/limelight.vim
 packadd limelight.vim
 
+
+"https://github.com/vim-scripts/Ambient-Color-Scheme
