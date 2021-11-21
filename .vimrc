@@ -88,7 +88,7 @@ packadd vim-surround
 "dark let ayucolor="dark"
 "light let ayucolor="light"
 
-"https://github.com/romannmk/ambiance-vim
+"https://github.com/balazs4/ambiance-vim
 set termguicolors
 syntax on
 colorscheme ambiance
