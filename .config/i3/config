@@ -96,6 +96,6 @@ for_window [instance="teams.microsoft.com*"] move scratchpad
 for_window [instance="teams.microsoft.com*"] scratchpad show
 
 
-#vmware exec_always feh --no-fehbg --bg-max https://unsplash.com/photos/WwpRbzJXrYQ/download?force=true
+#vmware exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/-8aq7Gb9M_A/download?force=true
 
-#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/zlABb6Gke24/download?force=true&w=1920
+#carbon exec_always feh --no-fehbg --bg-max https://unsplash.com/photos/zlABb6Gke24/download?force=true&w=1920
