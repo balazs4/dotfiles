@@ -261,7 +261,7 @@ function touchd(){
 }
 
 function wall(){
-  sed -i "s|#`hostname` exec_always feh --no-fehbg --bg-max \(https://unsplash.com/photos/.*\)/download?force=true|#`hostname` exec_always feh --no-fehbg --bg-fill $1/download?force=true|g" $HOME/.files/.config/i3/config
+  sed -i "s|#`hostname` exec_always feh --no-fehbg --bg-fill \(https://unsplash.com/photos/.*\)/download?force=true|#`hostname` exec_always feh --no-fehbg --bg-fill $1/download?force=true|g" $HOME/.files/.config/i3/config
   source $HOME/.files/.zprofile
   i3-msg restart
 }
