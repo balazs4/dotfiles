@@ -397,7 +397,6 @@ function blue() {
 }
 #carbon alias vercel='npx -q vercel -t $VERCEL_TOKEN'
 #carbon alias vc='npx -q vercel -t $VERCEL_TOKEN'
-#carbon alias now='npx -q vercel -t $VERCEL_TOKEN'
 #carbon alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
 #carbon alias outlook='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
 #carbon alias spotify='google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify --app=https://open.spotify.com/'
@@ -492,3 +491,20 @@ function :burger:(){
   source /tmp/burger
 }
 alias burger=':burger:'
+
+function now(){
+  local title="`playerctl metadata --format '{{title}}'`"
+  local artist="`playerctl metadata --format '{{artist}}'`"
+  local searchterm=`node -p "encodeURIComponent('$artist $title')"`
+
+  if [[ ! -f /tmp/$searchterm.png ]]
+  then
+    curl -Lisk "https://api.deezer.com/search?strict=on&q=$searchterm" \
+      | ALOLA_REPORT=silent npx alola 'status should be 200' \
+      | npx fx 'x => x.body.data.map(xx => xx.album.cover_medium).join("\n")' \
+      | head -1 \
+      | xargs -I{} curl -s {} -o /tmp/$searchterm.png
+  fi
+
+  dunstify -I /tmp/$searchterm.png "$title" "$artist"
+}
