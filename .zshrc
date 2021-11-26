@@ -420,10 +420,26 @@ function piserver(){
 
 
 #vmware function testjob {
-#vmware   bytes=`expr 1024 \* 1024 \* ${1:-1}`
-#vmware   printer=${2:-printer1}
-#vmware   rlpr -Hlocalhost -P$printer --verbose <<< `cat /dev/urandom | base64 | head -c $bytes`
+#vmware   local printer=${PRINTER:-`q printers '{ },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=10 --sync`}
+#vmware   local bytes=`echo ${1:-42kb} | sed -r 's/(m|mb)/ * 1024 * 1024/gi;s/(k|kb)/ * 1024/gi' | bc`
+#vmware   rlpr -Hlocalhost -P$printer -J"`date +%s`@$printer@$bytes" --verbose <<< `cat /dev/urandom | base64 | head -c $bytes`
 #vmware }
+
+#vmware function pickupjob(){
+#vmware   local to="${TO:-`q printers '{ "config.pickup": { $exists: false }  },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=25 --sync --header='Select TARGET printer'`}"
+#vmware   local from="${FROM:-`q printers '{ "config.pickup": { $exists: true }  },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=25 --sync --header='Select SOURCE printer'`}"
+#vmware 
+#vmware   ipptool -vt ipp://localhost:6631/ipp/${from} ~/git/seal-ipp-checkin/vagrant/ipp/get-jobs.test \
+#vmware     | grep 'job-' \
+#vmware     | grep -v 'requested-attributes' \
+#vmware     | cut -d'=' -f2 \
+#vmware     | xargs -n9 \
+#vmware     | sed 's/ /\t/g' \
+#vmware     | fzf --reverse --height=25 --header="🖨 Printer terminal >>> Pickup job from ${from} at ${to}" \
+#vmware     | cut -f8 \
+#vmware     | xargs -t -I{} ipptool -vt -d uri="{}" -d printer="${to}" ~/git/seal-ipp-checkin/vagrant/ipp/release-job.test 
+#vmware }
+
 
 function qrdecode {
   shotgun `hacksaw -f "-i %i -g %g"` - | zbarimg -q --raw -
