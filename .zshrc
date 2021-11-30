@@ -422,11 +422,12 @@ function piserver(){
 #vmware function testjob {
 #vmware   local bytes=`echo ${1:-42kb} | sed -r 's/(m|mb)/ * 1024 * 1024/gi;s/(k|kb)/ * 1024/gi' | bc`
 #vmware   local printer=${2:-`q printers '{ },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=10 --sync`}
-#vmware   rlpr -Hlocalhost -P$printer -J"$*" <<< `cat /dev/urandom | base64 | head -c $bytes` 2>&1 > /dev/null
+#vmware   local jobname=`echo $* | sed -r 's/\s/_/g'`
+#vmware   rlpr -Hlocalhost -P$printer -J"$jobname" <<< `cat /dev/urandom | base64 | head -c $bytes` 2>&1 > /dev/null
 #vmware }
 
 #vmware function pickupjob(){
-#vmware   local to="${TO:-`q printers '{ "config.pickup": { $exists: false }  },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=25 --sync --header='Select TARGET printer'`}"
+#vmware   local to="${1:-`q printers '{ "config.pickup": { $exists: false }  },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=25 --sync --header='Select TARGET printer'`}"
 #vmware   local from="${FROM:-`q printers '{ "config.pickup": { $exists: true }  },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=25 --sync --header='Select SOURCE printer'`}"
 #vmware 
 #vmware   ipptool -vt ipp://localhost:6631/ipp/${from} ~/git/seal-ipp-checkin/vagrant/ipp/get-jobs.test \
