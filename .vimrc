@@ -45,7 +45,6 @@ nnoremap <leader>gf gd f' gf
 packadd fzf.vim
 nnoremap <Leader>l :Buffers<CR>
 nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
-nmap <Leader>o <C-p>
 nnoremap <Leader><Leader> :Rg<CR>
 "vmware nnoremap <Leader>t :Rg <C-r>%<Del><Del><Del>
 
@@ -98,10 +97,7 @@ colorscheme ambiance
 "https://github.com/cormacrelf/vim-colors-github
 
 "https://github.com/junegunn/goyo.vim
-packadd goyo.vim
 
 "https://github.com/junegunn/limelight.vim
-packadd limelight.vim
-
 
 "https://github.com/vim-scripts/Ambient-Color-Scheme
