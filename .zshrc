@@ -421,8 +421,8 @@ function piserver(){
 
 #vmware function testjob {
 #vmware   local bytes=`echo ${1:-42kb} | sed -r 's/(m|mb)/ * 1024 * 1024/gi;s/(k|kb)/ * 1024/gi' | bc`
-#vmware   local printer=${$2:-`q printers '{ },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=10 --sync`}
-#vmware   rlpr -Hlocalhost -P$printer -J"`date +%s`@$printer@$bytes" --verbose <<< `cat /dev/urandom | base64 | head -c $bytes`
+#vmware   local printer=${2:-`q printers '{ },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=10 --sync`}
+#vmware   rlpr -Hlocalhost -P$printer -J"$*" <<< `cat /dev/urandom | base64 | head -c $bytes` 2>&1 > /dev/null
 #vmware }
 
 #vmware function pickupjob(){
