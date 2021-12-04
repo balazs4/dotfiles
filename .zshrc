@@ -329,8 +329,7 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware             .on("line", line => lines.push(line))
 #vmware             .on("close", () => console.log(JSON.stringify({body: lines.join("\n")})));' \
 #vmware         | xargs -0 -I{} curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d '{}' \
-#vmware         | npx alola 'status should be 201'
-#vmware         # | xargs -0 -I{} curl -Lis http://localhost:8000/ -H "Content-Type: application/json" -d '{}' \
+#vmware         | ALOLA_REPORT_ONLY=true npx alola 'status should be 201'
 #vmware       ;;
 #vmware 
 #vmware     *)
@@ -406,7 +405,7 @@ function blue() {
 #carbon alias teams='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft365 https://teams.microsoft.com'
 
 function piserver(){
-  curl -Lis http://192.168.178.42:180/admin/api.php | ALOLA_REPORT=text npx alola \
+  curl -Lis http://192.168.178.42:180/admin/api.php | ALOLA_REPORT=text ALOLA_REPORT_ONLY=true npx alola \
     'status should be 200' \
     'headers.x-pi-hole should be The Pi-hole Web interface is working!'
 }
