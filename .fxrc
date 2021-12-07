@@ -45,6 +45,7 @@ const find = (predicate) => (level) => {
 //vmware > assignee: ${issue.fields.assignee.displayName} 
 //vmware > reporter: ${issue.fields.reporter.displayName}
 //vmware > labels: ${issue.fields.labels.join(", ")}
+//vmware > versions: ${issue.fields.fixVersions.map(x => x.name).join(", ") || '🤯🤯🤯'}
 //vmware 
 //vmware ${issue.fields.description ? issue.fields.description.replace(/\(\/\)/g,"✅").replace(/\(x\)/, "❌") : 'no descrtiption'}
 //vmware 
