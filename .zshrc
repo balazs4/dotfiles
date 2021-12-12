@@ -381,7 +381,7 @@ function yt(){
     | fx youtubevideos \
     | fzf \
     | cut -f1 \
-    | xargs -Iwatch mpv $MPV https://youtu.be/watch
+    | xargs -Iwatch mpv ${MPV:---ytdl-format='[height=1080]/best'} https://youtu.be/watch
 }
 alias yta="MPV='--no-video' yt"
 
