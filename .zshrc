@@ -433,7 +433,7 @@ function piserver(){
 #vmware   local to="${1:-`q printers '{ "config.pickup": { $exists: false }  },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=25 --sync --header='Select TARGET printer'`}"
 #vmware   local from="${FROM:-`q printers '{ "config.pickup": { $exists: true }  },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=25 --sync --header='Select SOURCE printer'`}"
 #vmware 
-#vmware   ipptool -vt ipp://localhost:6631/ipp/${from} ~/git/seal-ipp-checkin/vagrant/ipp/get-jobs.test \
+#vmware   ipptool -j -vt ipp://localhost:6631/ipp/${from} ~/git/seal-ipp-checkin/vagrant/ipp/get-jobs.test \
 #vmware     | grep 'job-' \
 #vmware     | grep -v 'requested-attributes' \
 #vmware     | cut -d'=' -f2 \
@@ -528,3 +528,7 @@ function now(){
 
   dunstify -I /tmp/$searchterm.png "$title" "$artist"
 }
+
+#vmware function pajobs(){
+#vmware   watch -n1 -d  "docker compose exec db mongo --tls --tlsAllowInvalidCertificates spooler-jobs  --eval 'db.jobs.find({},{_id:1, status:1, \"current.jobName\":1, \"orig.printerName\":1, \"current.printerName\": 1})' | sed '0,/MongoDB server version: 4.4.4/d'  | fx 'x => [x._id, x.status, x.orig?.printerName, x.current?.printerName, x.current?.jobName].join(\"\t\")'"
+#vmware }
