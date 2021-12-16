@@ -59,7 +59,7 @@ export KEYTIMEOUT=1
 preexec() { print -Pn "\e]0;$1 $PWD\a" 2>/dev/null }
 
 function z() {
-  to=`find $HOME -maxdepth 2 -type d -not -path "$HOME/.cache*" | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
+  to=`{ find $HOME -maxdepth 2 -type d -not -path "$HOME/.cache*"; find /tmp -maxdepth 1 -type d} | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
   [[ ! -z $to ]] && cd $to
 }
 
@@ -295,7 +295,6 @@ function awsoff(){
 #vmware alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
 alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware alias whatsapp='chromium --app=https://web.whatsapp.com/' #webapp
-#vmware alias p5="docker-compose --file $HOME/git/plossys-bundle/docker-compose.yml"
 #vmware alias infra="GH_REPO=sealsystems/com-infrastructure gh issue"
 #vmware alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
 #vmware alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
@@ -529,6 +528,11 @@ function now(){
   dunstify -I /tmp/$searchterm.png "$title" "$artist"
 }
 
-#vmware function pajobs(){
-#vmware   watch -n1 -d  "docker compose exec db mongo --tls --tlsAllowInvalidCertificates spooler-jobs  --eval 'db.jobs.find({},{_id:1, status:1, \"current.jobName\":1, \"orig.printerName\":1, \"current.printerName\": 1})' | sed '0,/MongoDB server version: 4.4.4/d'  | fx 'x => [x._id, x.status, x.orig?.printerName, x.current?.printerName, x.current?.jobName].join(\"\t\")'"
+#vmware function ropa(){
+#vmware   local bazz=$1
+#vmware   shift
+#vmware   local foo=`node -p "JSON.stringify('${*}'.split(' ').reduce((x, y) => ({...x, [y]: 1}), {}))"`
+#vmware   local bar=`node -p "JSON.stringify('${*}'.split(' '))"`
+#vmware   watch -n1 -d  "docker compose -f $HOME/git/plossys-bundle/docker-compose.yml exec db mongo --tls --tlsAllowInvalidCertificates spooler-${bazz} --eval 'db.${bazz}.find({},${foo})' | sed '0,/MongoDB server version: 4.4.4/d' | fx 'x => ${bar}.map(k => k.split(\".\").reduce((p, c) => p[c], x)).join(\"\t\")'"
 #vmware }
+
