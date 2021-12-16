@@ -8,10 +8,10 @@ aliases:
       do
         echo "Looking for 'in_progress' or 'queued' run on '$branch'..."
         id=`gh run list --limit 5 | grep $branch | grep 'in_progress\|queued' | head -1 | cut -f7` 
-        [[ -z $id ]] && sleep 3s || break
+        [[ -z $id ]] && sleep ${GH_INTERVAL:-3} || break
       done
       echo $id
-      gh run watch $id
+      gh run watch $id --interval ${GH_INTERVAL:-3}
       (
         outcome=`gh run list | grep $id | cut -f2`
         color=`echo $outcome | sed -r 's/\s//g;s/success/00ff33/g;s/failure/ff4747/g'`
