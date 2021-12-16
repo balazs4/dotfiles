@@ -148,7 +148,7 @@ alias gpp='git pull --prune --tags'
 alias gcm='git checkout master'
 alias shrug='curl -s http://shrug.io | xx'
 alias wipe='docker rm -f `docker ps -aq`; docker network prune -f; docker volume prune -f'
-alias dco='docker-compose'
+alias dco='docker compose'
 alias rg='rg --hidden'
 alias dmesg='sudo dmesg'
 alias cal='LC_ALL=de_DE.utf8 cal'
@@ -218,8 +218,8 @@ function record(){
 }
 
 function re(){
-  docker-compose rm -sf $1
-  docker-compose up $1
+  docker compose rm -sf $1
+  docker compose up $1
 }
 
 function co(){
@@ -353,11 +353,7 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware }
 #vmware 
 #vmware function q() {
-#vmware   docker-compose -f "$HOME/git/plossys-bundle/docker-compose.yml" exec db mongo --tls --tlsAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
-#vmware     | sed '0,/MongoDB server version: 4.4.4/d'
-#vmware }
-#vmware function qq() {
-#vmware   docker-compose -f "$HOME/git/plossys-bundle/docker-compose.yml" exec db mongo --tls --tlsAllowInvalidCertificates spooler-$1 --eval "$2" \
+#vmware   docker compose -f "$HOME/git/plossys-bundle/docker compose.yml" exec db mongo --tls --tlsAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
 #vmware     | sed '0,/MongoDB server version: 4.4.4/d'
 #vmware }
 #vmware 
@@ -533,6 +529,6 @@ function now(){
 #vmware   shift
 #vmware   local foo=`node -p "JSON.stringify('${*}'.split(' ').reduce((x, y) => ({...x, [y]: 1}), {}))"`
 #vmware   local bar=`node -p "JSON.stringify('${*}'.split(' '))"`
-#vmware   watch -n1 -d  "docker compose -f $HOME/git/plossys-bundle/docker-compose.yml exec db mongo --tls --tlsAllowInvalidCertificates spooler-${bazz} --eval 'db.${bazz}.find({},${foo})' | sed '0,/MongoDB server version: 4.4.4/d' | fx 'x => ${bar}.map(k => k.split(\".\").reduce((p, c) => p[c], x)).join(\"\t\")'"
+#vmware   watch -n1 -d  "docker compose -f $HOME/git/plossys-bundle/docker compose.yml exec db mongo --tls --tlsAllowInvalidCertificates spooler-${bazz} --eval 'db.${bazz}.find({},${foo})' | sed '0,/MongoDB server version: 4.4.4/d' | fx 'x => ${bar}.map(k => k.split(\".\").reduce((p, c) => p[c], x)).join(\"\t\")'"
 #vmware }
 
