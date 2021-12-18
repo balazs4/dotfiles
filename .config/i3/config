@@ -98,6 +98,6 @@ for_window [instance="teams.microsoft.com*"] scratchpad show
 
 #vmware exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/-8aq7Gb9M_A/download?force=true
 
-#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/duo-xV0TU7s/download?force=true&w=1920
-#2carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/II5GT90rplw/download?force=true&w=1920
+#1carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/duo-xV0TU7s/download?force=true&w=1920
+#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/II5GT90rplw/download?force=true&w=1920
 #3carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/KraoHdRYrRE/download?force=true&w=1920

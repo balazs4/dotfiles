@@ -56,7 +56,6 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
-preexec() { print -Pn "\e]0;$1 $PWD\a" 2>/dev/null }
 
 function z() {
   to=`{ find $HOME -maxdepth 2 -type d -not -path "$HOME/.cache*"; find /tmp -maxdepth 1 -type d} | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
@@ -401,7 +400,6 @@ function blue() {
 #carbon alias shop='google-chrome-stable --user-data-dir=$HOME/.config/webapp/shop'
 #carbon alias bank='google-chrome-stable --user-data-dir=$HOME/.config/webapp/bank'
 #carbon alias google='google-chrome-stable --user-data-dir=$HOME/.config/webapp/google'
-#carbon alias teams='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft365 https://teams.microsoft.com'
 
 function piserver(){
   curl -Lis http://192.168.178.42:180/admin/api.php | ALOLA_REPORT=text ALOLA_REPORT_ONLY=true npx alola \
