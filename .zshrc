@@ -530,3 +530,10 @@ function now(){
 #vmware   watch -n2 -d  "docker compose -f $HOME/git/plossys-bundle/docker-compose.yml exec db mongo --tls --tlsAllowInvalidCertificates spooler-${bazz} --eval 'db.${bazz}.find({},${foo})' | sed '0,/MongoDB server version: 4.4.4/d' | fx 'x => ${bar}.map(k => k.split(\".\").reduce((p, c) => p[c]||\"-\", x)).join(\"\t\")'"
 #vmware }
 
+function hn(){
+  curl -Lis https://hacker-news.firebaseio.com/v0/topstories.json \
+    | ALOLA_REPORT=silent alola 'status should be 200' \
+    | fx "x=> x.body.slice(0,${1:-10}).join(\"\n\")" \
+    | xargs -I{} curl -s https://hacker-news.firebaseio.com/v0/item/{}.json \
+    | fx 'x => [new Date(x.time * 1000).toJSON(), x.type, x.url?.padEnd(86), x.title].join("\t")'
+}
