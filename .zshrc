@@ -535,5 +535,5 @@ function hn(){
     | ALOLA_REPORT=silent alola 'status should be 200' \
     | fx "x=> x.body.slice(0,${1:-10}).join(\"\n\")" \
     | xargs -I{} curl -s https://hacker-news.firebaseio.com/v0/item/{}.json \
-    | fx 'x => [new Date(x.time * 1000).toJSON(), x.type, x.url?.padEnd(86), x.title].join("\t")'
+    | fx 'x => [ x.title.slice(0,48) + "...", x.url].join("\t")' 
 }
