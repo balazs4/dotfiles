@@ -1,5 +1,6 @@
 git_protocol: ssh
 aliases:
+  clone: !gh repo clone $1 -- $1
   watch: >-
     !fn(){
       branch=${BRANCH:-`git rev-parse --abbrev-ref HEAD`}

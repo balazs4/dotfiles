@@ -61,6 +61,7 @@ let g:user_emmet_leader_key='<C-z>'
 
 "https://github.com/prettier/vim-prettier
 au FileType javascript packadd vim-prettier
+au FileType json packadd vim-prettier
 au FileType html packadd vim-prettier
 au FileType markdown packadd vim-prettier
 nmap <Leader>p :PrettierAsync<CR>
