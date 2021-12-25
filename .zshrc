@@ -537,3 +537,4 @@ function hn(){
     | xargs -I{} curl -s https://hacker-news.firebaseio.com/v0/item/{}.json \
     | fx 'x => [ x.title.slice(0,48) + "...", x.url].join("\t")' 
 }
+alias magic="echo ✨MAGIC✨. Sorry-not-sorry"
