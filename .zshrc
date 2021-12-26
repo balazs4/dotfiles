@@ -58,7 +58,7 @@ zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
 function z() {
-  to=`{ find $HOME -maxdepth 2 -type d -not -path "$HOME/.cache*"; find /tmp -maxdepth 1 -type d} | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
+  to=`{ fd --full-path $HOME/src --type d --max-depth=2 --absolute-path $HOME/src; find /tmp -maxdepth 1 -type d } | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
   [[ ! -z $to ]] && cd $to
 }
 
