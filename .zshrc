@@ -538,3 +538,4 @@ function hn(){
     | fx 'x => [ x.title.slice(0,48) + "...", x.url].join("\t")' 
 }
 alias magic="echo ✨MAGIC✨. Sorry-not-sorry"
+alias screensaver='tmux new-session -d "while true; do xcowsay catch me if you can; done";exit'
