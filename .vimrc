@@ -102,3 +102,5 @@ colorscheme ambiance
 "https://github.com/junegunn/limelight.vim
 
 "https://github.com/vim-scripts/Ambient-Color-Scheme
+
+"https://github.com/neoclide/coc.nvim --branch release

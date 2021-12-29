@@ -107,7 +107,7 @@ function vimplug(){
 
   rm -rf $HOME/.vim/pack/_/opt/*
   pushd $HOME/.vim/pack/_/opt/
-  cat $HOME/.vimrc | grep github | sed 's/"//g' | xargs -L1 git clone --depth 1
+  grep github $HOME/.vimrc | sed 's/"//g' | xargs -t -L1 git clone --depth 1
   popd
 }
 
