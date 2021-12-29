@@ -535,7 +535,7 @@ function hn(){
     | ALOLA_REPORT=silent alola 'status should be 200' \
     | fx "x=> x.body.slice(0,${1:-10}).join(\"\n\")" \
     | xargs -I{} curl -s https://hacker-news.firebaseio.com/v0/item/{}.json \
-    | fx 'x => [ x.title.slice(0,48) + "...", x.url].join("\t")' 
+    | fx 'x => ["\x1b[2m" + x.url + "\x1b[0m", x.title, " "].join("\n")' 
 }
 alias magic="echo ✨MAGIC✨. Sorry-not-sorry"
 alias screensaver='tmux new-session -d "while true; do xcowsay catch me if you can; done";exit'
