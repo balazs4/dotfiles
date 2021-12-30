@@ -28,6 +28,12 @@ function zsh-git() {
   local __branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
   [[ -z $__branch ]] && return
 
+  if git config --local --get zsh.skip > /dev/null
+  then
+    echo " [ $__branch ]"
+    return
+  fi
+
   local __staged=`PAGER= git diff --name-only --staged | wc -l`
   local __changed=`PAGER= git diff --name-only | wc -l`
   local __notpushed=`PAGER= git diff --name-only origin/$__branch..HEAD 2>/dev/null | wc -l`
