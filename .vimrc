@@ -102,15 +102,14 @@ colorscheme ambiance
 
 "https://github.com/junegunn/limelight.vim
 
-"https://github.com/vim-scripts/Ambient-Color-Scheme
-
 "https://github.com/neoclide/coc.nvim --branch release
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+inoremap <silent><expr> <c-@> coc#refresh()
+"CocInstall coc-tsserver
 au FileType typescript packadd coc.nvim
-au FileType typescript nmap <silent> [g <Plug>(coc-diagnostic-prev)
-au FileType typescript nmap <silent> ]g <Plug>(coc-diagnostic-next)
-au FileType typescript nmap <silent> gd <Plug>(coc-definition)
-au FileType typescript nmap <silent> gy <Plug>(coc-type-definition)
-au FileType typescript nmap <silent> gi <Plug>(coc-implementation)
-au FileType typescript nmap <silent> gr <Plug>(coc-references)
-au FileType typescript nmap <leader>rn <Plug>(coc-rename)
-au FileType typescript inoremap <silent><expr> <c-@> coc#refresh()
