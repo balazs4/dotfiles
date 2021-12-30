@@ -38,8 +38,8 @@ vnoremap <silent> <Leader>y :'<,'>w !xclip -rmlastnl -selection clipboard<CR><CR
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-"goto definitons
-nnoremap <leader>gf gd f' gf
+""goto definitons
+"nnoremap <leader>gf gd f' gf
 
 "https://github.com/junegunn/fzf.vim
 packadd fzf.vim
@@ -61,6 +61,7 @@ let g:user_emmet_leader_key='<C-z>'
 
 "https://github.com/prettier/vim-prettier
 au FileType javascript packadd vim-prettier
+au FileType typescript packadd vim-prettier
 au FileType json packadd vim-prettier
 au FileType html packadd vim-prettier
 au FileType markdown packadd vim-prettier
@@ -104,3 +105,12 @@ colorscheme ambiance
 "https://github.com/vim-scripts/Ambient-Color-Scheme
 
 "https://github.com/neoclide/coc.nvim --branch release
+au FileType typescript packadd coc.nvim
+au FileType typescript nmap <silent> [g <Plug>(coc-diagnostic-prev)
+au FileType typescript nmap <silent> ]g <Plug>(coc-diagnostic-next)
+au FileType typescript nmap <silent> gd <Plug>(coc-definition)
+au FileType typescript nmap <silent> gy <Plug>(coc-type-definition)
+au FileType typescript nmap <silent> gi <Plug>(coc-implementation)
+au FileType typescript nmap <silent> gr <Plug>(coc-references)
+au FileType typescript nmap <leader>rn <Plug>(coc-rename)
+au FileType typescript inoremap <silent><expr> <c-@> coc#refresh()
