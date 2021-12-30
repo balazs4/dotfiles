@@ -28,12 +28,6 @@ function zsh-git() {
   local __branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
   [[ -z $__branch ]] && return
 
-  if git config --local --get zsh.skip > /dev/null
-  then
-    echo " [ $__branch ]"
-    return
-  fi
-
   local __staged=`PAGER= git diff --name-only --staged | wc -l`
   local __changed=`PAGER= git diff --name-only | wc -l`
   local __notpushed=`PAGER= git diff --name-only origin/$__branch..HEAD 2>/dev/null | wc -l`
@@ -44,13 +38,19 @@ function zsh-git() {
 #light local _staged=`[[ __staged -eq 0 ]] && echo $__staged || echo %B%F{blue}$__staged%f%b`
   local _changed=`[[ __changed -eq 0 ]] && echo $__changed || echo %B%F{red}$__changed%f%b`
 
-  echo " [ $_branch«$_staged«$_changed ]"
+  if ! git config --local --get zsh.skip > /dev/null
+  then
+    local __newfiles=`git ls-files --others --exclude-standard 2>/dev/null | wc -l`
+    local _newfiles=`[[ __newfiles -eq 0 ]] && echo $__newfiles || echo %B%F{red}$__newfiles%f%b`
+  fi
+
+  echo " [ $_branch«$_staged«$_changed«$_newfiles ]"
 }
 
 setopt PROMPT_SUBST
 
 function zle-line-init zle-keymap-select {
-  PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git) %B%F{white}»%f%b '
+  PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git &) %B%F{white}»%f%b '
   RPROMPT="%(?.%F{white}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
 #light PROMPT='%B%F{black} ▲ %~%f%b$(zsh-git) %B%F{black}»%f%b '
 #light RPROMPT="%(?.%F{black}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
