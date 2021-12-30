@@ -44,7 +44,7 @@ function zsh-git() {
     local _newfiles=`[[ __newfiles -eq 0 ]] && echo $__newfiles || echo %B%F{red}$__newfiles%f%b`
   fi
 
-  echo " [ $_branch«$_staged«$_changed«$_newfiles ]"
+  echo " [ $_branch«$_staged«$_changed«${_newfiles:-x} ]"
 }
 
 setopt PROMPT_SUBST
@@ -64,7 +64,7 @@ export KEYTIMEOUT=1
 function z() {
   to=`{ \
     echo $HOME/.files; \
-    fd --full-path $HOME/src --type d --max-depth=1 --absolute-path $HOME/src; \
+    fd --full-path $HOME/src --type d --max-depth=1 --absolute-path $HOME/src --hidden;\
     fd --full-path /tmp --type d --max-depth=1 --absolute-path /tmp; \
   } | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
   [[ ! -z $to ]] && cd $to
