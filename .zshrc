@@ -140,7 +140,7 @@ alias :q='exit'
 alias :q!='exit'
 alias ll='ls -lsh'
 alias rm='rm -i'
-alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map((c,i)=>Math.random()>0.5?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
+alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map(c,=>Math.random()>0.5?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
 alias yolo='git add . && git commit -m "`bob yolo commit` :sponge:" && git push --no-verify || true'
 alias foo='echo bar'
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
@@ -152,7 +152,7 @@ alias gd='git diff'
 alias gst='git status'
 alias gco='git checkout'
 alias gpp='git pull --prune --tags'
-alias gcm='git checkout master'
+alias gcm='git checkout `git branch | grep -P "(main|master|canary)"'
 alias shrug='curl -s http://shrug.io | xx'
 alias wipe='docker rm -f `docker ps -aq`; docker network prune -f; docker volume prune -f'
 alias dco='docker compose'
