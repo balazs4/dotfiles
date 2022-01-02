@@ -98,10 +98,6 @@ colorscheme ambiance
 
 "https://github.com/cormacrelf/vim-colors-github
 
-"https://github.com/junegunn/goyo.vim
-
-"https://github.com/junegunn/limelight.vim
-
 "https://github.com/neoclide/coc.nvim --branch release
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -113,3 +109,6 @@ nmap <leader>rn <Plug>(coc-rename)
 inoremap <silent><expr> <c-@> coc#refresh()
 "CocInstall coc-tsserver
 au FileType typescript packadd coc.nvim
+
+"https://github.com/machakann/vim-sandwich
+packadd vim-sandwich
