@@ -153,7 +153,7 @@ alias gd='git diff'
 alias gst='git status'
 alias gco='git checkout'
 alias gpp='git pull --prune --tags'
-alias gcm='git checkout `git branch | grep -P "(canary|main|master)"'
+alias gcm='git checkout `git branch | grep -P "(canary|main|master)"`'
 alias shrug='curl -s http://shrug.io | xx'
 alias wipe='docker rm -f `docker ps -aq`; docker network prune -f; docker volume prune -f'
 alias dco='docker compose'
@@ -312,7 +312,7 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware   case "$1" in
 #vmware     board)
 #vmware       shift;
-#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=168" \
+#vmware       curl -u "$JIRA_AUTH" -Lis "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=168" \
 #vmware         | npx alola \
 #vmware         | npx fx rapid \
 #vmware         | fzf --sync -q "'${1:-bv} " --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"' \
@@ -335,12 +335,12 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware           createInterface(process.stdin)
 #vmware             .on("line", line => lines.push(line))
 #vmware             .on("close", () => console.log(JSON.stringify({body: lines.join("\n")})));' \
-#vmware         | xargs -0 -I{} curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d '{}' \
+#vmware         | xargs -0 -I{} curl -u "$JIRA_AUTH" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d '{}' \
 #vmware         | ALOLA_REPORT_ONLY=true npx alola 'status should be 201'
 #vmware       ;;
 #vmware 
 #vmware     *)
-#vmware       curl -u "`pass seal/$JIRA_URL`" -Lis "https://$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | npx alola | npx fx jira | glow -
+#vmware       curl -u "$JIRA_AUTH" -Lis "https://$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | npx alola | npx fx jira | glow -
 #vmware       ;;
 #vmware 
 #vmware   esac
