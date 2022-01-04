@@ -361,7 +361,7 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware }
 #vmware 
 #vmware function q() {
-#vmware   docker compose -f "$HOME/git/plossys-bundle/docker-compose.yml" exec db mongo --tls --tlsAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2)" \
+#vmware   docker compose -f "$HOME/git/plossys-bundle/docker-compose.yml" exec db mongo --tls --tlsAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2).toArray()" \
 #vmware     | sed '0,/MongoDB server version: 4.4.4/d'
 #vmware }
 #vmware 
@@ -548,3 +548,33 @@ function hn(){
 }
 alias magic="echo ✨MAGIC✨. Sorry-not-sorry"
 alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch me if you can; done";exit'
+
+
+#vmware function perf(){
+#vmware   # npm i -g fx
+#vmware   pushd $HOME/git/plossys-bundle
+#vmware   docker-compose exec db mongo --tls --tlsAllowInvalidCertificates spooler-jobs --eval "db.jobs.find({}, {_id: 1}).toArray()" \
+#vmware     | sed '0,/MongoDB server version: 4.4.4/d' \
+#vmware     | fx 'x => x.map(xx => xx._id).join("\n")' \
+#vmware     | xargs -I{} sh -c "docker-compose --ansi never logs \
+#vmware     | grep {} \
+#vmware     | cut -d'|' -f2 \
+#vmware     | fx 'x => [x.isoTimestamp || new Date(x.timestamp).toJSON(), x.application.name.padEnd(16), x.message.padEnd(42), JSON.stringify(x.metadata)].join(\"\t\")' \
+#vmware     | sort \
+#vmware     | node -e '
+#vmware       const {createInterface} = require(\"readline\");
+#vmware       const logs = [];
+#vmware       createInterface(process.stdin)
+#vmware         .on(\"line\", log => logs.push(log))
+#vmware         .on(\"close\", () => {
+#vmware            logs.forEach((item, index, lines) => { 
+#vmware              const diff = new Date(item.split(\"\t\")[0]) - new Date(lines[index === 0 ? 0 : index-1].split(\"\t\")[0]);  
+#vmware              const abs = new Date(item.split(\"\t\")[0]) - new Date(lines[0].split(\"\t\")[0]);  
+#vmware              const diffline = isNaN(diff) ? item : [\"+\" + abs, \"+\" + diff, item].join(\"\t\");  
+#vmware              console.log(diffline);
+#vmware            })
+#vmware         }); 
+#vmware     '
+#vmware     "
+#vmware   popd
+#vmware }
