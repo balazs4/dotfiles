@@ -98,6 +98,8 @@ function dotsync(){
   source $HOME/.files/.zprofile
 }
 
+alias dotweb='gh repo view -w $USER/dotfiles'
+
 function dotfile(){
   [[ -e "$HOME/$1" ]] || return
   dir=`dirname "$HOME/.files/$1"`
