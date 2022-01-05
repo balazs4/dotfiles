@@ -307,7 +307,6 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
 #vmware alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
 #vmware alias slack='chromium --app="$SLACK_URL"' #webapp
-#vmware alias mongodb-rs='docker run --rm -p "27017:27017" ghcr.io/sealsystems/mongodb-rs:4.4.4'
 #vmware function jira(){
 #vmware   case "$1" in
 #vmware     board)
@@ -573,8 +572,17 @@ alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch 
 #vmware              const diffline = isNaN(diff) ? item : [\"+\" + abs, \"+\" + diff, item].join(\"\t\");  
 #vmware              console.log(diffline);
 #vmware            })
+#vmware            console.log(\"##########################################\");
 #vmware         }); 
 #vmware     '
 #vmware     "
 #vmware   popd
+#vmware }
+
+
+#vmware function mongodb-rs(){
+#vmware   docker run -d --rm -p "27017:27017" mongo:${1:-4.4.4} --replSet rs
+#vmware   sleep 5s
+#vmware   docker exec -it `docker ps | grep 27017 | cut -f1 -d" "` mongo --eval 'rs.initiate();'
+#vmware   docker exec -it `docker ps | grep 27017 | cut -f1 -d" "` mongo --eval 'db.version();'
 #vmware }
