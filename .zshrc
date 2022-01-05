@@ -63,7 +63,7 @@ export KEYTIMEOUT=1
 
 function z() {
 #carbon local code=$HOME/src
-#vmware local code=$HOME/src
+#vmware local code=$HOME/git
   to=`{ \
     echo $HOME/.files; \
     fd --full-path $code --type d --max-depth=1 --absolute-path $code --hidden;\
