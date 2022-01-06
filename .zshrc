@@ -327,17 +327,14 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware       vipe --suffix md \
 #vmware         | npx prettier --stdin-filepath _.md \
 #vmware         | NODE_PATH=$N_PREFIX/lib/node_modules node -e "
-#vmware           const {createInterface} = require('readline');
-#vmware           const {to_jira} = require('jira2md');
-#vmware           createInterface(process.stdin)
-#vmware             .on('line', line => console.log(to_jira(line)));" \
-#vmware         | node -e '
-#vmware           const {createInterface} = require("readline");
-#vmware           const lines = [];
-#vmware           createInterface(process.stdin)
-#vmware             .on("line", line => lines.push(line))
-#vmware             .on("close", () => console.log(JSON.stringify({body: lines.join("\n")})));' \
-#vmware         | xargs -0 -I{} curl -u "$JIRA_AUTH" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d '{}' \
+#vmware           (async() => {
+#vmware             const lines = [];
+#vmware             for await (const line of require('readline').createInterface(process.stdin)){
+#vmware               lines.push(require('jira2md').to_jira(line));
+#vmware             }
+#vmware             console.log(JSON.stringify({body: lines.join('\n')}));
+#vmware           })();" \
+#vmware         | curl -u "$JIRA_AUTH" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d @- \
 #vmware         | ALOLA_REPORT_ONLY=true npx alola 'status should be 201'
 #vmware       ;;
 #vmware 
