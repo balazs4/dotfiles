@@ -19,6 +19,7 @@ set title
 set number
 set rnu
 set foldmethod=manual
+set completeopt=menuone,noinsert,noselect
 
 " https://stackoverflow.com/questions/2816719/clear-certain-criteria-from-viminfo-file
 " set viminfo='0,:0,<0,@0
@@ -109,6 +110,8 @@ nmap <leader>rn <Plug>(coc-rename)
 inoremap <silent><expr> <c-@> coc#refresh()
 "CocInstall coc-tsserver
 au FileType typescript packadd coc.nvim
+"CocInstall coc-rls
+au FileType rust packadd coc.nvim
 
 "https://github.com/machakann/vim-sandwich
 packadd vim-sandwich

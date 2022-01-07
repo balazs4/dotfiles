@@ -388,6 +388,7 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 
 #carbon export NPM_CONFIG_PREFIX=$HOME/.npm_global
 #carbon export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
+export PATH=$HOME/.cargo/bin:${PATH}
 
 function yt(){
   [[ $# -eq 0 ]] && read stdin
