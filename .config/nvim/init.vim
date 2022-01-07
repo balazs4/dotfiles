@@ -1,61 +1,5 @@
-call plug#begin(stdpath('data') . '/plugged')
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-treesitter/nvim-treesitter'
-
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
-
-Plug 'prettier/vim-prettier'
-Plug 'mattn/emmet-vim'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-
-Plug 'romannmk/ambiance-vim'
-Plug 'gruvbox-community/gruvbox'
-Plug 'Shatur/neovim-ayu'
-call plug#end()
-
-set background=dark
-colorscheme ayu-mirage
-
-" colorscheme gruvbox
-" let g:gruvbox_guisp_fallback = 'bg'
-" let g:gruvbox_contrast_dark = 'hard'
-
-" Plug 'mattn/emmet-vim'
-let g:jsx_ext_require = 0
-let g:user_emmet_leader_key='<C-z>'
-
-" Plug 'prettier/vim-prettier'
-nmap <Leader>p :PrettierAsync<CR>
-
-lua <<EOF
-local cmp = require'cmp'
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' }
-  })
-})
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-require('lspconfig').tsserver.setup{capabilities = capabilities}
-EOF
-
-" Plug 'nvim-telescope/telescope.nvim'
-nnoremap <C-p> <cmd>Telescope find_files<cr>
-nnoremap <leader><leader> <cmd>Telescope live_grep<cr>
-nnoremap <leader>f <cmd>Telescope lsp_definitions<cr>
-
+syntax off
+nnoremap <silent> <Leader><CR> :if exists("g:syntax_on") <Bar> syntax off <Bar> else <Bar> syntax on <Bar> endif<CR>
 filetype plugin indent on
 set wrap
 set noswapfile
@@ -75,7 +19,9 @@ set title
 set number
 set rnu
 set foldmethod=manual
-set completeopt=menu,menuone,noselect
+
+" https://stackoverflow.com/questions/2816719/clear-certain-criteria-from-viminfo-file
+" set viminfo='0,:0,<0,@0
 
 nnoremap <Leader>[ :bp<CR>
 nnoremap <Leader>] :bn<CR>
@@ -92,3 +38,77 @@ vnoremap <silent> <Leader>y :'<,'>w !xclip -rmlastnl -selection clipboard<CR><CR
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+""goto definitons
+"nnoremap <leader>gf gd f' gf
+
+"https://github.com/junegunn/fzf.vim
+packadd fzf.vim
+nnoremap <Leader>l :Buffers<CR>
+nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
+nnoremap <Leader><Leader> :Rg<CR>
+"vmware nnoremap <Leader>t :Rg <C-r>%<Del><Del><Del>
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --hidden --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+"https://github.com/mattn/emmet-vim
+au FileType javascript packadd emmet-vim
+au FileType html packadd emmet-vim
+let g:jsx_ext_require = 0
+let g:user_emmet_leader_key='<C-z>'
+
+"https://github.com/prettier/vim-prettier
+au FileType javascript packadd vim-prettier
+au FileType typescript packadd vim-prettier
+au FileType json packadd vim-prettier
+au FileType html packadd vim-prettier
+au FileType markdown packadd vim-prettier
+nmap <Leader>p :PrettierAsync<CR>
+
+"https://github.com/tpope/vim-commentary
+packadd vim-commentary
+
+"https://github.com/tpope/vim-surround
+packadd vim-surround
+
+"https://github.com/gruvbox-community/gruvbox
+" set termguicolors
+" syntax on
+" colorscheme gruvbox
+" let g:gruvbox_guisp_fallback = 'bg'
+" let g:gruvbox_contrast_dark = 'hard'
+"dark set background=dark
+"light set background=light
+
+"https://github.com/ayu-theme/ayu-vim
+" set termguicolors
+" syntax on
+" colorscheme ayu
+"dark let ayucolor="dark"
+"light let ayucolor="light"
+
+"https://github.com/balazs4/ambiance-vim
+set termguicolors
+syntax on
+colorscheme ambiance
+
+"https://github.com/rakr/vim-one
+
+"https://github.com/cormacrelf/vim-colors-github
+
+"https://github.com/neoclide/coc.nvim --branch release
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+inoremap <silent><expr> <c-@> coc#refresh()
+"CocInstall coc-tsserver
+au FileType typescript packadd coc.nvim
+
+"https://github.com/machakann/vim-sandwich
+packadd vim-sandwich

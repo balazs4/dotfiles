@@ -130,6 +130,19 @@ function nvimrc(){
   popd > /dev/null
 }
 
+function nvimplug(){
+  if [[ ! -z "$1" ]]
+  then
+    echo "\n\"$1" >> $HOME/.files/.config/nvim/init.vim
+    source $HOME/.files/.zprofile
+  fi
+
+  rm -rf $HOME/.local/share/nvim/site/pack/_/opt/*
+  pushd $HOME/.local/share/nvim/site/pack/_/opt/
+  grep github $HOME/.config/nvim/init.vim | sed 's/"//g' | xargs -t -L1 git clone --depth 1
+  popd
+}
+
 alias v="vim -c ':GFiles'"
 alias nv="nvim -c ':Telescope find_files'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
