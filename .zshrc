@@ -135,9 +135,11 @@ function nvimplug(){
   then
     echo "\n\"$1" >> $HOME/.files/.config/nvim/init.vim
     source $HOME/.files/.zprofile
+    git clone --depth 1 "$@"
+    return
   fi
 
-  rm -rf $HOME/.local/share/nvim/site/pack/_/opt/*
+  rm -rfv $HOME/.local/share/nvim/site/pack/_/opt/*
   pushd $HOME/.local/share/nvim/site/pack/_/opt/
   grep github $HOME/.config/nvim/init.vim | sed 's/"//g' | xargs -t -L1 git clone --depth 1
   popd

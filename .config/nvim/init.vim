@@ -70,45 +70,21 @@ nmap <Leader>p :PrettierAsync<CR>
 "https://github.com/tpope/vim-commentary
 packadd vim-commentary
 
-"https://github.com/tpope/vim-surround
-packadd vim-surround
-
-"https://github.com/gruvbox-community/gruvbox
-" set termguicolors
-" syntax on
-" colorscheme gruvbox
-" let g:gruvbox_guisp_fallback = 'bg'
-" let g:gruvbox_contrast_dark = 'hard'
-"dark set background=dark
-"light set background=light
-
-"https://github.com/ayu-theme/ayu-vim
-" set termguicolors
-" syntax on
-" colorscheme ayu
-"dark let ayucolor="dark"
-"light let ayucolor="light"
-
 "https://github.com/balazs4/ambiance-vim
 set termguicolors
 syntax on
 colorscheme ambiance
 
-"https://github.com/rakr/vim-one
-
 "https://github.com/cormacrelf/vim-colors-github
-
-"https://github.com/neoclide/coc.nvim --branch release
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
-inoremap <silent><expr> <c-@> coc#refresh()
-"CocInstall coc-tsserver
-au FileType typescript packadd coc.nvim
 
 "https://github.com/machakann/vim-sandwich
 packadd vim-sandwich
+
+"https://github.com/nvim-lua/completion-nvim
+packadd completion-nvim
+set completeopt=menuone,noinsert,noselect
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy' ]
+
+"https://github.com/neovim/nvim-lspconfig
+packadd nvim-lspconfig
+lua require('lspconfig').rls.setup{ on_attach=require'completion'.on_attach }
