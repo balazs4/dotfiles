@@ -603,3 +603,7 @@ alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch 
 #vmware   docker exec -it `docker ps | grep 27017 | cut -f1 -d" "` mongo --eval 'rs.initiate();'
 #vmware   docker exec -it `docker ps | grep 27017 | cut -f1 -d" "` mongo --eval 'db.version();'
 #vmware }
+
+function cargo(){
+  docker run -it --rm --user `id -u`:`id -g` -v "$PWD:/`basename $PWD`" -w /`basename $PWD` ghcr.io/rust-lang/rust:nightly-alpine cargo $@
+}
