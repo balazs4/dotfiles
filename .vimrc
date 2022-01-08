@@ -71,31 +71,10 @@ nmap <Leader>p :PrettierAsync<CR>
 "https://github.com/tpope/vim-commentary
 packadd vim-commentary
 
-"https://github.com/tpope/vim-surround
-packadd vim-surround
-
-"https://github.com/gruvbox-community/gruvbox
-" set termguicolors
-" syntax on
-" colorscheme gruvbox
-" let g:gruvbox_guisp_fallback = 'bg'
-" let g:gruvbox_contrast_dark = 'hard'
-"dark set background=dark
-"light set background=light
-
-"https://github.com/ayu-theme/ayu-vim
-" set termguicolors
-" syntax on
-" colorscheme ayu
-"dark let ayucolor="dark"
-"light let ayucolor="light"
-
 "https://github.com/balazs4/ambiance-vim
 set termguicolors
 syntax on
 colorscheme ambiance
-
-"https://github.com/rakr/vim-one
 
 "https://github.com/cormacrelf/vim-colors-github
 
