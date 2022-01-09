@@ -19,7 +19,6 @@ set title
 set number
 set rnu
 set foldmethod=manual
-set completeopt=menuone,noinsert,noselect
 
 " https://stackoverflow.com/questions/2816719/clear-certain-criteria-from-viminfo-file
 " set viminfo='0,:0,<0,@0
@@ -61,12 +60,8 @@ let g:jsx_ext_require = 0
 let g:user_emmet_leader_key='<C-z>'
 
 "https://github.com/prettier/vim-prettier
-au FileType javascript packadd vim-prettier
-au FileType typescript packadd vim-prettier
-au FileType json packadd vim-prettier
-au FileType html packadd vim-prettier
-au FileType markdown packadd vim-prettier
-nmap <Leader>p :PrettierAsync<CR>
+au FileType javascript,typescript,json,html,markdown packadd vim-prettier
+au FileType javascript,typescript,json,html,markdown nmap <Leader>p :PrettierAsync<CR>
 
 "https://github.com/tpope/vim-commentary
 packadd vim-commentary
@@ -77,20 +72,24 @@ syntax on
 colorscheme ambiance
 
 "https://github.com/cormacrelf/vim-colors-github
-
-"https://github.com/neoclide/coc.nvim --branch release
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
-inoremap <silent><expr> <c-@> coc#refresh()
-"CocInstall coc-tsserver
-au FileType typescript packadd coc.nvim
-"CocInstall coc-rls
-au FileType rust packadd coc.nvim
-
+"
 "https://github.com/machakann/vim-sandwich
 packadd vim-sandwich
+
+"https://github.com/rust-lang/rust.vim
+au FileType rust packadd rust.vim
+au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
+
+"https://github.com/dense-analysis/ale
+set omnifunc=ale#completion#OmniFunc
+let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_enter = 0
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = { 'rust': ['cargo', 'rls'] }
+let g:ale_linters_explicit = 1
+let g:ale_set_highlights = 0
+set completeopt=menuone,noinsert,noselect
+packadd ale
