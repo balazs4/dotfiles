@@ -79,17 +79,3 @@ packadd vim-sandwich
 "https://github.com/rust-lang/rust.vim
 au FileType rust packadd rust.vim
 au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
-
-"https://github.com/dense-analysis/ale
-set omnifunc=ale#completion#OmniFunc
-let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_on_enter = 0
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = { 'rust': ['cargo', 'rls'] }
-let g:ale_linters_explicit = 1
-let g:ale_set_highlights = 0
-set completeopt=menuone,noinsert,noselect
-packadd ale
