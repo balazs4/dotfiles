@@ -608,7 +608,8 @@ alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch 
 #vmware   docker run -d --rm -p "27017:27017" mongo:${1:-4.4.4} --replSet rs \
 #vmware     | xargs -I{} docker exec -i {} sh -c '
 #vmware       while ! mongo  --eval "db.version()" >/dev/null; do sleep 0.5s; done; \
-#vmware       mongo --eval "rs.initiate()"; while ! mongo  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
+#vmware       mongo --eval "rs.initiate()"; \
+#wmware       while ! mongo  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
 #vmware       mongo --eval "db.createCollection(\"test\")"
 #vmware       '
 #vmware }
