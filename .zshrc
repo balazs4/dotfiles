@@ -336,7 +336,7 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware   case "$1" in
 #vmware     board)
 #vmware       shift;
-#vmware       curl -u "$JIRA_AUTH" -Lis "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=168" \
+#vmware       curl -u "$JIRA_AUTH" -Lis "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=131" \
 #vmware         | npx alola \
 #vmware         | npx fx rapid \
 #vmware         | fzf --sync -q "'${1:-bv} " --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"' \
