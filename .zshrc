@@ -604,10 +604,13 @@ alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch 
 
 
 #vmware function mongodb-rs(){
-#vmware   docker run -d --rm -p "27017:27017" mongo:${1:-4.4.4} --replSet rs
-#vmware   sleep 5s
-#vmware   docker exec -it `docker ps | grep 27017 | cut -f1 -d" "` mongo --eval 'rs.initiate();'
-#vmware   docker exec -it `docker ps | grep 27017 | cut -f1 -d" "` mongo --eval 'db.version();'
+#vmware   #usage:      wipe; mongodb-rs 4.4.4; node $HOME/git/seal-controller/index.js 100 100 | grep -E '\+[0-9]+ ms'
+#vmware   docker run -d --rm -p "27017:27017" mongo:${1:-4.4.4} --replSet rs \
+#vmware     | xargs -I{} docker exec -i {} sh -c '
+#vmware       while ! mongo  --eval "db.version()" >/dev/null; do sleep 0.5s; done; \
+#vmware       mongo --eval "rs.initiate()"; while ! mongo  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
+#vmware       mongo --eval "db.createCollection(\"test\")"
+#vmware       '
 #vmware }
 
 function dcargo(){
