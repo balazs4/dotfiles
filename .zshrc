@@ -537,9 +537,12 @@ function :burger:(){
 alias burger=':burger:'
 
 function now(){
+  local artUrl=`playerctl metadata --format '{{mpris:artUrl}}'`
   local title="`playerctl metadata --format '{{title}}'`"
   local artist="`playerctl metadata --format '{{artist}}'`"
   local searchterm=`node -p "encodeURIComponent('$artist $title')"`
+
+  [[ $artUrl ]] && curl -s $artUrl -o /tmp/$searchterm.png
 
   if [[ ! -f /tmp/$searchterm.png ]]
   then
