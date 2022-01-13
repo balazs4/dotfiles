@@ -38,8 +38,8 @@ vnoremap <silent> <Leader>y :'<,'>w !xclip -rmlastnl -selection clipboard<CR><CR
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-""goto definitons
-"nnoremap <leader>gf gd f' gf
+"goto definitons
+nnoremap <leader>gf gd f' gf
 
 "https://github.com/junegunn/fzf.vim
 packadd fzf.vim
