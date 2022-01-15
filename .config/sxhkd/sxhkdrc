@@ -33,7 +33,7 @@ super + a
   i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 
 
 #carbon super + l
-#carbon   sudo systemctl suspend
+#carbon   slock
 
 XF86Audio{RaiseVolume,LowerVolume}
   pulsemixer --change-volume {+5,-5} \
