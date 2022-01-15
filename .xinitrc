@@ -17,7 +17,6 @@
 
 xrdb -merge $HOME/.Xresources
 xset r rate 250 100
-#carbon xrandr --dpi 96
 setxkbmap -option caps:escape
 
 sxhkd &

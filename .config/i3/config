@@ -72,6 +72,7 @@ bindsym $mod+r mode "resize"
 bar {
   status_command i3blocks
   position top
+  # output DP2
   colors {
     statusline #AAAAAA
     background #333333

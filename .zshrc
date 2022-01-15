@@ -635,6 +635,7 @@ function deskon(){
 
 function deskoff(){
   xrandr \
+    --dpi 96 \
     --output eDP1 --auto \
     --output DP1 --off \
     --output DP2 --off 
