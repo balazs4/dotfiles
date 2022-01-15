@@ -620,3 +620,25 @@ alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch 
 function dcargo(){
   docker run -it --rm --user `id -u`:`id -g` -v "$PWD:/`basename $PWD`" -w /`basename $PWD` ghcr.io/rust-lang/rust:nightly-alpine cargo $@
 }
+
+
+function deskon(){
+  xrandr \
+    --dpi 136 \
+    --output eDP1 --primary  --mode 1920x1080  --pos 800x2160 --rotate normal \
+    --output DP1 --off \
+    --output DP2 --mode 3840x2160 --pos 0x0 --rotate normal
+
+   echo "Xft.dpi: 136" | xrdb -merge
+   i3-msg restart
+}
+
+function deskoff(){
+  xrandr \
+    --output eDP1 --auto \
+    --output DP1 --off \
+    --output DP2 --off 
+
+   echo "Xft.dpi: 96" | xrdb -merge
+   i3-msg restart
+}
