@@ -554,12 +554,17 @@ function now(){
 function news(){
   tmux new-session -s 'news' -d
 
-  tmux rename-window -t "news.1" "hackernews"
-  tmux send-keys -t "news:hackernews.1" "hackernews 12" Enter
-
-  tmux new-window -t "news" -n "wttr"
+  tmux rename-window -t "news.1" "wttr"
   tmux send-keys -t "news:wttr.1" "curl -s http://wttr.in/91085" Enter
 
+  for sub in `echo 'github reactjs sveltejs all' | xargs`
+  do
+    tmux new-window -t "news" -n "$sub"
+    tmux send-keys -t "news:$sub.1" "reddit $sub" Enter
+  done
+
+  tmux new-window -t "news" -n "hackernews"
+  tmux send-keys -t "news:hackernews.1" "hackernews 10" Enter
 
   tmux attach-session -t 'news'
 }
@@ -572,6 +577,11 @@ function hackernews(){
     | fx 'x => ["\x1b[2m" + x.url + "\x1b[0m", x.title, " "].join("\n")' 
 }
 alias hn='hackernews'
+
+function reddit(){
+  curl -Ls --user-agent "$RANDOM" "https://www.reddit.com/r/${1:-all}.json"\
+    | fx 'x => x.data.children.slice(10).map(xx => [ "\x1b[2m" + xx.data.url + "\x1b[0m", xx.data.title + " (" + xx.data.subreddit_name_prefixed + ")", " "].join("\n")).join("\n")'
+}
 
 alias magic="echo ✨MAGIC✨. Sorry-not-sorry"
 alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch me if you can; done";exit'
