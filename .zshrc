@@ -68,11 +68,10 @@ zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
 function z() {
-#carbon local code=$HOME/src
-#vmware local code=$HOME/git
   to=`{ \
     echo $HOME/.files; \
-    fd --full-path $code --type d --max-depth=1 --absolute-path $code --hidden;\
+    fd --full-path $HOME/src --type d --max-depth=1 --absolute-path $HOME/src --hidden; \
+#vmware    fd --full-path $HOME/git --type d --max-depth=1 --absolute-path $HOME/git --hidden || true\
     fd --full-path /tmp --type d --max-depth=1 --absolute-path /tmp; \
   } | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
   [[ ! -z $to ]] && cd $to
