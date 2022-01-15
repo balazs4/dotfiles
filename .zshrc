@@ -68,13 +68,14 @@ zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
 function z() {
-  to=`{ \
+  local to=`{ \
     echo $HOME/.files; \
 #carbon    fd --full-path $HOME/src --type d --max-depth=1 --absolute-path $HOME/src --hidden; \
 #vmware    fd --full-path $HOME/git --type d --max-depth=1 --absolute-path $HOME/git --hidden; \
     fd --full-path /tmp --type d --max-depth=1 --absolute-path /tmp; \
   } | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
   [[ ! -z $to ]] && cd $to
+  tmux new-session -A -s `basename $to`
 }
 
 [[ -r "/usr/share/fzf/completion.zsh" ]] && source /usr/share/fzf/completion.zsh
