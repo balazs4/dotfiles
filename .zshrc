@@ -487,20 +487,7 @@ function wallomat {
 #vmware }
 
 
-alias feedback="npx onchange -i -k './**/*.js' -- npm run test"
-
-function ide() {
-  PROJECT=`basename $PWD`
-
-  tmux new-session -s $PROJECT -d
-  tmux send-keys -t "${PROJECT}:1.1" "vim -c ':GFiles'" Enter
-
-  tmux new-window -t "${PROJECT}"
-  tmux send-keys -t "${PROJECT}:2.1" "${*:- git log -p}" Enter
-
-  tmux select-window -t "${PROJECT}:1.1"
-  tmux attach-session -t $PROJECT
-}
+alias feedback="npx -q -y onchange -i -k './**/*.js' -- npm run test"
 
 function public() {
   DOCKER_COMPOSE=tmp-docker-compose.yml
@@ -564,13 +551,27 @@ function now(){
 #vmware   watch -n2 -d  "docker compose -f $HOME/git/plossys-bundle/docker-compose.yml exec db mongo --tls --tlsAllowInvalidCertificates spooler-${bazz} --eval 'db.${bazz}.find({},${foo})' | sed '0,/MongoDB server version: 4.4.4/d' | fx 'x => ${bar}.map(k => k.split(\".\").reduce((p, c) => p[c]||\"-\", x)).join(\"\t\")'"
 #vmware }
 
-function hn(){
+function news(){
+  tmux new-session -s 'news' -d
+
+  tmux rename-window -t "news.1" "hackernews"
+  tmux send-keys -t "news:hackernews.1" "hackernews 12" Enter
+
+  tmux new-window -t "news" -n "wttr"
+  tmux send-keys -t "news:wttr.1" "curl -s http://wttr.in/91085" Enter
+
+
+  tmux attach-session -t 'news'
+}
+
+function hackernews(){
   curl -Lis https://hacker-news.firebaseio.com/v0/topstories.json \
     | ALOLA_REPORT=silent alola 'status should be 200' \
     | fx "x=> x.body.slice(0,${1:-10}).join(\"\n\")" \
     | xargs -I{} curl -s https://hacker-news.firebaseio.com/v0/item/{}.json \
     | fx 'x => ["\x1b[2m" + x.url + "\x1b[0m", x.title, " "].join("\n")' 
 }
+
 alias magic="echo ✨MAGIC✨. Sorry-not-sorry"
 alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch me if you can; done";exit'
 
