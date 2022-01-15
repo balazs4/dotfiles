@@ -1,5 +1,5 @@
 set $mod Mod4
-font pango:Roboto Mono 10
+font pango:Roboto Mono 11
 bindsym $mod+Shift+q kill
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
