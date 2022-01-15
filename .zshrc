@@ -571,6 +571,7 @@ function hackernews(){
     | xargs -I{} curl -s https://hacker-news.firebaseio.com/v0/item/{}.json \
     | fx 'x => ["\x1b[2m" + x.url + "\x1b[0m", x.title, " "].join("\n")' 
 }
+alias hn='hackernews'
 
 alias magic="echo ✨MAGIC✨. Sorry-not-sorry"
 alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch me if you can; done";exit'
