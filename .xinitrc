@@ -19,6 +19,7 @@ xrdb -merge $HOME/.Xresources
 xset r rate 250 100
 setxkbmap -option caps:escape
 
+imwheel &
 sxhkd &
 dunst &
 exec i3

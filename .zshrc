@@ -625,7 +625,7 @@ function dcargo(){
 function deskon(){
   xrandr \
     --dpi 136 \
-    --output eDP1 --primary  --mode 1920x1080  --pos 800x2160 --rotate normal \
+    --output eDP1 --primary --mode 1920x1080 --pos 800x2160 --rotate normal --scale 1.4 \
     --output DP1 --off \
     --output DP2 --mode 3840x2160 --pos 0x0 --rotate normal
 
@@ -636,7 +636,7 @@ function deskon(){
 function deskoff(){
   xrandr \
     --dpi 96 \
-    --output eDP1 --auto \
+    --output eDP1 --primary --mode 1920x1080 --rotate normal --scale 1.0 \
     --output DP1 --off \
     --output DP2 --off 
 
