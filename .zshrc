@@ -557,11 +557,8 @@ function news(){
   tmux rename-window -t "news.1" "wttr"
   tmux send-keys -t "news:wttr.1" "curl -s http://wttr.in/91085" Enter
 
-  for sub in `echo 'github reactjs sveltejs all' | xargs`
-  do
-    tmux new-window -t "news" -n "$sub"
-    tmux send-keys -t "news:$sub.1" "reddit $sub" Enter
-  done
+  tmux new-window -t "news" -n "reddit"
+  tmux send-keys -t "news:reddit" "reddit javascript" Enter
 
   tmux new-window -t "news" -n "hackernews"
   tmux send-keys -t "news:hackernews.1" "hackernews 10" Enter
