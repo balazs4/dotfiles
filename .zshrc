@@ -624,13 +624,12 @@ alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch 
 #wmware       while ! mongo  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
 #vmware       mongo --eval "db.createCollection(\"test\")"
 #vmware       '
-#vmware   docker ps -a | grep 27017
+#vmware   docker ps -a | grep 27017 
 #vmware }
 
 function dcargo(){
   docker run -it --rm --user `id -u`:`id -g` -v "$PWD:/`basename $PWD`" -w /`basename $PWD` ghcr.io/rust-lang/rust:nightly-alpine cargo $@
 }
-
 
 function deskon(){
   xrandr \
@@ -653,3 +652,21 @@ function deskoff(){
    echo "Xft.dpi: 96" | xrdb -merge
    i3-msg restart
 }
+
+#vmware function rest(){
+#vmware   local _path=${1}
+#vmware   shift
+#vmware   docker compose -f $HOME/git/plossys-bundle/docker-compose.yml exec rest curl -Liks -u 'x:y' "http://localhost:3000${_path}" ${*}
+#vmware }
+#vmware 
+#vmware function jschema(){
+#vmware   pushd ~/git/seal-rest &> /dev/null
+#vmware   node -e '
+#vmware   (async() => { 
+#vmware     const lines = []; for await (const line of require("readline").createInterface(process.stdin)) { lines.push(line); }; 
+#vmware     console.log(JSON.stringify(require("to-json-schema")(JSON.parse(lines.join("")))))
+#vmware   })();
+#vmware   '
+#vmware   popd &> /dev/null
+#vmware }
+
