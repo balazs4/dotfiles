@@ -631,27 +631,27 @@ function dcargo(){
   docker run -it --rm --user `id -u`:`id -g` -v "$PWD:/`basename $PWD`" -w /`basename $PWD` ghcr.io/rust-lang/rust:nightly-alpine cargo $@
 }
 
-function deskon(){
-  xrandr \
-    --dpi 136 \
-    --output eDP1 --primary --mode 1920x1080 --pos 800x2160 --rotate normal --scale 1.4 \
-    --output DP1 --off \
-    --output DP2 --mode 3840x2160 --pos 0x0 --rotate normal
-
-   echo "Xft.dpi: 136" | xrdb -merge
-   i3-msg restart
-}
-
-function deskoff(){
-  xrandr \
-    --dpi 96 \
-    --output eDP1 --primary --mode 1920x1080 --rotate normal --scale 1.0 \
-    --output DP1 --off \
-    --output DP2 --off 
-
-   echo "Xft.dpi: 96" | xrdb -merge
-   i3-msg restart
-}
+#carbon function deskon(){
+#carbon   xrandr \
+#carbon     --dpi 136 \
+#carbon     --output eDP1 --primary --mode 1920x1080 --pos 800x2160 --rotate normal --scale 1.4 \
+#carbon     --output DP1 --off \
+#carbon     --output DP2 --mode 3840x2160 --pos 0x0 --rotate normal
+#carbon 
+#carbon    echo "Xft.dpi: 136" | xrdb -merge
+#carbon    i3-msg restart
+#carbon }
+#carbon 
+#carbon function deskoff(){
+#carbon   xrandr \
+#carbon     --dpi 96 \
+#carbon     --output eDP1 --primary --mode 1920x1080 --rotate normal --scale 1.0 \
+#carbon     --output DP1 --off \
+#carbon     --output DP2 --off 
+#carbon 
+#carbon    echo "Xft.dpi: 96" | xrdb -merge
+#carbon    i3-msg restart
+#carbon }
 
 #vmware function rest(){
 #vmware   local _path=${1}
@@ -670,3 +670,13 @@ function deskoff(){
 #vmware   popd &> /dev/null
 #vmware }
 
+#vmware function json2yaml(){
+#vmware   pushd ~/git/seal-rest &> /dev/null
+#vmware   node -e '
+#vmware   (async() => { 
+#vmware     const lines = []; for await (const line of require("readline").createInterface(process.stdin)) { lines.push(line); }; 
+#vmware     console.log(require("js-yaml").dump(JSON.parse(lines.join(""))));
+#vmware   })();
+#vmware   '
+#vmware   popd &> /dev/null
+#vmware }
