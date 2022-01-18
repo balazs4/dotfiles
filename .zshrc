@@ -75,7 +75,7 @@ function z() {
     fd --full-path /tmp --type d --max-depth=1 --absolute-path /tmp; \
   } | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
   [[ ! -z $to ]] && cd $to
-  tmux new-session -A -s `basename $to`
+  [[ $TMUX ]] || tmux new-session -A -s `basename $to`
 }
 
 [[ -r "/usr/share/fzf/completion.zsh" ]] && source /usr/share/fzf/completion.zsh
@@ -624,6 +624,7 @@ alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch 
 #wmware       while ! mongo  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
 #vmware       mongo --eval "db.createCollection(\"test\")"
 #vmware       '
+#vmware   docker ps -a | grep 27017
 #vmware }
 
 function dcargo(){
