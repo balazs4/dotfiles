@@ -616,7 +616,7 @@ alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch 
 
 
 #vmware function mongodb-rs(){
-#vmware   #usage:      wipe; mongodb-rs 4.4.4; node $HOME/git/seal-controller/index.js 100 100 | grep -E '\+[0-9]+ ms'
+#vmware   docker ps -a | grep 27017 | cut -f1 -d" " | xargs -tr docker kill
 #vmware   docker run -d --rm -p "27017:27017" mongo:${1:-4.4.4} --replSet rs \
 #vmware     | xargs -I{} docker exec -i {} sh -c '
 #vmware       while ! mongo  --eval "db.version()" >/dev/null; do sleep 0.5s; done; \
