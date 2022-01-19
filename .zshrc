@@ -67,21 +67,18 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
-function zz() {
+function z() {
   local to=`{ \
     echo $HOME/.files; \
 #carbon    fd --full-path $HOME/src --type d --max-depth=1 --absolute-path $HOME/src --hidden; \
 #vmware    fd --full-path $HOME/git --type d --max-depth=1 --absolute-path $HOME/git --hidden; \
-      fd --full-path /tmp --type d --max-depth=1 --absolute-path /tmp; \
-      } | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
-      [[ ! -z $to ]] && cd $to
-    }
-
-function z() {
-  zz ${*}
-  [[ $TMUX ]] || tmux new-session -A -s `basename $PWD`
+   fd --full-path /tmp --type d --max-depth=1 --absolute-path /tmp; \
+   } | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
+   [[ ! -z $to ]] && cd $to
+   [[ $TMUX ]] || tmux new-session -A -s `basename $PWD`
 }
 
+alias zz='TMUX=fake z'
 
 [[ -r "/usr/share/fzf/completion.zsh" ]] && source /usr/share/fzf/completion.zsh
 [[ -r "/usr/share/fzf/key-bindings.zsh" ]] && source /usr/share/fzf/key-bindings.zsh
@@ -657,17 +654,59 @@ function dcargo(){
 #carbon    i3-msg restart
 #carbon }
 
+#vmware function openapi(){
+#vmware   rest /openapi | alola | fx .body > /tmp/swagger.json
+#vmware   for p in `fx /tmp/swagger.json 'x => Object.entries(x.paths).map(xx => xx[1].get ? xx[0] : undefined).filter(xx => xx).join("\n")' | xargs`
+#vmware   do 
+#vmware     echo $p;
+#vmware     rest `echo $p | sed "s|:printerName|$PRINTER|g;s|:name|$FLOW|g;s|:id|$JOB_ID|g"` | alola | swag /tmp/swagger.json $p get;
+#vmware   done
+#vmware }
+#vmware
 #vmware function rest(){
 #vmware   local _path=${1}
 #vmware   shift
 #vmware   docker compose -f $HOME/git/plossys-bundle/docker-compose.yml exec rest curl -Liks -u 'x:y' "http://localhost:3000${_path}" ${*}
 #vmware }
-#vmware 
-#vmware function jschema(){
+
+#vmware function swag(){
 #vmware   pushd ~/git/seal-rest &> /dev/null
 #vmware   node -e '
 #vmware   (async() => { 
 #vmware     const lines = []; for await (const line of require("readline").createInterface(process.stdin)) { lines.push(line); }; 
+#vmware     const alola = JSON.parse(lines.join(""));
+#vmware 
+#vmware     const mime = alola?.headers["content-type"]?.split(";")[0] || null;
+#vmware     if (mime === null) return;
+#vmware     let content;
+#vmware     switch(mime){
+#vmware        case "application/json":
+#vmware          content = { [mime]: { schema: require("to-json-schema")(alola.body) }}
+#vmware          break;
+#vmware 
+#vmware        case "application/gzip":
+#vmware          content = { [mime]: { }}
+#vmware          break;
+#vmware 
+#vmware        default:
+#vmware          content = { [mime]: { example: alola.body }};
+#vmware          break;
+#vmware     }
+#vmware 
+#vmware     const [ , openapifile,apipath, method] = process.argv;
+#vmware     const openapi = require(openapifile);
+#vmware     openapi["paths"][apipath][method]["responses"][alola.status]["content"] = content;
+#vmware     await require("fs/promises").writeFile(openapifile, JSON.stringify(openapi));
+#vmware   })();
+#vmware   ' $*
+#vmware   popd &> /dev/null
+#vmware }
+
+#vmware function jschema(){
+#vmware   pushd ~/git/seal-rest &> /dev/null
+#vmware   node -e '
+#vmware   (async() => {
+#vmware     const lines = []; for await (const line of require("readline").createInterface(process.stdin)) { lines.push(line); };
 #vmware     console.log(JSON.stringify(require("to-json-schema")(JSON.parse(lines.join("")))))
 #vmware   })();
 #vmware   '
@@ -685,13 +724,3 @@ function dcargo(){
 #vmware   popd &> /dev/null
 #vmware }
 
-function openapi(){
-  node -e "
-  (async() => { 
-    const lines = []; for await (const line of require('readline').createInterface(process.stdin)) { lines.push(line); }; 
-    const openapi = require('$1');
-    openapi['paths']['$2']['get']['responses']['200']['content']['application/json']['schema'] = JSON.parse(lines.join(''));
-    await require('fs/promises').writeFile('$1', JSON.stringify(openapi));
-  })();
-  "
-}
