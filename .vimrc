@@ -33,7 +33,7 @@ vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " clipboard
-vnoremap <silent> <Leader>y :'<,'>w !xclip -rmlastnl -selection clipboard<CR><CR>
+"vnoremap <silent> <Leader>y :'<,'>w !xclip -rmlastnl -selection clipboard<CR><CR>
 
 nnoremap n nzzzv
 nnoremap N Nzzzv
@@ -71,11 +71,11 @@ set termguicolors
 syntax on
 colorscheme ambiance
 
-"https://github.com/cormacrelf/vim-colors-github
-"
 "https://github.com/machakann/vim-sandwich
 packadd vim-sandwich
 
 "https://github.com/rust-lang/rust.vim
 au FileType rust packadd rust.vim
 au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
+
+"https://github.com/gruvbox-community/gruvbox
