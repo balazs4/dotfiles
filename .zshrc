@@ -685,3 +685,14 @@ function dcargo(){
 #vmware   '
 #vmware   popd &> /dev/null
 #vmware }
+
+function openapi(){
+  node -e "
+  (async() => { 
+    const lines = []; for await (const line of require('readline').createInterface(process.stdin)) { lines.push(line); }; 
+    const openapi = require('$1');
+    openapi['paths']['$2']['get']['responses']['200']['content']['application/json']['schema'] = JSON.parse(lines.join(''));
+    await require('fs/promises').writeFile('$1', JSON.stringify(openapi));
+  })();
+  "
+}
