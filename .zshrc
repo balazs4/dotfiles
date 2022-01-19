@@ -619,18 +619,17 @@ alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch 
 #vmware   popd
 #vmware }
 
-
-#vmware function mongodb-rs(){
-#vmware   docker ps -a | grep 27017 | cut -f1 -d" " | xargs -tr docker kill
-#vmware   docker run -d --rm -p "27017:27017" mongo:${1:-4.4.4} --replSet rs \
-#vmware     | xargs -I{} docker exec -i {} sh -c '
-#vmware       while ! mongo  --eval "db.version()" >/dev/null; do sleep 0.5s; done; \
-#vmware       mongo --eval "rs.initiate()"; \
-#wmware       while ! mongo  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
-#vmware       mongo --eval "db.createCollection(\"test\")"
-#vmware       '
-#vmware   docker ps -a | grep 27017 
-#vmware }
+function mongodb-rs(){
+  docker ps -a | grep 27017 | cut -f1 -d" " | xargs -tr docker kill
+  docker run -d --rm -p "27017:27017" mongo:${1:-4.4.4} --replSet rs \
+    | xargs -I{} docker exec -i {} sh -c '
+      while ! mongo  --eval "db.version()" >/dev/null; do sleep 0.5s; done; \
+      mongo --eval "rs.initiate()"; \
+      while ! mongo  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
+      mongo --eval "db.createCollection(\"test\")"
+      '
+  docker ps -a | grep 27017 
+}
 
 function dcargo(){
   docker run -it --rm --user `id -u`:`id -g` -v "$PWD:/`basename $PWD`" -w /`basename $PWD` ghcr.io/rust-lang/rust:nightly-alpine cargo $@
