@@ -661,11 +661,12 @@ function dcargo(){
 #vmware   sleep 10s
 #vmware   local job_id=`rest /v3/jobs | npx alola | npx fx .body 'x => x[0]["_id"]'`
 #vmware   rest /v3/printers/printer1/message -XPUT -H 'content-type: application/json' -d '{"message": {"message": "message, is that you?", "username": "openapi", "date": 1642692688197 }}'
+#vmware   rest /v3/printers/printer2/message -XPUT -H 'content-type: application/json' -d '{"message": {"message": "message, is that you?", "username": "openapi", "date": 1642692688197 }}'
 #vmware   
 #vmware   for _path in `npx fx /tmp/swagger.json 'x => Object.entries(x.paths).map(xx => xx[1].get ? xx[0] : undefined).filter(xx => xx).join("\n")' | xargs`
 #vmware   do 
 #vmware     echo $_path;
-#vmware     rest `echo $_path | sed "s|printers/:printerName|printers/printer1|g;s|flows/:name|flows/main|g;s|jobs/:id|jobs/$job_id|g"` | npx alola | swag /tmp/swagger.json $_path get;
+#vmware     rest `echo $_path | sed "s|printers/{printerName}|printers/printer1|g;s|flows/{name}|flows/main|g;s|jobs/{id}|jobs/$job_id|g"` | npx alola | swag /tmp/swagger.json $_path get;
 #vmware   done
 #vmware }
 #vmware

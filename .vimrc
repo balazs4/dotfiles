@@ -23,8 +23,6 @@ set foldmethod=manual
 " https://stackoverflow.com/questions/2816719/clear-certain-criteria-from-viminfo-file
 " set viminfo='0,:0,<0,@0
 
-nnoremap <Leader>[ :bp<CR>
-nnoremap <Leader>] :bn<CR>
 
 " move
 nnoremap <C-j> :m .+1<CR>==
@@ -43,8 +41,9 @@ nnoremap <leader>gf gd f' gf
 
 "https://github.com/junegunn/fzf.vim
 packadd fzf.vim
-nnoremap <Leader>l :Buffers<CR>
+nnoremap <Leader>[ :Buffers<CR>#
 nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
+nnoremap <expr> <Leader>] (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <Leader><Leader> :Rg<CR>
 "vmware nnoremap <Leader>t :Rg <C-r>%<Del><Del><Del>
 
