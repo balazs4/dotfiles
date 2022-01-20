@@ -1,0 +1,4 @@
+--colors=path:fg:cyan
+--colors=line:fg:cyan
+--colors=match:fg:white
+--smart-case
