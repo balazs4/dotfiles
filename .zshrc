@@ -656,11 +656,16 @@ function dcargo(){
 #carbon }
 
 #vmware function openapi(){
-#vmware   rest /openapi | alola | fx .body > /tmp/swagger.json
-#vmware   for p in `fx /tmp/swagger.json 'x => Object.entries(x.paths).map(xx => xx[1].get ? xx[0] : undefined).filter(xx => xx).join("\n")' | xargs`
+#vmware   rest /openapi | npx alola | npx fx .body > /tmp/swagger.json
+#vmware   testjob 1kb printer1
+#vmware   sleep 10s
+#vmware   local job_id=`rest /v3/jobs | npx alola | npx fx .body 'x => x[0]["_id"]'`
+#vmware   rest /v3/printers/printer1/message -XPUT -H 'content-type: application/json' -d '{"message": {"message": "message, is that you?", "username": "openapi", "date": 1642692688197 }}'
+#vmware   
+#vmware   for _path in `npx fx /tmp/swagger.json 'x => Object.entries(x.paths).map(xx => xx[1].get ? xx[0] : undefined).filter(xx => xx).join("\n")' | xargs`
 #vmware   do 
-#vmware     echo $p;
-#vmware     rest `echo $p | sed "s|:printerName|$PRINTER|g;s|:name|$FLOW|g;s|:id|$JOB_ID|g"` | alola | swag /tmp/swagger.json $p get;
+#vmware     echo $_path;
+#vmware     rest `echo $_path | sed "s|printers/:printerName|printers/printer1|g;s|flows/:name|flows/main|g;s|jobs/:id|jobs/$job_id|g"` | npx alola | swag /tmp/swagger.json $_path get;
 #vmware   done
 #vmware }
 #vmware
@@ -725,3 +730,5 @@ function dcargo(){
 #vmware   popd &> /dev/null
 #vmware }
 
+function preopenapi(){
+}
