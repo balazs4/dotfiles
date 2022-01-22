@@ -642,6 +642,7 @@ function dcargo(){
 #carbon 
 #carbon    echo "Xft.dpi: 136" | xrdb -merge
 #carbon    i3-msg restart
+#carbon    imwheel >/dev/null &
 #carbon }
 #carbon 
 #carbon function deskoff(){
@@ -653,6 +654,7 @@ function dcargo(){
 #carbon 
 #carbon    echo "Xft.dpi: 96" | xrdb -merge
 #carbon    i3-msg restart
+#carbon    killall -9 imwheel >/dev/null
 #carbon }
 
 #vmware function openapi(){
