@@ -520,11 +520,9 @@ alias pnpm='NPM_CONFIG_LOGLEVEL=error npx -y pnpm'
 alias pn='NPM_CONFIG_LOGLEVEL=error npx -y pnpm'
 alias yarn='NPM_CONFIG_LOGLEVEL=error npx -y yarn'
 
-function :burger:(){
-  gh gist view --raw $GITHUB_GIST_BURGER --raw --filename burger > /tmp/burger
-  source /tmp/burger
+function burger(){
+  source $HOME/git/aws-burger/functions
 }
-alias burger=':burger:'
 
 function now(){
   local artUrl=`playerctl metadata --format '{{mpris:artUrl}}'`
