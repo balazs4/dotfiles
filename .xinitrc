@@ -5,7 +5,7 @@
 #vmware vmware-user &
 #vmware pulsemixer --set-volume 20
 
-#carbon pulseaudio --start # why do I need this?
+#carbon pulseaudio --start 
 #carbon pulsemixer --list-sources | cut -d":" -f3 | cut -d"," -f1 | xargs -I{} pulsemixer --mute --id {}
 #carbon pulsemixer --list-sinks | cut -d":" -f3 | cut -d"," -f1 | xargs -I{} pulsemixer --mute --id {}
 #carbon xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Accel Speed' 0.5
@@ -17,7 +17,6 @@
 
 xrdb -merge $HOME/.Xresources
 xset r rate 250 100
-setxkbmap -option caps:escape
 
 unclutter --timeout 2 --start-hidden --fork &
 sxhkd &
