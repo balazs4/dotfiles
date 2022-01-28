@@ -87,9 +87,10 @@ let g:ale_lint_on_enter = 0
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = { 'rust': ['analyzer'] }
 let g:ale_linters_explicit = 1
 let g:ale_set_highlights = 0
+let g:ale_completion_enabled = 0
 set completeopt=menuone,noinsert,noselect
+let g:ale_linters = { 'rust': ['analyzer'] }
 packadd ale
 
