@@ -72,8 +72,8 @@ function z() {
   then
     local to=`{
       echo $HOME/.files;
-      #carbon    fd --full-path $HOME/src --type d --max-depth=1 --absolute-path $HOME/src --hidden;
-      #vmware    fd --full-path $HOME/git --type d --max-depth=1 --absolute-path $HOME/git --hidden;
+#carbon    fd --full-path $HOME/src --type d --max-depth=1 --absolute-path $HOME/src --hidden;
+#vmware    fd --full-path $HOME/git --type d --max-depth=1 --absolute-path $HOME/git --hidden;
       fd --full-path /tmp --type d --max-depth=1 --absolute-path /tmp;
     } | fzf --layout=reverse --height '40%' -q "'${*:-} " -1`
     [[ ! -z $to ]] && cd $to
