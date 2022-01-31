@@ -626,3 +626,12 @@ function dcargo(){
 #carbon    i3-msg restart
 #carbon    killall -9 imwheel >/dev/null
 #carbon }
+
+
+function record-tmux(){
+  local cast="/tmp/tmux-$1.json"
+  asciinema rec --command "tmux attach -t $1" $cast
+  #npx -yq -p svg-term-cli
+  svg-term --in $cast --out $cast.svg
+  ls -lsh $cast*
+}
