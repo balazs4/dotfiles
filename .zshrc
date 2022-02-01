@@ -635,3 +635,74 @@ function record-tmux(){
   svg-term --in $cast --out $cast.svg
   ls -lsh $cast*
 }
+
+
+function aws-burger(){
+  typo "aws-burger:1.1" "clear"
+  typo "aws-burger:1.2" "clear"
+  typo "aws-burger:1.3" "clear"
+
+  typo "aws-burger:1.1" "source functions"
+  typo "aws-burger:1.2" "source functions"
+  typo "aws-burger:1.3" "source functions"
+
+  typo "aws-burger:1.1" "burger-deploy"
+  typo "aws-burger:1.2" "burger-deploy"
+  typo "aws-burger:1.3" "burger-deploy"
+  echo Press enter to proceed;read
+
+  typo "aws-burger:1.1" "centos"
+  typo "aws-burger:1.2" "opensuse"
+  typo "aws-burger:1.3" "windows"
+
+  typo "aws-burger:1.1" "?centos"
+  typo "aws-burger:1.2" "?opensuse"
+  typo "aws-burger:1.3" "?windows"
+  echo Press enter to proceed;read
+
+  typo "aws-burger:1.1" "ZZ"
+  typo "aws-burger:1.2" "ZZ"
+  typo "aws-burger:1.3" "ZZ"
+  echo Press enter to proceed;read
+
+  typo "aws-burger:1.1" "burger-stacks"
+  typo "aws-burger:1.2" "burger-stacks"
+  typo "aws-burger:1.3" "burger-stacks"
+  echo Press enter to proceed;read
+
+  typo "aws-burger:1.1" "export STACK_NAME=balazs4-centos"
+  typo "aws-burger:1.2" "export STACK_NAME=balazs4-opensuse"
+  typo "aws-burger:1.3" "export STACK_NAME=balazs4-windows"
+  echo Press enter to proceed;read
+
+  typo "aws-burger:1.1" "burger-help"
+  typo "aws-burger:1.2" "burger-help"
+  typo "aws-burger:1.3" "burger-help"
+  echo Press enter to proceed;read
+
+  typo "aws-burger:1.1" "burger-ssh"
+  typo "aws-burger:1.2" "burger-ssh"
+  typo "aws-burger:1.3" "burger-ssh"
+  echo Press enter to proceed;read
+
+  typo "aws-burger:1.1" "burger-destroy"
+  typo "aws-burger:1.2" "burger-destroy"
+  typo "aws-burger:1.3" "burger-destroy"
+  echo Press enter to proceed;read
+
+  typo "aws-burger:1.1" "unset STACK_NAME"
+  typo "aws-burger:1.2" "unset STACK_NAME"
+  typo "aws-burger:1.3" "unset STACK_NAME"
+
+}
+
+
+function typo(){
+  local target=$1
+  shift
+  node -p 'process.argv.slice(1).map(x => x.split("").map(xx => xx + "\n").join("")).join("\n").trim()' ${*} \
+    | xargs -I% -d '\n' -n1 sh -c "tmux send-keys -t '$target' '%'; sleep 0.1s;"
+
+  sleep 0.2s
+  tmux send-keys -t "$target" Enter
+}
