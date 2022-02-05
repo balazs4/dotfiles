@@ -25,7 +25,6 @@ bindkey '\e[A' history-beginning-search-backward-end
 bindkey '\e[B' history-beginning-search-forward-end
 
 function zsh-git() {
-  [[ $TMUX ]] && return
   local __branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
   [[ -z $__branch ]] && return
 
@@ -35,23 +34,15 @@ function zsh-git() {
     return
   fi
 
-  local __staged=`PAGER= git diff --name-only --staged | wc -l`
-  local __changed=`PAGER= git diff --name-only | wc -l`
-  local __notpushed=`PAGER= git diff --name-only origin/$__branch..HEAD 2>/dev/null | wc -l`
-
-  local _branch=`[[ __notpushed -eq 0 ]] && echo %F{white}$__branch%f || echo %F{yellow}$__branch%f`
-#light local _branch=`[[ __notpushed -eq 0 ]] && echo $__branch || echo %F{yellow}$__branch%f`
-  local _staged=`[[ __staged -eq 0 ]] && echo $__staged || echo %B%F{green}$__staged%f%b`
-#light local _staged=`[[ __staged -eq 0 ]] && echo $__staged || echo %B%F{blue}$__staged%f%b`
-  local _changed=`[[ __changed -eq 0 ]] && echo $__changed || echo %B%F{red}$__changed%f%b`
-
-  if ! git config --local --get zsh.skip > /dev/null
-  then
-    local __newfiles=`git ls-files --others --exclude-standard 2>/dev/null | wc -l`
-    local _newfiles=`[[ __newfiles -eq 0 ]] && echo $__newfiles || echo %B%F{red}$__newfiles%f%b`
-  fi
-
-  echo " [ $_branch«$_staged«$_changed«${_newfiles:-x} ]"
+  git status --porcelain --branch \
+    | awk '
+      BEGIN { branch; staged=0;modified=0;untracked=0 }
+      /^##/             {sub(/\.\.\./," "); branch=$2}
+      /^(M|T|A|D|R|C) / {staged++}
+      /^ (M|T|A|D|R|C)/ {modified++}
+      /^\?\?/           {untracked++}
+      END { print " [ " branch "«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b ]"}' \
+    | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g'
 }
 
 setopt PROMPT_SUBST
