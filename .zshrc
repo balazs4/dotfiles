@@ -42,7 +42,7 @@ function zsh-git() {
       /^ (M|T|A|D|R|C)/ {modified++}
       /^\?\?/           {untracked++}
       END { print " [ %F{white}" branch "%f«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b ]"}' \
-    | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|%F{white}\[different\]|%F{yellow}|g'
+    | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|%F{white}\[different\]|%B%F{red}! %f%b%F{white}|g'
 }
 
 setopt PROMPT_SUBST
