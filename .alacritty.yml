@@ -73,6 +73,6 @@ window:
     hide_when_typing: true
 
 font:
+  size: 12.0
   normal:
     family: Source Code Pro 
-    size: 11.0
