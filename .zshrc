@@ -34,15 +34,15 @@ function zsh-git() {
     return
   fi
 
-  git status --porcelain --branch \
+  git status --porcelain --branch --no-ahead-behind \
     | awk '
       BEGIN { branch; staged=0;modified=0;untracked=0 }
-      /^##/             {sub(/\.\.\./," "); branch=$2}
+      /^##/             {sub(/\.\.\./," "); branch=$4$2 }
       /^(M|T|A|D|R|C) / {staged++}
       /^ (M|T|A|D|R|C)/ {modified++}
       /^\?\?/           {untracked++}
-      END { print " [ " branch "«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b ]"}' \
-    | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g'
+      END { print " [ %F{white}" branch "%f«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b ]"}' \
+    | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|%F{white}\[different\]|%F{yellow}|g'
 }
 
 setopt PROMPT_SUBST
