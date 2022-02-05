@@ -25,6 +25,7 @@ bindkey '\e[A' history-beginning-search-backward-end
 bindkey '\e[B' history-beginning-search-forward-end
 
 function zsh-git() {
+  [[ $TMUX ]] && return
   local __branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
   [[ -z $__branch ]] && return
 
