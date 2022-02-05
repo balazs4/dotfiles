@@ -107,4 +107,4 @@ for_window [instance="temp_terminal"] scratchpad show
 
 #vmware exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/-8aq7Gb9M_A/download?force=true
 
-#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/Q47eNv_UvfM/download?force=true&w=1920
+#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/xrzHZfJ7lxQ/download?force=true&w=1920
