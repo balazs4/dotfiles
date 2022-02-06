@@ -95,3 +95,5 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_set_highlights = 0
 set omnifunc=ale#completion#OmniFunc
 set completeopt=menuone,noinsert,noselect
+
+"https://github.com/rakr/vim-one
