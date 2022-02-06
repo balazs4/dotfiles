@@ -37,7 +37,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 "goto definitons
-nnoremap <leader>gf gd f' gf
+" nnoremap <leader>gf gd f' gf
 
 "https://github.com/junegunn/fzf.vim
 packadd fzf.vim
@@ -80,17 +80,18 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 "https://github.com/gruvbox-community/gruvbox
 
 "https://github.com/dense-analysis/ale
-set omnifunc=ale#completion#OmniFunc
+au FileType rust packadd ale
+au FileType typescript packadd ale
+au FileType typescript nnoremap <leader>gf :ALEGoToDefinition<CR>
+let g:ale_linters_explicit = 1
+let g:ale_linters = { 'rust': ['analyzer'] , 'typescript': ['tsserver'] }
+
 let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_enter = 0
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters_explicit = 1
 let g:ale_set_highlights = 0
-let g:ale_completion_enabled = 0
+set omnifunc=ale#completion#OmniFunc
 set completeopt=menuone,noinsert,noselect
-let g:ale_linters = { 'rust': ['analyzer'] }
-packadd ale
-
