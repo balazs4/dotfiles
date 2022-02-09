@@ -698,3 +698,5 @@ function typo(){
   sleep 0.2s
   tmux send-keys -t "$target" Enter
 }
+
+#vmware source $HOME/.nix-profile/etc/profile.d/nix.sh
