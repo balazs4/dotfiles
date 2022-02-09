@@ -85,8 +85,8 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 
 "https://github.com/dense-analysis/ale
 au FileType rust packadd ale
-" au FileType typescript packadd ale
-" au FileType typescript nnoremap <leader>gf :ALEGoToDefinition<CR>
+au FileType typescript packadd ale
+au FileType typescript nnoremap <leader>gf :ALEGoToDefinition<CR>
 let g:ale_linters_explicit = 1
 let g:ale_linters = { 'rust': ['analyzer'] , 'typescript': ['tsserver'] }
 
