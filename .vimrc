@@ -21,12 +21,12 @@ set rnu
 set foldmethod=manual
 set shortmess+=c
 set complete+=kspell
-set completeopt=menuone,longest
-
+set completeopt=longest,menu,preview,popup
 
 " https://stackoverflow.com/questions/2816719/clear-certain-criteria-from-viminfo-file
 " set viminfo='0,:0,<0,@0
 
+inoremap <C-@> <c-x><c-o>
 
 " move
 nnoremap <C-j> :m .+1<CR>==
@@ -87,6 +87,7 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 au FileType rust packadd ale
 au FileType typescript packadd ale
 au FileType typescript nnoremap <leader>gf :ALEGoToDefinition<CR>
+au FileType typescript set completeopt+=menuone
 let g:ale_linters_explicit = 1
 let g:ale_linters = { 'rust': ['analyzer'] , 'typescript': ['tsserver'] }
 
@@ -98,6 +99,5 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_set_highlights = 0
 set omnifunc=ale#completion#OmniFunc
-set completeopt=menuone,noinsert,noselect
 
 "https://github.com/rakr/vim-one
