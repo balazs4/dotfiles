@@ -699,3 +699,7 @@ function typo(){
 }
 
 #vmware source $HOME/.nix-profile/etc/profile.d/nix.sh
+
+function raw(){
+  curl -Ls "$1?raw=true"
+}
