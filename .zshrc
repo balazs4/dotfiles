@@ -678,7 +678,7 @@ function typo(){
   tmux send-keys -t "$target" Enter
 }
 
-#vmware source $HOME/.nix-profile/etc/profile.d/nix.sh
+source $HOME/.nix-profile/etc/profile.d/nix.sh
 
 function raw(){
   curl -Ls "$1?raw=true"
