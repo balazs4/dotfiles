@@ -102,8 +102,6 @@ function dotsync(){
   source $HOME/.files/.zprofile
 }
 
-alias dotweb='gh repo view -w $USER/dotfiles'
-
 function dotfile(){
   [[ -e "$HOME/$1" ]] || return
   dir=`dirname "$HOME/.files/$1"`
@@ -126,30 +124,7 @@ function vimplug(){
   popd
 }
 
-function nvimrc(){
-  pushd $HOME/.files > /dev/null
-    nvim ./.config/nvim/init.vim
-    source $PWD/.zprofile
-  popd > /dev/null
-}
-
-function nvimplug(){
-  if [[ ! -z "$1" ]]
-  then
-    echo "\n\"$1" >> $HOME/.files/.config/nvim/init.vim
-    source $HOME/.files/.zprofile
-    git clone --depth 1 "$@"
-    return
-  fi
-
-  rm -rfv $HOME/.local/share/nvim/site/pack/_/opt/*
-  pushd $HOME/.local/share/nvim/site/pack/_/opt/
-  grep github $HOME/.config/nvim/init.vim | sed 's/"//g' | xargs -t -L1 git clone --depth 1
-  popd
-}
-
 alias v="vim -c ':GFiles'"
-alias nv="nvim -c ':Telescope find_files'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
 alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
@@ -175,15 +150,36 @@ alias gst='git status'
 alias gco='git checkout'
 alias gpp='git pull --prune --tags'
 alias gcm='git checkout `git branch | grep -P "(canary|main|master)"`'
-alias shrug='curl -s http://shrug.io | xx'
+alias shrug='echo ¯\_(ツ)_/¯'
 alias wipe='docker rm -f `docker ps -aq`; docker network prune -f; docker volume prune -f'
 alias dco='docker compose'
 alias rg='rg --hidden'
 alias dmesg='sudo dmesg'
 alias cal='LC_ALL=de_DE.utf8 cal'
 alias yay='yay --editmenu'
-alias srv='npx -y https://gist.github.com/balazs4/35efa8495fba2dc8fc52e56de9baf562'
-alias md=glow
+
+function srv(){
+  node -e '
+  const {PORT = 8000} = process.env;
+  require("http").createServer((req, res) => {
+    process.stdout.write(`\n${req.method} ${req.url}\n`);
+
+    Object.entries(req.headers).forEach(([key, value]) => {
+      process.stdout.write(`${key}: ${value}\n`);
+    });
+
+    process.stdout.write("\n");
+    req.on("data", (chunk) => {
+      process.stdout.write(`${chunk.toString("utf-8")}`);
+    });
+
+    req.on("close", () => {
+      process.stdout.write("\n");
+      res.end("ok");
+    });
+  }).listen(PORT, () => console.log(`echo-server is listening on http://localhost:${PORT}`));
+  '
+}
 
 function cheat(){
   curl -Lis cht.sh${*}
@@ -192,7 +188,7 @@ function cheat(){
 function radio(){
   term=$(echo $* | sed -r 's/\s/\+/g')
   curl http://opml.radiotime.com/Search.ashx\?query\=$term -s \
-    | npx -q -p fast-xml-parser@latest fxparser \
+    | fxparser \
     | fx 'xx => xx.opml.body.outline.filter(x => x["@_item"] === "station").map(x=>[ x["@_URL"], x["@_reliability"], x["@_text"], x["@_subtext"] ].join("\t")).join("\n")' \
     | fzf --sync \
     | cut -f1 \
@@ -201,7 +197,6 @@ function radio(){
 
 function dw(){
   url="https://de.wiktionary.org/wiki/$1"
-  # curl -s "$url" | pup 'table.wikitable' | w3m -dump -T text/html | sed '/^$/d'
   curl -s "$url" | hq 'table.wikitable' data | w3m -dump -T text/html | sed '/^$/d'
   echo $url
 }
@@ -230,16 +225,8 @@ function record(){
   echo $FILENAME
 }
 
-function re(){
-  docker compose rm -sf $1
-  docker compose up $1
-}
-
 function co(){
-  for handle in "$@"
-  do
-    echo "Co-authored-by: $handle <$handle@users.noreply.github.com>"
-  done
+  for handle in "$@"; do echo "Co-authored-by: $handle <$handle@users.noreply.github.com>"; done
 }
 
 function mirrorlist() {
@@ -263,9 +250,9 @@ function remind(){
   CONTENT="$*"
 
   echo "
-    echo \"$CONTENT\" > /tmp/remind
+    echo '$CONTENT' > /tmp/remind
     pkill -SIGRTMIN+4 i3blocks
-    dunstify \"\`date\`\" \"$CONTENT\"
+    dunstify \"\`date\`\" '$CONTENT'
   " | at $TIME
 }
 
@@ -279,22 +266,22 @@ function wall(){
   i3-msg restart
 }
 
-function dockeron() {
+function ghcrio-on() {
   echo "{ \"auths\":{ \"ghcr.io\":{ \"auth\":\"`echo "$USER:$GITHUB_TOKEN" | base64`\"  }}}" > ${DOCKER_CONFIG:-$HOME/.docker/config.json}
 }
 
-function dockeroff() {
+function ghcrio-off() {
   rm -v ${DOCKER_CONFIG:-$HOME/.docker/config.json}
 }
 
-function awson(){
+function aws-on(){
   export AWS_ACCESS_KEY_ID=`    pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_ACCESS_KEY_ID     | cut -d"=" -f2`
   export AWS_SECRET_ACCESS_KEY=`pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_SECRET_ACCESS_KEY | cut -d"=" -f2`
   export AWS_DEFAULT_REGION=`   pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_DEFAULT_REGION    | cut -d"=" -f2`
   export AWS_DEFAULT_OUTPUT=`   pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_DEFAULT_OUTPUT    | cut -d"=" -f2`
 }
 
-function awsoff(){
+function aws-off(){
   export AWS_ACCESS_KEY_ID=
   export AWS_SECRET_ACCESS_KEY=
   export AWS_DEFAULT_REGION=
@@ -303,7 +290,6 @@ function awsoff(){
 
 export N_PREFIX=$HOME/.n/prefix
 export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
-#vmware 
 #vmware alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
 alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware alias whatsapp='chromium --app=https://web.whatsapp.com/' #webapp
