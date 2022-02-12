@@ -515,8 +515,11 @@ function news(){
   tmux new-window -t "news" -n "hackernews"
   tmux send-keys -t "news:hackernews.1" "hackernews 10" Enter
 
-  tmux new-window -t "news" -n "reddit"
-  tmux send-keys -t "news:reddit" "reddit javascript" Enter
+  tmux new-window -t "news" -n "r/javascript"
+  tmux send-keys -t "news:r/javascript.1" "reddit javascript" Enter
+
+  tmux new-window -t "news" -n "archnews"
+  tmux send-keys -t "news:archnews.1" "archnews" Enter
 
   tmux attach-session -t 'news'
 }
@@ -533,6 +536,12 @@ alias hn='hackernews'
 function reddit(){
   curl -Ls --user-agent "$RANDOM" "https://www.reddit.com/r/${1:-all}.json"\
     | fx 'x => x.data.children.slice(10).map(xx => [ "\x1b[2m" + xx.data.url + "\x1b[0m", xx.data.title + " (" + xx.data.subreddit_name_prefixed + ")", " "].join("\n")).join("\n")'
+}
+
+function archnews(){
+  curl -s https://archlinux.org/feeds/news/ \
+    | fxparser \
+    | fx 'x => x.rss.channel.item.map(xx => ["\x1b[2m" + xx.link + "\x1b[0m", new Date(xx.pubDate).toJSON() + " >> \x1b[1m" + xx.title + "\x1b[0m", " "].join("\n")).join("\n")'
 }
 
 alias magic="echo ✨MAGIC✨. Sorry-not-sorry"
