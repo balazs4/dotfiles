@@ -40,6 +40,7 @@ function zsh-git() {
       /^##/             {sub(/\.\.\./," "); branch=$4$2 }
       /^(M|T|A|D|R|C) / {staged++}
       /^ (M|T|A|D|R|C)/ {modified++}
+      /^(M|T|A|D|R|C)(M|T|A|D|R|C)/ {staged++; modified++}
       /^\?\?/           {untracked++}
       END { print " [ %F{white}" branch "%f«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b ]"}' \
     | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|%F{white}\[different\]|%B%F{red}! %f%b%F{white}|g'
@@ -300,9 +301,8 @@ function awsoff(){
   export AWS_DEFAULT_OUTPUT=
 }
 
-#vmware export N_PREFIX=$HOME/.n/prefix
-#vmware export PATH=$HOME/.n/:$N_PREFIX/bin/:$HOME/.gem/ruby/2.7.0/bin:${PATH}
-#vmware export RUBYOPT="-W0"  # ruby warnings
+export N_PREFIX=$HOME/.n/prefix
+export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
 #vmware 
 #vmware alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
 alias youtube='google-chrome-stable https://youtube.com/' #webapp
@@ -372,8 +372,6 @@ alias youtube='google-chrome-stable https://youtube.com/' #webapp
 #vmware   PAGER= git log --oneline -10
 #vmware }
 
-#carbon export NPM_CONFIG_PREFIX=$HOME/.npm_global
-#carbon export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
 export PATH=$HOME/.cargo/bin:${PATH}
 
 function yt(){
