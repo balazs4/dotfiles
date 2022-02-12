@@ -275,17 +275,11 @@ function ghcrio-off() {
 }
 
 function aws-on(){
-  export AWS_ACCESS_KEY_ID=`    pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_ACCESS_KEY_ID     | cut -d"=" -f2`
-  export AWS_SECRET_ACCESS_KEY=`pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_SECRET_ACCESS_KEY | cut -d"=" -f2`
-  export AWS_DEFAULT_REGION=`   pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_DEFAULT_REGION    | cut -d"=" -f2`
-  export AWS_DEFAULT_OUTPUT=`   pass ${PASSKEY:-seal/aws-teg-balazs4} | grep AWS_DEFAULT_OUTPUT    | cut -d"=" -f2`
+  export `pass ${PASSKEY:-seal/aws-teg-balazs4} | awk '/^AWS_/ {print $0}'`
 }
 
 function aws-off(){
-  export AWS_ACCESS_KEY_ID=
-  export AWS_SECRET_ACCESS_KEY=
-  export AWS_DEFAULT_REGION=
-  export AWS_DEFAULT_OUTPUT=
+  unset `env | awk -F= '/^AWS_/ {print $1 }'`
 }
 
 export N_PREFIX=$HOME/.n/prefix
