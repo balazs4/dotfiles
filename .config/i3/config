@@ -78,10 +78,6 @@ bar {
     background #333333
     focused_workspace #282828 #282828 #FFFFFF
     inactive_workspace #333333 #333333 #AAAAAA
-#light     statusline #839496
-#light     background #fdf6e3
-#light     focused_workspace #eee8d5 #eee8d5 #839496
-#light     inactive_workspace #fdf6e3 #fdf6e3 #839496
   }
 }
 

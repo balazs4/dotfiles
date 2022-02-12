@@ -32,36 +32,6 @@ colors:
     cyan:    '0x80b1d3'
     white:   '0xfcfdfe'
 
-# https://raw.githubusercontent.com/eendroroy/alacritty-theme/master/themes/solarized_light.yaml
-# Colors (Solarized Light)
-#light colors:
-#light   primary:
-#light     background: '0xfdf6e3'
-#light     foreground: '0x586e75'
-#light 
-#light   cursor:
-#light     cursor: '0xf81ce5'
-#light 
-#light   normal:
-#light     black:   '0x073642'
-#light     red:     '0xdc322f'
-#light     green:   '0x859900'
-#light     yellow:  '0xb58900'
-#light     blue:    '0x268bd2'
-#light     magenta: '0xd33682'
-#light     cyan:    '0x2aa198'
-#light     white:   '0xeee8d5'
-#light 
-#light   bright:
-#light     black:   '0x002b36'
-#light     red:     '0xcb4b16'
-#light     green:   '0x586e75'
-#light     yellow:  '0x657b83'
-#light     blue:    '0x839496'
-#light     magenta: '0x6c71c4'
-#light     cyan:    '0x93a1a1'
-#light     white:   '0xfdf6e3'
-
 ## custom
 window:
   title: alacritty

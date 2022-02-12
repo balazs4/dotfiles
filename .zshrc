@@ -50,8 +50,6 @@ setopt PROMPT_SUBST
 function zle-line-init zle-keymap-select {
   PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git &) %B%F{white}»%f%b '
   RPROMPT="%(?.%F{white}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
-#light PROMPT='%B%F{black} ▲ %~%f%b$(zsh-git) %B%F{black}»%f%b '
-#light RPROMPT="%(?.%F{black}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
   zle reset-prompt
 }
 
@@ -188,22 +186,6 @@ alias md=glow
 
 function cheat(){
   curl -Lis cht.sh${*}
-}
-
-# persist MODE between sessions
-#dark export MODE=dark
-#light export MODE=light
-
-function light(){
-  MODE=light source $HOME/.zprofile
-  source $HOME/.zshrc
-  i3-msg restart
-}
-
-function dark(){
-  MODE=dark source $HOME/.zprofile
-  source $HOME/.zshrc
-  i3-msg restart
 }
 
 function radio(){
