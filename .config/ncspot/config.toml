@@ -1,27 +1,20 @@
 # vim: ft=cfg
-# Basic options
-default_keybindings = true
-gapless = true
-flip_status_indicators = true
-
-# [keybindings]
-
-# Gruvbox dark [ originally based on base16 by Dawid Kurek (dawikur@gmail.com) ]
+#
 [theme]
-background = "default"
-primary = "#32302f"
+background = "black"
+primary = "#F8F8F2"
 secondary = "light black"
-title = "#8ec07c"
-playing = "#689d6a"
-playing_bg = "#383838"
-playing_selected = "#ebdbb2"
-highlight = "#d5c4a1"
-highlight_bg = "#383838"
-error = "#fbf1c7"
-error_bg = "#cc241d"
-statusbar_progress = "#458588"
-statusbar_bg = "#282828"
-statusbar = "#98971a"
-cmdline = "#d5c4a1"
-cmdline_bg = "#383838"
-search_match = "#fabd2f"
+title = "#bd93f9"
+playing = "#bd93f9"
+playing_selected = "#D0B3FA"
+playing_bg = "black"
+highlight = "#f8f8f2"
+highlight_bg = "#44475a"
+error = "#f8f8f2"
+error_bg = "#ff5555"
+statusbar = "black"
+statusbar_progress = "#bd93f9"
+statusbar_bg = "#bd93f9"
+cmdline = "#f8f8f2"
+cmdline_bg = "black"
+search_match = "#ff79c6"
