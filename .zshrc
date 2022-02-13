@@ -596,67 +596,6 @@ function record-tmux(){
   ls -lsh $cast*
 }
 
-
-#vmware function aws-burger(){
-#vmware   typo "aws-burger:1.1" "clear"
-#vmware   typo "aws-burger:1.2" "clear"
-#vmware   typo "aws-burger:1.3" "clear"
-#vmware 
-#vmware   typo "aws-burger:1.1" "source functions"
-#vmware   typo "aws-burger:1.2" "source functions"
-#vmware   typo "aws-burger:1.3" "source functions"
-#vmware 
-#vmware   typo "aws-burger:1.1" "burger-deploy"
-#vmware   typo "aws-burger:1.2" "burger-deploy"
-#vmware   typo "aws-burger:1.3" "burger-deploy"
-#vmware   echo Press enter to proceed;read
-#vmware 
-#vmware   typo "aws-burger:1.1" "centos"
-#vmware   typo "aws-burger:1.2" "opensuse"
-#vmware   typo "aws-burger:1.3" "windows"
-#vmware 
-#vmware   typo "aws-burger:1.1" "?centos"
-#vmware   typo "aws-burger:1.2" "?opensuse"
-#vmware   typo "aws-burger:1.3" "?windows"
-#vmware   echo Press enter to proceed;read
-#vmware 
-#vmware   typo "aws-burger:1.1" "ZZ"
-#vmware   typo "aws-burger:1.2" "ZZ"
-#vmware   typo "aws-burger:1.3" "ZZ"
-#vmware   echo Press enter to proceed;read
-#vmware 
-#vmware   typo "aws-burger:1.1" "burger-stacks"
-#vmware   typo "aws-burger:1.2" "burger-stacks"
-#vmware   typo "aws-burger:1.3" "burger-stacks"
-#vmware   echo Press enter to proceed;read
-#vmware 
-#vmware   typo "aws-burger:1.1" "export STACK_NAME=balazs4-centos"
-#vmware   typo "aws-burger:1.2" "export STACK_NAME=balazs4-opensuse"
-#vmware   typo "aws-burger:1.3" "export STACK_NAME=balazs4-windows"
-#vmware   echo Press enter to proceed;read
-#vmware 
-#vmware   typo "aws-burger:1.1" "burger-help"
-#vmware   typo "aws-burger:1.2" "burger-help"
-#vmware   typo "aws-burger:1.3" "burger-help"
-#vmware   echo Press enter to proceed;read
-#vmware 
-#vmware   typo "aws-burger:1.1" "burger-ssh"
-#vmware   typo "aws-burger:1.2" "burger-ssh"
-#vmware   typo "aws-burger:1.3" "burger-ssh"
-#vmware   echo Press enter to proceed;read
-#vmware 
-#vmware   typo "aws-burger:1.1" "burger-destroy"
-#vmware   typo "aws-burger:1.2" "burger-destroy"
-#vmware   typo "aws-burger:1.3" "burger-destroy"
-#vmware   echo Press enter to proceed;read
-#vmware 
-#vmware   typo "aws-burger:1.1" "unset STACK_NAME"
-#vmware   typo "aws-burger:1.2" "unset STACK_NAME"
-#vmware   typo "aws-burger:1.3" "unset STACK_NAME"
-#vmware 
-#vmware }
-
-
 function typo(){
   local target=$1
   shift
@@ -671,4 +610,8 @@ source $HOME/.nix-profile/etc/profile.d/nix.sh
 
 function raw(){
   curl -Ls "$1?raw=true"
+}
+
+function yayfzf(){
+   yay -Slq | fzf --preview 'yay -Si {1}' --query "'${1}" -1 | xargs yay -Sy --noconfirm
 }
