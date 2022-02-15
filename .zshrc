@@ -619,3 +619,14 @@ function yayfzf(){
 alias yf=yayfzf
 alias yzf=yayfzf
 alias yayf=yayfzf
+
+function gitlab-pipeline(){
+  local project=`git config --get remote.origin.url | awk -F: '{ sub(/\.git$/,""); sub(/\//,"%2F");  print $2}'`
+  local sha=`git rev-parse HEAD`
+  local ref=`git rev-parse --abbrev-ref HEAD`
+
+  curl -Ls -H "private-token: $GITLAB_AUTH_TOKEN" "https://gitlab.com/api/v4/projects/$project/pipelines/?sha=$sha&ref=$ref" \
+    | xurls \
+#carbon    | xargs xdg-open
+#macos    | xargs -open
+}
