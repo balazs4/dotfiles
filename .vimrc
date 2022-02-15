@@ -101,3 +101,5 @@ let g:ale_set_highlights = 0
 set omnifunc=ale#completion#OmniFunc
 
 "https://github.com/rakr/vim-one
+
+"https://github.com/arcticicestudio/nord-vim

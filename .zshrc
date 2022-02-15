@@ -613,5 +613,9 @@ function raw(){
 }
 
 function yayfzf(){
-   yay -Slq | fzf --preview 'yay -Si {1}' --query "'${1}" -1 | xargs yay -Sy --noconfirm
+   yay -Sylq | fzf --preview 'yay -Si {1}' --query "'${1}" -1 | xargs yay -Sy --noconfirm 
+   hash -r
 }
+alias yf=yayfzf
+alias yzf=yayfzf
+alias yayf=yayfzf
