@@ -625,8 +625,8 @@ function gitlab-pipeline(){
   # - curl
   # - git
   # - awk
-  # - xurls
-  # - GITLAB_AUTH_TOKEN env var
+  # - xurls - https://github.com/mvdan/xurls
+  # - GITLAB_AUTH_TOKEN - https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html
   local project=`git config --get remote.origin.url | awk -F: '{ sub(/\.git$/,""); sub(/\//,"%2F");  print $2}'`
   local sha=`git rev-parse HEAD`
   local ref=`git rev-parse --abbrev-ref HEAD`
