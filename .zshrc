@@ -515,8 +515,8 @@ function news(){
   tmux new-window -t "news" -n "hackernews"
   tmux send-keys -t "news:hackernews.1" "hackernews 10" Enter
 
-  tmux new-window -t "news" -n "r/javascript"
-  tmux send-keys -t "news:r/javascript.1" "reddit javascript" Enter
+  tmux new-window -t "news" -n "r/commandline"
+  tmux send-keys -t "news:r/commandline.1" "reddit commandline" Enter
 
   tmux new-window -t "news" -n "archnews"
   tmux send-keys -t "news:archnews.1" "archnews" Enter
@@ -529,19 +529,18 @@ function hackernews(){
     | ALOLA_REPORT=silent alola 'status should be 200' \
     | fx "x=> x.body.slice(0,${1:-10}).join(\"\n\")" \
     | xargs -I{} curl -s https://hacker-news.firebaseio.com/v0/item/{}.json \
-    | fx 'x => ["\x1b[2m" + x.url + "\x1b[0m", x.title, " "].join("\n")' 
+    | fx 'x => [`\x1b[2m${x.url}\x1b[0m`, `\x1b[1m${x.title}\x1b[0m`, " "].join("\n")' 
 }
-alias hn='hackernews'
 
 function reddit(){
   curl -Ls --user-agent "$RANDOM" "https://www.reddit.com/r/${1:-all}.json"\
-    | fx 'x => x.data.children.slice(10).map(xx => [ "\x1b[2m" + xx.data.url + "\x1b[0m", xx.data.title + " (" + xx.data.subreddit_name_prefixed + ")", " "].join("\n")).join("\n")'
+    | fx 'x => x.data.children.slice(10).map(xx => [`\x1b[2m${xx.data.url}\x1b[0m`, `\x1b[1m${xx.data.title}\x1b[0m (${xx.data.subreddit_name_prefixed})`, " "].join("\n")).join("\n")'
 }
 
 function archnews(){
   curl -s https://archlinux.org/feeds/news/ \
     | fxparser \
-    | fx 'x => x.rss.channel.item.map(xx => ["\x1b[2m" + xx.link + "\x1b[0m", new Date(xx.pubDate).toJSON() + " >> \x1b[1m" + xx.title + "\x1b[0m", " "].join("\n")).join("\n")'
+    | fx 'x => x.rss.channel.item.map(xx => [`\x1b[2m${xx.link}\x1b[0m`, new Date(xx.pubDate).toJSON() + ` >> \x1b[1m${xx.title}\x1b[0m`, " "].join("\n")).join("\n")'
 }
 
 alias magic="echo ✨MAGIC✨. Sorry-not-sorry"
@@ -613,8 +612,9 @@ function raw(){
 }
 
 function yayfzf(){
-   yay -Sylq | fzf --preview 'yay -Si {1}' --query "'${1}" -1 | xargs yay -Sy --noconfirm 
-   hash -r
+  yay -Sy
+  yay -Slq | fzf --preview 'yay -Si {1}' --query "'${1}" -1 | xargs yay -Sy --noconfirm 
+  hash -r
 }
 alias yf=yayfzf
 alias yzf=yayfzf

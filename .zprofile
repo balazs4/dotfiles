@@ -1,4 +1,5 @@
-[[ $TMUX ]] || PAGER= git -C $HOME/.files diff -p 
+[[ $TMUX ]] && return
+PAGER= git -C $HOME/.files diff -p
 for dotfile in `git -C $HOME/.files ls-files -- ':!:readme.md'`
 do
   mkdir -p `dirname $HOME/$dotfile`
