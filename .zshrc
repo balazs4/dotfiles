@@ -636,3 +636,11 @@ function gitlab-pipeline(){
 #carbon    | xargs xdg-open
 #macos    | xargs -open
 }
+
+function gb(){
+  git branch -a \
+    | grep -v HEAD \
+    | fzf -1 -q "${*}" \
+    | sed 's|remotes/origin/||g' \
+    | xargs git checkout
+}
