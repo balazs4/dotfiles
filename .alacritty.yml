@@ -39,8 +39,6 @@ window:
   class:
     instance: alacritty
     general: alacritty
-  mouse:
-    hide_when_typing: true
 
 font:
   size: 11.0
