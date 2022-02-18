@@ -61,8 +61,7 @@ export KEYTIMEOUT=1
 function zz() {
   local to=`{
     echo $HOME/.files;
-#carbon    fd --full-path $HOME/src --type d --max-depth=1 --absolute-path $HOME/src --hidden;
-#vmware    fd --full-path $HOME/git --type d --max-depth=1 --absolute-path $HOME/git --hidden;
+    fd --full-path $HOME/src --type d --max-depth=1 --absolute-path $HOME/src --hidden;
     fd --full-path /tmp --type d --max-depth=1 --absolute-path /tmp;
   } | fzf --layout=reverse --height '40%' -q "'${*:-$PWD} " -1`
 
@@ -284,73 +283,7 @@ function aws-off(){
 
 export N_PREFIX=$HOME/.n/prefix
 export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
-#vmware alias spotify='google-chrome-stable --app=https://open.spotify.com/' #webapp
 alias youtube='google-chrome-stable https://youtube.com/' #webapp
-#vmware alias whatsapp='chromium --app=https://web.whatsapp.com/' #webapp
-#vmware alias infra="GH_REPO=sealsystems/com-infrastructure gh issue"
-#vmware alias outlook='chromium --app=https://outlook.office365.com/mail/inbox' #webapp
-#vmware alias teams='chromium --app="https://teams.microsoft.com/_#/conversations/General?threadId=19:1e2f67587cad457580ed4b3908f67431@thread.tacv2&ctx=channel"' #webapp
-#vmware alias slack='chromium --app="$SLACK_URL"' #webapp
-#vmware function jira(){
-#vmware   case "$1" in
-#vmware     board)
-#vmware       shift;
-#vmware       curl -u "$JIRA_AUTH" -Lis "https://$JIRA_URL/jira/rest/greenhopper/1.0/xboard/work/allData.json?rapidViewId=131" \
-#vmware         | npx alola \
-#vmware         | npx fx rapid \
-#vmware         | fzf --sync -q "'${1:-bv} " --preview 'echo {} | cut -f1 | xargs -Iid zsh -c "source ~/.zshrc; jira id"' \
-#vmware         | cut -f1 \
-#vmware         | xargs -Iid zsh -c "source ~/.zshrc; jira id"
-#vmware       ;;
-#vmware 
-#vmware     comment)
-#vmware       shift;
-#vmware       vipe --suffix md \
-#vmware         | npx prettier --stdin-filepath _.md \
-#vmware         | NODE_PATH=$N_PREFIX/lib/node_modules node -e "
-#vmware           (async() => {
-#vmware             const lines = [];
-#vmware             for await (const line of require('readline').createInterface(process.stdin)){
-#vmware               lines.push(require('jira2md').to_jira(line));
-#vmware             }
-#vmware             console.log(JSON.stringify({body: lines.join('\n')}));
-#vmware           })();" \
-#vmware         | curl -u "$JIRA_AUTH" -Lis "https://$JIRA_URL/jira/rest/api/2/issue/$1/comment" -H "Content-Type: application/json" -XPOST -d @- \
-#vmware         | ALOLA_REPORT_ONLY=true npx alola 'status should be 201'
-#vmware       ;;
-#vmware 
-#vmware     *)
-#vmware       curl -u "$JIRA_AUTH" -Lis "https://$JIRA_URL/jira/rest/api/2/search?jql=key=$1" | npx alola | npx fx jira | glow -
-#vmware       ;;
-#vmware 
-#vmware   esac
-#vmware }
-#vmware 
-#vmware function seal(){
-#vmware   case "$1" in
-#vmware     list)
-#vmware       curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | sed 's/- //'
-#vmware       ;;
-#vmware     latest)
-#vmware       curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | sed 's/- //' | tail -1 
-#vmware       ;;
-#vmware     *)
-#vmware       curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/seal-parrot/master/betonieren.md" | sed 's/- //' | shuf -n1 
-#vmware       ;;
-#vmware   esac
-#vmware }
-#vmware 
-#vmware function q() {
-#vmware   docker compose -f "$HOME/git/plossys-bundle/docker-compose.yml" exec db mongo --tls --tlsAllowInvalidCertificates spooler-$1 --eval "db.$1.find($2).toArray()" \
-#vmware     | sed '0,/MongoDB server version: 4.4.4/d'
-#vmware }
-#vmware 
-#vmware function fixup(){
-#vmware   npm run lint:fix || return 1
-#vmware   git commit -a --fixup=HEAD
-#vmware   git rebase -i origin --autosquash
-#vmware   PAGER= git log --oneline -10
-#vmware }
 
 export PATH=$HOME/.cargo/bin:${PATH}
 
@@ -403,29 +336,6 @@ function piserver(){
 #carbon }
 
 
-#vmware function testjob {
-#vmware   local bytes=`echo ${1:-42kb} | sed -r 's/(m|mb)/ * 1024 * 1024/gi;s/(k|kb)/ * 1024/gi' | bc`
-#vmware   local printer=${2:-`q printers '{ },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=10 --sync`}
-#vmware   local jobname=`echo $* | sed -r 's/\s/_/g'`
-#vmware   rlpr -Hlocalhost -P$printer -J"$jobname" <<< `cat /dev/urandom | base64 | head -c $bytes` 2>&1 > /dev/null
-#vmware }
-
-#vmware function pickupjob(){
-#vmware   local to="${1:-`q printers '{ "config.pickup": { $exists: false }  },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=25 --sync --header='Select TARGET printer'`}"
-#vmware   local from="${FROM:-`q printers '{ "config.pickup": { $exists: true }  },{_id:1}' | npx fx ._id | fzf -1 --reverse --height=25 --sync --header='Select SOURCE printer'`}"
-#vmware 
-#vmware   ipptool -j -vt ipp://localhost:6631/ipp/${from} ~/git/seal-ipp-checkin/vagrant/ipp/get-jobs.test \
-#vmware     | grep 'job-' \
-#vmware     | grep -v 'requested-attributes' \
-#vmware     | cut -d'=' -f2 \
-#vmware     | xargs -n9 \
-#vmware     | sed 's/ /\t/g' \
-#vmware     | fzf --reverse --height=25 --header="🖨 Printer terminal >>> Pickup job from ${from} at ${to}" \
-#vmware     | cut -f8 \
-#vmware     | xargs -t -I{} ipptool -vt -d uri="{}" -d printer="${to}" ~/git/seal-ipp-checkin/vagrant/ipp/release-job.test 
-#vmware }
-
-
 function qrdecode {
   shotgun `hacksaw -f "-i %i -g %g"` - | zbarimg -q --raw -
 }
@@ -435,14 +345,6 @@ function wallomat {
   mpv "https://www.youtube.com/watch?v=$1&t=$2" --no-audio --frames=1 -o /tmp/mpv.png
   feh --no-fehbg --bg-fill /tmp/mpv.png
 }
-
-
-#vmware function sealnode {
-#vmware   curl -H 'Cache-Control: no-cache' -s "https://$GITHUB_TOKEN@raw.githubusercontent.com/sealsystems/generator-seal-node/master/lib/constants.js" | grep "NODE_VERSION" | cut -f2 -d"'" | xargs -t n install
-#vmware   node -v
-#vmware   npm -v
-#vmware }
-
 
 alias feedback="npx -q -y onchange -i -k './**/*.js' -- npm run test"
 
@@ -497,14 +399,6 @@ function now(){
 
   dunstify -I /tmp/$searchterm.png "$title" "$artist"
 }
-
-#vmware function ropa(){
-#vmware   local bazz=$1
-#vmware   shift
-#vmware   local foo=`node -p "JSON.stringify('${*}'.split(' ').reduce((x, y) => ({...x, [y]: 1}), {}))"`
-#vmware   local bar=`node -p "JSON.stringify('${*}'.split(' '))"`
-#vmware   watch -n2 -d  "docker compose -f $HOME/git/plossys-bundle/docker-compose.yml exec db mongo --tls --tlsAllowInvalidCertificates spooler-${bazz} --eval 'db.${bazz}.find({},${foo})' | sed '0,/MongoDB server version: 4.4.4/d' | fx 'x => ${bar}.map(k => k.split(\".\").reduce((p, c) => p[c]||\"-\", x)).join(\"\t\")'"
-#vmware }
 
 function news(){
   tmux new-session -s 'news' -d
@@ -621,20 +515,13 @@ alias yzf=yayfzf
 alias yayf=yayfzf
 
 function gitlab-pipeline(){
-  # deps:
-  # - curl
-  # - git
-  # - awk
-  # - xurls - https://github.com/mvdan/xurls
-  # - GITLAB_AUTH_TOKEN - https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html
   local project=`git config --get remote.origin.url | awk -F: '{ sub(/\.git$/,""); sub(/\//,"%2F");  print $2}'`
   local sha=`git rev-parse HEAD`
   local ref=`git rev-parse --abbrev-ref HEAD`
 
   curl -Ls -H "private-token: $GITLAB_AUTH_TOKEN" "https://gitlab.com/api/v4/projects/$project/pipelines/?sha=$sha&ref=$ref" \
     | xurls \
-#carbon    | xargs xdg-open
-#macos    | xargs -open
+    | xargs xdg-open
 }
 
 function gb(){

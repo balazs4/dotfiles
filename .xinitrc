@@ -1,19 +1,14 @@
 #!/bin/sh
 
-#vmware imwheel &
-#vmware sudo systemctl restart vmtoolsd &
-#vmware vmware-user &
-#vmware pulsemixer --set-volume 20
-
-#carbon pulseaudio --start 
-#carbon pulsemixer --list-sources | cut -d":" -f3 | cut -d"," -f1 | xargs -I{} pulsemixer --mute --id {}
-#carbon pulsemixer --list-sinks | cut -d":" -f3 | cut -d"," -f1 | xargs -I{} pulsemixer --mute --id {}
-#carbon xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Accel Speed' 0.5
-#carbon xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Tapping Enabled' 1
-#carbon xinput set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' 0.0
-#carbon xbacklight \=20
-#carbon sudo hda-verb /dev/snd/hwC0D0 0x1d SET_PIN_WIDGET_CONTROL 0x0
-#carbon sudo iw wlan0 set power_save off
+pulseaudio --start 
+pulsemixer --list-sources | cut -d":" -f3 | cut -d"," -f1 | xargs -I{} pulsemixer --mute --id {}
+pulsemixer --list-sinks | cut -d":" -f3 | cut -d"," -f1 | xargs -I{} pulsemixer --mute --id {}
+xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Accel Speed' 0.5
+xinput set-prop 'SYNA8007:00 06CB:CD8C Touchpad' 'libinput Tapping Enabled' 1
+xinput set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' 0.0
+xbacklight \=20
+sudo hda-verb /dev/snd/hwC0D0 0x1d SET_PIN_WIDGET_CONTROL 0x0
+sudo iw wlan0 set power_save off
 
 xrdb -merge $HOME/.Xresources
 xset r rate 250 100

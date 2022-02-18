@@ -49,7 +49,6 @@ nnoremap <Leader>[ :Buffers<CR>#
 nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <expr> <Leader>] (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <Leader><Leader> :Rg<CR>
-"vmware nnoremap <Leader>t :Rg <C-r>%<Del><Del><Del>
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(

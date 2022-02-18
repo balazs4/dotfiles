@@ -87,9 +87,6 @@ client.focused_inactive #333333 #333333 #FFFFFF #000000
 client.focused #000000 #000000 #FFFFFF #000000
 
 for_window [class="^.*"] border pixel 1
-#vmware for_window [instance="slack*"] move workspace10
-#vmware for_window [instance="teams.microsoft.com"] move workspace10
-#vmware for_window [instance="open.spotify.com"] move workspace9
 focus_on_window_activation focus
 
 smart_gaps on
@@ -100,7 +97,4 @@ bindsym $mod+shift+grave scratchpad show
 for_window [instance="temp_terminal"] move scratchpad
 for_window [instance="temp_terminal"] scratchpad show
 
-
-#vmware exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/-8aq7Gb9M_A/download?force=true
-
-#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/mBQIfKlvowM/download?force=true&w=1920
+exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/mBQIfKlvowM/download?force=true&w=1920

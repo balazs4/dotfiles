@@ -29,42 +29,6 @@ const find = (predicate) => (level) => {
   return found;
 };
 
-//vmware global.jira = json => {
-//vmware   const [ issue ] = json.body.issues;
-//vmware   if (!issue) return 'Not found';
-//vmware   const weburl = issue.self.replace(/\/rest\/api\/.*/, `/browse/${issue.key}`);
-//vmware 
-//vmware   return `
-//vmware 
-//vmware # JIRA
-//vmware 
-//vmware ## ${issue.key} ${issue.fields.summary} 
-//vmware 
-//vmware [${issue.fields.status.name.toUpperCase()}](${weburl})  
-//vmware 
-//vmware > assignee: ${issue.fields.assignee.displayName} 
-//vmware > reporter: ${issue.fields.reporter.displayName}
-//vmware > labels: ${issue.fields.labels.join(", ")}
-//vmware > versions: ${issue.fields.fixVersions.map(x => x.name).join(", ") || '🤯🤯🤯'}
-//vmware 
-//vmware ${issue.fields.description ? issue.fields.description.replace(/\(\/\)/g,"✅").replace(/\(x\)/, "❌") : 'no descrtiption'}
-//vmware 
-//vmware ${weburl}
-//vmware   `;
-//vmware }
-//vmware 
-//vmware global.rapid = json => {
-//vmware   const {issues} = json.body.issuesData;
-//vmware   const by = (...keys) => (a,b) => {
-//vmware     return keys.reduce((result, key) => {
-//vmware       if (result !== 0) return result;
-//vmware       if (a[key] === b[key]) return 0;
-//vmware       return a[key] > b[key] ? 1 : -1;
-//vmware     }, 0);
-//vmware   }
-//vmware   return issues.map(i => ({...i, project: i.key.split("-")[0]})).sort(by()).map(issue => [issue.key.padEnd(8, " "), issue.statusName.padEnd(12, " "), issue.assignee.padEnd(8, " "), issue.summary, issue.epicField ? `#${issue.epicField.text}` : '#epicless' ].join("\t") ).join("\n");
-//vmware }
-
 global.youtubevideos = json => {
   const findarrays = (obj) => {
     if (obj.length) return obj;
