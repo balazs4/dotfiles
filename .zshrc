@@ -61,7 +61,8 @@ export KEYTIMEOUT=1
 function zz() {
   local to=`{
     echo $HOME/.files;
-    fd --full-path $HOME/src --type d --max-depth=1 --absolute-path $HOME/src --hidden;
+    fd --full-path $HOME/src --type d --max-depth=1 --absolute-path $HOME/src;
+    fd --full-path $HOME/src/vercel --type d --max-depth=1 --absolute-path $HOME/src/vercel;
     fd --full-path /tmp --type d --max-depth=1 --absolute-path /tmp;
   } | fzf --layout=reverse --height '40%' -q "'${*:-$PWD} " -1`
 
@@ -148,7 +149,7 @@ alias gd='git diff'
 alias gst='git status'
 alias gco='git checkout'
 alias gpp='git pull --prune --tags'
-alias gcm='git checkout `git branch | grep -P "(canary|main|master)"`'
+alias gcm='git checkout `git branch | grep -m 1 -P "(canary|main|master)"`'
 alias shrug='curl -s http://shrug.io | xx'
 alias wipe='docker rm -f `docker ps -aq`; docker network prune -f; docker volume prune -f'
 alias dco='docker compose'
@@ -531,3 +532,5 @@ function gb(){
     | sed 's|remotes/origin/||g' \
     | xargs git checkout
 }
+
+alias .env='set -o allexport; source .env; set +o allexport'
