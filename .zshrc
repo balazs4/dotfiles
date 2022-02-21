@@ -61,7 +61,7 @@ export KEYTIMEOUT=1
 function zz() {
   local to=`{
     echo $HOME/.files;
-    fd --full-path $HOME/src --type d --max-depth=1 --absolute-path $HOME/src;
+    fd --full-path $HOME/src --type d --max-depth=1 --absolute-path $HOME/src --exclude vercel;
     fd --full-path $HOME/src/vercel --type d --max-depth=1 --absolute-path $HOME/src/vercel;
     fd --full-path /tmp --type d --max-depth=1 --absolute-path /tmp;
   } | fzf --layout=reverse --height '40%' -q "'${*:-$PWD} " -1`
