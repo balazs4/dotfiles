@@ -207,7 +207,7 @@ function www(){
 }
 
 function todos(){
-  EDITOR='vim -c "colorscheme gruvbox"' gh gist ${*:-view} ${GITHUB_GIST_TODOS}
+  EDITOR='vim -c "colorscheme nord"' gh gist ${*:-view} ${GITHUB_GIST_TODOS}
 }
 
 function emojis(){
