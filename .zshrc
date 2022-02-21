@@ -91,7 +91,7 @@ export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 function dot(){
   pushd $HOME/.files > /dev/null
     [[ $1 ]] && vim $1 || vim -c ':GFiles'
-    source $PWD/.zprofile
+    TMUX= source $PWD/.zprofile
   popd > /dev/null
 }
 
@@ -149,7 +149,7 @@ alias gd='git diff'
 alias gst='git status'
 alias gco='git checkout'
 alias gpp='git pull --prune --tags'
-alias gcm='git checkout `git branch | grep -m 1 -P "(canary|main|master)"`'
+alias gcm='git checkout `git branch | grep -m 1 -P "(canary|main|master)" | sed "s|^* ||g"`'
 alias shrug='curl -s http://shrug.io | xx'
 alias wipe='docker rm -f `docker ps -aq`; docker network prune -f; docker volume prune -f'
 alias dco='docker compose'
@@ -528,9 +528,9 @@ function gitlab-pipeline(){
 function gb(){
   git branch -a \
     | grep -v HEAD \
-    | fzf -1 -q "${*}" \
-    | sed 's|remotes/origin/||g' \
-    | xargs git checkout
+    | fzf -1 -q "'${*}" \
+    | sed 's|remotes/origin/||g;s|^*||g' \
+    | xargs -t git checkout
 }
 
 alias .env='set -o allexport; source .env; set +o allexport'
