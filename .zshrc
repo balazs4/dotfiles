@@ -85,6 +85,7 @@ export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export GPG_TTY=`tty`
 export GOPATH=$HOME/.go
+export PATH=${GOPATH}/bin:${PATH}
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 
 function dot(){
@@ -274,7 +275,7 @@ function ghcrio-off() {
 }
 
 function aws-on(){
-  export `pass ${PASSKEY:-seal/aws-teg-balazs4} | awk '/^AWS_/ {print $0}'`
+  export `pass ${PASSKEY:-aws/balazs4} | awk '/^AWS_/ {print $0}'`
 }
 
 function aws-off(){
