@@ -1,6 +1,9 @@
 git_protocol: ssh
 aliases:
-  clone: !gh repo clone $1 -- $1
+  clone: >-
+    !fn(){
+      gh repo clone $1 `echo $1 | awk -F/ '{print $(NF-1)"/"$NF'}`
+    }; fn $*
   watch: >-
     !fn(){
       branch=${BRANCH:-`git rev-parse --abbrev-ref HEAD`}
