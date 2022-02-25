@@ -1,4 +1,5 @@
 #! /bin/bash
+# Linux Darwin
 
 [ -f "$PWD/package.json" ] || exit 0;
 echo "$0 >> npm run lint --silent --if-present"

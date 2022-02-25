@@ -1,9 +1,11 @@
+# Linux Darwin
 [user]
   email = balazs4@users.noreply.github.com
   name = balazs4
 [pull]
   rebase = true
 [core]
-  hooksPath = /home/balazs4/.hooks
+#carbon   hooksPath = /home/balazs4/.hooks
+#macbookpro  hooksPath = /Users/balazs4/.hooks
 [init]
   defaultBranch = main

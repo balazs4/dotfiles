@@ -1,3 +1,4 @@
+" Linux Darwin
 syntax off
 nnoremap <silent> <Leader><CR> :if exists("g:syntax_on") <Bar> syntax off <Bar> else <Bar> syntax on <Bar> endif<CR>
 filetype plugin indent on

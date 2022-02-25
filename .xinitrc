@@ -1,4 +1,5 @@
 #!/bin/sh
+# Linux
 
 pulseaudio --start 
 pulsemixer --list-sources | cut -d":" -f3 | cut -d"," -f1 | xargs -I{} pulsemixer --mute --id {}

@@ -1,33 +1,34 @@
 // vim: ft=javascript
+// Linux Darwin
 
-global.i3windows = (json) => {
-  const select = (item, parent) => {
-    if (item.window_type !== "normal") return null;
-    return [
-      item.id,
-      parent.name.padStart(2, ' '),
-      item.window_properties.instance.padEnd(16, ' '),
-      item.window_properties.title,
-    ].join("  ");
-  };
-  const traverse = (item, parent = null) => {
-    return [
-      select(item, parent),
-      ...item.nodes
-        .map((child) =>
-          traverse(child, item.type === "workspace" ? item : parent)
-        )
-        .flat(),
-    ];
-  };
-  return traverse(json).filter(Boolean).join("\n");
-};
-
-const find = (predicate) => (level) => {
-  if (predicate(level)) return level;
-  const [found = null] = level.nodes.map((node) => find(predicate)(node)).filter((x) => x);
-  return found;
-};
+//carbon global.i3windows = (json) => {
+//carbon   const select = (item, parent) => {
+//carbon     if (item.window_type !== "normal") return null;
+//carbon     return [
+//carbon       item.id,
+//carbon       parent.name.padStart(2, ' '),
+//carbon       item.window_properties.instance.padEnd(16, ' '),
+//carbon       item.window_properties.title,
+//carbon     ].join("  ");
+//carbon   };
+//carbon   const traverse = (item, parent = null) => {
+//carbon     return [
+//carbon       select(item, parent),
+//carbon       ...item.nodes
+//carbon         .map((child) =>
+//carbon           traverse(child, item.type === "workspace" ? item : parent)
+//carbon         )
+//carbon         .flat(),
+//carbon     ];
+//carbon   };
+//carbon   return traverse(json).filter(Boolean).join("\n");
+//carbon };
+//carbon 
+//carbon const find = (predicate) => (level) => {
+//carbon   if (predicate(level)) return level;
+//carbon   const [found = null] = level.nodes.map((node) => find(predicate)(node)).filter((x) => x);
+//carbon   return found;
+//carbon };
 
 global.youtubevideos = json => {
   const findarrays = (obj) => {

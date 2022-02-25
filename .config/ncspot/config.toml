@@ -1,5 +1,4 @@
-# vim: ft=cfg
-#
+# Linux Darwin
 [theme]
 background = "black"
 primary = "#F8F8F2"
@@ -18,3 +17,4 @@ statusbar_bg = "#bd93f9"
 cmdline = "#f8f8f2"
 cmdline_bg = "black"
 search_match = "#ff79c6"
+# vim: ft=cfg
