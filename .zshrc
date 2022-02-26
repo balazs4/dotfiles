@@ -29,14 +29,14 @@ function zsh-git() {
   local __branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
   [[ -z $__branch ]] && return
 
-  if [[ `git worktree list | grep '(bare)' | awk '{print $1}'` == ${PWD} ]]
+  if [[ `git worktree list | grep '(bare)' | gawk '{print $1}'` == ${PWD} ]]
   then
-    git worktree list | awk '{print $NF}' | xargs
+    git worktree list | gawk '{print $NF}' | xargs
     return
   fi
 
   git status --porcelain --branch --no-ahead-behind \
-    | awk '
+    | gawk '
       BEGIN { branch; staged=0;modified=0;untracked=0 }
       /^##/             {sub(/\.\.\./," "); branch=$4$2 }
       /^(M|T|A|D|R|C|U) / {staged++}
@@ -73,13 +73,16 @@ function zz() {
 
 alias z='TMUX=fake zz'
 
-[[ -r "/usr/share/fzf/completion.zsh" ]] && source /usr/share/fzf/completion.zsh
-[[ -r "/usr/share/fzf/key-bindings.zsh" ]] && source /usr/share/fzf/key-bindings.zsh
+#carbon source /usr/share/fzf/completion.zsh
+#carbon source /usr/share/fzf/key-bindings.zsh
+#macbookpro source /opt/homebrew/opt/fzf/shell/completion.zsh
+#macbookpro source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
 
 export LANG=en_US.UTF-8
 export TERMINAL=alacritty
 export TERM=xterm-256color
-export BROWSER=chromium
+#macbookpro export BROWSER=open
+#carbon export BROWSER=chromium
 export EDITOR=vim
 export NPM_CONFIG_LOGLEVEL=http
 export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
@@ -91,13 +94,13 @@ export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 
 function dot(){
   pushd $HOME/.files > /dev/null
-    [[ $1 ]] && vim $1 || vim -c ':GFiles'
+    vim ${1:-.}
     TMUX= source $PWD/.zprofile
   popd > /dev/null
 }
 
 function dotsync(){
-  git -C $HOME/.files commit -am "`date +%s`@`hostname`"
+  git -C $HOME/.files commit -am "`date +%s`@`hostname -s`"
   git -C $HOME/.files pull
   git -C $HOME/.files push
   source $HOME/.files/.zprofile
@@ -125,12 +128,14 @@ function vimplug(){
   popd
 }
 
-alias v="vim -c ':GFiles'"
+#macbookpro alias v="vim"
+#carbon alias v="vim -c ':GFiles'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
-alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
+#carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -s 'http://wttr.in/91085?format=3'"
-alias xx='xclip -rmlastnl -selection clipboard'
+#carbon alias xx='xclip -rmlastnl -selection clipboard'
+#macbookpro alias xx='pbcopy'
 alias ls='ls --color=auto'
 alias grep='grep --color'
 alias tree='tree -I node_modules'
@@ -537,3 +542,8 @@ function gb(){
 alias .env='set -o allexport; source .env; set +o allexport'
 
 alias flip='rev | perl -Mopen=locale -Mutf8 -pe tr/a-z/ɐqɔpǝɟƃɥıɾʞlɯuodᕹɹsʇnʌʍxʎz/'
+#macbookpro function notify(){
+#macbookpro   title=$1
+#macbookpro   shift
+#macbookpro   osascript -e "display notification \"$*\" with title \"$title\""
+#macbookpro }

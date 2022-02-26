@@ -18,12 +18,13 @@ aliases:
       echo $id
       gh run watch $id --interval ${GH_INTERVAL:-3}
       (
-        outcome=`gh run list | grep $id | cut -f2`
-        color=`echo $outcome | sed -r 's/\s//g;s/success/00ff33/g;s/failure/ff4747/g'`
-        [[ -f /tmp/github-action-$color.svg ]] || `curl -Lks https://cdn.svgporn.com/logos/github-icon.svg | sed "s/#161614/#${color:-161614}/g" > /tmp/github-action-$color.svg`
-        origin=`git config --get remote.origin.url`
-        click=`dunstify --action="default,open" -I /tmp/github-action-$color.svg "$outcome" "$branch\n$origin"`
-        [[ $click = 'default' ]] && gh run view $id -w
+      outcome=`gh run list | grep $id | cut -f2`
+      origin=`git config --get remote.origin.url`
+#carbon     color=`echo $outcome | sed -r 's/\s//g;s/success/00ff33/g;s/failure/ff4747/g'`
+#carbon     [[ -f /tmp/github-action-$color.svg ]] || `curl -Lks https://cdn.svgporn.com/logos/github-icon.svg | sed "s/#161614/#${color:-161614}/g" > /tmp/github-action-$color.svg`
+#carbon     click=`dunstify --action="default,open" -I /tmp/github-action-$color.svg "$outcome" "$branch\n$origin"`
+#carbon     [[ $click = 'default' ]] && gh run view $id -w
+#macbookpro      osascript -e "display notification \"$branch\n$origin\" with title \"$outcome\""
       ) &
       gh run view $id --log-failed
     }; fn
