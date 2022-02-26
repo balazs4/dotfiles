@@ -372,8 +372,8 @@ services:
   server:
     image: nginx:alpine
     volumes:
-`fd --type f | xargs -I{} echo "      - './{}:/usr/share/nginx/html/{}:ro'"`
-" | vipe --suffix .yml > $DOCKER_COMPOSE
+`fd --type f | xargs -I{} echo "      - './{}:/usr/share/nginx/html/{}:ro'"`" \
+  | vipe --suffix .yml > $DOCKER_COMPOSE
 
   docker compose -f $DOCKER_COMPOSE up
   rm -f $DOCKER_COMPOSE

@@ -15,7 +15,7 @@ do
   fi
 
   mkdir -p `dirname $HOME/$dotfile`
-  sed -r "s|^[;#/\"\!]+`hostname -s` ||g" $HOME/.files/$dotfile  > $HOME/$dotfile
+  sed -r "s/^[;#\/\"\!]+`hostname -s` //g;/^[;#\/\"\!]+/d" $HOME/.files/$dotfile  > $HOME/$dotfile
 done
 
 echo "$HOME/.files/ >> `uname -s` >> `hostname -s` >> $HOME/"
