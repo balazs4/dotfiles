@@ -37,13 +37,14 @@ function zsh-git() {
 
   git status --porcelain --branch --no-ahead-behind \
     | gawk '
-      BEGIN { branch; staged=0;modified=0;untracked=0 }
-      /^##/             {sub(/\.\.\./," "); branch=$4$2 }
-      /^(M|T|A|D|R|C|U) / {staged++}
-      /^ (M|T|A|D|R|C|U)/ {modified++}
+      BEGIN                             { branch; staged=0;modified=0;untracked=0 }
+      /^##/                             {sub(/\.\.\./," "); branch=$2; }
+      /^##.*\[different\]$/             {branch=$4branch; }
+      /^(M|T|A|D|R|C|U) /               {staged++}
+      /^ (M|T|A|D|R|C|U)/               {modified++}
       /^(M|T|A|D|R|C|U)(M|T|A|D|R|C|U)/ {staged++; modified++}
-      /^\?\?/           {untracked++}
-      END { print " [ %F{white}" branch "%f«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b ]"}' \
+      /^\?\?/                           {untracked++}
+      END                               { print " [ %F{white}" branch "%f«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b ]"}' \
     | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|%F{white}\[different\]|%B%F{red}! %f%b%F{white}|g'
 }
 
