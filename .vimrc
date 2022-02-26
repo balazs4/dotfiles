@@ -23,6 +23,7 @@ set foldmethod=manual
 set shortmess+=c
 set complete+=kspell
 set completeopt=longest,menu,preview,popup
+"macbookpro set re=2
 
 " https://stackoverflow.com/questions/2816719/clear-certain-criteria-from-viminfo-file
 " set viminfo='0,:0,<0,@0
@@ -45,6 +46,7 @@ nnoremap N Nzzzv
 " nnoremap <leader>gf gd f' gf
 
 "https://github.com/junegunn/fzf.vim
+"macbookpro set rtp+=/opt/homebrew/opt/fzf
 packadd fzf.vim
 nnoremap <Leader>[ :Buffers<CR>#
 nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
