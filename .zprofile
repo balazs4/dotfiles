@@ -6,7 +6,7 @@ PAGER= git -C $HOME/.files diff -p
 
 for dotfile in `git -C $HOME/.files ls-files -- ':!:readme.md'`
 do
-  if head -2 $dotfile | grep `uname -s` > /dev/null
+  if head -2 $HOME/.files/$dotfile | grep `uname -s` > /dev/null
   then
     test $DOT && echo -e "\e[32mUSE\t$dotfile\e[0m"
   else
