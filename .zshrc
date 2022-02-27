@@ -129,6 +129,7 @@ function vimplug(){
   popd
 }
 
+#macbookpro alias docker="podman"
 #macbookpro alias v="vim"
 #carbon alias v="vim -c ':GFiles'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
@@ -163,7 +164,7 @@ alias dco='docker compose'
 alias rg='rg --hidden'
 alias dmesg='sudo dmesg'
 alias cal='LC_ALL=de_DE.utf8 cal'
-alias yay='yay --editmenu'
+#carbon alias yay='yay --editmenu'
 
 function srv(){
   node -e '
@@ -448,17 +449,17 @@ function archnews(){
 alias magic="echo ✨MAGIC✨. Sorry-not-sorry"
 #carbon alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch me if you can; done";exit'
 
-#carbon function mongodb-rs(){
-#carbon   docker ps -a | grep 27017 | cut -f1 -d" " | xargs -tr docker kill
-#carbon   docker run -d --rm -p "27017:27017" mongo:${1:-4.4.4} --replSet rs \
-#carbon     | xargs -I{} docker exec -i {} sh -c '
-#carbon       while ! mongo  --eval "db.version()" >/dev/null; do sleep 0.5s; done; \
-#carbon       mongo --eval "rs.initiate()"; \
-#carbon       while ! mongo  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
-#carbon       mongo --eval "db.createCollection(\"test\")"
-#carbon       '
-#carbon   docker ps -a | grep 27017 
-#carbon }
+function mongodb-rs(){
+  docker ps -a | grep 27017 | cut -f1 -d" " | xargs -tr docker kill
+  mongo_container_id=`docker run -d --rm -p "27017:27017" mongo:${1:-4.4.4} --replSet rs` 
+  docker exec -i $mongo_container_id sh -c '
+    while ! mongo  --eval "db.version()" >/dev/null; do sleep 0.5s; done; \
+    mongo --eval "rs.initiate()"; \
+    while ! mongo  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
+    mongo --eval "db.createCollection(\"test\")"
+  '
+  docker ps -a | grep 27017 
+}
 
 #carbon function dcargo(){
 #carbon   docker run -it --rm --user `id -u`:`id -g` -v "$PWD:/`basename $PWD`" -w /`basename $PWD` ghcr.io/rust-lang/rust:nightly-alpine cargo $@
