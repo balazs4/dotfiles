@@ -446,23 +446,23 @@ function archnews(){
 }
 
 alias magic="echo ✨MAGIC✨. Sorry-not-sorry"
-alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch me if you can; done";exit'
+#carbon alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch me if you can; done";exit'
 
-function mongodb-rs(){
-  docker ps -a | grep 27017 | cut -f1 -d" " | xargs -tr docker kill
-  docker run -d --rm -p "27017:27017" mongo:${1:-4.4.4} --replSet rs \
-    | xargs -I{} docker exec -i {} sh -c '
-      while ! mongo  --eval "db.version()" >/dev/null; do sleep 0.5s; done; \
-      mongo --eval "rs.initiate()"; \
-      while ! mongo  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
-      mongo --eval "db.createCollection(\"test\")"
-      '
-  docker ps -a | grep 27017 
-}
+#carbon function mongodb-rs(){
+#carbon   docker ps -a | grep 27017 | cut -f1 -d" " | xargs -tr docker kill
+#carbon   docker run -d --rm -p "27017:27017" mongo:${1:-4.4.4} --replSet rs \
+#carbon     | xargs -I{} docker exec -i {} sh -c '
+#carbon       while ! mongo  --eval "db.version()" >/dev/null; do sleep 0.5s; done; \
+#carbon       mongo --eval "rs.initiate()"; \
+#carbon       while ! mongo  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
+#carbon       mongo --eval "db.createCollection(\"test\")"
+#carbon       '
+#carbon   docker ps -a | grep 27017 
+#carbon }
 
-function dcargo(){
-  docker run -it --rm --user `id -u`:`id -g` -v "$PWD:/`basename $PWD`" -w /`basename $PWD` ghcr.io/rust-lang/rust:nightly-alpine cargo $@
-}
+#carbon function dcargo(){
+#carbon   docker run -it --rm --user `id -u`:`id -g` -v "$PWD:/`basename $PWD`" -w /`basename $PWD` ghcr.io/rust-lang/rust:nightly-alpine cargo $@
+#carbon }
 
 #carbon function deskon(){
 #carbon   xrandr \
@@ -513,14 +513,14 @@ function raw(){
   curl -Ls "$1?raw=true"
 }
 
-function yayfzf(){
-  yay -Sy
-  yay -Slq | fzf --preview 'yay -Si {1}' --query "'${1}" -1 | xargs yay -Sy --noconfirm 
-  hash -r
-}
-alias yf=yayfzf
-alias yzf=yayfzf
-alias yayf=yayfzf
+#carbon function yayfzf(){
+#carbon   yay -Sy
+#carbon   yay -Slq | fzf --preview 'yay -Si {1}' --query "'${1}" -1 | xargs yay -Sy --noconfirm 
+#carbon   hash -r
+#carbon }
+#carbon alias yf=yayfzf
+#carbon alias yzf=yayfzf
+#carbon alias yayf=yayfzf
 
 function gitlab-pipeline(){
   local project=`git config --get remote.origin.url | awk -F: '{ sub(/\.git$/,""); sub(/\//,"%2F");  print $2}'`
@@ -548,3 +548,5 @@ alias flip='rev | perl -Mopen=locale -Mutf8 -pe tr/a-z/ɐqɔpǝɟƃɥıɾʞlɯuo
 #macbookpro   shift
 #macbookpro   osascript -e "display notification \"$*\" with title \"$title\""
 #macbookpro }
+
+alias src='fx package.json .scripts'
