@@ -387,9 +387,9 @@ services:
   rm -f $DOCKER_COMPOSE
 }
 
-alias pnpm='NPM_CONFIG_LOGLEVEL=error npx -y pnpm'
-alias pn='NPM_CONFIG_LOGLEVEL=error npx -y pnpm'
-alias yarn='NPM_CONFIG_LOGLEVEL=error npx -y yarn'
+#carbon alias pnpm='NPM_CONFIG_LOGLEVEL=error npx -y pnpm'
+#carbon alias pn='NPM_CONFIG_LOGLEVEL=error npx -y pnpm'
+#carbon alias yarn='NPM_CONFIG_LOGLEVEL=error npx -y yarn'
 
 function burger(){
   source $HOME/git/aws-burger/functions
