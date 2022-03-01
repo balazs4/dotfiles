@@ -12,6 +12,12 @@ setopt hist_ignore_dups       # ignore duplicated commands history list
 setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share command history data
+#macbookpro export HOMEBREW_PREFIX="/opt/homebrew";
+#macbookpro export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+#macbookpro export HOMEBREW_REPOSITORY="/opt/homebrew";
+#macbookpro export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+#macbookpro export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
+#macbookpro export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 #macbookpro FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
