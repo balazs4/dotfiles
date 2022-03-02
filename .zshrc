@@ -296,8 +296,10 @@ function aws-off(){
   unset `env | awk -F= '/^AWS_/ {print $1 }'`
 }
 
-export N_PREFIX=$HOME/.n/prefix
-export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
+#carbon export N_PREFIX=$HOME/.n/prefix
+#carbon export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
+#macbookpro export NVM_DIR=$HOME/.nvm
+#macbookpro source /opt/homebrew/opt/nvm/nvm.sh
 alias youtube='google-chrome-stable https://youtube.com/' #webapp
 
 export PATH=$HOME/.cargo/bin:${PATH}
