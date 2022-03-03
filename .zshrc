@@ -224,61 +224,61 @@ function todos(){
   EDITOR='vim -c "colorscheme nord"' gh gist ${*:-view} ${GITHUB_GIST_TODOS}
 }
 
-function emojis(){
-  e=`emojify --list | sed '0,/Supported emojis/d' | sort | fzf --reverse`
-  echo $e | cut -d" " -f1 | xclip -rmlastnl -selection primary
-  echo $e | cut -d" " -f2 | xclip -rmlastnl -selection clipboard
-}
+#carbon function emojis(){
+#carbon   e=`emojify --list | sed '0,/Supported emojis/d' | sort | fzf --reverse`
+#carbon   echo $e | cut -d" " -f1 | xclip -rmlastnl -selection primary
+#carbon   echo $e | cut -d" " -f2 | xclip -rmlastnl -selection clipboard
+#carbon }
 
-alias song='playerctl metadata title | EDITOR="tee -a" gh gist edit $GITHUB_GIST_SONGS'
-alias songs='gh gist view $GITHUB_GIST_SONGS -f songs'
+#carbon alias song='playerctl metadata title | EDITOR="tee -a" gh gist edit $GITHUB_GIST_SONGS'
+#carbon alias songs='gh gist view $GITHUB_GIST_SONGS -f songs'
 
-function record(){
-  FILENAME=${1:-/tmp/`date "+%Y%m%d_%H%M%S"`.mp4}
-  ffmpeg -f x11grab -r 30 `hacksaw -f "-s %wx%h -i :0.0+%x,%y"` -q:v 0 -q:a 0 $FILENAME
-  echo $FILENAME
-}
+#carbon function record(){
+#carbon   FILENAME=${1:-/tmp/`date "+%Y%m%d_%H%M%S"`.mp4}
+#carbon   ffmpeg -f x11grab -r 30 `hacksaw -f "-s %wx%h -i :0.0+%x,%y"` -q:v 0 -q:a 0 $FILENAME
+#carbon   echo $FILENAME
+#carbon }
 
 function co(){
   for handle in "$@"; do echo "Co-authored-by: $handle <$handle@users.noreply.github.com>"; done
 }
 
-function mirrorlist() {
-  COUNTRIES=`echo ${*:-DE NL}| xargs -d" " -I{} echo -n "&country={}"`
-  curl -s "https://archlinux.org/mirrorlist/?protocol=https&ip_version=4${COUNTRIES}" \
-    | sed "s/#Server/Server/g" \
-    | sudo tee /etc/pacman.d/mirrorlist
-}
+#carbon function mirrorlist() {
+#carbon   COUNTRIES=`echo ${*:-DE NL}| xargs -d" " -I{} echo -n "&country={}"`
+#carbon   curl -s "https://archlinux.org/mirrorlist/?protocol=https&ip_version=4${COUNTRIES}" \
+#carbon     | sed "s/#Server/Server/g" \
+#carbon     | sudo tee /etc/pacman.d/mirrorlist
+#carbon }
 
 
-function remind(){
-  if [ "$#" -eq 0 ]
-  then
-    rm -f /tmp/remind
-    pkill -SIGRTMIN+4 i3blocks
-    return
-  fi
-
-  TIME="$1"
-  shift
-  CONTENT="$*"
-
-  echo "
-    echo '$CONTENT' > /tmp/remind
-    pkill -SIGRTMIN+4 i3blocks
-    dunstify \"\`date\`\" '$CONTENT'
-  " | at $TIME
-}
+#carbon function remind(){
+#carbon   if [ "$#" -eq 0 ]
+#carbon   then
+#carbon     rm -f /tmp/remind
+#carbon     pkill -SIGRTMIN+4 i3blocks
+#carbon     return
+#carbon   fi
+#carbon 
+#carbon   TIME="$1"
+#carbon   shift
+#carbon   CONTENT="$*"
+#carbon 
+#carbon   echo "
+#carbon     echo '$CONTENT' > /tmp/remind
+#carbon     pkill -SIGRTMIN+4 i3blocks
+#carbon     dunstify \"\`date\`\" '$CONTENT'
+#carbon   " | at $TIME
+#carbon }
 
 function touchd(){
   mkdir -p `dirname "$1"` && touch "$1"
 }
 
-function wall(){
-  sed -i "s|#`hostname` exec_always feh --no-fehbg --bg-fill \(https://unsplash.com/photos/.*\)/download?force=true|#`hostname` exec_always feh --no-fehbg --bg-fill $1/download?force=true|g" $HOME/.files/.config/i3/config
-  source $HOME/.files/.zprofile
-  i3-msg restart
-}
+#carbon function wall(){
+#carbon   sed -i "s|#`hostname` exec_always feh --no-fehbg --bg-fill \(https://unsplash.com/photos/.*\)/download?force=true|#`hostname` exec_always feh --no-fehbg --bg-fill $1/download?force=true|g" $HOME/.files/.config/i3/config
+#carbon   source $HOME/.files/.zprofile
+#carbon   i3-msg restart
+#carbon }
 
 function ghcrio-on() {
   echo "{ \"auths\":{ \"ghcr.io\":{ \"auth\":\"`echo "$USER:$GITHUB_TOKEN" | base64`\"  }}}" > ${DOCKER_CONFIG:-$HOME/.docker/config.json}
@@ -300,7 +300,7 @@ function aws-off(){
 #carbon export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
 #macbookpro export NVM_DIR=$HOME/.nvm
 #macbookpro source /opt/homebrew/opt/nvm/nvm.sh
-alias youtube='google-chrome-stable https://youtube.com/' #webapp
+#carbon alias youtube='google-chrome-stable https://youtube.com/' #webapp
 
 export PATH=$HOME/.cargo/bin:${PATH}
 
