@@ -73,9 +73,9 @@ function zz() {
     fd --full-path /tmp --type d --max-depth=1 --absolute-path /tmp;
   } | fzf --layout=reverse --height '40%' -q "'${*:-$PWD} " -1`
 
-  [[ ! -z $to ]] && cd $to
-
-  [[ $TMUX ]] || tmux new-session -A -s `basename $PWD`
+  [[ $TMUX ]] \
+    && cd ${to:-$PWD} \
+    || tmux new-session -A -s `basename ${to:-$PWD}` -c ${to:-$PWD}
 }
 
 alias z='TMUX=fake zz'
@@ -389,33 +389,28 @@ services:
   rm -f $DOCKER_COMPOSE
 }
 
-#carbon alias pnpm='NPM_CONFIG_LOGLEVEL=error npx -y pnpm'
-#carbon alias pn='NPM_CONFIG_LOGLEVEL=error npx -y pnpm'
-#carbon alias yarn='NPM_CONFIG_LOGLEVEL=error npx -y yarn'
+#carbon alias pnpm='npx -y pnpm'
+#carbon alias yarn='npx -qy yarn@1'
 
-function burger(){
-  source $HOME/git/aws-burger/functions
-}
-
-function now(){
-  local artUrl=`playerctl metadata --format '{{mpris:artUrl}}'`
-  local title="`playerctl metadata --format '{{title}}'`"
-  local artist="`playerctl metadata --format '{{artist}}'`"
-  local searchterm=`node -p "encodeURIComponent('$artist $title')"`
-
-  [[ $artUrl ]] && curl -s $artUrl -o /tmp/$searchterm.png
-
-  if [[ ! -f /tmp/$searchterm.png ]]
-  then
-    curl -Lisk "https://api.deezer.com/search?strict=on&q=$searchterm" \
-      | ALOLA_REPORT=silent npx alola 'status should be 200' \
-      | npx fx 'x => x.body.data.map(xx => xx.album.cover_medium).join("\n")' \
-      | head -1 \
-      | xargs -I{} curl -s {} -o /tmp/$searchterm.png
-  fi
-
-  dunstify -I /tmp/$searchterm.png "$title" "$artist"
-}
+#carbon function now(){
+#carbon   local artUrl=`playerctl metadata --format '{{mpris:artUrl}}'`
+#carbon   local title="`playerctl metadata --format '{{title}}'`"
+#carbon   local artist="`playerctl metadata --format '{{artist}}'`"
+#carbon   local searchterm=`node -p "encodeURIComponent('$artist $title')"`
+#carbon 
+#carbon   [[ $artUrl ]] && curl -s $artUrl -o /tmp/$searchterm.png
+#carbon 
+#carbon   if [[ ! -f /tmp/$searchterm.png ]]
+#carbon   then
+#carbon     curl -Lisk "https://api.deezer.com/search?strict=on&q=$searchterm" \
+#carbon       | ALOLA_REPORT=silent npx alola 'status should be 200' \
+#carbon       | npx fx 'x => x.body.data.map(xx => xx.album.cover_medium).join("\n")' \
+#carbon       | head -1 \
+#carbon       | xargs -I{} curl -s {} -o /tmp/$searchterm.png
+#carbon   fi
+#carbon 
+#carbon   dunstify -I /tmp/$searchterm.png "$title" "$artist"
+#carbon }
 
 function news(){
   tmux new-session -s 'news' -d
@@ -498,30 +493,30 @@ function mongodb-rs(){
 #carbon }
 
 
-function record-tmux(){
-  local cast="/tmp/tmux-$1.json"
-  asciinema rec --command "tmux attach -t $1" $cast
-  #npx -yq -p svg-term-cli
-  svg-term --in $cast --out $cast.svg
-  ls -lsh $cast*
-}
-
-function typo(){
-  local target=$1
-  shift
-  node -p 'process.argv.slice(1).map(x => x.split("").map(xx => xx + "\n").join("")).join("\n").trim()' ${*} \
-    | xargs -I% -d '\n' -n1 sh -c "tmux send-keys -t '$target' '%'; sleep 0.1s;"
-
-  sleep 0.2s
-  tmux send-keys -t "$target" Enter
-}
-
-test -f $HOME/.nix-profile/etc/profile.d/nix.sh && source $HOME/.nix-profile/etc/profile.d/nix.sh
-
-function raw(){
-  curl -Ls "$1?raw=true"
-}
-
+#carbon function record-tmux(){
+#carbon   local cast="/tmp/tmux-$1.json"
+#carbon   asciinema rec --command "tmux attach -t $1" $cast
+#carbon   #npx -yq -p svg-term-cli
+#carbon   svg-term --in $cast --out $cast.svg
+#carbon   ls -lsh $cast*
+#carbon }
+#carbon 
+#carbon function typo(){
+#carbon   local target=$1
+#carbon   shift
+#carbon   node -p 'process.argv.slice(1).map(x => x.split("").map(xx => xx + "\n").join("")).join("\n").trim()' ${*} \
+#carbon     | xargs -I% -d '\n' -n1 sh -c "tmux send-keys -t '$target' '%'; sleep 0.1s;"
+#carbon 
+#carbon   sleep 0.2s
+#carbon   tmux send-keys -t "$target" Enter
+#carbon }
+#carbon 
+#carbon test -f $HOME/.nix-profile/etc/profile.d/nix.sh && source $HOME/.nix-profile/etc/profile.d/nix.sh
+#carbon 
+#carbon function raw(){
+#carbon   curl -Ls "$1?raw=true"
+#carbon }
+#carbon 
 #carbon function yayfzf(){
 #carbon   yay -Sy
 #carbon   yay -Slq | fzf --preview 'yay -Si {1}' --query "'${1}" -1 | xargs yay -Sy --noconfirm 
@@ -558,4 +553,11 @@ alias flip='rev | perl -Mopen=locale -Mutf8 -pe tr/a-z/ɐqɔpǝɟƃɥıɾʞlɯuo
 #macbookpro   osascript -e "display notification \"$*\" with title \"$title\""
 #macbookpro }
 
-alias src='fx package.json .scripts'
+alias src='npx -qy fx package.json .scripts'
+
+#macbookpro export BUILD_LIBRDKAFKA=0
+function deps(){
+  test -f .nvmrc && nvm use
+  test -f yarn.lock && npx -qy yarn@1 install --frozen-lockfile
+  test -f package-lock.json && npx -qy npm@8 ci
+}
