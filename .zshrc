@@ -164,6 +164,7 @@ alias gst='git status'
 alias gco='git checkout'
 alias gpp='git pull --prune --tags'
 alias gcm='git checkout `git branch | grep -m 1 -E "(canary|main|master)" | sed "s|^* ||g"`'
+alias gf='git status --porcelain | cut -d" " -f2'
 alias shrug='curl -s http://shrug.io | xx'
 alias wipe='docker rm -f `docker ps -aq`; docker network prune -f; docker volume prune -f'
 alias dco='docker compose'
@@ -555,9 +556,14 @@ alias flip='rev | perl -Mopen=locale -Mutf8 -pe tr/a-z/ɐqɔpǝɟƃɥıɾʞlɯuo
 
 alias src='npx -qy fx package.json .scripts'
 
+#macbookpro #https://github.com/Blizzard/node-rdkafka/issues/937 workaround: --ignore-scripts
+#macbookpro export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
+#macbookpro export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
 #macbookpro export BUILD_LIBRDKAFKA=0
+#
 function deps(){
   test -f .nvmrc && nvm use
-  test -f yarn.lock && npx -qy yarn@1 install --frozen-lockfile
+  test -f yarn.lock && npx -qy yarn@1 install --frozen-lockfile --ignore-scripts
   test -f package-lock.json && npx -qy npm@8 ci
 }
+
