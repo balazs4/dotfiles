@@ -33,8 +33,8 @@ super + backslash
 super + a
   i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 
 
-#carbon super + l
-#carbon   slock
+super + l
+  slock
 
 XF86Audio{RaiseVolume,LowerVolume}
   pulsemixer --change-volume {+5,-5} \
@@ -44,10 +44,10 @@ XF86AudioMute
   pulsemixer --toggle-mute \
     ;pkill -SIGRTMIN+1 i3blocks
 
-#carbon XF86MonBrightness{Up,Down}
-#carbon   xbacklight {+10,-5}
+XF86MonBrightness{Up,Down}
+  xbacklight {+10,-10}
 
-#carbon XF86AudioMicMute
-#carbon   pulsemixer --toggle-mute --id source-7 \
-#carbon     ;pkill -SIGRTMIN+1 i3blocks
+XF86AudioMicMute
+  pulsemixer --toggle-mute --id source-7 \
+    ;pkill -SIGRTMIN+1 i3blocks
 
