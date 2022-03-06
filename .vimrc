@@ -15,8 +15,10 @@ set autoread
 set incsearch
 set hlsearch
 set ignorecase
-set timeoutlen=400 ttimeoutlen=0
+set encoding=utf-8
+set nowritebackup
 set updatetime=300
+set timeoutlen=400 ttimeoutlen=0
 set laststatus=2
 set title
 set number
@@ -25,7 +27,6 @@ set foldmethod=manual
 set shortmess+=c
 set complete+=kspell
 set completeopt=longest,menu,preview,popup
-set encoding=utf-8
 "macbookpro set re=2
 
 " https://stackoverflow.com/questions/2816719/clear-certain-criteria-from-viminfo-file
@@ -92,23 +93,20 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 
 "https://github.com/arcticicestudio/nord-vim
 
-set encoding=utf-8
-set nowritebackup
-set updatetime=300
 
 "https://github.com/neoclide/coc.nvim --branch release
-" TODO: augroup Filetype typescript
 au FileType typescript packadd coc.nvim
-au FileType typescript set signcolumn=number
 au FileType typescript set cmdheight=2
-au FileType typescript nmap <leader>gd <Plug>(coc-definition)
-au FileType typescript nmap <leader>gy <Plug>(coc-type-definition)
-au FileType typescript nmap <leader>gi <Plug>(coc-implementation)
-au FileType typescript nmap <leader>gr <Plug>(coc-references)
-au FileType typescript nmap <leader>gg <Plug>(coc-rename)
-au FileType typescript vmap <leader>ga <Plug>(coc-codeaction-selected)
-au FileType typescript nmap <leader>ga <Plug>(coc-codeaction-selected)
-au FileType typescript nmap <leader>co :<C-u>CocList outline<cr>
-au FileType typescript nmap <leader>cl :<C-u>CocList locationlist<cr>
-au FileType typescript nmap <leader>gh :call CocActionAsync('doHover')<CR>
-
+au FileType typescript set signcolumn=number
+au FileType typescript set statusline^=%{coc#status()}
+au FileType typescript nmap g[ <Plug>(coc-diagnostic-prev)
+au FileType typescript nmap g] <Plug>(coc-diagnostic-next)
+au FileType typescript nmap gd <Plug>(coc-definition)
+au FileType typescript nmap gy <Plug>(coc-type-definition)
+au FileType typescript nmap gi <Plug>(coc-implementation)
+au FileType typescript nmap gr <Plug>(coc-references)
+au FileType typescript nmap gh :call CocActionAsync('doHover')<CR>
+au FileType typescript nmap <leader>rn <Plug>(coc-rename)
+au FileType typescript nmap <leader>ac <Plug>(coc-codeaction)
+au FileType typescript nmap <leader>qf <Plug>(coc-fix-current)
+au FileType typescript inoremap <silent><expr> <c-@> coc#refresh()
