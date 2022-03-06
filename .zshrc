@@ -548,11 +548,6 @@ function gb(){
 alias .env='set -o allexport; source .env; set +o allexport'
 
 alias flip='rev | perl -Mopen=locale -Mutf8 -pe tr/a-z/ɐqɔpǝɟƃɥıɾʞlɯuodᕹɹsʇnʌʍxʎz/'
-#macbookpro function notify-send(){
-#macbookpro   title=$1
-#macbookpro   shift
-#macbookpro   osascript -e "display notification \"$*\" with title \"$title\""
-#macbookpro }
 
 alias src='npx -qy fx package.json .scripts'
 
