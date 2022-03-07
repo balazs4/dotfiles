@@ -25,8 +25,8 @@ aliases:
 #carbon     click=`dunstify --action="default,open" -I /tmp/github-action-$color.svg "$outcome" "$branch\n$origin"`
 #carbon     [[ $click = 'default' ]] && gh run view $id -w
 #macbookpro      osascript -e "display notification \"$branch\n$origin\" with title \"$outcome\""
-      click=`notify --icon /tmp/github-action-$color.svg --title "$outcome" --subtitle "$branch" --message "$origin"`
-      [[ $click = 'activate' ]] && gh run view $id -w
+#macbookpro      click=`notify --icon /tmp/github-action-$color.svg --title "$outcome" --subtitle "$branch" --message "$origin"`
+#macbookpro      [[ $click = 'activate' ]] && gh run view $id -w
       ) &
       gh run view $id --log-failed
     }; fn
