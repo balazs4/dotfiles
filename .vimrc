@@ -96,9 +96,8 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 
 "https://github.com/neoclide/coc.nvim --branch release
 au FileType typescript packadd coc.nvim
-au FileType typescript set cmdheight=2
 au FileType typescript set signcolumn=number
-au FileType typescript set statusline=%{coc#status()}
+au FileType typescript set statusline=%F\ %{coc#status()}
 au FileType typescript nmap g[ <Plug>(coc-diagnostic-prev)
 au FileType typescript nmap g] <Plug>(coc-diagnostic-next)
 au FileType typescript nmap gd <Plug>(coc-definition)
