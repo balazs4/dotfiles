@@ -52,7 +52,7 @@ nnoremap N Nzzzv
 "https://github.com/junegunn/fzf.vim
 "macbookpro set rtp+=/opt/homebrew/opt/fzf
 packadd fzf.vim
-nnoremap <Leader>[ :Buffers<CR>#
+nnoremap <Leader>[ :Buffers<CR>
 nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <expr> <Leader><Leader> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <Leader>] :Rg<CR>

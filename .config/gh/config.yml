@@ -20,11 +20,13 @@ aliases:
       (
       outcome=`gh run list | grep $id | cut -f2`
       origin=`git config --get remote.origin.url`
-#carbon     color=`echo $outcome | sed -r 's/\s//g;s/success/00ff33/g;s/failure/ff4747/g'`
-#carbon     [[ -f /tmp/github-action-$color.svg ]] || `curl -Lks https://cdn.svgporn.com/logos/github-icon.svg | sed "s/#161614/#${color:-161614}/g" > /tmp/github-action-$color.svg`
+      color=`echo $outcome | sed -r 's/\s//g;s/success/00ff33/g;s/failure/ff4747/g'`
+      [[ -f /tmp/github-action-$color.svg ]] || `curl -Lks https://cdn.svgporn.com/logos/github-icon.svg | sed "s/#161614/#${color:-161614}/g" > /tmp/github-action-$color.svg`
 #carbon     click=`dunstify --action="default,open" -I /tmp/github-action-$color.svg "$outcome" "$branch\n$origin"`
 #carbon     [[ $click = 'default' ]] && gh run view $id -w
 #macbookpro      osascript -e "display notification \"$branch\n$origin\" with title \"$outcome\""
+      click=`notify --icon /tmp/github-action-$color.svg --title "$outcome" --subtitle "$branch" --message "$origin"`
+      [[ $click = 'activate' ]] && gh run view $id -w
       ) &
       gh run view $id --log-failed
     }; fn
