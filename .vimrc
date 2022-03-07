@@ -54,8 +54,8 @@ nnoremap N Nzzzv
 packadd fzf.vim
 nnoremap <Leader>[ :Buffers<CR>#
 nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
-nnoremap <expr> <Leader>] (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
-nnoremap <Leader><Leader> :Rg<CR>
+nnoremap <expr> <Leader><Leader> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
+nnoremap <Leader>] :Rg<CR>
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -98,7 +98,7 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 au FileType typescript packadd coc.nvim
 au FileType typescript set cmdheight=2
 au FileType typescript set signcolumn=number
-au FileType typescript set statusline^=%{coc#status()}
+au FileType typescript set statusline=%{coc#status()}
 au FileType typescript nmap g[ <Plug>(coc-diagnostic-prev)
 au FileType typescript nmap g] <Plug>(coc-diagnostic-next)
 au FileType typescript nmap gd <Plug>(coc-definition)
