@@ -305,8 +305,7 @@ export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
 export PATH=$HOME/.cargo/bin:${PATH}
 
 function yt(){
-  [[ $# -eq 0 ]] && read stdin
-  local search=`echo ${stdin:-*} | sed 's/\s/+/g'`
+  local search=`echo $* | tr ' ' '+'`
   curl -Lfs -H 'accept-language: en' "https://www.youtube.com/results?search_query=$search" \
     | pup 'script:contains("var ytInitialData") text{}' \
     | sed 's/var ytInitialData = //g;s/};/}/' \
