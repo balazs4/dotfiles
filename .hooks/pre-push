@@ -1,6 +1,6 @@
-#! /bin/bash
+##! /bin/sh
 # Linux Darwin
 
 [ -f "$PWD/package.json" ] || exit 0;
-echo "$0 >> npm run lint --silent --if-present"
-npm run lint --silent --if-present 
+echo "$0 >> npm run eslint-check --silent --if-present"
+npm run eslint-check --silent --if-present
