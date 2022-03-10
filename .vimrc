@@ -105,8 +105,8 @@ au FileType typescript nmap gy <Plug>(coc-type-definition)
 au FileType typescript nmap gi <Plug>(coc-implementation)
 au FileType typescript nmap gr <Plug>(coc-references)
 au FileType typescript nmap gh :call CocActionAsync('doHover')<CR>
-au FileType typescript nmap <leader>rn <Plug>(coc-rename)
-au FileType typescript nmap <leader>ac <Plug>(coc-codeaction)
-au FileType typescript nmap <leader>qf <Plug>(coc-fix-current)
-au FileType typescript nmap <leader>ou :<C-u>CocList outline<cr>
+au FileType typescript nmap <leader>rr <Plug>(coc-rename)
+au FileType typescript nmap <leader>aa <Plug>(coc-codeaction)
+au FileType typescript nmap <leader>ff <Plug>(coc-fix-current)
+au FileType typescript nmap <leader>oo :<C-u>CocList outline<cr>
 au FileType typescript inoremap <silent><expr> <c-@> coc#refresh()
