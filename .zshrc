@@ -216,9 +216,10 @@ function dw(){
   echo $url
 }
 
-function www(){
-  curl -s "$1" | w3m -dump -T text/html 
-  echo $1
+function wiki(){
+  url="https://en.wikipedia.org/wiki/$1"
+  reader -o "$url" | glow -p -
+  echo $url
 }
 
 function todos(){
