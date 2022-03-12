@@ -45,9 +45,9 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 
 nnoremap n nzzzv
 nnoremap N Nzzzv
+nnoremap J mzJ`z
 
-"goto definitons
-" nnoremap <leader>gf gd f' gf
+nnoremap <leader>gy gd f' gf
 
 "https://github.com/junegunn/fzf.vim
 "macbookpro set rtp+=/opt/homebrew/opt/fzf
