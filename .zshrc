@@ -557,13 +557,17 @@ alias src='npx -qy fx package.json .scripts'
 
 function light(){
 #carbon  xbacklight \=100
+  curl -Ls https://raw.githubusercontent.com/aarowill/base16-alacritty/914727e48ebf3eab1574e23ca0db0ecd0e5fe9d0/colors/base16-github.yml >> $HOME/.alacritty.yml
+
+  curl -Ls https://raw.githubusercontent.com/egel/tmux-gruvbox/3f9e38d7243179730b419b5bfafb4e22b0a969ad/tmux-gruvbox-light.conf >> $HOME/.tmux.conf
+  tmux source-file $HOME/.tmux.conf &>/dev/null
 
   echo "set background=light" >> $HOME/.vimrc
   echo "color github" >> $HOME/.vimrc
 
-  curl -Ls https://raw.githubusercontent.com/aarowill/base16-alacritty/914727e48ebf3eab1574e23ca0db0ecd0e5fe9d0/colors/base16-github.yml >> $HOME/.alacritty.yml
+}
 
-  curl -Ls https://raw.githubusercontent.com/egel/tmux-gruvbox/3f9e38d7243179730b419b5bfafb4e22b0a969ad/tmux-gruvbox-light.conf >> $HOME/.tmux.conf
-
-  tmux source-file $HOME/.tmux.conf
+function dark(){
+  source $HOME/.files/.zprofile &> /dev/null
+#carbon  xbacklight \=20
 }
