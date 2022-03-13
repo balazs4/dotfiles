@@ -389,9 +389,6 @@ services:
   rm -f $DOCKER_COMPOSE
 }
 
-#carbon alias pnpm='npx -y pnpm'
-#carbon alias yarn='npx -qy yarn@1'
-
 #carbon function now(){
 #carbon   local artUrl=`playerctl metadata --format '{{mpris:artUrl}}'`
 #carbon   local title="`playerctl metadata --format '{{title}}'`"
