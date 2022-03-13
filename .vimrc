@@ -47,7 +47,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
 
-nnoremap <leader>gy gd f' gf
+nnoremap <leader>gi gd f' gf
 
 "https://github.com/junegunn/fzf.vim
 "macbookpro set rtp+=/opt/homebrew/opt/fzf
@@ -63,14 +63,13 @@ command! -bang -nargs=* Rg
   \   fzf#vim#with_preview(), <bang>0)
 
 "https://github.com/mattn/emmet-vim
-au FileType javascript packadd emmet-vim
-au FileType html packadd emmet-vim
+au FileType javascript,typescriptreact,javascriptreact,html packadd emmet-vim
 let g:jsx_ext_require = 0
 let g:user_emmet_leader_key='<C-z>'
 
 "https://github.com/prettier/vim-prettier
-au FileType javascript,typescript,json,html,markdown packadd vim-prettier
-au FileType javascript,typescript,json,html,markdown nmap <Leader>p :PrettierAsync<CR>
+au FileType javascript,typescript,javascriptreact,typescriptreact,json,html,markdown packadd vim-prettier
+au FileType javascript,typescript,javascriptreact,typescriptreact,json,html,markdown nmap <Leader>p :PrettierAsync<CR>
 
 "https://github.com/tpope/vim-commentary
 packadd vim-commentary
@@ -95,20 +94,20 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 
 
 "https://github.com/neoclide/coc.nvim --branch release
-au FileType typescript packadd coc.nvim
-au FileType typescript set signcolumn=number
-au FileType typescript set statusline=%F\ %{coc#status()}
-au FileType typescript nmap g[ <Plug>(coc-diagnostic-prev)
-au FileType typescript nmap g] <Plug>(coc-diagnostic-next)
-au FileType typescript nmap gd <Plug>(coc-definition)
-au FileType typescript nmap gy <Plug>(coc-type-definition)
-au FileType typescript nmap gi <Plug>(coc-implementation)
-au FileType typescript nmap gr <Plug>(coc-references)
-au FileType typescript nmap gh :call CocActionAsync('doHover')<CR>
-au FileType typescript nmap <leader>rr <Plug>(coc-rename)
-au FileType typescript nmap <leader>aa <Plug>(coc-codeaction)
-au FileType typescript nmap <leader>ff <Plug>(coc-fix-current)
-au FileType typescript nmap <leader>oo :<C-u>CocList outline<cr>
-au FileType typescript inoremap <silent><expr> <c-@> coc#refresh()
+au FileType typescript,typescriptreact,javascriptreact packadd coc.nvim
+au FileType typescript,typescriptreact,javascriptreact set signcolumn=number
+au FileType typescript,typescriptreact,javascriptreact set statusline=%F\ %{coc#status()}
+au FileType typescript,typescriptreact,javascriptreact nmap g[ <Plug>(coc-diagnostic-prev)
+au FileType typescript,typescriptreact,javascriptreact nmap g] <Plug>(coc-diagnostic-next)
+au FileType typescript,typescriptreact,javascriptreact nmap gd <Plug>(coc-definition)
+au FileType typescript,typescriptreact,javascriptreact nmap gy <Plug>(coc-type-definition)
+au FileType typescript,typescriptreact,javascriptreact nmap gi <Plug>(coc-implementation)
+au FileType typescript,typescriptreact,javascriptreact nmap gr <Plug>(coc-references)
+au FileType typescript,typescriptreact,javascriptreact nmap gh :call CocActionAsync('doHover')<CR>
+au FileType typescript,typescriptreact,javascriptreact nmap <leader>rr <Plug>(coc-rename)
+au FileType typescript,typescriptreact,javascriptreact nmap <leader>aa <Plug>(coc-codeaction)
+au FileType typescript,typescriptreact,javascriptreact nmap <leader>ff <Plug>(coc-fix-current)
+au FileType typescript,typescriptreact,javascriptreact nmap <leader>oo :<C-u>CocList outline<cr>
+au FileType typescript,typescriptreact,javascriptreact inoremap <silent><expr> <c-@> coc#refresh()
 
 "https://github.com/cormacrelf/vim-colors-github
