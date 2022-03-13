@@ -110,3 +110,5 @@ au FileType typescript nmap <leader>aa <Plug>(coc-codeaction)
 au FileType typescript nmap <leader>ff <Plug>(coc-fix-current)
 au FileType typescript nmap <leader>oo :<C-u>CocList outline<cr>
 au FileType typescript inoremap <silent><expr> <c-@> coc#refresh()
+
+"https://github.com/cormacrelf/vim-colors-github
