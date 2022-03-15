@@ -212,7 +212,7 @@ function radio(){
 
 function dw(){
   url="https://de.wiktionary.org/wiki/$1"
-  curl -s "$url" | hq 'table.wikitable' data | w3m -dump -T text/html | sed '/^$/d'
+  curl -s "$url" | pup 'table.wikitable' | w3m -dump -T text/html | sed '/^$/d'
   echo $url
 }
 
