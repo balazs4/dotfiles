@@ -4,7 +4,7 @@
 
 set -e
 echo "$0 >> git log"
-files=`git log HEAD...origin --name-status --pretty=format: \
+files=`git log HEAD...origin/$(git rev-parse --abbrev-ref HEAD) --name-status --pretty=format: \
       | grep -E '^(A|M)' \
       | cut -f2 \
       | sort \

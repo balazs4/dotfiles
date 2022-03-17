@@ -421,8 +421,14 @@ function news(){
   tmux new-window -t "news" -n "r/commandline"
   tmux send-keys -t "news:r/commandline.1" "reddit commandline" Enter
 
-  tmux new-window -t "news" -n "archnews"
-  tmux send-keys -t "news:archnews.1" "archnews" Enter
+  tmux new-window -t "news" -n "r/nix"
+  tmux send-keys -t "news:r/nix.1" "reddit commandline" Enter
+
+  tmux new-window -t "news" -n "r/javascript"
+  tmux send-keys -t "news:r/javascript.1" "reddit commandline" Enter
+
+#carbon  tmux new-window -t "news" -n "archnews"
+#carbon  tmux send-keys -t "news:archnews.1" "archnews" Enter
 
   tmux attach-session -t 'news'
 }
@@ -436,7 +442,7 @@ function hackernews(){
 }
 
 function reddit(){
-  curl -Ls --user-agent "$RANDOM" "https://www.reddit.com/r/${1:-all}.json"\
+  curl -H 'cache-control: no-cache' -Ls --user-agent "$RANDOM" "https://www.reddit.com/r/${1:-all}/hot.json"\
     | fx 'x => x.data.children.slice(10).map(xx => [`\x1b[2m${xx.data.url}\x1b[0m`, `\x1b[1m${xx.data.title}\x1b[0m (${xx.data.subreddit_name_prefixed})`, " "].join("\n")).join("\n")'
 }
 
