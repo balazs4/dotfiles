@@ -47,7 +47,8 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
 
-nnoremap <leader>gi gd f' gf
+"TODO: ignore @?
+nnoremap <leader>gd gd f' gf
 
 "https://github.com/junegunn/fzf.vim
 "macbookpro set rtp+=/opt/homebrew/opt/fzf
@@ -92,13 +93,12 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 
 "https://github.com/arcticicestudio/nord-vim
 
+"https://github.com/cormacrelf/vim-colors-github
 
 "https://github.com/neoclide/coc.nvim --branch release
 au FileType typescript,typescriptreact,javascriptreact packadd coc.nvim
 au FileType typescript,typescriptreact,javascriptreact set signcolumn=number
 au FileType typescript,typescriptreact,javascriptreact set statusline=%F\ %{coc#status()}
-au FileType typescript,typescriptreact,javascriptreact nmap g[ <Plug>(coc-diagnostic-prev)
-au FileType typescript,typescriptreact,javascriptreact nmap g] <Plug>(coc-diagnostic-next)
 au FileType typescript,typescriptreact,javascriptreact nmap gd <Plug>(coc-definition)
 au FileType typescript,typescriptreact,javascriptreact nmap gy <Plug>(coc-type-definition)
 au FileType typescript,typescriptreact,javascriptreact nmap gi <Plug>(coc-implementation)
@@ -110,4 +110,5 @@ au FileType typescript,typescriptreact,javascriptreact nmap <leader>ff <Plug>(co
 au FileType typescript,typescriptreact,javascriptreact nmap <leader>oo :<C-u>CocList outline<cr>
 au FileType typescript,typescriptreact,javascriptreact inoremap <silent><expr> <c-@> coc#refresh()
 
-"https://github.com/cormacrelf/vim-colors-github
+"https://github.com/antoinemadec/coc-fzf
+au FileType typescript,typescriptreact,javascriptreact packadd coc-fzf
