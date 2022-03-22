@@ -3,8 +3,8 @@ git_protocol: ssh
 aliases:
   checks: >-
     !fn(){
-      sleep ${GH_INTERVAL:-5}
-      gh pr checks --watch
+      sleep ${GH_INTERVAL:-10}
+      gh pr checks --watch --interval ${GH_INTERVAL:-10}
       title=`gh pr view | grep title | cut -f2`
       click=`gh pr checks | gawk '/pass/ { print "✅" }; /fail/ {print "❌" $1 }' | xargs | tr -d ' ' | notify -t "$title"`
       [[ $click = 'activate' ]] && gh pr view -w
