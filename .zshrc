@@ -571,3 +571,7 @@ function dark(){
   source $HOME/.files/.zprofile &> /dev/null
 #carbon  xbacklight \=20
 }
+
+#carbon function cool(){
+#carbon   echo level ${1:-7} | sudo tee /proc/acpi/ibm/fan
+#carbon }
