@@ -565,6 +565,7 @@ function light(){
   echo "set background=light" >> $HOME/.vimrc
   echo "color github" >> $HOME/.vimrc
 
+  echo '--theme="gruvbox-light"' >> $HOME/.config/bat/config
 }
 
 function dark(){

@@ -96,19 +96,19 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 "https://github.com/cormacrelf/vim-colors-github
 
 "https://github.com/neoclide/coc.nvim --branch release
-au FileType typescript,typescriptreact,javascriptreact packadd coc.nvim
-au FileType typescript,typescriptreact,javascriptreact set signcolumn=number
-au FileType typescript,typescriptreact,javascriptreact set statusline=%F\ %{coc#status()}
-au FileType typescript,typescriptreact,javascriptreact nmap gd <Plug>(coc-definition)
-au FileType typescript,typescriptreact,javascriptreact nmap gy <Plug>(coc-type-definition)
-au FileType typescript,typescriptreact,javascriptreact nmap gi <Plug>(coc-implementation)
-au FileType typescript,typescriptreact,javascriptreact nmap gr <Plug>(coc-references)
-au FileType typescript,typescriptreact,javascriptreact nmap gh :call CocActionAsync('doHover')<CR>
-au FileType typescript,typescriptreact,javascriptreact nmap <leader>rr <Plug>(coc-rename)
-au FileType typescript,typescriptreact,javascriptreact nmap <leader>aa <Plug>(coc-codeaction)
+packadd coc.nvim
+set signcolumn=number
+set statusline=%F\ %{coc#status()}
+nmap gd <Plug>(coc-definition)
+nmap gy <Plug>(coc-type-definition)
+nmap gi <Plug>(coc-implementation)
+nmap gr <Plug>(coc-references)
+nmap gh :call CocActionAsync('doHover')<CR>
+nmap <leader>rr <Plug>(coc-rename)
+nmap <leader>aa <Plug>(coc-codeaction)
 au FileType typescript,typescriptreact,javascriptreact nmap <leader>ff <Plug>(coc-fix-current)
 au FileType typescript,typescriptreact,javascriptreact nmap <leader>oo :<C-u>CocList outline<cr>
 au FileType typescript,typescriptreact,javascriptreact inoremap <silent><expr> <c-@> coc#refresh()
 
 "https://github.com/antoinemadec/coc-fzf
-au FileType typescript,typescriptreact,javascriptreact packadd coc-fzf
+packadd coc-fzf
