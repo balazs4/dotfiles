@@ -96,18 +96,18 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 "https://github.com/cormacrelf/vim-colors-github
 
 "https://github.com/neoclide/coc.nvim --branch release
-packadd coc.nvim
-set signcolumn=number
-set statusline=%F\ %{coc#status()}
-nmap <leader>dd <Plug>(coc-definition)
-nmap <leader>yy <Plug>(coc-type-definition)
-nmap <leader>ii <Plug>(coc-implementation)
-nmap <leader>ff <Plug>(coc-references)
-nmap <leader>hh :call CocActionAsync('doHover')<CR>
-nmap <leader>rr <Plug>(coc-rename)
-nmap <leader>aa <Plug>(coc-codeaction)
-nmap <leader>oo :<C-u>CocList outline<cr>
-inoremap <silent><expr> <c-@> coc#refresh()
+"macbookpro packadd coc.nvim
+"macbookpro set signcolumn=number
+"macbookpro set statusline=%F\ %{coc#status()}
+"macbookpro nmap <leader>dd <Plug>(coc-definition)
+"macbookpro nmap <leader>yy <Plug>(coc-type-definition)
+"macbookpro nmap <leader>ii <Plug>(coc-implementation)
+"macbookpro nmap <leader>ff <Plug>(coc-references)
+"macbookpro nmap <leader>hh :call CocActionAsync('doHover')<CR>
+"macbookpro nmap <leader>rr <Plug>(coc-rename)
+"macbookpro nmap <leader>aa <Plug>(coc-codeaction)
+"macbookpro nmap <leader>oo :<C-u>CocList outline<cr>
+"macbookpro inoremap <silent><expr> <c-@> coc#refresh()
 
 "https://github.com/antoinemadec/coc-fzf
-packadd coc-fzf
+"macbookpro packadd coc-fzf

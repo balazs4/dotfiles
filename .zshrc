@@ -174,6 +174,9 @@ alias rg='rg --hidden'
 alias dmesg='sudo dmesg'
 alias cal='LC_ALL=de_DE.utf8 cal'
 #carbon alias yay='yay --editmenu'
+#macbookpro alias awk='gawk'
+#macbookpro alias sed='gsed'
+alias less='less -r'
 
 function srv(){
   node -e '
