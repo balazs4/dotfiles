@@ -302,7 +302,7 @@ function aws-off(){
 #carbon alias youtube='google-chrome-stable https://youtube.com/' #webapp
 
 export N_PREFIX=$HOME/.n/prefix
-#macbookpro export N_PRESERVE_NPM=1
+export N_PRESERVE_NPM=1
 export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
 
 export PATH=$HOME/.cargo/bin:${PATH}
