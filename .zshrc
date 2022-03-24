@@ -129,8 +129,10 @@ function vimplug(){
     source $HOME/.files/.zprofile
   fi
 
-  rm -rf $HOME/.vim/pack/_/opt/*
-  pushd $HOME/.vim/pack/_/opt/
+#carbon  rm -rf $HOME/.vim/pack/_/opt/*
+#carbon  pushd $HOME/.vim/pack/_/opt/
+#macbookpro  rm -rf $HOME/.vim/pack/_/start/*
+#macbookpro  pushd $HOME/.vim/pack/_/start/
   grep github $HOME/.vimrc | sed 's/"//g' | xargs -t -L1 git clone --depth 1
   popd
 }

@@ -99,16 +99,15 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 packadd coc.nvim
 set signcolumn=number
 set statusline=%F\ %{coc#status()}
-nmap gd <Plug>(coc-definition)
-nmap gy <Plug>(coc-type-definition)
-nmap gi <Plug>(coc-implementation)
-nmap gr <Plug>(coc-references)
-nmap gh :call CocActionAsync('doHover')<CR>
+nmap <leader>dd <Plug>(coc-definition)
+nmap <leader>yy <Plug>(coc-type-definition)
+nmap <leader>ii <Plug>(coc-implementation)
+nmap <leader>ff <Plug>(coc-references)
+nmap <leader>hh :call CocActionAsync('doHover')<CR>
 nmap <leader>rr <Plug>(coc-rename)
 nmap <leader>aa <Plug>(coc-codeaction)
-au FileType typescript,typescriptreact,javascriptreact nmap <leader>ff <Plug>(coc-fix-current)
-au FileType typescript,typescriptreact,javascriptreact nmap <leader>oo :<C-u>CocList outline<cr>
-au FileType typescript,typescriptreact,javascriptreact inoremap <silent><expr> <c-@> coc#refresh()
+nmap <leader>oo :<C-u>CocList outline<cr>
+inoremap <silent><expr> <c-@> coc#refresh()
 
 "https://github.com/antoinemadec/coc-fzf
 packadd coc-fzf
