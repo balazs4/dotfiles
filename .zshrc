@@ -177,6 +177,7 @@ alias cal='LC_ALL=de_DE.utf8 cal'
 #macbookpro alias awk='gawk'
 #macbookpro alias sed='gsed'
 alias less='less -r'
+alias delta='delta --side-by-side --syntax-theme=Nord'
 
 function srv(){
   node -e '
