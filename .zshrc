@@ -594,8 +594,8 @@ function dark(){
 #macbookpro   npx tsc --noEmit --watch --project `fzf -1 --query="'tsconfig.json 'services 'api $*"`
 #macbookpro }
 
-function ide(){
-  sources=`fzf -1 --query="!tests 'services 'api $*"`
-  tests=`echo $files | sed 's|services|tests/services|g;s|src/endpoint/||g;s|.ts$|.test.ts|g'`
-  vim `{echo $sources; echo $tests} | sort | uniq`
-}
+#macbookpro function ide(){
+#macbookpro   sources=`fzf -1 --query="!tests 'services 'api $*"`
+#macbookpro   tests=`echo $files | sed 's|services|tests/services|g;s|src/endpoint/||g;s|.ts$|.test.ts|g'`
+#macbookpro   vim `{echo $sources; echo $tests} | sort | uniq`
+#macbookpro }
