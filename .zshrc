@@ -369,8 +369,6 @@ function wallomat {
   feh --no-fehbg --bg-fill /tmp/mpv.png
 }
 
-alias feedback="npx -q -y onchange -i -k './**/*.js' -- npm run test"
-
 function public() {
   DOCKER_COMPOSE=tmp-docker-compose.yml
   echo "
