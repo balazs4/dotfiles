@@ -27,6 +27,8 @@ set foldmethod=manual
 set shortmess+=c
 set complete+=kspell
 set completeopt=longest,menu,preview,popup
+set list
+set listchars=eol:¬
 "macbookpro set re=2
 
 " https://stackoverflow.com/questions/2816719/clear-certain-criteria-from-viminfo-file
@@ -47,7 +49,6 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
 
-"TODO: ignore @?
 nnoremap <leader>gd gd f' gf
 
 "https://github.com/junegunn/fzf.vim
@@ -100,6 +101,7 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 "macbookpro set signcolumn=number
 "macbookpro set statusline=%F\ %{coc#status()}
 "macbookpro nmap <leader>dd <Plug>(coc-definition)
+"macbookpro nmap <silent><leader>xx :bd<CR>
 "macbookpro nmap <leader>yy <Plug>(coc-type-definition)
 "macbookpro nmap <leader>ii <Plug>(coc-implementation)
 "macbookpro nmap <leader>ff <Plug>(coc-references)

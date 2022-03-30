@@ -582,3 +582,16 @@ function dark(){
 #carbon function cool(){
 #carbon   echo level ${1:-7} | sudo tee /proc/acpi/ibm/fan
 #carbon }
+
+#macbookpro function feedback() {
+#macbookpro   npm run test -- --watch `fzf -1 --query="'tests 'services 'api $*"`
+#macbookpro }
+#macbookpro
+#macbookpro function fmt(){
+#macbookpro   git status --porcelain | awk '{print $2}' | xargs npx prettier --write
+#macbookpro   git status --porcelain | awk '{print $2}' | xargs npx eslint  --max-warnings=0 --cache --cache-location=/tmp/eslintcache/`basename $PWD`/
+#macbookpro }
+#macbookpro
+#macbookpro function annoyme() {
+#macbookpro   npx tsc --noEmit --watch --project `fzf -1 --query="'tsconfig.json 'services 'api $*"`
+#macbookpro }
