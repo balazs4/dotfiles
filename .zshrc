@@ -590,9 +590,10 @@ function dark(){
 #macbookpro   git status --porcelain | awk '{print $2}' | xargs -t npx eslint --max-warnings=0 --cache --cache-location=/tmp/eslintcache/`basename $PWD`/
 #macbookpro }
 #macbookpro
-#macbookpro function annoyme() {
+#macbookpro function transpile() {
 #macbookpro   npx tsc --noEmit --watch --project `fzf -1 --query="'tsconfig.json 'services 'api $*"`
 #macbookpro }
+#macbookpro alias annoyme=transpile
 
 #macbookpro function ide(){
 #macbookpro   sources=`fzf -1 --query="!tests 'services 'api $*"`
