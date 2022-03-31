@@ -13,9 +13,3 @@ files=`git log HEAD...origin/$(git rev-parse --abbrev-ref HEAD) --name-status --
 
 echo "$0 >> npx prettier --check $files"
 npx prettier --check $files
-
-echo "$0 >> npm run eslint-check --silent --if-present"
-npm run eslint-check --silent --if-present
-
-echo "$0 >> npm run eslint --silent --if-present"
-npm run eslint --silent --if-present

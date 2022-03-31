@@ -104,11 +104,11 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 "macbookpro nmap <silent><leader>xx :bd<CR>
 "macbookpro nmap <leader>yy <Plug>(coc-type-definition)
 "macbookpro nmap <leader>ii <Plug>(coc-implementation)
-"macbookpro nmap <leader>ff <Plug>(coc-references)
+"macbookpro nmap <leader>rr <Plug>(coc-references)
 "macbookpro nmap <leader>hh :call CocActionAsync('doHover')<CR>
-"macbookpro nmap <leader>rr <Plug>(coc-rename)
+"macbookpro nmap <leader>rn <Plug>(coc-rename)
 "macbookpro nmap <leader>aa <Plug>(coc-codeaction)
-"macbookpro nmap <leader>oo :<C-u>CocList outline<cr>
+"macbookpro nmap <leader>oo :<C-u>CocFzfList outline<cr>
 "macbookpro inoremap <silent><expr> <c-@> coc#refresh()
 
 "https://github.com/antoinemadec/coc-fzf
