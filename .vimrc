@@ -50,6 +50,7 @@ nnoremap N Nzzzv
 nnoremap J mzJ`z
 
 nnoremap <leader>gd gd f' gf
+nnoremap <silent><leader>xx :bd<CR>
 
 "https://github.com/junegunn/fzf.vim
 "macbookpro set rtp+=/opt/homebrew/opt/fzf
@@ -101,7 +102,6 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 "macbookpro set signcolumn=number
 "macbookpro set statusline=%F\ %{coc#status()}
 "macbookpro nmap <leader>dd <Plug>(coc-definition)
-"macbookpro nmap <silent><leader>xx :bd<CR>
 "macbookpro nmap <leader>yy <Plug>(coc-type-definition)
 "macbookpro nmap <leader>ii <Plug>(coc-implementation)
 "macbookpro nmap <leader>rr <Plug>(coc-references)
