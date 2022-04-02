@@ -600,3 +600,22 @@ function dark(){
 #macbookpro   tests=`echo $files | sed 's|services|tests/services|g;s|src/endpoint/||g;s|.ts$|.test.ts|g'`
 #macbookpro   vim `{echo $sources; echo $tests} | sort | uniq`
 #macbookpro }
+
+
+function meme(){
+  local auth=`pass imgflip.com | grep username`
+  local meme=`curl -Lisk https://api.imgflip.com/get_memes | ALOLA_REPORT=silent npx alola 'status should be 200' 'body.success should be true' | npx fx 'x => x.body.data.memes.map(xx => [xx.id.padEnd(8), xx.url.padEnd(32), xx.box_count, xx.name].join("\t")).join("\n")' | fzf -1 --query "'$1" | cut -f1`
+
+  shift;
+  local text=`node -p 'new URLSearchParams(process.argv.slice(1).map((x,i)=> (["text"+i,x]))).toString()' $*`
+
+  curl -Lisk https://api.imgflip.com/caption_image -d "$auth&template_id=$meme&$text" \
+    | ALOLA_REPORT=silent npx alola \
+      'status should be 200' \
+      'body.success should be true' \
+    | npx fx 'x => x.body.data.url' \
+    | xargs -I{} curl -Lsk {} --output - \
+    | xclip -selection clipboard -t 'image/png'
+}
+
+alias cmm='meme 129242436'
