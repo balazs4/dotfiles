@@ -345,8 +345,8 @@ function blue() {
 #carbon alias bank='google-chrome-stable --user-data-dir=$HOME/.config/webapp/bank'
 #carbon alias google='google-chrome-stable --user-data-dir=$HOME/.config/webapp/google'
 
-function piserver(){
-  curl -Lis http://192.168.178.42:180/admin/api.php | ALOLA_REPORT=text ALOLA_REPORT_ONLY=true npx alola \
+function pihole(){
+  curl -Lis http://192.168.178.42/admin/api.php | ALOLA_REPORT=text ALOLA_REPORT_ONLY=true npx alola \
     'status should be 200' \
     'headers.x-pi-hole should be The Pi-hole Web interface is working!'
 }
