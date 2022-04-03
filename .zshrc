@@ -127,7 +127,7 @@ function vimplug(){
   if [[ ! -z "$1" ]]
   then
     echo "\n\"$1" >> $HOME/.files/.vimrc
-    source $HOME/.files/.zprofile
+    TMUX= source $HOME/.files/.zprofile
   fi
 
 #carbon  rm -rf $HOME/.vim/pack/_/opt/*
@@ -138,11 +138,26 @@ function vimplug(){
   popd
 }
 
-#macbookpro alias docker="podman"
+function nvimplug(){
+  if [[ ! -z "$1" ]]
+  then
+    echo "\n\"$1" >> $HOME/.files/.config/nvim/init.vim
+    TMUX= source $HOME/.files/.zprofile
+  fi
+
+  rm -rf $HOME/.local/share/nvim/site/pack/_/start/* 2>/dev/null
+  mkdir -p $HOME/.local/share/nvim/site/pack/_/start/ 2>/dev/null
+  pushd $HOME/.local/share/nvim/site/pack/_/start/
+  grep github $HOME/.config/nvim/init.vim | sed 's/"//g' | xargs -t -L1 git clone --depth 1
+  popd
+}
+
+#macbookpro alias docker="echo try colina"
 #macbookpro alias v="vim"
 #carbon alias v="vim -c ':GFiles'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
+alias nvimrc="dot .vimrc"
 #carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -s 'http://wttr.in/91085?format=3'"
 #carbon alias xx='xclip -rmlastnl -selection clipboard'
