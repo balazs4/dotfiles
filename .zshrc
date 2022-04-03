@@ -46,6 +46,7 @@ function zsh-git() {
       BEGIN                             { branch; staged=0;modified=0;untracked=0 }
       /^##/                             {sub(/\.\.\./," "); branch=$2; }
       /^##.*\[different\]$/             {branch=$4branch; }
+      /^## No commits yet/              {branch="???";}
       /^(M|T|A|D|R|C|U) /               {staged++}
       /^ (M|T|A|D|R|C|U)/               {modified++}
       /^(M|T|A|D|R|C|U)(M|T|A|D|R|C|U)/ {staged++; modified++}
