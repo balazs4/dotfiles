@@ -28,13 +28,13 @@ set shortmess+=c
 set complete+=kspell
 set completeopt=longest,menu,preview,popup
 set list
-set listchars=eol:¬
+set listchars=eol:¬,tab:+-
 "macbookpro set re=2
 
 " https://stackoverflow.com/questions/2816719/clear-certain-criteria-from-viminfo-file
 " set viminfo='0,:0,<0,@0
 
-inoremap <C-@> <c-x><c-o>
+" inoremap <C-@> <c-x><c-o>
 
 " move
 nnoremap <C-j> :m .+1<CR>==
