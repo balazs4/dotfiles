@@ -11,5 +11,5 @@ files=`git log HEAD...origin/$(git rev-parse --abbrev-ref HEAD) --name-status --
       | uniq \
       | xargs`
 
-echo "$0 >> npx prettier --check $files"
-npx prettier --check $files
+echo "$0 >> npx prettier --ignore-unknown --check $files "
+npx prettier --ignore-unknown --check $files
