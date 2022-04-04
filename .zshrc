@@ -612,8 +612,8 @@ function dark(){
 #macbookpro alias annoyme=transpile
 
 #macbookpro function ide(){
-#macbookpro   sources=`fzf -1 --query="!tests 'services 'api $*"`
-#macbookpro   tests=`echo $files | sed 's|services|tests/services|g;s|src/endpoint/||g;s|.ts$|.test.ts|g'`
+#macbookpro   local sources=`fzf -1 --query="!tests 'services 'api $*"`
+#macbookpro   local tests=`echo $files | sed 's|services|tests/services|g;s|src/endpoint/||g;s|.ts$|.test.ts|g'`
 #macbookpro   vim `{echo $sources; echo $tests} | sort | uniq`
 #macbookpro }
 
