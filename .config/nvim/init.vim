@@ -82,7 +82,7 @@ colorscheme ambiance
 "https://github.com/neovim/nvim-lspconfig
 lua require('lspconfig').tsserver.setup {}
 set completeopt=menu,menuone,noselect
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 set signcolumn=yes
 nnoremap <silent><leader>dd :lua vim.lsp.buf.definition()<CR>
 nnoremap <silent><leader>hh :lua vim.lsp.buf.hover()<CR>
@@ -90,6 +90,7 @@ nnoremap <silent><leader>aa :lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent><leader>rr :lua vim.lsp.buf.references()<CR>
 nnoremap <silent><leader>rn :lua vim.lsp.buf.rename()<CR>
 nnoremap <silent><leader>yy :lua vim.lsp.buf.type_definition()<CR>
+set omnifunc=v:lua.vim.lsp.omnifunc
 
 "https://github.com/nvim-treesitter/nvim-treesitter
 "https://github.com/ojroques/nvim-lspfuzzy
