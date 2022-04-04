@@ -152,7 +152,6 @@ function nvimplug(){
   popd
 }
 
-#macbookpro alias docker="echo try colina"
 #macbookpro alias v="vim"
 #carbon alias v="vim -c ':GFiles'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
