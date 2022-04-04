@@ -47,7 +47,6 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
 
-nnoremap <leader>gd gd f' gf
 nnoremap <silent><leader>xx :bd<CR>
 
 "https://github.com/junegunn/fzf.vim
@@ -59,7 +58,7 @@ nnoremap <Leader>] :Rg<CR>
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --hidden --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   'rg --hidden --column --line-number --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
 "https://github.com/mattn/emmet-vim
@@ -85,9 +84,18 @@ lua require('lspconfig').tsserver.setup {}
 set completeopt=menu,menuone,noselect
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 set signcolumn=yes
+nnoremap <silent><leader>dd :lua vim.lsp.buf.definition()<CR>
+nnoremap <silent><leader>hh :lua vim.lsp.buf.hover()<CR>
+nnoremap <silent><leader>aa :lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent><leader>rr :lua vim.lsp.buf.references()<CR>
+nnoremap <silent><leader>rn :lua vim.lsp.buf.rename()<CR>
+nnoremap <silent><leader>yy :lua vim.lsp.buf.type_definition()<CR>
 
 "https://github.com/nvim-treesitter/nvim-treesitter
 "https://github.com/ojroques/nvim-lspfuzzy
 lua require('lspfuzzy').setup {}
 
 "https://github.com/Shatur/neovim-ayu
+set termguicolors
+syntax on
+colorscheme ayu

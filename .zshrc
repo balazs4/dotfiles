@@ -102,7 +102,7 @@ export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 
 function dot(){
   pushd $HOME/.files > /dev/null
-    vim ${1:-.}
+    $EDITOR ${1:-.}
     TMUX= source $PWD/.zprofile
   popd > /dev/null
 }
@@ -156,7 +156,7 @@ function nvimplug(){
 #carbon alias v="vim -c ':GFiles'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
-alias nvimrc="dot .vimrc"
+alias nvimrc="EDITOR=nvim dot .config/nvim/init.vim"
 #carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -s 'http://wttr.in/91085?format=3'"
 #carbon alias xx='xclip -rmlastnl -selection clipboard'
