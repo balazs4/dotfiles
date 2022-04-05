@@ -612,7 +612,7 @@ function dark(){
 
 #macbookpro function ide(){
 #macbookpro   local sources=`fzf -1 --query="!tests 'services 'api $*"`
-#macbookpro   local tests=`echo $files | sed 's|services|tests/services|g;s|src/endpoint/||g;s|.ts$|.test.ts|g'`
+#macbookpro   local tests=`echo $sources | sed 's|services|tests/services|g;s|src/endpoint/||g;s|.ts$|.test.ts|g'`
 #macbookpro   vim `{echo $sources; echo $tests} | sort | uniq`
 #macbookpro }
 
