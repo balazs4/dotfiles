@@ -597,7 +597,7 @@ function dark(){
 #carbon }
 
 #macbookpro function feedback() {
-#macbookpro   npm run test -- --watch `fzf -1 --query="'tests 'services 'api $*"`
+#macbookpro   npm run test -- --watch `fzf -1 --query="'tests 'services $*"`
 #macbookpro }
 #macbookpro
 #macbookpro function fmt(){
@@ -606,12 +606,12 @@ function dark(){
 #macbookpro }
 #macbookpro
 #macbookpro function transpile() {
-#macbookpro   npx tsc --noEmit --watch --project `fzf -1 --query="'tsconfig.json 'services 'api $*"`
+#macbookpro   npx tsc --noEmit --watch --project `fzf -1 --query="'tsconfig.json 'services $*"`
 #macbookpro }
 #macbookpro alias annoyme=transpile
 
 #macbookpro function ide(){
-#macbookpro   local sources=`fzf -1 --query="!tests 'services 'api $*"`
+#macbookpro   local sources=`fzf -1 --query="!tests 'services $*"`
 #macbookpro   local tests=`echo $sources | sed 's|services|tests/services|g;s|src/endpoint/||g;s|.ts$|.test.ts|g'`
 #macbookpro   vim `{echo $sources; echo $tests} | sort | uniq`
 #macbookpro }
