@@ -601,8 +601,8 @@ function dark(){
 #macbookpro }
 #macbookpro
 #macbookpro function fmt(){
-#macbookpro   git status --porcelain | awk '{print $2}' | xargs -t npx prettier --write
-#macbookpro   git status --porcelain | awk '{print $2}' | xargs -t npx eslint --max-warnings=0 --cache --cache-location=/tmp/eslintcache/`basename $PWD`/
+#macbookpro   git status --porcelain | awk '{print $NF}' | xargs -t npx prettier --write
+#macbookpro   git status --porcelain | awk '{print $NF}' | xargs -t npx eslint --max-warnings=0 --cache --cache-location=/tmp/eslintcache/`basename $PWD`/
 #macbookpro }
 #macbookpro
 #macbookpro function transpile() {
