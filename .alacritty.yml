@@ -37,7 +37,7 @@ colors:
 window:
   title: alacritty
   dynamic_title: true
-  decorations: None
+#carbon  decorations: None
   class:
     instance: alacritty
     general: alacritty
