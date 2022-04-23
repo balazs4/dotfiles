@@ -88,7 +88,7 @@ packadd vim-sandwich
 au FileType typescript,javascriptreact,typescriptreact,json packadd coc.nvim
 au FileType typescript,javascriptreact,typescriptreact,json set signcolumn=number
 au FileType typescript,javascriptreact,typescriptreact,json set statusline=%F\ %{coc#status()}
-au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>gd <Plug>(coc-definition)
+au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>zz <Plug>(coc-definition)
 au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>gi <Plug>(coc-implementation)
 au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>gr <Plug>(coc-references)
 au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>kk :call CocActionAsync('doHover')<CR>
