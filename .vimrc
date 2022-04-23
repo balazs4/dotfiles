@@ -26,7 +26,7 @@ set rnu
 set foldmethod=manual
 set shortmess+=c
 set complete+=kspell
-set completeopt=longest,menu,preview,popup
+" set completeopt=longest,menu,preview,popup
 set list
 set listchars=eol:¬,tab:+-
 "macbookpro set re=2
@@ -84,19 +84,11 @@ packadd vim-sandwich
 
 "https://github.com/cormacrelf/vim-colors-github
 
-"https://github.com/neoclide/coc.nvim --branch release
-au FileType typescript,javascriptreact,typescriptreact,json packadd coc.nvim
-au FileType typescript,javascriptreact,typescriptreact,json set signcolumn=number
-au FileType typescript,javascriptreact,typescriptreact,json set statusline=%F\ %{coc#status()}
-au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>zz <Plug>(coc-definition)
-au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>gi <Plug>(coc-implementation)
-au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>gr <Plug>(coc-references)
-au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>kk :call CocActionAsync('doHover')<CR>
-au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>rn <Plug>(coc-rename)
-au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>aa :<C-u>CocFzfList actions<cr>
-au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>oo :<C-u>CocFzfList outline<cr>
-au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>;; :<C-u>CocFzfList<cr>
-au FileType typescript,javascriptreact,typescriptreact,json inoremap <silent><expr> <c-@> coc#refresh()
-
-"https://github.com/antoinemadec/coc-fzf
-packadd coc-fzf
+"https://github.com/Quramy/tsuquyomi
+packadd tsuquyomi
+au FileType typescript,javascriptreact setlocal completeopt+=menu,preview
+" let g:tsuquyomi_completion_detail = 1
+let g:tsuquyomi_ignore_missing_modules = 1
+let g:tsuquyomi_definition_split = 2 "0:edit 1:split 2:vsplit 3:tabedit
+let g:tsuquyomi_disable_quickfix = 1
+au FileType typescript,javascriptreact nmap <Leader>t :TsuAsyncGeterr<CR>
