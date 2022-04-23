@@ -217,7 +217,7 @@ function srv(){
 }
 
 function cheat(){
-  curl -Lis cht.sh${*}
+  curl -Lis cht.sh${*} | less -r
 }
 
 function radio(){
