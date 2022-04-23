@@ -31,11 +31,6 @@ set list
 set listchars=eol:¬,tab:+-
 "macbookpro set re=2
 
-" https://stackoverflow.com/questions/2816719/clear-certain-criteria-from-viminfo-file
-" set viminfo='0,:0,<0,@0
-
-" inoremap <C-@> <c-x><c-o>
-
 " move
 nnoremap <C-j> :m .+1<CR>==
 nnoremap <C-k> :m .-2<CR>==
@@ -44,11 +39,9 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " clipboard
 "vnoremap <silent> <Leader>y :'<,'>w !xclip -rmlastnl -selection clipboard<CR><CR>
-
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
-
 nnoremap <leader>gd gd f' gf
 nnoremap <silent><leader>xx :bd<CR>
 
@@ -85,12 +78,6 @@ colorscheme ambiance
 "https://github.com/machakann/vim-sandwich
 packadd vim-sandwich
 
-"https://github.com/rust-lang/rust.vim
-au FileType rust packadd rust.vim
-au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
-
-"https://github.com/gruvbox-community/gruvbox
-
 "https://github.com/rakr/vim-one
 
 "https://github.com/arcticicestudio/nord-vim
@@ -98,19 +85,18 @@ au FileType rust nmap <Leader>p :RustFmt<CR> <bar> :w<CR>
 "https://github.com/cormacrelf/vim-colors-github
 
 "https://github.com/neoclide/coc.nvim --branch release
-"macbookpro packadd coc.nvim
-"macbookpro set signcolumn=number
-"macbookpro set statusline=%F\ %{coc#status()}
-"macbookpro nmap <silent><leader>dd <Plug>(coc-definition)
-"macbookpro nmap <silent><leader>yy <Plug>(coc-type-definition)
-"macbookpro nmap <silent><leader>ii <Plug>(coc-implementation)
-"macbookpro nmap <silent><leader>rr <Plug>(coc-references)
-"macbookpro nmap <silent><leader>hh :call CocActionAsync('doHover')<CR>
-"macbookpro nmap <silent><leader>rn <Plug>(coc-rename)
-"macbookpro nmap <silent><leader>aa :<C-u>CocFzfList actions<cr>
-"macbookpro nmap <silent><leader>oo :<C-u>CocFzfList outline<cr>
-"macbookpro nmap <silent><leader>;; :<C-u>CocFzfList<cr>
-"macbookpro inoremap <silent><expr> <c-@> coc#refresh()
+au FileType typescript,javascriptreact,typescriptreact,json packadd coc.nvim
+au FileType typescript,javascriptreact,typescriptreact,json set signcolumn=number
+au FileType typescript,javascriptreact,typescriptreact,json set statusline=%F\ %{coc#status()}
+au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>gd <Plug>(coc-definition)
+au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>gi <Plug>(coc-implementation)
+au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>gr <Plug>(coc-references)
+au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>kk :call CocActionAsync('doHover')<CR>
+au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>rn <Plug>(coc-rename)
+au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>aa :<C-u>CocFzfList actions<cr>
+au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>oo :<C-u>CocFzfList outline<cr>
+au FileType typescript,javascriptreact,typescriptreact,json nmap <silent><leader>;; :<C-u>CocFzfList<cr>
+au FileType typescript,javascriptreact,typescriptreact,json inoremap <silent><expr> <c-@> coc#refresh()
 
 "https://github.com/antoinemadec/coc-fzf
-"macbookpro packadd coc-fzf
+packadd coc-fzf
