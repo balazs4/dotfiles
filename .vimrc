@@ -44,6 +44,7 @@ nnoremap N Nzzzv
 nnoremap J mzJ`z
 nnoremap <leader>gd gd f' gf
 nnoremap <silent><leader>xx :bd<CR>
+nnoremap <CR><CR> :silent ! source $HOME/.files/.zprofile<CR><C-L>
 
 "https://github.com/junegunn/fzf.vim
 "macbookpro set rtp+=/opt/homebrew/opt/fzf
