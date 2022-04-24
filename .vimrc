@@ -26,7 +26,6 @@ set rnu
 set foldmethod=manual
 set shortmess+=c
 set complete+=kspell
-" set completeopt=longest,menu,preview,popup
 set list
 set listchars=eol:¬,tab:+-
 "macbookpro set re=2
