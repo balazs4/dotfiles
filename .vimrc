@@ -1,4 +1,4 @@
-" Linux Darwin
+"Linux Darwin
 syntax off
 nnoremap <silent> <Leader><CR> :if exists("g:syntax_on") <Bar> syntax off <Bar> else <Bar> syntax on <Bar> endif<CR>
 filetype plugin indent on
@@ -43,7 +43,8 @@ nnoremap N Nzzzv
 nnoremap J mzJ`z
 nnoremap <leader>gd gd f' gf
 nnoremap <silent><leader>xx :bd<CR>
-nnoremap <CR><CR> :silent ! source $HOME/.files/.zprofile<CR><C-L>
+nnoremap <CR><CR> :silent ! TMUX= source $HOME/.files/.zprofile<CR><C-L>
+nnoremap <Space><Space> :Commands<CR>
 
 "https://github.com/junegunn/fzf.vim
 "macbookpro set rtp+=/opt/homebrew/opt/fzf
@@ -91,7 +92,7 @@ packadd tsuquyomi
 au FileType typescript,javascriptreact setlocal completeopt+=menu,preview
 let g:tsuquyomi_completion_detail = 0
 let g:tsuquyomi_ignore_missing_modules = 1
-let g:tsuquyomi_definition_split = 2 "0:edit 1:split 2:vsplit 3:tabedit
+let g:tsuquyomi_definition_split = 0 "0:edit 1:split 2:vsplit 3:tabedit
 let g:tsuquyomi_disable_quickfix = 1
-au FileType typescript,javascriptreact nmap <Leader>t :TsuAsyncGeterr<CR>
-au FileType typescript,javascriptreact nmap <Leader>k :TsuSignatureHelp<CR>
+au FileType typescript,javascriptreact nmap <Leader>t :cclose <Bar> write <Bar> TsuAsyncGeterr<CR>
+au FileType typescript,javascriptreact nmap <Leader>k :pclose <Bar> TsuSignatureHelp<CR>
