@@ -43,7 +43,7 @@ nnoremap N Nzzzv
 nnoremap J mzJ`z
 nnoremap <leader>gd gd f' gf
 nnoremap <silent><leader>xx :bd<CR>
-nnoremap <CR><CR> :silent ! TMUX= source $HOME/.files/.zprofile<CR><C-L>
+nnoremap <CR><CR> :write <Bar> silent ! TMUX= source $HOME/.files/.zprofile<CR><C-L>
 nnoremap <Space><Space> :Commands<CR>
 
 "https://github.com/junegunn/fzf.vim
@@ -96,3 +96,19 @@ let g:tsuquyomi_definition_split = 0 "0:edit 1:split 2:vsplit 3:tabedit
 let g:tsuquyomi_disable_quickfix = 1
 au FileType typescript,javascriptreact nmap <Leader>t :cclose <Bar> write <Bar> TsuAsyncGeterr<CR>
 au FileType typescript,javascriptreact nmap <Leader>k :pclose <Bar> TsuSignatureHelp<CR>
+
+function! References()
+  try
+    :TsuReferences
+  catch
+    return
+  endtry
+  let loclist = getloclist(0)
+  :lclose
+  echo loclist
+  " return s:fzf(fzf#vim#wrap({
+  " \ 'source':  lines,
+  " \ 'sink*':   s:function('s:line_handler'),
+  " \ 'options': '+m --tiebreak=index --prompt "Toc> " --ansi --extended --nth=3.. --reverse --tabstop='.&tabstop
+  " \}), a:000)
+endfunction

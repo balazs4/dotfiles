@@ -152,7 +152,7 @@ function nvimplug(){
   popd
 }
 
-alias v="vim -c ':GFiles'"
+alias v="vim -c ':GFiles?'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
 alias nvimrc="EDITOR=nvim dot .config/nvim/init.vim"
@@ -626,7 +626,3 @@ function meme(){
 }
 
 alias cmm='meme 129242436'
-
-function porcelain() {
-  vim -c ":Buffers" `git status --porcelain | awk '{print $NF}'`
-}
