@@ -78,21 +78,20 @@ colorscheme ambiance
 "https://github.com/machakann/vim-sandwich
 packadd vim-sandwich
 
-"https://github.com/rakr/vim-one
-
 "https://github.com/arcticicestudio/nord-vim
 
 "https://github.com/cormacrelf/vim-colors-github
+"
+"https://github.com/rakr/vim-one
+
+"https://github.com/ayu-theme/ayu-vim
 
 "https://github.com/Quramy/tsuquyomi
 packadd tsuquyomi
 au FileType typescript,javascriptreact setlocal completeopt+=menu,preview
-" let g:tsuquyomi_completion_detail = 1
+let g:tsuquyomi_completion_detail = 0
 let g:tsuquyomi_ignore_missing_modules = 1
 let g:tsuquyomi_definition_split = 2 "0:edit 1:split 2:vsplit 3:tabedit
 let g:tsuquyomi_disable_quickfix = 1
 au FileType typescript,javascriptreact nmap <Leader>t :TsuAsyncGeterr<CR>
-
-"https://github.com/rakr/vim-one
-
-"https://github.com/ayu-theme/ayu-vim
+au FileType typescript,javascriptreact nmap <Leader>k :TsuSignatureHelp<CR>
