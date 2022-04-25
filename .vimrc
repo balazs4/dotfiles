@@ -105,10 +105,5 @@ function! References()
   endtry
   let loclist = getloclist(0)
   :lclose
-  echo loclist
-  " return s:fzf(fzf#vim#wrap({
-  " \ 'source':  lines,
-  " \ 'sink*':   s:function('s:line_handler'),
-  " \ 'options': '+m --tiebreak=index --prompt "Toc> " --ansi --extended --nth=3.. --reverse --tabstop='.&tabstop
-  " \}), a:000)
+  return fzf#run(fzf#wrap({'source': [printf("%s %s %s",  "a", "aa", "aaa")]}));
 endfunction

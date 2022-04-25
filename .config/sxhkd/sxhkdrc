@@ -45,7 +45,7 @@ XF86AudioMute
     ;pkill -SIGRTMIN+1 i3blocks
 
 XF86MonBrightness{Up,Down}
-  xbacklight {+20,-20}
+  xbacklight {+20,-10}
 
 XF86AudioMicMute
   pulsemixer --toggle-mute --id source-7 \
