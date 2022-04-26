@@ -87,23 +87,20 @@ packadd vim-sandwich
 
 "https://github.com/ayu-theme/ayu-vim
 
-"https://github.com/Quramy/tsuquyomi
-packadd tsuquyomi
-au FileType typescript,javascriptreact setlocal completeopt+=menu,preview
-let g:tsuquyomi_completion_detail = 0
-let g:tsuquyomi_ignore_missing_modules = 1
-let g:tsuquyomi_definition_split = 0 "0:edit 1:split 2:vsplit 3:tabedit
-let g:tsuquyomi_disable_quickfix = 1
-au FileType typescript,javascriptreact nmap <Leader>t :cclose <Bar> write <Bar> TsuAsyncGeterr<CR>
-au FileType typescript,javascriptreact nmap <Leader>k :pclose <Bar> TsuSignatureHelp<CR>
+"https://github.com/prabirshrestha/vim-lsp
+packadd vim-lsp
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact'],
+        \ })
+endif
 
-function! References()
-  try
-    :TsuReferences
-  catch
-    return
-  endtry
-  let loclist = getloclist(0)
-  :lclose
-  return fzf#run(fzf#wrap({'source': [printf("%s %s %s",  "a", "aa", "aaa")]}));
-endfunction
+autocmd FileType typescript nnoremap <buffer><silent> <c-]>  :LspDefinition<cr>
+autocmd FileType typescript nnoremap <buffer><silent> K :LspHover<cr>
+autocmd FileType typescript setlocal omnifunc=lsp#complete
+
+"https://github.com/prabirshrestha/async.vim
+packadd async.vim
