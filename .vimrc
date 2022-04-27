@@ -69,7 +69,7 @@ au FileType javascript,typescript,javascriptreact,typescriptreact,json,html,mark
 au FileType javascript,typescript,javascriptreact,typescriptreact,json,html,markdown nmap <Leader>p :PrettierAsync<CR>
 
 "https://github.com/tpope/vim-commentary
-packadd vim-commentary
+#carbon packadd vim-commentary
 
 "https://github.com/balazs4/ambiance-vim
 set termguicolors
@@ -77,7 +77,7 @@ syntax on
 colorscheme ambiance
 
 "https://github.com/machakann/vim-sandwich
-packadd vim-sandwich
+#carbon packadd vim-sandwich
 
 "https://github.com/arcticicestudio/nord-vim
 
@@ -88,19 +88,32 @@ packadd vim-sandwich
 "https://github.com/ayu-theme/ayu-vim
 
 "https://github.com/prabirshrestha/vim-lsp
-packadd vim-lsp
-if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-        \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact'],
-        \ })
-endif
+#carbon packadd vim-lsp
+let g:lsp_use_lua = has('nvim-0.4.0') || (has('lua') && has('patch-8.2.0775'))
 
-autocmd FileType typescript nnoremap <buffer><silent> <c-]>  :LspDefinition<cr>
-autocmd FileType typescript nnoremap <buffer><silent> K :LspHover<cr>
+au User lsp_setup call lsp#register_server({
+      \ 'name': 'typescript-language-server',
+      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+      \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact'],
+      \ })
+
+autocmd FileType typescript nnoremap <buffer><silent> <leader>t :cclose <bar> lclose <bar> LspDocumentDiagnostics<cr>
+autocmd FileType typescript nnoremap <buffer><silent> T :cclose <bar> lclose <bar>LspReferences<cr>
+autocmd FileType typescript nnoremap <buffer><silent> <c-]> :LspDefinition<cr>
+autocmd FileType typescript nnoremap <buffer><silent> K :LspPeekDefinition<cr>
+autocmd FileType typescript nnoremap <buffer><silent> H :LspHover<cr>
+autocmd FileType typescript nnoremap <buffer><silent> A :LspCodeAction<cr>
 autocmd FileType typescript setlocal omnifunc=lsp#complete
+autocmd FileType typescript setlocal signcolumn=yes
+
+let g:lsp_diagnostics_echo_cursor = 1 "status line
+let g:lsp_diagnostics_echo_delay = 50
+let g:lsp_diagnostics_highlights_enabled = 0
+let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
+let g:lsp_diagnostics_signs_insert_mode_enabled = 0
+let g:lsp_document_code_action_signs_enabled = 0 "A>
+let g:lsp_document_highlight_enabled = 0
 
 "https://github.com/prabirshrestha/async.vim
-packadd async.vim
+#carbon packadd async.vim
