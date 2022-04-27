@@ -27,7 +27,7 @@ set foldmethod=manual
 set shortmess+=c
 set complete+=kspell
 set list
-set listchars=eol:¬,tab:+-
+set listchars=eol:¬,tab:..
 "macbookpro set re=2
 
 " move
@@ -98,20 +98,20 @@ au User lsp_setup call lsp#register_server({
       \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact'],
       \ })
 
-autocmd FileType typescript nnoremap <buffer><silent> <leader>t :cclose <bar> lclose <bar> LspDocumentDiagnostics<cr>
-autocmd FileType typescript nnoremap <buffer><silent> T :cclose <bar> lclose <bar>LspReferences<cr>
-autocmd FileType typescript nnoremap <buffer><silent> <c-]> :LspDefinition<cr>
-autocmd FileType typescript nnoremap <buffer><silent> K :LspPeekDefinition<cr>
-autocmd FileType typescript nnoremap <buffer><silent> H :LspHover<cr>
-autocmd FileType typescript nnoremap <buffer><silent> A :LspCodeAction<cr>
-autocmd FileType typescript setlocal omnifunc=lsp#complete
-autocmd FileType typescript setlocal signcolumn=yes
+nnoremap <buffer><silent> <leader>t :LspDocumentDiagnostics<cr>
+nnoremap <buffer><silent> T :LspReferences<cr>
+nnoremap <buffer><silent> <c-]> :LspDefinition<cr>
+nnoremap <buffer><silent> K :LspPeekDefinition<cr>
+nnoremap <buffer><silent> H :LspHover<cr>
+nnoremap <buffer><silent> F :LspCodeAction<cr>
+setlocal omnifunc=lsp#complete
+setlocal signcolumn=yes
 
 let g:lsp_diagnostics_echo_cursor = 1 "status line
 let g:lsp_diagnostics_echo_delay = 50
 let g:lsp_diagnostics_highlights_enabled = 0
 let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
-let g:lsp_diagnostics_signs_insert_mode_enabled = 0
+let g:lsp_diagnostics_signs_insert_mode_enabled = 1
 let g:lsp_document_code_action_signs_enabled = 0 "A>
 let g:lsp_document_highlight_enabled = 0
 
