@@ -44,14 +44,13 @@ nnoremap J mzJ`z
 nnoremap <leader>gd gd f' gf
 nnoremap <silent><leader>xx :bd<CR>
 nnoremap <CR><CR> :write <Bar> silent ! TMUX= source $HOME/.files/.zprofile<CR><C-L>
-nnoremap <Space><Space> :Commands<CR>
+nnoremap <leader><leader> :Commands<CR>
 
 "https://github.com/junegunn/fzf.vim
 "macbookpro set rtp+=/opt/homebrew/opt/fzf
 packadd fzf.vim
 nnoremap <Leader>[ :Buffers<CR>
 nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
-nnoremap <expr> <Leader><Leader> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <Leader>] :Rg<CR>
 
 command! -bang -nargs=* Rg
