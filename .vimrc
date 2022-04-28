@@ -94,15 +94,15 @@ au User lsp_setup call lsp#register_server({
       \ 'name': 'typescript-language-server',
       \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
       \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-      \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact'],
+      \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact', 'javascript.jsx', 'javascript', 'javascriptreact'],
       \ })
 
-nnoremap <buffer><silent> <leader>t :LspDocumentDiagnostics<cr>
-nnoremap <buffer><silent> T :LspReferences<cr>
-nnoremap <buffer><silent> <c-]> :LspDefinition<cr>
-nnoremap <buffer><silent> K :LspPeekDefinition<cr>
-nnoremap <buffer><silent> H :LspHover<cr>
-nnoremap <buffer><silent> F :LspCodeAction<cr>
+nnoremap <leader>t :LspDocumentDiagnostics<cr>
+nnoremap T :LspReferences<cr>
+nnoremap <c-]> :LspDefinition<cr>
+nnoremap K :LspPeekDefinition<cr>
+nnoremap H :LspHover<cr>
+nnoremap F :LspCodeAction<cr>
 setlocal omnifunc=lsp#complete
 setlocal signcolumn=yes
 
