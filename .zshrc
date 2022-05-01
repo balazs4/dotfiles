@@ -130,10 +130,9 @@ function vimplug(){
     TMUX= source $HOME/.files/.zprofile
   fi
 
-#carbon  rm -rf $HOME/.vim/pack/_/opt/*
-#carbon  pushd $HOME/.vim/pack/_/opt/
-#macbookpro  rm -rf $HOME/.vim/pack/_/start/*
-#macbookpro  pushd $HOME/.vim/pack/_/start/
+  rm -rf $HOME/.vim/pack/_/start/* 2>/dev/null
+  mkdir -p $HOME/.vim/pack/_/start/ 2>/dev/null
+  pushd $HOME/.vim/pack/_/start/
   grep github $HOME/.vimrc | sed 's/"//g' | xargs -t -L1 git clone --depth 1
   popd
 }

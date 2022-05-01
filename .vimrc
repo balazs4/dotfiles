@@ -108,7 +108,6 @@ nnoremap <leader><leader> :Commands<CR>
 
 "https://github.com/junegunn/fzf.vim
 "macbookpro set rtp+=/opt/homebrew/opt/fzf
-packadd fzf.vim
 nnoremap <Leader>[ :Buffers<CR>
 nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <Leader>] :Rg<CR>
@@ -119,26 +118,19 @@ command! -bang -nargs=* Rg
   \   fzf#vim#with_preview(), <bang>0)
 
 "https://github.com/mattn/emmet-vim
-au FileType javascript,typescriptreact,javascriptreact,html packadd emmet-vim
 let g:jsx_ext_require = 0
 let g:user_emmet_leader_key='<C-z>'
 
 "https://github.com/prettier/vim-prettier
-au FileType javascript,typescript,javascriptreact,typescriptreact,json,html,markdown packadd vim-prettier
-au FileType javascript,typescript,javascriptreact,typescriptreact,json,html,markdown nmap <Leader>p :PrettierAsync<CR>
+nmap <Leader>p :PrettierAsync<CR>
 
 "https://github.com/tpope/vim-commentary
-#carbon packadd vim-commentary
-
 
 "https://github.com/machakann/vim-sandwich
-#carbon packadd vim-sandwich
 
 "https://github.com/prabirshrestha/async.vim
-#carbon packadd async.vim
 
 "https://github.com/prabirshrestha/vim-lsp
-#carbon packadd vim-lsp
 let g:lsp_use_lua = has('nvim-0.4.0') || (has('lua') && has('patch-8.2.0775'))
 
 au User lsp_setup call lsp#register_server({
