@@ -5,22 +5,23 @@ syntax on
 highlight clear
 set background=dark
 hi clear SignColumn
-hi Error             guifg=#ff0087    guibg=#000000    ctermfg=198    ctermbg=none     gui=none         cterm=none
-hi Function          guifg=#ffffff    guibg=#000000    ctermfg=15     ctermbg=none     gui=bold         cterm=bold
-hi Normal            guifg=#ffffff    guibg=#000000    ctermfg=15     ctermbg=none     gui=none         cterm=none
-hi Pmenu             guifg=#a8a8a8    guibg=#1c1c1c    ctermfg=248    ctermbg=234      gui=none         cterm=none
-hi Underlined        guifg=#ffffff    guibg=#000000    ctermfg=15     ctermbg=none     gui=underline    cterm=underline
-hi MatchParen        guifg=#ff00ff    guibg=#ffffff    ctermfg=201    ctermbg=15       gui=none         cterm=none
-hi VertSplit         guifg=#000000    guibg=#000000    ctermfg=0      ctermbg=0        gui=none         cterm=none
-hi WarningMsg        guifg=#000000    guibg=#ff0087    ctermfg=0      ctermbg=11       gui=none         cterm=none
-hi String            guifg=#808080    guibg=#000000    ctermfg=244    ctermbg=none     gui=none         cterm=none
-hi Statement         guifg=#bcbcbc    guibg=#000000    ctermfg=250    ctermbg=none     gui=none         cterm=none
-hi CursorLine        guifg=#ffffff    guibg=#1c1c1c    ctermfg=15     ctermbg=234      gui=none         cterm=none
-hi Comment           guifg=#4e4e4e    guibg=#000000    ctermfg=239    ctermbg=none     gui=none         cterm=none
-hi Visual            guifg=#ffffff    guibg=#d700d7    ctermfg=15     ctermbg=164      gui=none         cterm=none
-hi EndOfBuffer       guifg=#000000    guibg=#000000    ctermfg=none   ctermbg=0        gui=none         cterm=none
-hi NonText           guifg=#000000    guibg=#000000    ctermfg=0      ctermbg=0        gui=none         cterm=none
-hi Search            guifg=#000000    guibg=#79ffe1    ctermfg=255    ctermbg=15       gui=none         cterm=none
+hi Error             guifg=#ff0087    guibg=#000000    gui=none
+hi Function          guifg=#ffffff    guibg=#000000    gui=bold
+hi Normal            guifg=#ffffff    guibg=#000000    gui=none
+hi Pmenu             guifg=#a8a8a8    guibg=#1c1c1c    gui=none
+hi Underlined        guifg=#ffffff    guibg=#000000    gui=underline
+hi MatchParen        guifg=#ff00ff    guibg=#ffffff    gui=none
+hi VertSplit         guifg=#000000    guibg=#000000    gui=none
+hi WarningMsg        guifg=#000000    guibg=#ff0087    gui=none
+hi String            guifg=#808080    guibg=#000000    gui=none
+hi Statement         guifg=#bcbcbc    guibg=#000000    gui=none
+hi CursorLine        guifg=#ffffff    guibg=#1c1c1c    gui=none
+hi Comment           guifg=#4e4e4e    guibg=#000000    gui=none
+hi Visual            guifg=#ffffff    guibg=#d700d7    gui=none
+hi EndOfBuffer       guifg=#000000    guibg=#000000    gui=none
+hi NonText           guifg=#000000    guibg=#000000    gui=none
+hi Search            guifg=#000000    guibg=#79ffe1    gui=none
+hi Special           guifg=#ffffff    guibg=#000000    gui=bold
 hi! link StorageClass Function
 hi! link xmlTag Normal
 hi! link xmlTagName Normal
@@ -28,7 +29,6 @@ hi! link xmlEndTag Normal
 hi! link htmlTag Normal
 hi! link htmlTagName Normal
 hi! link htmlEndTag Normal
-hi! link Special Normal
 hi! link Directory Normal
 hi! link Constant Normal
 hi! link Type Normal
@@ -103,6 +103,7 @@ nnoremap J mzJ`z
 nnoremap <leader>gd gd f' gf
 nnoremap <silent><leader>xx :bd<CR>
 nnoremap <CR><CR> :write <Bar> silent ! TMUX= source $HOME/.files/.zprofile<CR><C-L>
+nnoremap <leader><CR> :source $MYVIMRC<CR>
 nnoremap <leader><leader> :Commands<CR>
 
 "https://github.com/junegunn/fzf.vim
