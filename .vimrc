@@ -5,23 +5,23 @@ syntax on
 highlight clear
 set background=dark
 hi clear SignColumn
-hi Error             guifg=#ff0087    guibg=#000000    gui=none
-hi Function          guifg=#ffffff    guibg=#000000    gui=bold
-hi Normal            guifg=#ffffff    guibg=#000000    gui=none
-hi Pmenu             guifg=#a8a8a8    guibg=#1c1c1c    gui=none
-hi Underlined        guifg=#ffffff    guibg=#000000    gui=underline
-hi MatchParen        guifg=#ff00ff    guibg=#ffffff    gui=none
-hi VertSplit         guifg=#000000    guibg=#000000    gui=none
-hi WarningMsg        guifg=#000000    guibg=#ff0087    gui=none
-hi String            guifg=#808080    guibg=#000000    gui=none
-hi Statement         guifg=#bcbcbc    guibg=#000000    gui=none
-hi CursorLine        guifg=#ffffff    guibg=#1c1c1c    gui=none
-hi Comment           guifg=#4e4e4e    guibg=#000000    gui=none
-hi Visual            guifg=#ffffff    guibg=#d700d7    gui=none
-hi EndOfBuffer       guifg=#000000    guibg=#000000    gui=none
-hi NonText           guifg=#000000    guibg=#000000    gui=none
-hi Search            guifg=#000000    guibg=#79ffe1    gui=none
-hi Special           guifg=#ffffff    guibg=#000000    gui=bold
+hi Error             guifg=#ff0087    guibg=#000000
+hi Function          guifg=#ffffff    guibg=#000000
+hi Normal            guifg=#ffffff    guibg=#000000
+hi Pmenu             guifg=#a8a8a8    guibg=#1c1c1c
+hi Underlined        guifg=#ffffff    guibg=#000000
+hi MatchParen        guifg=#ff00ff    guibg=#ffffff
+hi VertSplit         guifg=#000000    guibg=#000000
+hi WarningMsg        guifg=#000000    guibg=#ff0087
+hi String            guifg=#909090    guibg=#000000
+hi Statement         guifg=#bcbcbc    guibg=#000000
+hi CursorLine        guifg=#ffffff    guibg=#1c1c1c
+hi Comment           guifg=#4e4e4e    guibg=#000000
+hi Visual            guifg=#ffffff    guibg=#d700d7
+hi EndOfBuffer       guifg=#000000    guibg=#000000
+hi NonText           guifg=#000000    guibg=#000000
+hi Search            guifg=#000000    guibg=#79ffe1
+hi Special           guifg=#ffffff    guibg=#000000
 hi! link StorageClass Function
 hi! link xmlTag Normal
 hi! link xmlTagName Normal
