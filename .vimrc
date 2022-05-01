@@ -19,8 +19,6 @@ hi CursorLine        guifg=#ffffff    guibg=#1c1c1c    ctermfg=15     ctermbg=23
 hi Comment           guifg=#4e4e4e    guibg=#000000    ctermfg=239    ctermbg=none     gui=none         cterm=none
 hi Visual            guifg=#ffffff    guibg=#d700d7    ctermfg=15     ctermbg=164      gui=none         cterm=none
 hi EndOfBuffer       guifg=#000000    guibg=#000000    ctermfg=none   ctermbg=0        gui=none         cterm=none
-hi gitDiffStatAdd    guifg=#00ff00    guibg=#000000    ctermfg=10     ctermbg=0        gui=none         cterm=none
-hi gitDiffStatDelete guifg=#ff0000    guibg=#000000    ctermfg=9      ctermbg=0        gui=none         cterm=none
 hi NonText           guifg=#000000    guibg=#000000    ctermfg=0      ctermbg=0        gui=none         cterm=none
 hi Search            guifg=#000000    guibg=#79ffe1    ctermfg=255    ctermbg=15       gui=none         cterm=none
 hi! link StorageClass Function
@@ -64,6 +62,8 @@ hi! link PmenuThumb Pmenu
 hi! link CursorLineNr CursorLine
 hi! link LineNr Comment
 hi! link NonText Comment
+hi! link CursorLineFold MoreMsg
+hi! link Folded MoreMsg
 
 filetype plugin indent on
 set wrap
