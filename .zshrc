@@ -322,8 +322,6 @@ export N_PREFIX=$HOME/.n/prefix
 export N_PRESERVE_NPM=1
 export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
 
-export PATH=$HOME/.cargo/bin:${PATH}
-
 function yt(){
   local search=`echo $* | tr ' ' '+'`
   curl -Lfs -H 'accept-language: en' "https://www.youtube.com/results?search_query=$search" \
@@ -466,7 +464,6 @@ function archnews(){
     | fx 'x => x.rss.channel.item.map(xx => [`\x1b[2m${xx.link}\x1b[0m`, new Date(xx.pubDate).toJSON() + ` >> \x1b[1m${xx.title}\x1b[0m`, " "].join("\n")).join("\n")'
 }
 
-alias magic="echo ✨MAGIC✨. Sorry-not-sorry"
 #carbon alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch me if you can; done";exit'
 
 function mongodb-rs(){
