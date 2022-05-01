@@ -92,6 +92,7 @@ set shortmess+=c
 set complete+=kspell
 set list
 set listchars=eol:¬,tab:..
+set guicursor=
 "macbookpro set re=2
 nnoremap <C-j> :m .+1<CR>==
 nnoremap <C-k> :m .-2<CR>==
