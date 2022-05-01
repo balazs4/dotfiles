@@ -132,7 +132,7 @@ nmap <Leader>p :PrettierAsync<CR>
 "https://github.com/prabirshrestha/async.vim
 
 "https://github.com/prabirshrestha/vim-lsp
-let g:lsp_use_lua = has('nvim-0.4.0') || (has('lua') && has('patch-8.2.0775'))
+let g:lsp_use_lua = 1
 
 au User lsp_setup call lsp#register_server({
       \ 'name': 'typescript-language-server',
