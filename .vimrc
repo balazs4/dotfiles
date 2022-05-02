@@ -141,14 +141,14 @@ au User lsp_setup call lsp#register_server({
       \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact', 'javascript.jsx', 'javascript', 'javascriptreact'],
       \ })
 
-nnoremap <leader>t :LspDocumentDiagnostics<cr>
-nnoremap T :LspReferences<cr>
+nnoremap <c-\> :LspReferences<cr>
 nnoremap <c-]> :LspDefinition<cr>
+nnoremap T :LspDocumentDiagnostics<cr>
 nnoremap K :LspPeekDefinition<cr>
 nnoremap H :LspHover<cr>
 nnoremap F :LspCodeAction<cr>
-setlocal omnifunc=lsp#complete
-setlocal signcolumn=yes
+set omnifunc=lsp#complete
+set signcolumn=yes
 
 let g:lsp_diagnostics_echo_cursor = 1 "status line
 let g:lsp_diagnostics_echo_delay = 50
