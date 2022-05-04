@@ -242,7 +242,7 @@ function wiki(){
 }
 
 function todos(){
-  EDITOR='vim -c "colorscheme nord"' gh gist ${*:-view} ${GITHUB_GIST_TODOS}
+  gh gist ${*:-view} ${GITHUB_GIST_TODOS}
 }
 
 #carbon function emojis(){
