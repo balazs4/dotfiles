@@ -3,6 +3,10 @@ git_protocol: ssh
 aliases:
   checks: >-
     !fn(){
+      # deps:
+      # - https://github.com/mvdan/xurls
+      # - https://github.com/mikaelbr/node-notifier-cli
+      # - gawk
       sleep 3
       gh pr checks --watch --interval ${GH_INTERVAL:-10}
       gh pr checks | grep fail | xurls | grep -o '[0-9]\+' | xargs gh run view --log-failed --job
