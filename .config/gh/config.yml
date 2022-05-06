@@ -9,7 +9,7 @@ aliases:
       # - gawk
       sleep 3
       gh pr checks --watch --interval ${GH_INTERVAL:-10}
-      gh pr checks | grep fail | xurls | grep -o '[0-9]\+' | xargs -I{} gh run view --log-failed --job {}
+      gh pr checks | grep fail | xurls | grep github.com | grep -o '[0-9]\+' | xargs -I{} gh run view --log-failed --job {}
       title=`gh pr view | grep title | cut -f2`
       click=`gh pr checks | gawk '/pass/ { print "✅" }; /fail/ {print "❌" $1 }' | xargs | tr -d ' ' | notify -t "$title"`
       [[ $click = 'activate' ]] && gh pr view -w
