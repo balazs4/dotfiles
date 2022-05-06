@@ -134,12 +134,22 @@ nmap <Leader>p :PrettierAsync<CR>
 "https://github.com/prabirshrestha/vim-lsp
 let g:lsp_use_lua = 1
 
+" npm i -g typescript-language-server
 au User lsp_setup call lsp#register_server({
       \ 'name': 'typescript-language-server',
       \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
       \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
       \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact', 'javascript.jsx', 'javascript', 'javascriptreact'],
       \ })
+au FileType typescript,typescript.tsx,typescriptreact,javascript.jsx,javascript setlocal omnifunc=lsp#complete
+
+" go install golang.org/x/tools/gopls@latest
+au User lsp_setup call lsp#register_server({
+      \ 'name': 'go-lang',
+      \ 'cmd': {server_info->['gopls']},
+      \ 'whitelist': ['go'],
+      \ })
+au FileType go setlocal omnifunc=lsp#complete
 
 nnoremap <c-\> :LspReferences<cr>
 nnoremap <c-]> :LspDefinition<cr>
@@ -147,7 +157,6 @@ nnoremap T :LspDocumentDiagnostics<cr>
 nnoremap K :LspPeekDefinition<cr>
 nnoremap H :LspHover<cr>
 nnoremap F :LspCodeAction<cr>
-set omnifunc=lsp#complete
 set signcolumn=yes
 
 let g:lsp_diagnostics_echo_cursor = 1 "status line
