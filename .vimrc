@@ -5,7 +5,8 @@ syntax on
 highlight clear
 set background=dark
 hi clear SignColumn
-hi Error             guifg=#ff0087    guibg=#0c0d0e
+hi Error             guifg=#ffffff    guibg=#8b0000
+hi Boolean           guifg=#ff0087    guibg=#0c0d0e
 hi Function          guifg=#ffffff    guibg=#0c0d0e
 hi Normal            guifg=#ffffff    guibg=#0c0d0e
 hi Pmenu             guifg=#a8a8a8    guibg=#1c1c1c
@@ -55,7 +56,6 @@ hi! link MoreMsg String
 hi! link Directory String
 hi! link DiffText String
 hi! link TabLineSel String
-hi! link Boolean Error
 hi! link PmenuSel MatchParen
 hi! link PmenuSbar Pmenu
 hi! link PmenuThumb Pmenu
@@ -101,7 +101,6 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
-nnoremap <leader>gd gd f' gf
 nnoremap <silent><leader>xx :bd<CR>
 nnoremap <CR><CR> :write <Bar> silent ! TMUX= source $HOME/.files/.zprofile<CR><C-L>
 nnoremap <leader><CR> :source $MYVIMRC<CR>
@@ -129,42 +128,17 @@ nmap <Leader>p :PrettierAsync<CR>
 
 "https://github.com/machakann/vim-sandwich
 
-"https://github.com/prabirshrestha/async.vim
-
-"https://github.com/prabirshrestha/vim-lsp
-let g:lsp_use_lua = 1
-
-" npm i -g typescript-language-server
-au User lsp_setup call lsp#register_server({
-      \ 'name': 'typescript-language-server',
-      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-      \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact', 'javascript.jsx', 'javascript', 'javascriptreact'],
-      \ })
-au FileType typescript,typescript.tsx,typescriptreact,javascript.jsx,javascript setlocal omnifunc=lsp#complete
-
-" go install golang.org/x/tools/gopls@latest
-au User lsp_setup call lsp#register_server({
-      \ 'name': 'go-lang',
-      \ 'cmd': {server_info->['gopls']},
-      \ 'whitelist': ['go'],
-      \ })
-au FileType go setlocal omnifunc=lsp#complete
-
-nnoremap <c-\> :LspReferences<cr>
-nnoremap <c-]> :LspDefinition<cr>
-nnoremap T :LspDocumentDiagnostics<cr>
-nnoremap K :LspPeekDefinition<cr>
-nnoremap H :LspHover<cr>
-nnoremap F :LspCodeAction<cr>
-set signcolumn=yes
-
-let g:lsp_diagnostics_echo_cursor = 1 "status line
-let g:lsp_diagnostics_echo_delay = 50
-let g:lsp_diagnostics_highlights_enabled = 0
-let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
-let g:lsp_diagnostics_signs_insert_mode_enabled = 1
-let g:lsp_document_code_action_signs_enabled = 0 "A>
-let g:lsp_document_highlight_enabled = 0
-let g:lsp_diagnostics_signs_enabled = 0
-
+"https://github.com/natebosch/vim-lsc
+set omnifunc=lsc#complete#complete
+set completeopt=menu,menuone,noinsert,noselect
+let g:lsc_auto_map = v:true
+let g:lsc_reference_highlights = v:false
+let g:lsc_trace_level = 'off'
+let g:lsc_diagnostic_highlights = v:false
+let g:lsc_server_commands = {
+      \ 'go': {'command':'gopls serve', 'log_level': -1, 'suppress_stderr': v:true }
+      \ ,'typescript': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
+      \ ,'typescriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
+      \ ,'javascript': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
+      \ ,'javascriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
+      \ }
