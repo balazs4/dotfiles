@@ -102,7 +102,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
 nnoremap <silent><leader>xx :bd<CR>
-nnoremap <leader><CR> :write <Bar> silent ! TMUX= source $HOME/.files/.zprofile <Bar> source $MYVIMRC<CR><C-L><CR>
+nnoremap <leader><CR> :write <Bar> silent ! TMUX= source $HOME/.files/.zprofile<CR><C-L>
 nnoremap <leader><leader> :Commands<CR>
 
 "https://github.com/junegunn/fzf.vim
