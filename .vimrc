@@ -128,7 +128,7 @@ nmap <Leader>p :PrettierAsync<CR>
 "https://github.com/machakann/vim-sandwich
 
 "https://github.com/natebosch/vim-lsc
-nnoremap <CR><CR> :LSClientAllDiagnostics
+nnoremap <CR><CR> :LSClientAllDiagnostics<CR>
 set omnifunc=lsc#complete#complete
 set completeopt=menu,menuone,noinsert,noselect
 let g:lsc_auto_map = v:true
