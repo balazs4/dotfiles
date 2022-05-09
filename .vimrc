@@ -103,14 +103,12 @@ nnoremap N Nzzzv
 nnoremap J mzJ`z
 nnoremap <silent><leader>xx :bd<CR>
 nnoremap <leader><CR> :write <Bar> silent ! TMUX= source $HOME/.files/.zprofile<CR><C-L>
-nnoremap <leader><leader> :Commands<CR>
-
 "https://github.com/junegunn/fzf.vim
 "macbookpro set rtp+=/opt/homebrew/opt/fzf
 nnoremap <Leader>[ :Buffers<CR>
 nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <Leader>] :Rg<CR>
-
+nnoremap <leader><leader> :Commands<CR>
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --hidden --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
@@ -131,7 +129,7 @@ nmap <Leader>p :PrettierAsync<CR>
 nnoremap <CR><CR> :LSClientAllDiagnostics<CR>
 set omnifunc=lsc#complete#complete
 set completeopt=menu,menuone,noinsert,noselect
-let g:lsc_auto_map = {'defaults': v:true, 'LSClientPreviousReference': ''}
+let g:lsc_auto_map = v:true
 let g:lsc_reference_highlights = v:false
 let g:lsc_trace_level = 'off'
 let g:lsc_diagnostic_highlights = v:false
@@ -142,3 +140,4 @@ let g:lsc_server_commands = {
       \ ,'javascriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
       \ ,'typescriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
       \ }
+
