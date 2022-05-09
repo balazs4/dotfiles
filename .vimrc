@@ -102,8 +102,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
 nnoremap <silent><leader>xx :bd<CR>
-nnoremap <CR><CR> :write <Bar> silent ! TMUX= source $HOME/.files/.zprofile<CR><C-L>
-nnoremap <leader><CR> :source $MYVIMRC<CR>
+nnoremap <leader><CR> :write <Bar> silent ! TMUX= source $HOME/.files/.zprofile <Bar> source $MYVIMRC<CR><C-L><CR>
 nnoremap <leader><leader> :Commands<CR>
 
 "https://github.com/junegunn/fzf.vim
@@ -129,6 +128,7 @@ nmap <Leader>p :PrettierAsync<CR>
 "https://github.com/machakann/vim-sandwich
 
 "https://github.com/natebosch/vim-lsc
+nnoremap <CR><CR> :LSClientAllDiagnostics
 set omnifunc=lsc#complete#complete
 set completeopt=menu,menuone,noinsert,noselect
 let g:lsc_auto_map = v:true
