@@ -622,3 +622,17 @@ function meme(){
 }
 
 alias cmm='meme 129242436'
+
+function linear(){
+  jo query="$*" \
+    | curl -Lis -H 'content-type: application/json' -H "authorization: Bearer $LINEAR_TOKEN" https://api.linear.app/graphql -XPOST -d@- \
+    | ALOLA_REPORT=silent alola 'status should be 200' \
+    | fx 'x => x.body.data'
+}
+
+function branchname(){
+  local user_id=`linear '{viewer{id}}' | fx .viewer.id`
+  linear "{user(id: \"$user_id\") {assignedIssues{nodes {branchName}}}}" \
+    | fx 'x => x.user.assignedIssues.nodes.map(xx => [xx.branchName].join("\t")).join("\n")' \
+    | fzf -1 -q "'$*"
+}
