@@ -630,9 +630,9 @@ function linear(){
     | fx 'x => x.body.data'
 }
 
-function branchname(){
+function issues(){
   local user_id=`linear '{viewer{id}}' | fx .viewer.id`
-  linear "{user(id: \"$user_id\") {assignedIssues{nodes {branchName}}}}" \
-    | fx 'x => x.user.assignedIssues.nodes.map(xx => [xx.branchName].join("\t")).join("\n")' \
+  linear "{user(id: \"$user_id\") {assignedIssues{nodes {url branchName}}}}" \
+    | fx 'x => x.user.assignedIssues.nodes.map(xx => [xx.url, xx.branchName].join("\t")).join("\n")' \
     | fzf -1 -q "'$*"
 }
