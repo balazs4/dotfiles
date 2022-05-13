@@ -321,6 +321,7 @@ function aws-off(){
 export N_PREFIX=$HOME/.n/prefix
 export N_PRESERVE_NPM=1
 export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
+export PATH=./node_modules/.bin/:${PATH}
 
 function yt(){
   local search=`echo $* | tr ' ' '+'`
