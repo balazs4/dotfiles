@@ -167,7 +167,7 @@ alias :q!='exit'
 alias ll='ls -lsh'
 alias rm='rm -i'
 alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map(c=>Math.random()>0.5?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
-alias yolo='git add . && git commit -m "`bob yolo commit` :sponge:" && git push --no-verify || true'
+alias yolo='git add . && git commit -m "`bob yolo commit` :sponge:" --no-verify && git push --no-verify || true'
 alias foo='echo bar'
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
 alias mc='mc -b'
@@ -632,8 +632,11 @@ function linear(){
 }
 
 function issues(){
-  local user_id=`linear '{viewer{id}}' | fx .viewer.id`
-  linear "{user(id: \"$user_id\") {assignedIssues{nodes {url branchName}}}}" \
-    | fx 'x => x.user.assignedIssues.nodes.map(xx => [xx.url, xx.branchName].join("\t")).join("\n")' \
+  if test -z $LINEAR_USER_ID
+  then
+    export LINEAR_USER_ID=`linear '{viewer{id}}' | fx .viewer.id`
+  fi
+  linear "{user(id: \"$LINEAR_USER_ID\") {assignedIssues{nodes {url identifier}}}}" \
+    | fx 'x => x.user.assignedIssues.nodes.map(xx => [xx.url, xx.identifier].join("\t")).join("\n")' \
     | fzf -1 -q "'$*"
 }
