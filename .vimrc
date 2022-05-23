@@ -75,6 +75,8 @@ set wildmenu
 set showcmd
 set shiftwidth=2
 set expandtab
+set tabstop=2
+set softtabstop=2
 set autoread
 set incsearch
 set hlsearch
@@ -91,7 +93,7 @@ set foldmethod=manual
 set shortmess+=c
 set complete+=kspell
 set list
-set listchars=eol:¬,tab:..
+set listchars=tab:\ \ ,trail:·,eol:¬,nbsp:_
 set guicursor=
 "macbookpro set re=2
 nnoremap <C-j> :m .+1<CR>==
@@ -142,3 +144,7 @@ let g:lsc_server_commands = {
       \ }
 
 "https://github.com/leafgarland/typescript-vim
+
+"https://github.com/jelera/vim-javascript-syntax
+
+"https://github.com/joshdick/onedark.vim
