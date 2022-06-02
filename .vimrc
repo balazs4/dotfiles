@@ -89,3 +89,5 @@ let g:lsc_server_commands = {
 
 "https://github.com/balazs4/ambiance-vim
 colors ambiance
+
+"https://github.com/hashivim/vim-terraform
