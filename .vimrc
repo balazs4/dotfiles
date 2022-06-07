@@ -79,6 +79,7 @@ let g:lsc_server_commands = {
       \ ,'typescript':      { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
       \ ,'javascriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
       \ ,'typescriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
+      \ ,'terraform':       { 'command': 'terraform-ls serve', 'log_level': -1, 'suppress_stderr': v:true }
       \ }
 
 "https://github.com/leafgarland/typescript-vim
