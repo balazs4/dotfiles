@@ -98,5 +98,3 @@ colors ambiance
 "https://github.com/liuchengxu/vista.vim
 let g:vista#renderer#enable_icon = 0
 let g:vista_fzf_preview = ['right:50%']
-
-"https://github.com/liuchengxu/vista.vim
