@@ -94,5 +94,5 @@ colors ambiance
 
 "https://github.com/liuchengxu/vista.vim
 let g:vista#renderer#enable_icon = 0
-let g:vista_fzf_preview = ['right:50%']
-
+let g:vista_default_executive = 'vim_lsc'
+let g:vista_fzf_preview = 1
