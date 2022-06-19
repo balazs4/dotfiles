@@ -79,7 +79,6 @@ let g:lsc_server_commands = {
       \ ,'typescript':      { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
       \ ,'javascriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
       \ ,'typescriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
-      \ ,'terraform':       { 'command': 'terraform-ls serve', 'log_level': -1, 'suppress_stderr': v:true }
       \ }
 
 "https://github.com/leafgarland/typescript-vim
@@ -93,8 +92,7 @@ colors ambiance
 
 "https://github.com/hashivim/vim-terraform
 
-"https://github.com/hashivim/vim-terraform
-
 "https://github.com/liuchengxu/vista.vim
 let g:vista#renderer#enable_icon = 0
 let g:vista_fzf_preview = ['right:50%']
+
