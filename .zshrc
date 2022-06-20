@@ -597,7 +597,7 @@ function dark(){
 #macbookpro }
 #macbookpro
 #macbookpro function fmt(){
-#macbookpro   git status --porcelain | awk '{print $NF}' | xargs -t npx prettier --write
+#macbookpro   git status --porcelain | awk '{print $NF}' | xargs -t npx prettier --ignore-unknown --write
 #macbookpro }
 #macbookpro
 #macbookpro function transpile() {
