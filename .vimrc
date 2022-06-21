@@ -86,9 +86,10 @@ let g:lsc_server_commands = {
 "https://github.com/jelera/vim-javascript-syntax
 
 "https://github.com/ayu-theme/ayu-vim
+"macbookpro colors ayu
 
 "https://github.com/balazs4/ambiance-vim
-colors ambiance
+"carbon colors ambiance
 
 "https://github.com/hashivim/vim-terraform
 
