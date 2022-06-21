@@ -599,6 +599,9 @@ function dark(){
 #macbookpro function fmt(){
 #macbookpro   git status --porcelain | awk '{print $NF}' | xargs -t npx prettier --ignore-unknown --write
 #macbookpro }
+#macbookpro function lint(){
+#macbookpro   git status --porcelain | awk '{print $NF}' | xargs -t npx eslint --fix --max-warnings=0
+#macbookpro }
 #macbookpro
 #macbookpro function transpile() {
 #macbookpro   npx tsc --noEmit --watch --project `fzf -1 --query="'tsconfig.json $*"`
