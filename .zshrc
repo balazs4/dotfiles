@@ -58,7 +58,7 @@ function zsh-git() {
 setopt PROMPT_SUBST
 
 function zle-line-init zle-keymap-select {
-  PROMPT='%B%F{white} ▲ %~%f%b$(zsh-git &) %B%F{white}»%f%b '
+  PROMPT='%B%F{white} %~%f%b$(zsh-git &) %B%F{white}»%f%b '
   RPROMPT="%(?.%F{white}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
   zle reset-prompt
 }
