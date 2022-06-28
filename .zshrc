@@ -642,3 +642,7 @@ function issues(){
     | fx 'x => x.user.assignedIssues.nodes.map(xx => [xx.url, xx.identifier].join("\t")).join("\n")' \
     | fzf -1 -q "'$*"
 }
+
+function s3fzf(){
+  aws s3 ls ${1} --recursive | fzf --preview "aws s3 cp ${1}{4} -"
+}
