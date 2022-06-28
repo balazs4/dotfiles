@@ -644,5 +644,8 @@ function issues(){
 }
 
 function s3fzf(){
-  aws s3 ls ${1} --recursive | fzf --preview "aws s3 cp ${1}{4} -"
+  aws s3 ls ${1} --recursive \
+    | fzf --preview "aws s3 cp ${1}{4} -" \
+    | awk '{print $NF}' \
+    | xargs -I{} aws s3 cp ${1}{} -
 }
