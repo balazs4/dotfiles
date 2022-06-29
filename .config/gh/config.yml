@@ -39,78 +39,20 @@ aliases:
       gh run view $id --log-failed
     }; fn
 
-  review: >-
+  prs: >-
     !gh api graphql -f query="
         {
-          search(query: \"type:pr state:open -author:comgit review-requested:${1:-$USER}\", type: ISSUE, first: 10) {
+          search(query: \"type:pr state:open ${1:-review-requested}:${USER}\", type: ISSUE, first: 10) {
             edges {
               node {
-                ... on PullRequest {
-                  title
-                  url
-                  updatedAt
-                  reviews(first: 20){
-                   nodes{
-                     author{
-                       ... on User{
-                         login
-                       }
-                     }
-                     state
-                   }
-                  }
-                  author{
-                    ... on User{
-                      login
-                    }
-                  }
+                ... on PullRequest { 
+                  title url updatedAt
+                  reviews(first: 20){ nodes{ author{ ... on User{ login } } state } }
+                  author{ ... on User{ login } }
                 }
               }
             }
           }
         }
-    " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.url.padEnd(32), xx.node.author.login.padEnd(16), xx.node.title, xx.node.reviews.nodes.map(xxx => [xxx.author.login,xxx.state].join(":"))].join("\t")).join("\n")' | sort -r
+    " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.author.login.padEnd(16), xx.node.url.padEnd(32), xx.node.title.padEnd(48), ">>>", xx.node.reviews.nodes.map(xxx => [xxx.author.login,xxx.state].join(":")).join(" ")].join("\t")).join("\n")' | sed 's/APPROVED/✅/g;s/CHANGES_REQUESTED/❌/g;s/COMMENTED/💬/g'
 
-  author: >-
-    !gh api graphql -f query="
-        {
-          search(query: \"type:pr state:open author:${1:-$USER}\", type: ISSUE, first: 100) {
-            edges {
-              node {
-                ... on PullRequest {
-                  title
-                  url
-                  updatedAt
-                  reviews(first: 20){
-                   nodes{
-                     author{
-                       ... on User{
-                         login
-                       }
-                     }
-                     state
-                   }
-                  }
-                }
-              }
-            }
-          }
-        }
-        " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.url, xx.node.title, xx.node.reviews.nodes.map(xxx => [xxx.author.login,xxx.state].join(":")).join(",")].join("\t")).join("\n")' | sort -r
-
-
-  topic: >-
-    !gh api graphql -f query="
-    {
-      search(query: \"topic:${1:-type-node-service}\", type: REPOSITORY, first: 100) {
-        repositoryCount,
-        edges{
-          node{
-            ... on Repository {
-              name
-            }
-          }
-        }
-      }
-    }
-    "
