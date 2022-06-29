@@ -49,12 +49,27 @@ aliases:
                   title
                   url
                   updatedAt
+                  reviews(first: 20){
+                   nodes{
+                     author{
+                       ... on User{
+                         login
+                       }
+                     }
+                     state
+                   }
+                  }
+                  author{
+                    ... on User{
+                      login
+                    }
+                  }
                 }
               }
             }
           }
         }
-    " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.url, xx.node.title].join("\t")).join("\n")' | sort -r
+    " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.url.padEnd(32), xx.node.author.login.padEnd(16), xx.node.title, xx.node.reviews.nodes.map(xxx => [xxx.author.login,xxx.state].join(":"))].join("\t")).join("\n")' | sort -r
 
   author: >-
     !gh api graphql -f query="
