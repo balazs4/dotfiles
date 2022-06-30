@@ -46,7 +46,7 @@ aliases:
             edges {
               node {
                 ... on PullRequest { 
-                  title url updatedAt
+                  title url createdAt
                   reviews(first: 20){ nodes{ author{ ... on User{ login } } state } }
                   author{ ... on User{ login } }
                 }
@@ -54,5 +54,5 @@ aliases:
             }
           }
         }
-    " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.updatedAt, xx.node.author.login.padEnd(16), xx.node.url.padEnd(32), xx.node.title.padEnd(48), ">>>", xx.node.reviews.nodes.map(xxx => [xxx.author.login,xxx.state].join(":")).join(" ")].join("\t")).join("\n")' | sed 's/APPROVED/✅/g;s/CHANGES_REQUESTED/❌/g;s/COMMENTED/💬/g'
+    " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.createdAt, xx.node.author.login.padEnd(16), xx.node.url.padEnd(32), xx.node.title.padEnd(48), ">>>", xx.node.reviews.nodes.map(xxx => "[" + xxx.state + "]" + xxx.author.login).join(" ")].join("\t")).join("\n")'
 
