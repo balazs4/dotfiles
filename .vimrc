@@ -73,13 +73,13 @@ let g:lsc_auto_map = {'defaults': v:true, 'PreviousReference': ''}
 let g:lsc_reference_highlights = v:false
 let g:lsc_trace_level = 'off'
 let g:lsc_diagnostic_highlights = v:false
-let g:lsc_server_commands = {
-      \ 'go':               { 'command': 'gopls serve',                        'log_level': -1, 'suppress_stderr': v:true }
-      \ ,'javascript':      { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
-      \ ,'typescript':      { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
-      \ ,'javascriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
-      \ ,'typescriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
-      \ }
+"macbookpro let g:lsc_server_commands = {
+"macbookpro       \ 'go':               { 'command': 'gopls serve',                        'log_level': -1, 'suppress_stderr': v:true }
+"macbookpro       \ ,'javascript':      { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
+"macbookpro       \ ,'typescript':      { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
+"macbookpro       \ ,'javascriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
+"macbookpro       \ ,'typescriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
+"macbookpro       \ }
 
 "https://github.com/leafgarland/typescript-vim
 
