@@ -36,7 +36,7 @@ aliases:
 #macbookpro      click=`notify --icon /tmp/github-action-$color.svg --title "$outcome" --subtitle "$branch" --message "$origin"`
 #macbookpro      [[ $click = 'activate' ]] && gh run view $id -w
       ) &
-      gh run view $id --log-failed
+      gh run view $id --log
     }; fn
 
   prs: >-
