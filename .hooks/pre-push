@@ -1,9 +1,8 @@
-# Linux Darwin
+# Linux
 
 [ -f "$PWD/package.json" ] || exit 0;
 
 set -e
-echo "$0 >> git log"
 files=`git log HEAD...origin/$(git rev-parse --abbrev-ref HEAD) --name-status --pretty=format: \
       | grep -E '^(A|M)' \
       | cut -f2 \
@@ -11,5 +10,6 @@ files=`git log HEAD...origin/$(git rev-parse --abbrev-ref HEAD) --name-status --
       | uniq \
       | xargs`
 
-echo "$0 >> npx prettier --ignore-unknown --check $files "
+[ -z $files ] && exit 0
+echo "$0 >> npx prettier --ignore-unknown --check $files"
 npx prettier --ignore-unknown --check $files
