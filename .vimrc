@@ -62,8 +62,6 @@ nmap <Leader>p :PrettierAsync<CR>
 
 "https://github.com/tpope/vim-commentary
 
-"https://github.com/machakann/vim-sandwich
-
 "https://github.com/natebosch/vim-lsc
 nnoremap <CR><CR> :LSClientWindowDiagnostics<CR>
 set omnifunc=lsc#complete#complete
@@ -84,7 +82,7 @@ let g:lsc_autocomplete_length = 2
 "carbon       \ 'go':               { 'command': 'gopls serve',                        'log_level': -1, 'suppress_stderr': v:true }
 "carbon       \ }
 
-"https://github.com/leafgarland/typescript-vim
+"macbookpro "https://github.com/leafgarland/typescript-vim
 
 "https://github.com/jelera/vim-javascript-syntax
 
