@@ -94,3 +94,9 @@ let g:lsc_autocomplete_length = 2
 
 "https://github.com/darrikonn/vim-gofmt
 nmap <Leader>f :GoImports<CR> <Bar> :GoFmt<CR> <Bar> :write<CR>
+
+"https://github.com/dracula/vim
+let g:dracula_underline = 0
+let g:dracula_italic = 0
+
+"https://github.com/gosukiwi/vim-atom-dark
