@@ -9,7 +9,8 @@ colors:
     foreground: '0xbbbbbb'
 
   cursor:
-    cursor: '0xf81ce5'
+    # cursor: '0xf81ce5'
+    cursor: '0xaaaaaa'
 
   # Normal colors
   normal:

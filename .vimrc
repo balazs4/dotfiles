@@ -1,6 +1,5 @@
 " Linux Darwin
 set termguicolors
-color slate
 syntax on
 
 filetype plugin indent on
@@ -93,11 +92,7 @@ let g:lsc_autocomplete_length = 2
 "macbookpro colors ayu
 
 "https://github.com/balazs4/ambiance-vim
-
-"https://github.com/liuchengxu/vista.vim
-let g:vista#renderer#enable_icon = 0
-let g:vista_default_executive = 'vim_lsc'
-let g:vista_fzf_preview = 1
+"carbon colors ambiance
 
 "https://github.com/darrikonn/vim-gofmt
 nmap <Leader>f :GoImports<CR> <Bar> :GoFmt<CR> <Bar> :write<CR>
