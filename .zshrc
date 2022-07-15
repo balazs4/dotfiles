@@ -563,9 +563,8 @@ alias .env='set -o allexport; source .env; set +o allexport'
 
 alias flip='rev | perl -Mopen=locale -Mutf8 -pe tr/a-z/ɐqɔpǝɟƃɥıɾʞlɯuodᕹɹsʇnʌʍxʎz/'
 
-alias src='npx -qy fx package.json .scripts'
+alias src='fx package.json .scripts'
 
-#macbookpro #https://github.com/Blizzard/node-rdkafka/issues/937 workaround: --ignore-scripts
 #macbookpro export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
 #macbookpro export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
 #macbookpro export BUILD_LIBRDKAFKA=0
