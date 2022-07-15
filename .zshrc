@@ -649,3 +649,4 @@ function s3fzf(){
     | awk '{print $NF}' \
     | xargs -I{} aws s3 cp ${1}{} -
 }
+

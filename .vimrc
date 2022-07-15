@@ -1,6 +1,6 @@
 " Linux Darwin
-" colors based on nucl1d3/ambiance-vim
 set termguicolors
+color slate
 syntax on
 
 filetype plugin indent on
@@ -30,8 +30,8 @@ set rnu
 set foldmethod=manual
 set shortmess+=c
 set complete+=kspell
-set list
-set listchars=tab:\ \ ,trail:·,eol:¬,nbsp:_
+" set list
+" set listchars=tab:\ \ ,trail:·,eol:¬,nbsp:_
 set guicursor=
 "macbookpro set re=2
 nnoremap <C-j> :m .+1<CR>==
@@ -66,13 +66,14 @@ nmap <Leader>p :PrettierAsync<CR>
 "https://github.com/machakann/vim-sandwich
 
 "https://github.com/natebosch/vim-lsc
-nnoremap <CR><CR> :LSClientAllDiagnostics<CR>
+nnoremap <CR><CR> :LSClientWindowDiagnostics<CR>
 set omnifunc=lsc#complete#complete
 set completeopt=menu,menuone,noinsert,noselect
 let g:lsc_auto_map = {'defaults': v:true, 'PreviousReference': ''}
 let g:lsc_reference_highlights = v:false
 let g:lsc_trace_level = 'off'
 let g:lsc_diagnostic_highlights = v:false
+let g:lsc_autocomplete_length = 2
 "macbookpro let g:lsc_server_commands = {
 "macbookpro       \ 'go':               { 'command': 'gopls serve',                        'log_level': -1, 'suppress_stderr': v:true }
 "macbookpro       \ ,'javascript':      { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
@@ -80,6 +81,9 @@ let g:lsc_diagnostic_highlights = v:false
 "macbookpro       \ ,'javascriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
 "macbookpro       \ ,'typescriptreact': { 'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true }
 "macbookpro       \ }
+"carbon let g:lsc_server_commands = {
+"carbon       \ 'go':               { 'command': 'gopls serve',                        'log_level': -1, 'suppress_stderr': v:true }
+"carbon       \ }
 
 "https://github.com/leafgarland/typescript-vim
 
@@ -89,11 +93,11 @@ let g:lsc_diagnostic_highlights = v:false
 "macbookpro colors ayu
 
 "https://github.com/balazs4/ambiance-vim
-"carbon colors ambiance
-
-"https://github.com/hashivim/vim-terraform
 
 "https://github.com/liuchengxu/vista.vim
 let g:vista#renderer#enable_icon = 0
 let g:vista_default_executive = 'vim_lsc'
 let g:vista_fzf_preview = 1
+
+"https://github.com/darrikonn/vim-gofmt
+nmap <Leader>f :GoImports<CR> <Bar> :GoFmt<CR> <Bar> :write<CR>
