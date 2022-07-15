@@ -99,4 +99,5 @@ nmap <Leader>f :GoImports<CR> <Bar> :GoFmt<CR> <Bar> :write<CR>
 let g:dracula_underline = 0
 let g:dracula_italic = 0
 
-"https://github.com/gosukiwi/vim-atom-dark
+"https://github.com/sonph/onehalf
+set rtp+=~/.vim/pack/_/start/onehalf/vim/
