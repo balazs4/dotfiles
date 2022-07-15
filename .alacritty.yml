@@ -10,7 +10,11 @@ colors:
 
   cursor:
     # cursor: '0xf81ce5'
-    cursor: '0xaaaaaa'
+    cursor: '0xcbccc6'
+    # cursor: '0x212732'
+    # cursor: '0x34455a'
+    # cursor: '0x70748c'
+    cursor: '0xffa759' #orange
 
   # Normal colors
   normal:
