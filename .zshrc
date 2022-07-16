@@ -483,7 +483,7 @@ function mongodb-rs(){
 #carbon   docker run -it --rm --user `id -u`:`id -g` -v "$PWD:/`basename $PWD`" -w /`basename $PWD` ghcr.io/rust-lang/rust:nightly-alpine cargo $@
 #carbon }
 
-#carbon function deskon(){
+#carbon function desk-on(){
 #carbon   xrandr \
 #carbon     --dpi 136 \
 #carbon     --output eDP1 --primary --mode 1920x1080 --pos 800x2160 --rotate normal --scale 1.4 \
@@ -495,7 +495,7 @@ function mongodb-rs(){
 #carbon    imwheel >/dev/null &
 #carbon }
 #carbon 
-#carbon function deskoff(){
+#carbon function desk-off(){
 #carbon   xrandr \
 #carbon     --dpi 96 \
 #carbon     --output eDP1 --primary --mode 1920x1080 --rotate normal --scale 1.0 \

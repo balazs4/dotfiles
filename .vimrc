@@ -40,8 +40,9 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
-nnoremap <silent><leader>xx :bd<CR>
 nnoremap <leader><CR> :write <Bar> silent ! TMUX= source $HOME/.files/.zprofile<CR><C-L>
+nnoremap <silent><CR><CR> :lclose <Bar> cclose<CR>
+
 "https://github.com/junegunn/fzf.vim
 "macbookpro set rtp+=/opt/homebrew/opt/fzf
 nnoremap <Leader>[ :Buffers<CR>
@@ -63,7 +64,7 @@ nmap <Leader>p :PrettierAsync<CR>
 "https://github.com/tpope/vim-commentary
 
 "https://github.com/natebosch/vim-lsc
-nnoremap <CR><CR> :LSClientWindowDiagnostics<CR>
+nnoremap gb :LSClientWindowDiagnostics<CR>
 set omnifunc=lsc#complete#complete
 set completeopt=menu,menuone,noinsert,noselect
 let g:lsc_auto_map = {'defaults': v:true, 'PreviousReference': ''}
@@ -84,7 +85,7 @@ let g:lsc_autocomplete_length = 2
 
 "macbookpro "https://github.com/leafgarland/typescript-vim
 
-"https://github.com/jelera/vim-javascript-syntax
+"macbookpro "https://github.com/jelera/vim-javascript-syntax
 
 "https://github.com/ayu-theme/ayu-vim
 
