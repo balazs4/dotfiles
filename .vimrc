@@ -89,6 +89,7 @@ let g:lsc_autocomplete_length = 2
 "https://github.com/ayu-theme/ayu-vim
 
 "https://github.com/balazs4/ambiance-vim
+"carbon color ambiance
 
 "https://github.com/darrikonn/vim-gofmt
 nmap <Leader>f :GoImports<CR> <Bar> :GoFmt<CR> <Bar> :write<CR>
@@ -96,7 +97,7 @@ nmap <Leader>f :GoImports<CR> <Bar> :GoFmt<CR> <Bar> :write<CR>
 "https://github.com/dracula/vim
 let g:dracula_underline = 0
 let g:dracula_italic = 0
-color dracula
+"macbookpro color dracula
 
 "https://github.com/sonph/onehalf
 set rtp+=~/.vim/pack/_/start/onehalf/vim/
