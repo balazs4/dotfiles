@@ -10,6 +10,6 @@ files=`git log HEAD...origin/$(git rev-parse --abbrev-ref HEAD) --name-status --
       | uniq \
       | xargs`
 
-[ -z $files ] && exit 0
+[ -z "$files" ] && exit 0
 echo "$0 >> npx prettier --ignore-unknown --check $files"
 npx prettier --ignore-unknown --check $files
