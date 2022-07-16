@@ -9,10 +9,10 @@ colors:
     foreground: '0xbbbbbb'
 
   cursor:
-    # cursor: '0xf81ce5'
+#carbon    cursor: '0xf81ce5'
+#macbookproc    ursor: '0xffffff'
     # cursor: '0xcbccc6'
     # cursor: '0xffa759' #orange
-    cursor: '0xffffff'
 
   # Normal colors
   normal:
