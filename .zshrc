@@ -646,3 +646,10 @@ function s3fzf(){
     | xargs -I{} aws s3 cp ${1}{} -
 }
 
+function prls(){
+  git log origin/${1:-main}...origin/$(git rev-parse --abbrev-ref HEAD) --name-status --pretty=format: \
+    | grep -E '^(A|M)' \
+    | cut -f2 \
+    | sort \
+    | uniq
+}
