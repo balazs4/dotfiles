@@ -448,7 +448,7 @@ function news(){
 
 function hackernews(){
   curl -Lis https://hacker-news.firebaseio.com/v0/topstories.json \
-    | ALOLA_REPORT=silent alola 'status should be 200' \
+    | alola 'status should be 200' 2>/dev/null \
     | fx "x=> x.body.slice(0,${1:-10}).join(\"\n\")" \
     | xargs -I{} curl -s https://hacker-news.firebaseio.com/v0/item/{}.json \
     | fx 'x => [`\x1b[2m${x.url}\x1b[0m`, `\x1b[1m${x.title}\x1b[0m`, " "].join("\n")' 
