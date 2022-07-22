@@ -195,22 +195,21 @@ alias delta='delta --side-by-side --syntax-theme=Nord'
 function srv(){
   node -e '
   const {PORT = 8000} = process.env;
-  require("http").createServer((req, res) => {
+  require("http").createServer(async (req, res) => {
     process.stdout.write(`\n${req.method} ${req.url}\n`);
 
     Object.entries(req.headers).forEach(([key, value]) => {
       process.stdout.write(`${key}: ${value}\n`);
     });
-
     process.stdout.write("\n");
-    req.on("data", (chunk) => {
-      process.stdout.write(`${chunk.toString("utf-8")}`);
-    });
 
-    req.on("close", () => {
-      process.stdout.write("\n");
-      res.end("ok");
-    });
+
+    for await (const line of require("readline").createInterface(req)){
+      process.stdout.write(line + "\n");
+    }
+
+    res.end("ok");
+
   }).listen(PORT, () => console.log(`echo-server is listening on http://localhost:${PORT}`));
   '
 }
