@@ -156,7 +156,7 @@ alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
 alias nvimrc="EDITOR=nvim dot .config/nvim/init.vim"
 #carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
-alias wttr="curl -s 'http://wttr.in/91085?format=3'"
+alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
 #carbon alias xx='xclip -rmlastnl -selection clipboard'
 #macbookpro alias xx='pbcopy'
 alias ls='ls --color=auto'
@@ -625,7 +625,7 @@ alias cmm='meme 129242436'
 function linear(){
   jo query="$*" \
     | curl -Lis -H 'content-type: application/json' -H "authorization: Bearer $LINEAR_TOKEN" https://api.linear.app/graphql -XPOST -d@- \
-    | ALOLA_REPORT=silent alola 'status should be 200' \
+    | alola 'status should be 200' 2>/dev/null \
     | fx 'x => x.body.data'
 }
 
