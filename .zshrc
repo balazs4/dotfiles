@@ -433,7 +433,7 @@ function news(){
   tmux new-window -t "news" -n "hackernews"
   tmux send-keys -t "news:hackernews.1" "hackernews 10" Enter
 
-  for subreddit in `echo commandline nix javascript | xargs`
+  for subreddit in `echo commandline javascript | xargs`
   do
     tmux new-window -t "news" -n "r/$subreddit"
     tmux send-keys -t "news:r/$subreddit.1" "reddit $subreddit" Enter
