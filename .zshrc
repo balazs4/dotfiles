@@ -657,7 +657,7 @@ function vvv(){
   latest_release=`gh release list -L1 | cut -f1`
   if test -z $latest_release
   then
-    echo "1.0.0"
+    npm version --no-git-tag-version 1.0.0
     return 0
   fi
 
@@ -669,5 +669,5 @@ function vvv(){
       /^[0-9a-z]{7} minor/    { minor++ }
       /^[0-9a-z]{7} patch/    { patch++ }
     END                   { if (major > 0) print "major"; else if (minor>0) print "minor"; else if (patch > 0) print "patch"; else print "noop"}' \
-    | xargs -t -I{} npx semver -i {} $latest_release
+    | xargs -t npm version --no-git-tag-version
 }
