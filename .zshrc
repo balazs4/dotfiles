@@ -652,3 +652,22 @@ function prls(){
     | sort \
     | uniq
 }
+
+function vvv(){
+  latest_release=`gh release list -L1 | cut -f1`
+  if test -z $latest_release
+  then
+    echo "1.0.0"
+    return 0
+  fi
+
+  git log --oneline --all $latest_release...HEAD \
+    gawk '
+      BEGIN                   { major=0;minor=0;patch=0 }
+      /^[0-9a-z]{7} breaking/ { major++ }
+      /^[0-9a-z]{7} major/    { major++ }
+      /^[0-9a-z]{7} minor/    { minor++ }
+      /^[0-9a-z]{7} patch/    { patch++ }
+    END                   { if (major > 0) print "major"; else if (minor>0) print "minor"; else if (patch > 0) print "patch"; else print "noop"}' \
+    | xargs -t -I{} npx semver -i {} $latest_release
+}
