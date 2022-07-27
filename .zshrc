@@ -189,6 +189,7 @@ alias cal='LC_ALL=de_DE.utf8 cal'
 #carbon alias yay='yay --editmenu'
 #macbookpro alias awk='gawk'
 #macbookpro alias sed='gsed'
+#macbookpro alias xargs='gxargs'
 alias less='less -r'
 alias delta='delta --side-by-side --syntax-theme=Nord'
 

@@ -42,7 +42,7 @@ nnoremap N Nzzzv
 nnoremap J mzJ`z
 nnoremap <leader><CR> :write <Bar> silent ! TMUX= source $HOME/.files/.zprofile<CR><C-L>
 nnoremap <silent><CR><CR> :lclose <Bar> cclose<CR>
-
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 "https://github.com/junegunn/fzf.vim
 "macbookpro set rtp+=/opt/homebrew/opt/fzf
 nnoremap <Leader>[ :Buffers<CR>
@@ -103,3 +103,5 @@ let g:dracula_italic = 0
 "https://github.com/sonph/onehalf
 set rtp+=~/.vim/pack/_/start/onehalf/vim/
 
+
+"https://github.com/hashivim/vim-terraform
