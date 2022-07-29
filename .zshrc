@@ -603,6 +603,9 @@ function dark(){
 #macbookpro   npx tsc --noEmit --watch --project `fzf -1 --query="'tsconfig.json $*"`
 #macbookpro }
 #macbookpro alias annoyme=transpile
+function vv(){
+  vim `{ git status --porcelain | awk '{print $NF}'; gh pr diff --patch | grep '^+++ b' | sed 's/+++ b\///' 2>/dev/null }`
+}
 
 function meme(){
   local auth=`pass imgflip.com | grep username`
