@@ -133,7 +133,7 @@ function vimplug(){
   rm -rf $HOME/.vim/pack/_/start/* 2>/dev/null
   mkdir -p $HOME/.vim/pack/_/start/ 2>/dev/null
   pushd $HOME/.vim/pack/_/start/
-  grep github $HOME/.vimrc | sed 's/"//g' | xargs -t -L1 git clone --depth=1
+  grep '^"https://github' $HOME/.vimrc | sed 's/"//g' | xargs -t -L1 git clone --depth=1
   popd
 }
 

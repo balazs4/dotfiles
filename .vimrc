@@ -104,4 +104,4 @@ let g:dracula_italic = 0
 set rtp+=~/.vim/pack/_/start/onehalf/vim/
 
 
-"https://github.com/hashivim/vim-terraform
+"macbookpro "https://github.com/hashivim/vim-terraform
