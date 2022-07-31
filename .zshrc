@@ -140,14 +140,14 @@ function vimplug(){
 function nvimplug(){
   if [[ ! -z "$1" ]]
   then
-    echo "\n\"$1" >> $HOME/.files/.config/nvim/init.vim
+    echo "\n\"$1" >> $HOME/.files/.config/nvim/init.lua
     TMUX= source $HOME/.files/.zprofile
   fi
 
   rm -rf $HOME/.local/share/nvim/site/pack/_/start/* 2>/dev/null
   mkdir -p $HOME/.local/share/nvim/site/pack/_/start/ 2>/dev/null
   pushd $HOME/.local/share/nvim/site/pack/_/start/
-  grep github $HOME/.config/nvim/init.vim | sed 's/"//g' | xargs -t -L1 git clone --depth=1
+  grep '^-- https://github' $HOME/.config/nvim/init.lua | sed 's/-- //g' | xargs -t -L1 git clone --depth=1
   popd
 }
 
