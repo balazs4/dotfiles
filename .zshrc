@@ -140,7 +140,7 @@ function vimplug(){
 function nvimplug(){
   if [[ ! -z "$1" ]]
   then
-    echo "\n\"$1" >> $HOME/.files/.config/nvim/init.lua
+    echo "\n-- $1" >> $HOME/.files/.config/nvim/init.lua
     TMUX= source $HOME/.files/.zprofile
   fi
 
