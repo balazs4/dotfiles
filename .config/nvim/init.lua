@@ -15,6 +15,7 @@ vim.keymap.set('n', '<leader><leader>', require('fzf-lua').builtin, { noremap = 
 vim.diagnostic.config({virtual_text = false, signs = false})
 require('lspconfig')['gopls'].setup({
 	on_attach = function(client, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'gR', vim.lsp.buf.rename, {noremap=true, silent=true, buffer=bufnr})
@@ -27,6 +28,7 @@ require('lspconfig')['gopls'].setup({
 
 require('lspconfig')['tsserver'].setup({
 	on_attach = function(client, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'gR', vim.lsp.buf.rename, {noremap=true, silent=true, buffer=bufnr})
@@ -36,12 +38,10 @@ require('lspconfig')['tsserver'].setup({
 	end
 })
 -- https://github.com/Shatur/neovim-ayu
-vim.cmd 'colorscheme ayu'
+vim.cmd 'colorscheme ayu-mirage'
 
 -- https://github.com/prettier/vim-prettier
 vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent = true })
 
--- https://github.com/leafgarland/typescript-vim
-
--- https://github.com/jelera/vim-javascript-syntax
+-- https://github.com/nvim-treesitter/nvim-treesitter
 
