@@ -12,7 +12,8 @@ vim.keymap.set('n', '<leader>[', require('fzf-lua').buffers, { noremap = true, s
 vim.keymap.set('n', '<leader><leader>', require('fzf-lua').builtin, { noremap = true, silent = true })
 
 -- https://github.com/neovim/nvim-lspconfig
-vim.diagnostic.config({virtual_text = false, signs = false})
+vim.diagnostic.config({virtual_text = true, signs = false})
+
 require('lspconfig')['gopls'].setup({
 	on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -45,3 +46,4 @@ vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent 
 
 -- https://github.com/nvim-treesitter/nvim-treesitter
 
+-- https://github.com/andreasvc/vim-256noir
