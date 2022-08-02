@@ -7,9 +7,15 @@ vim.opt.softtabstop = 2
 vim.opt.guicursor = 'i:block'
 
 -- https://github.com/ibhagwan/fzf-lua
+require('fzf-lua').setup{
+  winopts = {
+    fullscreen = true
+  }
+}
 vim.keymap.set('n', '<c-P>', require('fzf-lua').files, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>[', require('fzf-lua').buffers, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader><leader>', require('fzf-lua').builtin, { noremap = true, silent = true })
+vim.keymap.set('n', '``', require('fzf-lua').resume, { noremap = true, silent = true })
 
 -- https://github.com/neovim/nvim-lspconfig
 vim.diagnostic.config({virtual_text = true, signs = false})
