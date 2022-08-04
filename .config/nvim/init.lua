@@ -53,3 +53,7 @@ vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent 
 -- https://github.com/nvim-treesitter/nvim-treesitter
 
 -- https://github.com/andreasvc/vim-256noir
+
+-- https://github.com/kdheepak/monochrome.nvim
+
+-- https://github.com/balazs4/ambiance-vim
