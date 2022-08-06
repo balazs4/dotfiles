@@ -328,7 +328,7 @@ function yt(){
   curl -Lfs -H 'accept-language: en' "https://www.youtube.com/results?search_query=$search" \
     | pup 'script:contains("var ytInitialData") text{}' \
     | sed 's/var ytInitialData = //g;s/};/}/' \
-    | fx youtubevideos \
+    | npx fx youtubevideos \
     | fzf --sync \
     | cut -f1 \
     | xargs -Iwatch mpv ${MPV:---ytdl-format='[height=1080]/best'} https://youtu.be/watch
