@@ -5,6 +5,7 @@ vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.guicursor = 'i:block'
+vim.opt.termguicolors = true
 
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup{
@@ -54,6 +55,6 @@ vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent 
 
 -- https://github.com/andreasvc/vim-256noir
 
--- https://github.com/kdheepak/monochrome.nvim
-
 -- https://github.com/balazs4/ambiance-vim
+
+-- https://github.com/sainnhe/gruvbox-material
