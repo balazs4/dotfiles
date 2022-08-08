@@ -19,7 +19,7 @@ vim.keymap.set('n', '<leader><leader>', require('fzf-lua').builtin, { noremap = 
 vim.keymap.set('n', '``', require('fzf-lua').resume, { noremap = true, silent = true })
 
 -- https://github.com/neovim/nvim-lspconfig
-vim.diagnostic.config({virtual_text = true, signs = false})
+vim.diagnostic.config({virtual_text = true, signs = false, update_in_insert = false})
 
 require('lspconfig')['gopls'].setup({
 	on_attach = function(client, bufnr)
