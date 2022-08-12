@@ -6,6 +6,7 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.guicursor = 'i:block'
 vim.opt.termguicolors = true
+vim.opt.completeopt = 'menu'
 
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup{
@@ -51,10 +52,6 @@ vim.cmd 'colorscheme ayu-mirage'
 -- https://github.com/prettier/vim-prettier
 vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent = true })
 
--- https://github.com/nvim-treesitter/nvim-treesitter
-
 -- https://github.com/andreasvc/vim-256noir
 
 -- https://github.com/balazs4/ambiance-vim
-
--- https://github.com/sainnhe/gruvbox-material
