@@ -605,43 +605,43 @@ function dark(){
 #macbookpro }
 #macbookpro alias annoyme=transpile
 function ff(){
-  git status --porcelain | awk '{print $NF}'; gh pr diff --patch | grep '^+++ b' | sed 's/+++ b\///' 2>/dev/null 
+  { git status --porcelain | awk '{print $NF}'; gh pr diff --patch | grep '^+++ b' | sed 's/+++ b\///' 2>/dev/null } | sort | uniq
 }
 
 function meme(){
   local auth=`pass imgflip.com | grep username`
-  local meme=`curl -Lisk https://api.imgflip.com/get_memes | ALOLA_REPORT=silent npx alola 'status should be 200' 'body.success should be true' | npx fx 'x => x.body.data.memes.map(xx => [xx.id.padEnd(8), xx.url.padEnd(32), xx.box_count, xx.name].join("\t")).join("\n")' | fzf -1 --query "'$1" | cut -f1`
+  local meme=`curl -Lisk https://api.imgflip.com/get_memes | alola 'status should be 200' 'body.success should be true' 2>/dev/null | fx 'x => x.body.data.memes.map(xx => [xx.id.padEnd(8), xx.url.padEnd(32), xx.box_count, xx.name].join("\t")).join("\n")' | fzf -1 --query "'$1" | cut -f1`
 
   shift;
   local text=`node -p 'new URLSearchParams(process.argv.slice(1).map((x,i)=> (["text"+i,x]))).toString()' $*`
 
   curl -Lisk https://api.imgflip.com/caption_image -d "$auth&template_id=$meme&$text" \
-    | ALOLA_REPORT=silent npx alola \
+    | alola \
       'status should be 200' \
-      'body.success should be true' \
-    | npx fx 'x => x.body.data.url' \
+      'body.success should be true' 2>/dev/null\
+    | fx 'x => x.body.data.url' \
     | xargs -I{} curl -Lsk {} --output - \
     | xclip -selection clipboard -t 'image/png'
 }
 
 alias cmm='meme 129242436'
 
-function linear(){
-  jo query="$*" \
-    | curl -Lis -H 'content-type: application/json' -H "authorization: Bearer $LINEAR_TOKEN" https://api.linear.app/graphql -XPOST -d@- \
-    | alola 'status should be 200' 2>/dev/null \
-    | fx 'x => x.body.data'
-}
-
-function issues(){
-  if test -z $LINEAR_USER_ID
-  then
-    export LINEAR_USER_ID=`linear '{viewer{id}}' | fx .viewer.id`
-  fi
-  linear "{user(id: \"$LINEAR_USER_ID\") {assignedIssues{nodes {url identifier}}}}" \
-    | fx 'x => x.user.assignedIssues.nodes.map(xx => [xx.url, xx.identifier].join("\t")).join("\n")' \
-    | fzf -1 -q "'$*"
-}
+#macbookpro function linear(){
+#macbookpro   jo query="$*" \
+#macbookpro     | curl -Lis -H 'content-type: application/json' -H "authorization: Bearer $LINEAR_TOKEN" https://api.linear.app/graphql -XPOST -d@- \
+#macbookpro     | alola 'status should be 200' 2>/dev/null \
+#macbookpro     | fx 'x => x.body.data'
+#macbookpro }
+#macbookpro 
+#macbookpro function issues(){
+#macbookpro   if test -z $LINEAR_USER_ID
+#macbookpro   then
+#macbookpro     export LINEAR_USER_ID=`linear '{viewer{id}}' | fx .viewer.id`
+#macbookpro   fi
+#macbookpro   linear "{user(id: \"$LINEAR_USER_ID\") {assignedIssues{nodes {url identifier}}}}" \
+#macbookpro     | fx 'x => x.user.assignedIssues.nodes.map(xx => [xx.url, xx.identifier].join("\t")).join("\n")' \
+#macbookpro     | fzf -1 -q "'$*"
+#macbookpro }
 
 function s3fzf(){
   aws s3 ls ${1} --recursive \
@@ -650,13 +650,6 @@ function s3fzf(){
     | xargs -I{} aws s3 cp ${1}{} -
 }
 
-function prls(){
-  git log origin/${1:-main}...origin/$(git rev-parse --abbrev-ref HEAD) --name-status --pretty=format: \
-    | grep -E '^(A|M)' \
-    | cut -f2 \
-    | sort \
-    | uniq
-}
 
 function vvv(){
   latest_release=`gh release list -L1 | cut -f1`
