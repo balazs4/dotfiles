@@ -329,6 +329,7 @@ function yt(){
     | pup 'script:contains("var ytInitialData") text{}' \
     | sed 's/var ytInitialData = //g;s/};/}/' \
     | fx youtubevideos \
+    | sort -k3 -rh \
     | fzf --sync \
     | cut -f1 \
     | xargs -Iwatch mpv ${MPV:---ytdl-format='[height=1080]/best'} https://youtu.be/watch

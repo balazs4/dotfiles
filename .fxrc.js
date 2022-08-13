@@ -44,13 +44,16 @@ function youtubevideos(json) {
     x?.itemSectionRenderer?.contents.find((xx) => xx?.videoRenderer)
   )?.itemSectionRenderer?.contents;
   if (videos === null || videos === undefined) return undefined;
+
   return videos
     .filter((x) => x?.videoRenderer?.videoId)
     .filter((x) => x)
     .map((x) =>
       [
         x.videoRenderer.videoId,
-        x.videoRenderer?.title?.accessibility?.accessibilityData?.label,
+        x.videoRenderer.lengthText.simpleText.padStart(8),
+        x.videoRenderer.viewCountText.simpleText.padStart(16),
+        x.videoRenderer.title.runs[0].text,
       ].join('\t')
     )
     .join('\n');
