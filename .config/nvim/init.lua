@@ -55,3 +55,6 @@ vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent 
 -- https://github.com/andreasvc/vim-256noir
 
 -- https://github.com/balazs4/ambiance-vim
+
+-- https://github.com/terrortylor/nvim-comment
+require('nvim_comment').setup()
