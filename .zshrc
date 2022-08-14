@@ -669,3 +669,14 @@ function vvv(){
     END                   { if (major > 0) print "major"; else if (minor>0) print "minor"; else if (patch > 0) print "patch"; else print "noop"}' \
     | xargs -t npm version --no-git-tag-version
 }
+
+
+function tv(){
+  curl -Ls "https://onlinestream.live/?search=$1" \
+    | pup 'a[href^="/play.m3u8"] attr{href}' \
+    | sed 's/amp;//g'  \
+    | xargs -I{} curl -Ls https://onlinestream.live{} \
+    | xurls \
+    | fzf -1 -q "https://streaming.mytvback.com/stream" \
+    | xargs mpv
+}
