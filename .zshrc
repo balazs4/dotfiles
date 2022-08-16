@@ -343,6 +343,7 @@ function blue() {
     sudo systemctl stop bluetooth.service
   else
     sudo systemctl start bluetooth.service
+    sleep 2s
     bluetoothctl power on
     device=`bluetoothctl devices | fzf -1 -q ${1:-""} | cut -d" " -f2`
     bluetoothctl connect $device
