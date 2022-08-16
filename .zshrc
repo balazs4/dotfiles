@@ -345,6 +345,7 @@ function blue() {
     sudo systemctl start bluetooth.service
     sleep 2s
     bluetoothctl power on
+    sleep 2s
     device=`bluetoothctl devices | fzf -1 -q ${1:-""} | cut -d" " -f2`
     bluetoothctl connect $device
   fi
