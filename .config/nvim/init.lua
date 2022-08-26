@@ -47,7 +47,7 @@ require('lspconfig')['tsserver'].setup({
 	end
 })
 -- https://github.com/Shatur/neovim-ayu
-vim.cmd 'colorscheme ayu-mirage'
+vim.cmd 'colorscheme ayu-dark'
 
 -- https://github.com/prettier/vim-prettier
 vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent = true })
