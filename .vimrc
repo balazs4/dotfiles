@@ -74,10 +74,8 @@ let g:lsc_diagnostic_highlights = v:false
 let g:lsc_autocomplete_length = 2
 let g:lsc_server_commands = { 'go': 'gopls serve' }
 
-"https://github.com/ayu-theme/ayu-vim
-
 "https://github.com/balazs4/ambiance-vim
-"carbon color ambiance
+color ambiance
 
 "https://github.com/darrikonn/vim-gofmt
 nmap <Leader>f :GoImports<CR> <Bar> :GoFmt<CR> <Bar> :write<CR>
@@ -85,4 +83,3 @@ nmap <Leader>f :GoImports<CR> <Bar> :GoFmt<CR> <Bar> :write<CR>
 "https://github.com/dracula/vim
 let g:dracula_underline = 0
 let g:dracula_italic = 0
-"macbookpro color dracula
