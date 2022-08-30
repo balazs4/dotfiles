@@ -592,7 +592,7 @@ function dark(){
 #carbon }
 
 #macbookpro function feedback() {
-#macbookpro   npm run test -- --watch `fzf -m -1 --query="'.test.ts $*"`
+#macbookpro   npm run test -- --watch `fzf -m -1 --query="'.test.ts !snap '$*"`
 #macbookpro }
 #macbookpro
 #macbookpro function fmt(){
