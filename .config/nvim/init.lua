@@ -58,4 +58,3 @@ vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent 
 
 -- https://github.com/terrortylor/nvim-comment
 require('nvim_comment').setup()
-

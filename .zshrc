@@ -142,19 +142,21 @@ function nvimplug(){
   then
     echo "\n-- $1" >> $HOME/.files/.config/nvim/init.lua
     TMUX= source $HOME/.files/.zprofile
+    git -C $HOME/.local/share/nvim/site/pack/_/start/ clone --depth=1 $1
+    return
   fi
 
   rm -rf $HOME/.local/share/nvim/site/pack/_/start/* 2>/dev/null
   mkdir -p $HOME/.local/share/nvim/site/pack/_/start/ 2>/dev/null
   pushd $HOME/.local/share/nvim/site/pack/_/start/
-  grep '^-- https://github' $HOME/.config/nvim/init.lua | sed 's/-- //g' | xargs -t -L1 git clone --depth=1
+    grep '^-- https://github' $HOME/.config/nvim/init.lua | sed 's/-- //g' | xargs -t -L1 git clone --depth=1
   popd
 }
 
 alias v="vim -c ':GFiles?'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
-alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua"
+alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua && nvimplug"
 #carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
 #carbon alias xx='xclip -rmlastnl -selection clipboard'
