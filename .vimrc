@@ -63,23 +63,5 @@ nmap <Leader>p :PrettierAsync<CR>
 
 "https://github.com/tpope/vim-commentary
 
-"https://github.com/natebosch/vim-lsc
-nnoremap gb :LSClientWindowDiagnostics<CR>
-set omnifunc=lsc#complete#complete
-set completeopt=menu,menuone,noinsert,noselect
-let g:lsc_auto_map = {'defaults': v:true, 'PreviousReference': ''}
-let g:lsc_reference_highlights = v:false
-let g:lsc_trace_level = 'off'
-let g:lsc_diagnostic_highlights = v:false
-let g:lsc_autocomplete_length = 2
-let g:lsc_server_commands = { 'go': 'gopls serve' }
-
 "https://github.com/balazs4/ambiance-vim
 color ambiance
-
-"https://github.com/darrikonn/vim-gofmt
-nmap <Leader>f :GoImports<CR> <Bar> :GoFmt<CR> <Bar> :write<CR>
-
-"https://github.com/dracula/vim
-let g:dracula_underline = 0
-let g:dracula_italic = 0
