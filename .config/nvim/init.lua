@@ -33,7 +33,7 @@ require('lspconfig')['gopls'].setup({
     vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'gb', require('fzf-lua').lsp_document_diagnostics, {noremap=true, silent=true, buffer=bufnr})
 	end
-}
+})
 
 require('lspconfig')['rust_analyzer'].setup({
 	on_attach = function(client, bufnr)

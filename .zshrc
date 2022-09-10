@@ -92,13 +92,25 @@ export TERM=xterm-256color
 #macbookpro export BROWSER=open
 #carbon export BROWSER=chromium
 export EDITOR=vim
-export NPM_CONFIG_LOGLEVEL=http
 export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export GPG_TTY=`tty`
+export RIPGREP_CONFIG_PATH=$HOME/.rgrc
+
+#nodejs
+export NPM_CONFIG_LOGLEVEL=http
+export N_PREFIX=$HOME/.n/prefix
+export N_PRESERVE_NPM=1
+export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
+export PATH=./node_modules/.bin/:${PATH}
+
+#go
 export GOPATH=$HOME/.go
 export PATH=${GOPATH}/bin:${PATH}
-export RIPGREP_CONFIG_PATH=$HOME/.rgrc
+
+#rust
+export PATH=$HOME/.cargo/bin:${PATH}
+
 
 function dot(){
   pushd $HOME/.files > /dev/null
@@ -320,10 +332,6 @@ function aws-off(){
 }
 #carbon alias youtube='google-chrome-stable https://youtube.com/' #webapp
 
-export N_PREFIX=$HOME/.n/prefix
-export N_PRESERVE_NPM=1
-export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
-export PATH=./node_modules/.bin/:${PATH}
 
 function yt(){
   local search=`echo $* | tr ' ' '+'`
