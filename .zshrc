@@ -309,11 +309,11 @@ function touchd(){
   mkdir -p `dirname "$1"` && touch "$1"
 }
 
-#carbon function wall(){
-#carbon   sed -i "s|#`hostname` exec_always feh --no-fehbg --bg-fill \(https://unsplash.com/photos/.*\)/download?force=true|#`hostname` exec_always feh --no-fehbg --bg-fill $1/download?force=true|g" $HOME/.files/.config/i3/config
-#carbon   source $HOME/.files/.zprofile
-#carbon   i3-msg restart
-#carbon }
+function wall(){
+  sed -i "s|#`hostname` exec_always feh --no-fehbg --bg-fill \(https://unsplash.com/photos/.*\)/download?force=true|#`hostname` exec_always feh --no-fehbg --bg-fill $1/download?force=true|g" $HOME/.files/.config/i3/config
+  source $HOME/.files/.zprofile
+  i3-msg restart
+}
 
 function ghcrio-on() {
   echo "{ \"auths\":{ \"ghcr.io\":{ \"auth\":\"`echo "$USER:$GITHUB_TOKEN" | base64`\"  }}}" > ${DOCKER_CONFIG:-$HOME/.docker/config.json}
@@ -330,8 +330,6 @@ function aws-on(){
 function aws-off(){
   unset `env | awk -F= '/^AWS_/ {print $1 }'`
 }
-#carbon alias youtube='google-chrome-stable https://youtube.com/' #webapp
-
 
 function yt(){
   local search=`echo $* | tr ' ' '+'`
