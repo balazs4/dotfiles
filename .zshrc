@@ -654,6 +654,9 @@ alias cmm='meme 129242436'
 #macbookpro     | fx 'x => x.user.assignedIssues.nodes.map(xx => [xx.url, xx.identifier].join("\t")).join("\n")' \
 #macbookpro     | fzf -1 -q "'$*"
 #macbookpro }
+#macbookpro function lfg(){
+#macbookpro   issues $* | cut -f2 | xargs git checkout -b
+#macbookpro }
 
 function s3fzf(){
   aws s3 ls ${1} --recursive \
