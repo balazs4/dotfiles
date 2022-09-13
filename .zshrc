@@ -110,6 +110,11 @@ export PATH=${GOPATH}/bin:${PATH}
 
 #rust
 export PATH=$HOME/.cargo/bin:${PATH}
+# curl -L https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
+export PATH=$HOME/.local/bin:${PATH}
+#carbon function dcargo(){
+#carbon   docker run -it --rm --user `id -u`:`id -g` -v "$PWD:/`basename $PWD`" -w /`basename $PWD` ghcr.io/rust-lang/rust:nightly-alpine cargo $@
+#carbon }
 
 
 function dot(){
@@ -420,7 +425,7 @@ services:
 #carbon   local artUrl=`playerctl metadata --format '{{mpris:artUrl}}'`
 #carbon   local title="`playerctl metadata --format '{{title}}'`"
 #carbon   local artist="`playerctl metadata --format '{{artist}}'`"
-#carbon   local searchterm=`node -p "encodeURIComponent('$artist $title')"`
+#carbon   local searchterm=`node -p "encodeURIComponent('$artist $title'.trim())"`
 #carbon 
 #carbon   [[ $artUrl ]] && curl -s $artUrl -o /tmp/$searchterm.png
 #carbon 
@@ -490,9 +495,6 @@ function mongodb-rs(){
   docker ps -a | grep 27017 
 }
 
-#carbon function dcargo(){
-#carbon   docker run -it --rm --user `id -u`:`id -g` -v "$PWD:/`basename $PWD`" -w /`basename $PWD` ghcr.io/rust-lang/rust:nightly-alpine cargo $@
-#carbon }
 
 #carbon function desk-on(){
 #carbon   xrandr \
