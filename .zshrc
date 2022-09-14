@@ -16,6 +16,7 @@ setopt share_history          # share command history data
 #macbookpro export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
 #macbookpro export HOMEBREW_REPOSITORY="/opt/homebrew";
 #macbookpro export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+#macbookpro export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 #macbookpro export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
 #macbookpro export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 #macbookpro FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
