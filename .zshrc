@@ -265,6 +265,10 @@ function todos(){
   gh gist ${*:-view} ${GITHUB_GIST_TODOS}
 }
 
+#macbookpro function brag(){
+#macbookpro   gh gist ${*:-view} ${GITHUB_GIST_BRAG}
+#macbookpro }
+
 #carbon function emojis(){
 #carbon   e=`emojify --list | sed '0,/Supported emojis/d' | sort | fzf --reverse`
 #carbon   echo $e | cut -d" " -f1 | xclip -rmlastnl -selection primary
