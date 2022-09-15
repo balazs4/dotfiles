@@ -651,8 +651,8 @@ alias cmm='meme 129242436'
 #macbookpro   then
 #macbookpro     export LINEAR_USER_ID=`linear '{viewer{id}}' | fx .viewer.id`
 #macbookpro   fi
-#macbookpro   linear "{user(id: \"$LINEAR_USER_ID\") {assignedIssues{nodes {url identifier}}}}" \
-#macbookpro     | fx 'x => x.user.assignedIssues.nodes.map(xx => [xx.url, xx.identifier].join("\t")).join("\n")' \
+#macbookpro   linear "{user(id: \"$LINEAR_USER_ID\") {assignedIssues(filter: {state: {name: {nin: [\"Done\", \"Canceled\"]}}}){nodes {url identifier state {name}}}}}" \
+#macbookpro     | fx 'x => x.user.assignedIssues.nodes.map(xx => [ xx.url, xx.identifier, xx.state.name].join("\t")).join("\n")' \
 #macbookpro     | fzf -1 -q "'$*"
 #macbookpro }
 #macbookpro function lfg(){
