@@ -256,7 +256,7 @@ function dw(){
 }
 
 function wiki(){
-  url="https://en.wikipedia.org/wiki/$1"
+  url="https://en.wikipedia.org/wiki/`echo $* | sed 's/\s/+/g'`"
   reader -o "$url" | glow -p -
   echo $url
 }
