@@ -372,6 +372,7 @@ function blue() {
 #carbon alias vercel='npx -q vercel -t $VERCEL_TOKEN'
 #carbon alias vc='npx -q vercel -t $VERCEL_TOKEN'
 #carbon alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
+#carbon alias telegram='google-chrome-stable --user-data-dir=$HOME/.config/webapp/telegram --app=https://web.telegram.org'
 #carbon alias outlook='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
 #carbon alias spotify='google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify --app=https://open.spotify.com/'
 #carbon alias shop='google-chrome-stable --user-data-dir=$HOME/.config/webapp/shop'
