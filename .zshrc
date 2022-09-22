@@ -270,9 +270,11 @@ function todos(){
 #macbookpro }
 
 #carbon function emojis(){
-#carbon   e=`emojify --list | sed '0,/Supported emojis/d' | sort | fzf --reverse`
-#carbon   echo $e | cut -d" " -f1 | xclip -rmlastnl -selection primary
-#carbon   echo $e | cut -d" " -f2 | xclip -rmlastnl -selection clipboard
+#carbon   emojify --list \
+#carbon     | sed '0,/Supported emojis/d' \
+#carbon     | sort \
+#carbon     | fzf --reverse \
+#carbon     | awk '{print $1 | "xclip -rmlastnl -selection primary" }; {print $2 | "xclip -rmlastnl -selection clipboard" }'
 #carbon }
 
 #carbon alias song='playerctl metadata title | EDITOR="tee -a" gh gist edit $GITHUB_GIST_SONGS'
