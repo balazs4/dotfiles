@@ -265,6 +265,10 @@ function todos(){
   gh gist ${*:-view} ${GITHUB_GIST_TODOS}
 }
 
+function browse(){
+  reader -o "$*" | glow -p -
+}
+
 #macbookpro function brag(){
 #macbookpro   gh gist ${*:-view} ${GITHUB_GIST_BRAG}
 #macbookpro }
