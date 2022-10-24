@@ -20,6 +20,7 @@ setopt share_history          # share command history data
 #macbookpro export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
 #macbookpro export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 #macbookpro FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+#macbookpro export PATH="$HOME/.luarocks/bin:${PATH}"
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
