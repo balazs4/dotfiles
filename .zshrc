@@ -708,3 +708,15 @@ function tv(){
     | fzf -1 -q "https://streaming.mytvback.com/stream" \
     | xargs mpv
 }
+
+function jwt(){
+  node -e "
+  (async() => {
+    for await (const line of require('readline').createInterface(process.stdin)) {
+      const [header, payload, signature] = line.split('.').map(x => Buffer.from(x, 'base64').toString());
+      const jwt = {header:JSON.parse(header), payload: JSON.parse(payload)};
+      console.log(JSON.stringify(jwt,null,2));
+    }
+  })();
+  "
+}
