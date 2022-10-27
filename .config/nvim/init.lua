@@ -7,6 +7,7 @@ vim.opt.softtabstop = 2
 vim.opt.guicursor = 'i:block'
 vim.opt.termguicolors = true
 vim.opt.completeopt = 'menu'
+vim.opt.cursorline = true
 
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup{
