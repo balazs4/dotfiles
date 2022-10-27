@@ -203,7 +203,8 @@ alias gcm='git checkout `git branch | grep -m 1 -E "^\s+(canary|main|master)$" |
 alias gf='git status --porcelain | cut -d" " -f2'
 alias shrug='curl -s http://shrug.io | xx'
 alias wipe='docker rm -f `docker ps -aq`; docker network prune -f; docker volume prune -f'
-alias dco='docker compose'
+#carbon alias dco='docker compose'
+#macbookpro alias dco='docker-compose'
 alias rg='rg --hidden'
 alias dmesg='sudo dmesg'
 alias cal='LC_ALL=de_DE.utf8 cal'
@@ -720,3 +721,8 @@ function jwt(){
   })();
   "
 }
+
+#macbookpro function bypass(){
+#macbookpro   echo "https://$1/?$GET_PARAM=$2" \
+#macbookpro     | xargs -t curl --resolve "$1:443:127.0.0.1" -I
+#macbookpro }
