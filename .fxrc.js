@@ -58,3 +58,7 @@ function youtubevideos(json) {
     )
     .join('\n');
 }
+
+function jwt(json){
+  return json.redirects[0].headers['set-cookie'].split(';')[0].split('=')[1];
+}

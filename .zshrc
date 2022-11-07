@@ -723,6 +723,9 @@ function jwt(){
 }
 
 #macbookpro function bypass(){
-#macbookpro   echo "https://$1/?$GET_PARAM=$2" \
-#macbookpro     | xargs -t curl --resolve "$1:443:127.0.0.1" -I
+#macbookpro   echo "https://$1/?$GET_PARAM=$2$3" | xargs -t curl --resolve "$1:443:127.0.0.1" -c /dev/null -Lis
+#macbookpro }
+
+#macbookpro function xbypass(){
+#macbookpro   echo "https://$1/$3"| xargs -t curl --resolve "$1:443:127.0.0.1" -H "$HEADER_PARAM: $2" -c /dev/null -Lis
 #macbookpro }
