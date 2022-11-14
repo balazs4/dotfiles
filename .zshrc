@@ -669,7 +669,7 @@ alias cmm='meme 129242436'
 #macbookpro     | fzf -1 -q "'$*"
 #macbookpro }
 #macbookpro function lfg(){
-#macbookpro   issues $* | cut -f2 | xargs git checkout -b
+#macbookpro   issues $* | cut -f2 | gawk '{print tolower($0)}' | xargs git checkout -b
 #macbookpro }
 
 function s3fzf(){
@@ -729,3 +729,7 @@ function jwt(){
 #macbookpro function xbypass(){
 #macbookpro   echo "https://$1/$3"| xargs -t curl --resolve "$1:443:127.0.0.1" -H "$HEADER_PARAM: $2" -c /dev/null -Lis
 #macbookpro }
+
+function resolve() {
+  dig $1| awk "/^$1/ {print \$NF}"
+}
