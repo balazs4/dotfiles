@@ -722,14 +722,15 @@ function jwt(){
   "
 }
 
-#macbookpro function bypass(){
-#macbookpro   echo "https://$1/?$GET_PARAM=$2$3" | xargs -t curl --resolve "$1:443:127.0.0.1" -c /dev/null -Lis
-#macbookpro }
+function ip() {
+  dig $1 | awk "/^$1/ {print \$NF}"
+}
 
-#macbookpro function xbypass(){
-#macbookpro   echo "https://$1/$3"| xargs -t curl --resolve "$1:443:127.0.0.1" -H "$HEADER_PARAM: $2" -c /dev/null -Lis
-#macbookpro }
-
-function resolve() {
-  dig $1| awk "/^$1/ {print \$NF}"
+function bypass() {
+  set -o pipefail
+  echo $* \
+    | xargs -t curl -Lisf -c /dev/null --resolve ${RESOLVER:-'nothing:443:127.0.0.1'} \
+    | alola 'redirects.0.headers.set-cookie should match _jwt' 'status should be 200' \
+    | fx jwt \
+    | jwt
 }
