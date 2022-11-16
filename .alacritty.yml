@@ -6,7 +6,7 @@ colors:
   # Default colors
   primary:
     background: '0x0c0d0e'
-    foreground: '0xbbbbbb'
+    foreground: '0xdddddd'
 
   cursor:
 #carbon    cursor: '0xf81ce5'
