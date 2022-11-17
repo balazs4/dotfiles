@@ -350,13 +350,14 @@ function aws-off(){
 }
 
 function yt(){
-  local search=`echo $* | tr ' ' '+'`
-  curl -Lfs -H 'accept-language: en' "https://www.youtube.com/results?search_query=$search" \
+  echo $* \
+    | tr ' ' '+' \
+    | xargs -t -I{} curl -Lfs -H 'accept-language: en' https://www.youtube.com/results\?search_query={} \
     | pup 'script:contains("var ytInitialData") text{}' \
     | sed 's/var ytInitialData = //g;s/};/}/' \
     | fx youtubevideos \
     | sort -k3 -rh \
-    | fzf --sync \
+    | fzf --sync --reverse --height=50% \
     | cut -f1 \
     | xargs -Iwatch mpv ${MPV:---ytdl-format='[height=1080]/best'} https://youtu.be/watch
 }
@@ -388,9 +389,8 @@ function blue() {
 #carbon alias google='google-chrome-stable --user-data-dir=$HOME/.config/webapp/google'
 
 function pihole(){
-  curl -Lis http://192.168.178.42/admin/api.php | ALOLA_REPORT=text ALOLA_REPORT_ONLY=true npx alola \
-    'status should be 200' \
-    'headers.x-pi-hole should be The Pi-hole Web interface is working!'
+  curl -Lis http://192.168.178.42/admin/api.php \
+    | npx alola 'status should be 200' 'headers.x-pi-hole should be The Pi-hole Web interface is working!'
 }
 
 #carbon function helloworld(){
