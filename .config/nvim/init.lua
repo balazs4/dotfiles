@@ -63,7 +63,7 @@ require('lspconfig')['tsserver'].setup({
 
 require'lspconfig'.sumneko_lua.setup({
 	on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'gR', vim.lsp.buf.rename, {noremap=true, silent=true, buffer=bufnr})
@@ -88,3 +88,4 @@ vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent 
 require('nvim_comment').setup()
 
 -- https://github.com/catppuccin/nvim catppuccin
+vim.cmd 'colorscheme catppuccin-mocha'
