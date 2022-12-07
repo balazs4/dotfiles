@@ -623,7 +623,7 @@ function dark(){
 #macbookpro   git status --porcelain | awk '{print $NF}' | xargs -t npx prettier --ignore-unknown --write
 #macbookpro }
 #macbookpro function lint(){
-#macbookpro   { git status --porcelain | awk '{print $NF}'; gh pr diff --patch | grep '^+++ b' | sed 's/+++ b\///' 2>/dev/null } | grep '.ts' | sort | uniq | xargs -t npx eslint --fix --max-warnings=0 --no-error-on-unmatched-pattern 
+#macbookpro   { git status --porcelain | awk '{print $NF}'; gh pr diff --patch | grep '^+++ b' | sed 's/+++ b\///' 2>/dev/null } | grep '\.ts' | sort | uniq | xargs -t npx eslint --fix --max-warnings=0 --no-error-on-unmatched-pattern 
 #macbookpro }
 #macbookpro
 #macbookpro function transpile() {
