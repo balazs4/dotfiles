@@ -98,6 +98,7 @@ export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export GPG_TTY=`tty`
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
+export PATH=$HOME/.local/bin:${PATH}
 
 #nodejs
 export NPM_CONFIG_LOGLEVEL=http
@@ -111,9 +112,7 @@ export GOPATH=$HOME/.go
 export PATH=${GOPATH}/bin:${PATH}
 
 #rust
-export PATH=$HOME/.cargo/bin:${PATH}
-# curl -L https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
-export PATH=$HOME/.local/bin:${PATH}
+export PATH=$HOME/.cargo/bin:$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/:${PATH}
 #carbon function dcargo(){
 #carbon   docker run -it --rm --user `id -u`:`id -g` -v "$PWD:/`basename $PWD`" -w /`basename $PWD` ghcr.io/rust-lang/rust:nightly-alpine cargo $@
 #carbon }
