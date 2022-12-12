@@ -96,6 +96,7 @@ export TERM=xterm-256color
 export EDITOR=vim
 export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS="--no-separator"
 export GPG_TTY=`tty`
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 export PATH=$HOME/.local/bin:${PATH}
