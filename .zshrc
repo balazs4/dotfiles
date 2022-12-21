@@ -734,3 +734,13 @@ function bypass() {
     | fx jwt \
     | jwt
 }
+
+
+function cosmos() {
+  echo $CSMS_CONTAINERS \
+    | tr ' ' '\n' \
+    | fzf --reverse --height=50% -1 -q "'$1"\
+    | xargs -I{} curl -H "Authorization: Bearer $VC_TOKEN" -Ls  "$CSMS_TOKEN&container={}" \
+    | fx 'x => [x.connectionString.replace(/\s/g,""), x.url].join("\t")' \
+    | gawk '{print $1 | "pbcopy" }; { print $2 | "xargs open" };'
+}
