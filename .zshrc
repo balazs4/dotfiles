@@ -736,11 +736,27 @@ function bypass() {
 }
 
 
-function cosmos() {
+function cosmos_token() {
   echo $CSMS_CONTAINERS \
     | tr ' ' '\n' \
     | fzf --reverse --height=50% -1 -q "'$1"\
-    | xargs -I{} curl -H "Authorization: Bearer $VC_TOKEN" -Ls  "$CSMS_TOKEN&container={}" \
-    | fx 'x => [x.connectionString.replace(/\s/g,""), x.url].join("\t")' \
-    | gawk '{print $1 | "pbcopy" }; { print $2 | "xargs open" };'
+    | xargs -I{} curl -H "Authorization: Bearer $VC_TOKEN" -Ls  "$CSMS_TOKEN&container={}" 
 }
+
+
+function zeit(){
+  local d=`echo $TOKEN | fx 'x =>{ const [,api,db,col, auth] = x.connectionString.replace(/\s/g,"").match(/AccountEndpoint=(\S+);DatabaseId=(\S+);CollectionId=(\S+);(type=resource\S+)/);  return [api,"dbs", db, "colls", col].join("/") + "\t" + encodeURIComponent(auth); }'`
+  local url=`echo $d | cut -f1`
+  local auth=`echo $d | cut -f2`
+  local p=${1:-/}
+  [[ $# -gt 0 ]] && shift;
+  curl -Lsf -H 'accept: application/json' -H "authorization: $auth" -H 'x-ms-version: 2020-07-15' ${url}${p} ${*}
+}
+
+
+function cosmos(){
+  local partkey=`zeit | fx 'x => x.partitionKey.paths[0]'`
+  echo $partkey
+}
+
+
