@@ -28,7 +28,8 @@ aliases:
           | grep -Eo '^https:\/\/github.com\/\S+\/\S+[^\.git]$' \
           | sort \
           | uniq \
-          | xargs -t -I{} open {}/blob/`git rev-parse --abbrev-ref HEAD`/`echo $2 | sed -E 's/:([0-9]+)$/#L\1/g'`
+#macbookpro           | xargs -t -I{} open {}/blob/`git rev-parse --abbrev-ref HEAD`/`echo $2 | sed -E 's/:([0-9]+)$/#L\1/g'`
+#carbon          | xargs -t -I{} xdg-open {}/blob/`git rev-parse --abbrev-ref HEAD`/`echo $2 | sed -E 's/:([0-9]+)$/#L\1/g'`
       ;;
 
       *)
