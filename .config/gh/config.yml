@@ -9,7 +9,8 @@ aliases:
           | grep -Eo '^https:\/\/github.com\/\S+\/\S+\/pull\/[0-9]+$' \
           | sort \
           | uniq \
-          | xargs open
+#macbookpro           | xargs open
+#carbon          | xargs xdg-open
       ;;
       "repo view -w")
         gh api 'repos/{owner}/{repo}' \
@@ -17,7 +18,8 @@ aliases:
           | grep -Eo '^https:\/\/github.com\/\S+\/\S+[^\.git]$' \
           | sort \
           | uniq \
-          | xargs open
+#macbookpro           | xargs open
+#carbon          | xargs xdg-open
       ;;
 
       *)
