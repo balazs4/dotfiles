@@ -378,8 +378,9 @@ function blue() {
   fi
   pkill -SIGRTMIN+1 i3blocks
 }
-#carbon alias vercel='npx -q vercel -t $VERCEL_TOKEN'
-#carbon alias vc='npx -q vercel -t $VERCEL_TOKEN'
+#carbon alias vercel='npx -qy vercel@latest -t $VERCEL_TOKEN'
+#carbon alias vc='npx -qy vercel@latest -t $VERCEL_TOKEN'
+
 #carbon alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
 #carbon alias telegram='google-chrome-stable --user-data-dir=$HOME/.config/webapp/telegram --app=https://web.telegram.org'
 #carbon alias outlook='microsoft-edge-dev --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
@@ -390,7 +391,7 @@ function blue() {
 
 function pihole(){
   curl -Lis http://192.168.178.42/admin/api.php \
-    | npx alola 'status should be 200' 'headers.x-pi-hole should be The Pi-hole Web interface is working!'
+    | npx alola 'status should be 200' 'headers.x-pi-hole should be The Pi-hole Web interface is working!' 1>/dev/null
 }
 
 #carbon function helloworld(){
