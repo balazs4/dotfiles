@@ -30,7 +30,7 @@ set foldmethod=manual
 set shortmess+=c
 set complete+=kspell
 set list
-set listchars=eol:¬
+set listchars=tab:\ \ ,trail:·,eol:¬,nbsp:_
 set guicursor=
 "macbookpro set re=2
 nnoremap <C-j> :m .+1<CR>==
