@@ -745,3 +745,20 @@ function cosmos() {
     | fx 'x => [x.connectionString.replace(/\s/g,""), x.url].join("\t")' \
     | gawk '{print $1 | "pbcopy" }; { print $2 | "xargs open" };'
 }
+
+
+#macbookpro function cal(){
+#macbookpro   /usr/bin/cal | awk '{
+#macbookpro     print " "$0;
+#macbookpro     getline;
+#macbookpro     print " Mo Tu We Th Fr Sa Su";
+#macbookpro     getline;
+#macbookpro     if (substr($0,1,2) == " 1") print "                    1 ";
+#macbookpro     do {
+#macbookpro       prevline=$0;
+#macbookpro       if (getline == 0) exit;
+#macbookpro       print " " substr(prevline,4,17) " " substr($0,1,2) " ";
+#macbookpro     }
+#macbookpro     while (1)
+#macbookpro   }'
+#macbookpro }
