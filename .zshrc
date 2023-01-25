@@ -762,3 +762,13 @@ function cosmos() {
 #macbookpro     while (1)
 #macbookpro   }'
 #macbookpro }
+
+function contrib(){
+  {
+    gh api --paginate "/search/issues?per_page=100&q=org:$GITHUB_ORG+state:closed+sort:created+created:>$GITHUB_START+involves:@me+is:pr";
+    gh api --paginate "/search/issues?per_page=100&q=org:$GITHUB_ORG+state:closed+sort:created+created:>$GITHUB_START+involves:@me+is:issue";
+  } \
+    | fx 'x => x.items.map(xx => [xx.created_at, xx.html_url.padEnd(54), "+" + xx.reactions["heart"], [xx.user.login, xx.assignee?.login].some(xxx => xxx === "balazs4") ? "balazs4" : "-------" , "»»" , xx.title].join("\t")).join("\n")' \
+    | sort -h \
+    | uniq
+}
