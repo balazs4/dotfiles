@@ -38,7 +38,7 @@ colors:
 
 ## custom
 window:
-  decorations: None
+#macbookpro   decorations: None
   title: alacritty
   dynamic_title: true
   class:
