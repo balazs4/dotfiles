@@ -96,7 +96,8 @@ export TERM=xterm-256color
 export EDITOR=vim
 export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS="--no-separator"
+#macbookpro export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs open)'"
+#carbon export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'"
 export GPG_TTY=`tty`
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 export PATH=$HOME/.local/bin:${PATH}
@@ -765,8 +766,8 @@ function cosmos() {
 
 function contrib(){
   {
-    gh api --paginate "/search/issues?per_page=100&q=org:$GITHUB_ORG+state:closed+sort:created+created:>$GITHUB_START+involves:@me+is:pr";
-    gh api --paginate "/search/issues?per_page=100&q=org:$GITHUB_ORG+state:closed+sort:created+created:>$GITHUB_START+involves:@me+is:issue";
+    gh api --paginate "/search/issues?per_page=100&q=org:$GITHUB_ORG+sort:created+created:>$GITHUB_START+involves:@me+is:pr";
+    gh api --paginate "/search/issues?per_page=100&q=org:$GITHUB_ORG+sort:created+created:>$GITHUB_START+involves:@me+is:issue";
   } \
     | fx 'x => x.items.map(xx => [xx.created_at, xx.html_url.padEnd(54), "+" + xx.reactions["heart"], [xx.user.login, xx.assignee?.login].some(xxx => xxx === "balazs4") ? "balazs4" : "-------" , "»»" , xx.title].join("\t")).join("\n")' \
     | sort -h \
