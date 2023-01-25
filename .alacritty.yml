@@ -38,6 +38,7 @@ colors:
 
 ## custom
 window:
+  decorations: None
   title: alacritty
   dynamic_title: true
   class:
