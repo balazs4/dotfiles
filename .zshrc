@@ -770,7 +770,7 @@ function contrib(){
     gh api --paginate "/search/issues?per_page=100&q=org:$GITHUB_ORG+sort:created+created:>$GITHUB_START+involves:@me+is:issue";
     gh api /gists/`echo $GITHUB_GIST_BRAG | awk -F/ '{print $NF}'` | fx 'x => x.files["brag.json"].content';
   } \
-    | fx 'x => x.items.map(xx => [xx.created_at, xx.html_url.padEnd(64), "+" + xx.reactions["heart"], [xx.user.login, xx.assignee?.login].some(xxx => xxx === "balazs4") ? "balazs4" : "-------" , "»»" , xx.title].join("\t")).join("\n")' \
+    | fx 'x => x.items.map(xx => [xx.created_at, xx.html_url.padEnd(64), "+" + xx.reactions["heart"], [xx.user.login, xx.assignee?.login].some(xxx => xxx === "balazs4") ? "balazs4" : "contrib" , "»»" , xx.title].join("\t")).join("\n")' \
     | sort -h \
     | uniq
 }
