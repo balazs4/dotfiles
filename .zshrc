@@ -254,8 +254,10 @@ function radio(){
 }
 
 function dw(){
-  url="https://de.wiktionary.org/wiki/$1"
-  curl -s "$url" | pup 'table.wikitable' | w3m -dump -T text/html | sed '/^$/d'
+  local url="https://de.wiktionary.org/wiki/$1"
+  local content=`curl -s "$url"`
+  echo "$content" | pup 'table.wikitable' | w3m -dump -T text/html | sed '/^$/d'
+  echo "$content" | pup 'table[title~="andere Sprachen"]' | w3m -dump -T text/html | sed '/^$/d'
   echo $url
 }
 
