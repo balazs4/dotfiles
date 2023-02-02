@@ -37,11 +37,10 @@ function zsh-git() {
   local __branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
   [[ -z $__branch ]] && return
 
-  if [[ `git worktree list | grep '(bare)' | gawk '{print $1}'` == ${PWD} ]]
-  then
-    git worktree list | gawk '{print $NF}' | xargs
-    return
-  fi
+  git config --local --get user.email >/dev/null || \
+    git config --local --get remote.origin.url \
+      | awk '/gitlab.com/ {print "959395-balazs4@users.noreply.gitlab.com"}; /github.com/ {print "balazs4@users.noreply.github.com"}' \
+      | xargs git config --local user.email
 
   git status --porcelain --branch --no-ahead-behind \
     | gawk '
@@ -274,10 +273,6 @@ function todos(){
 function browse(){
   reader -o "$*" | glow -p -
 }
-
-#macbookpro function brag(){
-#macbookpro   gh gist ${*:-view} ${GITHUB_GIST_BRAG}
-#macbookpro }
 
 #carbon function emojis(){
 #carbon   emojify --list \
