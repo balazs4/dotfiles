@@ -20,25 +20,11 @@ vim.keymap.set('n', '<leader>[', require('fzf-lua').buffers, { noremap = true, s
 vim.keymap.set('n', '<leader><leader>', require('fzf-lua').builtin, { noremap = true, silent = true })
 vim.keymap.set('n', '``', require('fzf-lua').resume, { noremap = true, silent = true })
 
--- https://github.com/hrsh7th/nvim-cmp/
--- https://github.com/hrsh7th/cmp-nvim-lsp/
--- https://github.com/hrsh7th/cmp-vsnip
--- https://github.com/hrsh7th/vim-vsnip
-require'cmp'.setup {
-  snippet = { expand = function(args) vim.fn["vsnip#anonymous"](args.body) end },
-  sources = { { name = 'nvim_lsp' }, {name='vsnip'} },
-  mapping = require'cmp'.mapping.preset.insert({
-    ['<Space>'] = require'cmp'.mapping.confirm { behavior = require'cmp'.ConfirmBehavior.Replace, select = true, },
-  })
-}
-
 -- https://github.com/neovim/nvim-lspconfig
 vim.diagnostic.config({virtual_text = true, signs = false, update_in_insert = false})
 
 require('lspconfig')['gopls'].setup({
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
 	on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'gR', vim.lsp.buf.rename, {noremap=true, silent=true, buffer=bufnr})
@@ -50,7 +36,6 @@ require('lspconfig')['gopls'].setup({
 })
 
 require('lspconfig')['rust_analyzer'].setup({
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
 	on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
@@ -64,7 +49,6 @@ require('lspconfig')['rust_analyzer'].setup({
 })
 
 require('lspconfig')['tsserver'].setup({
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
 	on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
@@ -108,7 +92,7 @@ require('lspconfig')['tsserver'].setup({
 -- })
 
 -- https://github.com/Shatur/neovim-ayu
-vim.cmd 'colorscheme ayu-dark'
+vim.cmd 'colorscheme ayu-mirage'
 
 -- https://github.com/prettier/vim-prettier
 vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent = true })
