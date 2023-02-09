@@ -758,3 +758,21 @@ function contrib(){
 function countby(){
    awk '{a[$1]++;} END{for(i in a) print i"  "a[i]}' | sort -k2 -r -h
 }
+
+function brag(){
+  z `echo $GITHUB_GIST_BRAG | awk -F/ '{print $NF}'`
+
+  local url=$1
+  shift
+
+  node -e "
+  const brag = require('./brag.json');
+  brag.items.push({ created_at: new Date().toJSON(), html_url: '$url', title: '$*', reactions: { 'heart': '1' }, user: { login: '$USER' } });
+  require('fs').writeFileSync('./brag.json', JSON.stringify(brag));
+  "
+  npx prettier --write ./brag.json \
+    && PAGER= git diff \
+    && git commit -am "date +%s" \
+    && git push \
+    && cd -
+}
