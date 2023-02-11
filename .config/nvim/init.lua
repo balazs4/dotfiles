@@ -34,8 +34,8 @@ require'cmp_nvim_lsp'.setup {
 vim.diagnostic.config({virtual_text = true, signs = false, update_in_insert = false})
 
 require('lspconfig')['gopls'].setup({
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
 	on_attach = function(client, bufnr)
-    capabilities = require('cmp_nvim_lsp').default_capabilities(),
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap=true, silent=true, buffer=bufnr})
@@ -48,13 +48,13 @@ require('lspconfig')['gopls'].setup({
 })
 
 require('lspconfig')['rust_analyzer'].setup({
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
 	on_attach = function(client, bufnr)
-    capabilities = require('cmp_nvim_lsp').default_capabilities(),
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'gR', vim.lsp.buf.rename, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', '<leader>p', vim.lsp.buf.formatting, {noremap=true, silent=true, buffer=bufnr})
+    vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.formatting { async = true} end, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'gb', require('fzf-lua').lsp_document_diagnostics, {noremap=true, silent=true, buffer=bufnr})
@@ -62,12 +62,16 @@ require('lspconfig')['rust_analyzer'].setup({
 })
 
 require('lspconfig')['tsserver'].setup({
+  single_file_support = false,
+  root_dir = nvim_lsp.util.root_pattern("package.json"),
+
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
 	on_attach = function(client, bufnr)
-    capabilities = require('cmp_nvim_lsp').default_capabilities(),
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'gR', vim.lsp.buf.rename, {noremap=true, silent=true, buffer=bufnr})
+    vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.formatting { async = true} end, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, {noremap=true, silent=true, buffer=bufnr})
     vim.keymap.set('n', 'gb', require('fzf-lua').lsp_document_diagnostics, {noremap=true, silent=true, buffer=bufnr})

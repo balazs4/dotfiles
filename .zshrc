@@ -776,3 +776,5 @@ function brag(){
     && git push \
     && cd -
 }
+
+alias carbonyl='docker run --rm -it fathyb/carbonyl'
