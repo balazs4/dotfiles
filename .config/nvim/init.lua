@@ -64,7 +64,6 @@ require('lspconfig')['rust_analyzer'].setup({
 require('lspconfig')['tsserver'].setup({
   single_file_support = false,
   root_dir = nvim_lsp.util.root_pattern("package.json"),
-
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
 	on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
