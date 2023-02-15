@@ -8,21 +8,21 @@ vim.opt.guicursor = 'i:block'
 vim.opt.termguicolors = true
 vim.opt.completeopt = 'menu'
 vim.opt.cursorline = true
+vim.opt.nu = true
+vim.opt.rnu = false
 
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup{
-  winopts = {
-    fullscreen = true
-  }
+  winopts = { fullscreen = false }
 }
 vim.keymap.set('n', '<c-P>', require('fzf-lua').files, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>[', require('fzf-lua').buffers, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader><leader>', require('fzf-lua').builtin, { noremap = true, silent = true })
 vim.keymap.set('n', '``', require('fzf-lua').resume, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_document_diagnostics, { noremap = true, silent = true })
 
 -- https://github.com/hrsh7th/cmp-nvim-lsp
 -- https://github.com/hrsh7th/cmp-buffer
--- https://github.com/hrsh7th/cmp-path
 -- https://github.com/hrsh7th/nvim-cmp
 -- https://github.com/hrsh7th/cmp-vsnip
 -- https://github.com/hrsh7th/vim-vsnip
@@ -69,15 +69,35 @@ require('lspconfig')['tsserver'].setup({
 	end
 })
 
--- https://github.com/Shatur/neovim-ayu
-vim.cmd 'colorscheme ayu-mirage'
-
 -- https://github.com/prettier/vim-prettier
 vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent = true })
-
--- https://github.com/andreasvc/vim-256noir
 
 -- https://github.com/balazs4/ambiance-vim
 
 -- https://github.com/terrortylor/nvim-comment
 require('nvim_comment').setup()
+
+-- https://github.com/ellisonleao/gruvbox.nvim
+require("gruvbox").setup({
+  undercurl = false,
+  underline = false,
+  bold = true,
+  italic = false,
+  strikethrough = falase,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = "", -- can be "hard", "soft" or empty string
+  palette_overrides = {},
+  overrides = {},
+  dim_inactive = false,
+  transparent_mode = false,
+})
+vim.cmd("colorscheme gruvbox")
+
+
+-- https://github.com/projekt0n/github-nvim-theme
+
+-- https://github.com/folke/tokyonight.nvim
