@@ -97,7 +97,4 @@ require("gruvbox").setup({
 })
 vim.cmd("colorscheme gruvbox")
 
-
--- https://github.com/projekt0n/github-nvim-theme
-
 -- https://github.com/folke/tokyonight.nvim
