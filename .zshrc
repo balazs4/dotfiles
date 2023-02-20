@@ -353,7 +353,7 @@ function yt(){
     | tr ' ' '+' \
     | xargs -t -I{} curl -Lfs -H 'accept-language: en' https://www.youtube.com/results\?search_query={} \
     | pup 'script:contains("var ytInitialData") text{}' \
-    | sed 's/var ytInitialData = //g;s/};/}/' \
+    | sed 's/var ytInitialData = //g; s/};/}/' \
     | fx youtubevideos \
     | sort -k3 -rh \
     | fzf --sync --reverse --height=50% \
