@@ -63,5 +63,5 @@ nmap <Leader>p :PrettierAsync<CR>
 
 "https://github.com/tpope/vim-commentary
 
-"https://github.com/balazs4/ambiance-vim
-color ambiance
+"https://github.com/balazs4/zeitgeist
+color zeitgeist
