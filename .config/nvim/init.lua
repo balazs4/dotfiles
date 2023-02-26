@@ -7,7 +7,7 @@ vim.opt.softtabstop = 2
 vim.opt.guicursor = 'i:block'
 vim.opt.termguicolors = true
 vim.opt.completeopt = 'menu'
-vim.opt.cursorline = true
+vim.opt.cursorline = false
 vim.opt.nu = true
 vim.opt.rnu = false
 

@@ -191,7 +191,7 @@ alias rm='rm -i'
 alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map(c=>Math.random()>0.5?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
 alias yolo='git add . && git commit -m "`bob yolo commit` :sponge:" --no-verify && git push --no-verify || true'
 alias foo='echo bar'
-alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf"
+alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf --sync"
 alias mc='mc -b'
 alias ssh='TERM=xterm-256color ssh'
 alias scpignore="scp -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
@@ -221,19 +221,10 @@ function srv(){
   const {PORT = 8000} = process.env;
   require("http").createServer(async (req, res) => {
     process.stdout.write(`\n${req.method} ${req.url}\n`);
-
-    Object.entries(req.headers).forEach(([key, value]) => {
-      process.stdout.write(`${key}: ${value}\n`);
-    });
+    Object.entries(req.headers).forEach(([key, value]) => { process.stdout.write(`${key}: ${value}\n`); });
     process.stdout.write("\n");
-
-
-    for await (const line of require("readline").createInterface(req)){
-      process.stdout.write(line + "\n");
-    }
-
-    res.end("ok");
-
+    res.writeHead(200, { "content-type": "text/plain" });
+    res.end();
   }).listen(PORT, () => console.log(`echo-server is listening on http://localhost:${PORT}`));
   '
 }
