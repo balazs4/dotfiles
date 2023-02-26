@@ -126,3 +126,5 @@ require("gruvbox").setup({
 
 -- https://github.com/balazs4/zeitgeist
 vim.cmd("colorscheme zeitgeist")
+
+-- https://github.com/navarasu/onedark.nvim

@@ -168,6 +168,7 @@ function nvimplug(){
 
   rm -rf $HOME/.local/share/nvim/site/pack/_/start/* 2>/dev/null
   mkdir -p $HOME/.local/share/nvim/site/pack/_/start/ 2>/dev/null
+
   pushd $HOME/.local/share/nvim/site/pack/_/start/
     grep '^-- https://github' $HOME/.config/nvim/init.lua | sed 's/-- //g' | xargs -t -L1 git clone --depth=1
   popd
@@ -180,6 +181,7 @@ alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua && nvimplug"
 #carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
 #carbon alias xx='xclip -rmlastnl -selection clipboard'
+#mcbpro alias xx='pbcopy'
 #macbookpro alias xx='pbcopy'
 alias ls='ls --color=auto'
 alias grep='grep --color'
@@ -217,16 +219,20 @@ alias less='less -r'
 alias delta='delta --side-by-side --syntax-theme=Nord'
 
 function srv(){
-  node -e '
-  const {PORT = 8000} = process.env;
-  require("http").createServer(async (req, res) => {
-    process.stdout.write(`\n${req.method} ${req.url}\n`);
-    Object.entries(req.headers).forEach(([key, value]) => { process.stdout.write(`${key}: ${value}\n`); });
-    process.stdout.write("\n");
-    res.writeHead(200, { "content-type": "text/plain" });
+  node -e "
+  require('http').createServer(async (req, res) => {
+    process.stdout.write('\n');
+    process.stdout.write(req.method + ' ' + req.url);
+    process.stdout.write('\n');
+    Object.entries(req.headers).forEach(([key, value]) => {
+      process.stdout.write(key + ': ' + value);
+      process.stdout.write('\n');
+    });
+    process.stdout.write('\n');
+    res.writeHead(200, { 'content-type': 'text/plain' });
     res.end();
-  }).listen(PORT, () => console.log(`echo-server is listening on http://localhost:${PORT}`));
-  '
+  }).listen(${PORT:-8000}, () => console.log('http://localhost:${PORT:-8000}'));
+  "
 }
 
 function cheat(){
