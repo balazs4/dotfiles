@@ -14,14 +14,13 @@ vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol:¬,nbsp:_"
 
 -- https://github.com/ibhagwan/fzf-lua
-require('fzf-lua').setup{
-  winopts = { fullscreen = false }
-}
+require('fzf-lua').setup{ winopts = { fullscreen = false } }
 vim.keymap.set('n', '<c-P>', require('fzf-lua').files, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>[', require('fzf-lua').buffers, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader><leader>', require('fzf-lua').builtin, { noremap = true, silent = true })
 vim.keymap.set('n', '``', require('fzf-lua').resume, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_document_diagnostics, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>]', require('fzf-lua').live_grep, { noremap = true, silent = true })
 
 -- https://github.com/hrsh7th/cmp-nvim-lsp
 -- https://github.com/hrsh7th/cmp-buffer
@@ -37,7 +36,7 @@ require('cmp').setup({
     ['<C-e>'] = require('cmp').mapping.abort(),
     ['<CR>'] = require('cmp').mapping.confirm({ select = true }),
   }),
-  sources = require('cmp').config.sources({ { name = 'nvim_lsp' }, { name = 'vsnip' }, }, { { name = 'buffer' }, })
+  sources = require('cmp').config.sources({{ name = 'nvim_lsp' }})
 })
 
 -- https://github.com/neovim/nvim-lspconfig
