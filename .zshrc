@@ -736,9 +736,10 @@ function ip() {
 #macbookpro   echo $CSMS_CONTAINERS \
 #macbookpro     | tr ' ' '\n' \
 #macbookpro     | fzf --reverse --height=50% -1 -q "'$1"\
-#macbookpro     | xargs -I{} curl -H "Authorization: Bearer $VC_TOKEN" -Ls  "$CSMS_TOKEN&container={}" \
-#macbookpro     | fx 'x => [x.connectionString.replace(/\s/g,""), x.url].join("\t")' \
-#macbookpro     | gawk '{print $1 | "pbcopy" }; { print $2 | "xargs open" };'
+#macbookpro     | xargs -I{} curl -H "Authorization: Bearer $VC_TOKEN" -Ls  "$CSMS_TOKEN" -XPOST -H 'content-type: application/json' -d '{ "containers": ["{}"], "type": "read" }' \
+#macbookpro     | fx 'x => x.map(xx => xx.connectionString).join("\n")' \
+#macbookpro     | pbcopy
+#macbookpro     open https://cosmos.azure.com
 #macbookpro }
 
 function contrib(){
