@@ -42,78 +42,44 @@ require('cmp').setup({
 -- https://github.com/neovim/nvim-lspconfig
 vim.diagnostic.config({virtual_text = true, signs = false, update_in_insert = false})
 
-require('lspconfig')['rust_analyzer'].setup({
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
-  on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'gR', vim.lsp.buf.rename, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true} end, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'gb', require('fzf-lua').lsp_document_diagnostics, {noremap=true, silent=true, buffer=bufnr})
-	end
-})
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-require('lspconfig')['gopls'].setup({
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
-  on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'gR', vim.lsp.buf.rename, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true} end, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'gb', require('fzf-lua').lsp_document_diagnostics, {noremap=true, silent=true, buffer=bufnr})
-	end
-})
+local function on_attach(_, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap=true, silent=true, buffer=bufnr})
+  vim.keymap.set('n', 'gR', vim.lsp.buf.rename, {noremap=true, silent=true, buffer=bufnr})
+  vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true} end, {noremap=true, silent=true, buffer=bufnr})
+  vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, {noremap=true, silent=true, buffer=bufnr})
+  vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, {noremap=true, silent=true, buffer=bufnr})
+  vim.keymap.set('n', 'gb', require('fzf-lua').lsp_document_diagnostics, {noremap=true, silent=true, buffer=bufnr})
+end
+
+require('lspconfig')['rust_analyzer'].setup({ capabilities = capabilities, on_attach = on_attach })
+require('lspconfig')['gopls'].setup({ capabilities = capabilities, on_attach = on_attach })
 
 require('lspconfig')['tsserver'].setup({
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  capabilities = capabilities,
   on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'gR', vim.lsp.buf.rename, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, {noremap=true, silent=true, buffer=bufnr})
-    vim.keymap.set('n', 'gb', require('fzf-lua').lsp_document_diagnostics, {noremap=true, silent=true, buffer=bufnr})
+    on_attach(client, bufnr)
 -- https://github.com/prettier/vim-prettier
+    vim.keymap.del('n', '<leader>p', {buffer=bufnr})
     vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent = true })
 	end
 })
 
---macbookpro require('lspconfig')['lua_ls'].setup({
---macbookpro   capabilities = require('cmp_nvim_lsp').default_capabilities(),
---macbookpro   on_attach = function(client, bufnr)
---macbookpro     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
---macbookpro     vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
---macbookpro     vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap=true, silent=true, buffer=bufnr})
---macbookpro     vim.keymap.set('n', 'gR', vim.lsp.buf.rename, {noremap=true, silent=true, buffer=bufnr})
---macbookpro     vim.keymap.set('n', '<leader>p', vim.lsp.buf.formatting, {noremap=true, silent=true, buffer=bufnr})
---macbookpro     vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, {noremap=true, silent=true, buffer=bufnr})
---macbookpro     vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, {noremap=true, silent=true, buffer=bufnr})
---macbookpro     vim.keymap.set('n', 'gb', require('fzf-lua').lsp_document_diagnostics, {noremap=true, silent=true, buffer=bufnr})
---macbookpro   end,
---macbookpro   settings = {
---macbookpro     Lua = {
---macbookpro       telemetry = {
---macbookpro         enable = false,
---macbookpro       },
---macbookpro       runtime = {
---macbookpro         version = 'LuaJIT',
---macbookpro       },
---macbookpro       diagnostics = {
---macbookpro         globals = {'vim', 'ngx', 'describe', 'it'},
---macbookpro       },
---macbookpro       workspace = {
---macbookpro         checkThirdParty = false
---macbookpro       }
---macbookpro     }
---macbookpro   }
---macbookpro })
+require('lspconfig')['lua_ls'].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    Lua = {
+      telemetry = { enable = false, },
+      runtime = { version = 'LuaJIT', },
+      diagnostics = { globals = {'vim', 'ngx', 'describe', 'it'}, },
+      workspace = { checkThirdParty = false }
+    }
+  }
+})
 
 -- https://github.com/terrortylor/nvim-comment
 require('nvim_comment').setup()
