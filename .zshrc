@@ -776,3 +776,8 @@ function brag(){
 }
 
 alias carbonyl='docker run --rm -it fathyb/carbonyl'
+
+function home(){
+  echo "There is no place like home"
+  tmux new-session -A -s $USER
+}
