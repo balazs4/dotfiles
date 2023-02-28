@@ -620,7 +620,7 @@ function dark(){
 #mcbpro   git status --porcelain | awk '{print $NF}' | xargs -t npx prettier --ignore-unknown --write
 #mcbpro }
 #mcbpro function lint(){
-#mcbpro   { git status --porcelain | awk '{print $NF}'; gh pr diff --patch | grep '^+++ b' | sed 's/+++ b\///' 2>/dev/null } | grep '\.ts' | sort | uniq | xargs -t npx eslint --fix --max-warnings=0 --no-error-on-unmatched-pattern 
+#mcbpro   { git status --porcelain | awk '{print $NF}'; } | grep '\.ts' | sort | uniq | xargs -t npx eslint --fix --max-warnings=0 --no-error-on-unmatched-pattern
 #mcbpro }
 #mcbpro
 #mcbpro function transpile() {
