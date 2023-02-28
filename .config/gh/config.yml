@@ -9,7 +9,7 @@ aliases:
           | grep -Eo '^https:\/\/github.com\/\S+\/\S+\/pull\/[0-9]+$' \
           | sort \
           | uniq \
-#mcbpro           | xargs -t -L1 open
+#mcbpro          | xargs -t -L1 open
 #carbon          | xargs -t -L1 xdg-open
       ;;
       "repo view -w")
@@ -18,7 +18,7 @@ aliases:
           | grep -Eo '^https:\/\/github.com\/\S+\/\S+[^\.git]$' \
           | sort \
           | uniq \
-#mcbpro           | xargs -t open
+#mcbpro          | xargs -t open
 #carbon          | xargs -t xdg-open
       ;;
 
@@ -28,7 +28,7 @@ aliases:
           | grep -Eo '^https:\/\/github.com\/\S+\/\S+[^\.git]$' \
           | sort \
           | uniq \
-#mcbpro           | xargs -t -I{} open {}/blob/`git rev-parse --abbrev-ref HEAD`/`echo $2 | sed -E 's/:([0-9]+)$/#L\1/g'`
+#mcbpro          | xargs -t -I{} open {}/blob/`git rev-parse --abbrev-ref HEAD`/`echo $2 | sed -E 's/:([0-9]+)$/#L\1/g'`
 #carbon          | xargs -t -I{} xdg-open {}/blob/`git rev-parse --abbrev-ref HEAD`/`echo $2 | sed -E 's/:([0-9]+)$/#L\1/g'`
       ;;
 
