@@ -739,7 +739,7 @@ function ip() {
 #mcbpro     | xargs -I{} curl -H "Authorization: Bearer $VC_TOKEN" -Ls  "$CSMS_TOKEN" -XPOST -H 'content-type: application/json' -d '{ "containers": ["{}"], "type": "read" }' \
 #mcbpro     | fx 'x => x.map(xx => xx.connectionString).join("\n")' \
 #mcbpro     | pbcopy
-#mcbpro     open https://cosmos.azure.com
+#mcbpro     carbonyl https://cosmos.azure.com
 #mcbpro }
 
 function contrib(){
