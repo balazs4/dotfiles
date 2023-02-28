@@ -9,7 +9,7 @@ aliases:
           | grep -Eo '^https:\/\/github.com\/\S+\/\S+\/pull\/[0-9]+$' \
           | sort \
           | uniq \
-#macbookpro           | xargs -t -L1 open
+#mcbpro           | xargs -t -L1 open
 #carbon          | xargs -t -L1 xdg-open
       ;;
       "repo view -w")
@@ -18,7 +18,7 @@ aliases:
           | grep -Eo '^https:\/\/github.com\/\S+\/\S+[^\.git]$' \
           | sort \
           | uniq \
-#macbookpro           | xargs -t open
+#mcbpro           | xargs -t open
 #carbon          | xargs -t xdg-open
       ;;
 
@@ -28,7 +28,7 @@ aliases:
           | grep -Eo '^https:\/\/github.com\/\S+\/\S+[^\.git]$' \
           | sort \
           | uniq \
-#macbookpro           | xargs -t -I{} open {}/blob/`git rev-parse --abbrev-ref HEAD`/`echo $2 | sed -E 's/:([0-9]+)$/#L\1/g'`
+#mcbpro           | xargs -t -I{} open {}/blob/`git rev-parse --abbrev-ref HEAD`/`echo $2 | sed -E 's/:([0-9]+)$/#L\1/g'`
 #carbon          | xargs -t -I{} xdg-open {}/blob/`git rev-parse --abbrev-ref HEAD`/`echo $2 | sed -E 's/:([0-9]+)$/#L\1/g'`
       ;;
 
@@ -65,8 +65,8 @@ aliases:
       [[ -f /tmp/github-action-$color.svg ]] || `curl -Lks https://cdn.svgporn.com/logos/github-icon.svg | sed "s/#161614/#${color:-161614}/g" > /tmp/github-action-$color.svg`
 #carbon      click=`dunstify --action="default,open" -I /tmp/github-action-$color.svg "$outcome" "$branch\n$origin"`
 #carbon      [[ $click = 'default' ]] && gh run view $id -w
-#macbookpro      click=`notify --icon /tmp/github-action-$color.svg --title "$outcome" --subtitle "$branch" --message "$origin"`
-#macbookpro      [[ $click = 'activate' ]] && gh run view $id -w
+#mcbpro      click=`notify --icon /tmp/github-action-$color.svg --title "$outcome" --subtitle "$branch" --message "$origin"`
+#mcbpro      [[ $click = 'activate' ]] && gh run view $id -w
       ) &
       gh run view $id --log
     }; fn

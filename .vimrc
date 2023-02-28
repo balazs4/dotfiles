@@ -32,7 +32,7 @@ set complete+=kspell
 set list
 set listchars=tab:\ \ ,trail:·,eol:¬,nbsp:_
 set guicursor=
-"macbookpro set re=2
+"mcbpro set re=2
 nnoremap <C-j> :m .+1<CR>==
 nnoremap <C-k> :m .-2<CR>==
 vnoremap <C-j> :m '>+1<CR>gv=gv
@@ -44,7 +44,7 @@ nnoremap <leader><CR> :write <Bar> silent ! TMUX= source $HOME/.files/.zprofile<
 nnoremap <silent><CR><CR> :lclose <Bar> cclose<CR>
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 "https://github.com/junegunn/fzf.vim
-"macbookpro set rtp+=/opt/homebrew/opt/fzf
+"mcbpro set rtp+=/opt/homebrew/opt/fzf
 nnoremap <Leader>[ :Buffers<CR>
 nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <Leader>] :Rg<CR>

@@ -12,15 +12,15 @@ setopt hist_ignore_dups       # ignore duplicated commands history list
 setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share command history data
-#macbookpro export HOMEBREW_PREFIX="/opt/homebrew";
-#macbookpro export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
-#macbookpro export HOMEBREW_REPOSITORY="/opt/homebrew";
-#macbookpro export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
-#macbookpro export PATH="/opt/homebrew/opt/curl/bin:$PATH"
-#macbookpro export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
-#macbookpro export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
-#macbookpro FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-#macbookpro export PATH="$HOME/.luarocks/bin:${PATH}"
+#mcbpro export HOMEBREW_PREFIX="/opt/homebrew";
+#mcbpro export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+#mcbpro export HOMEBREW_REPOSITORY="/opt/homebrew";
+#mcbpro export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+#mcbpro export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+#mcbpro export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
+#mcbpro export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+#mcbpro FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+#mcbpro export PATH="$HOME/.luarocks/bin:${PATH}"
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
@@ -84,18 +84,18 @@ alias z='TMUX=fake zz'
 
 #carbon source /usr/share/fzf/completion.zsh
 #carbon source /usr/share/fzf/key-bindings.zsh
-#macbookpro source /opt/homebrew/opt/fzf/shell/completion.zsh
-#macbookpro source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+#mcbpro source /opt/homebrew/opt/fzf/shell/completion.zsh
+#mcbpro source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
 
 export LANG=en_US.UTF-8
 export TERMINAL=alacritty
 export TERM=xterm-256color
-#macbookpro export BROWSER=open
+#mcbpro export BROWSER=open
 #carbon export BROWSER=chromium
 export EDITOR=vim
 export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-#macbookpro export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs open)'"
+#mcbpro export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs open)'"
 #carbon export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'"
 export GPG_TTY=`tty`
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
@@ -182,7 +182,7 @@ alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua"
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
 #carbon alias xx='xclip -rmlastnl -selection clipboard'
 #mcbpro alias xx='pbcopy'
-#macbookpro alias xx='pbcopy'
+#mcbpro alias xx='pbcopy'
 alias ls='ls --color=auto'
 alias grep='grep --color'
 alias tree='tree -I node_modules'
@@ -207,14 +207,14 @@ alias gf="git status --porcelain | awk '{print \$NF}'"
 alias shrug='curl -s http://shrug.io | xx'
 alias wipe='docker rm -f `docker ps -aq`; docker network prune -f; docker volume prune -f'
 #carbon alias dco='docker compose'
-#macbookpro alias dco='docker-compose'
+#mcbpro alias dco='docker-compose'
 alias rg='rg --hidden'
 alias dmesg='sudo dmesg'
 alias cal='LC_ALL=de_DE.utf8 cal'
 #carbon alias yay='yay --editmenu'
-#macbookpro alias awk='gawk'
-#macbookpro alias sed='gsed'
-#macbookpro alias xargs='gxargs'
+#mcbpro alias awk='gawk'
+#mcbpro alias sed='gsed'
+#mcbpro alias xargs='gxargs'
 alias less='less -r'
 alias delta='delta --side-by-side --syntax-theme=Nord'
 
@@ -589,9 +589,9 @@ alias flip='rev | perl -Mopen=locale -Mutf8 -pe tr/a-z/ɐqɔpǝɟƃɥıɾʞlɯuo
 
 alias src='fx package.json .scripts'
 
-#macbookpro export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
-#macbookpro export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
-#macbookpro export BUILD_LIBRDKAFKA=0
+#mcbpro export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
+#mcbpro export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
+#mcbpro export BUILD_LIBRDKAFKA=0
 
 function light(){
 #carbon  xbacklight \=100
@@ -612,21 +612,21 @@ function dark(){
 #carbon   echo level ${1:-7} | sudo tee /proc/acpi/ibm/fan
 #carbon }
 
-#macbookpro function feedback() {
-#macbookpro   npm run test -- --watch `fzf -m -1 --query="'.test.ts !snap '$*"`
-#macbookpro }
-#macbookpro
-#macbookpro function fmt(){
-#macbookpro   git status --porcelain | awk '{print $NF}' | xargs -t npx prettier --ignore-unknown --write
-#macbookpro }
-#macbookpro function lint(){
-#macbookpro   { git status --porcelain | awk '{print $NF}'; gh pr diff --patch | grep '^+++ b' | sed 's/+++ b\///' 2>/dev/null } | grep '\.ts' | sort | uniq | xargs -t npx eslint --fix --max-warnings=0 --no-error-on-unmatched-pattern 
-#macbookpro }
-#macbookpro
-#macbookpro function transpile() {
-#macbookpro   npx tsc --noEmit --watch --project `fzf -1 --query="'tsconfig.json $*"`
-#macbookpro }
-#macbookpro alias annoyme=transpile
+#mcbpro function feedback() {
+#mcbpro   npm run test -- --watch `fzf -m -1 --query="'.test.ts !snap '$*"`
+#mcbpro }
+#mcbpro
+#mcbpro function fmt(){
+#mcbpro   git status --porcelain | awk '{print $NF}' | xargs -t npx prettier --ignore-unknown --write
+#mcbpro }
+#mcbpro function lint(){
+#mcbpro   { git status --porcelain | awk '{print $NF}'; gh pr diff --patch | grep '^+++ b' | sed 's/+++ b\///' 2>/dev/null } | grep '\.ts' | sort | uniq | xargs -t npx eslint --fix --max-warnings=0 --no-error-on-unmatched-pattern 
+#mcbpro }
+#mcbpro
+#mcbpro function transpile() {
+#mcbpro   npx tsc --noEmit --watch --project `fzf -1 --query="'tsconfig.json $*"`
+#mcbpro }
+#mcbpro alias annoyme=transpile
 function ff(){
   { git status --porcelain | awk '{print $NF}'; gh pr diff --patch | grep '^+++ b' | sed 's/+++ b\///' 2>/dev/null } | sort | uniq
 }
@@ -649,25 +649,25 @@ function meme(){
 
 alias cmm='meme 129242436'
 
-#macbookpro function linear(){
-#macbookpro   jo query="$*" \
-#macbookpro     | curl -Lis -H 'content-type: application/json' -H "authorization: Bearer $LINEAR_TOKEN" https://api.linear.app/graphql -XPOST -d@- \
-#macbookpro     | alola 'status should be 200' 2>/dev/null \
-#macbookpro     | fx 'x => x.body.data'
-#macbookpro }
-#macbookpro 
-#macbookpro function issues(){
-#macbookpro   if test -z $LINEAR_USER_ID
-#macbookpro   then
-#macbookpro     export LINEAR_USER_ID=`linear '{viewer{id}}' | fx .viewer.id`
-#macbookpro   fi
-#macbookpro   linear "{user(id: \"$LINEAR_USER_ID\") {assignedIssues(filter: {state: {name: {nin: [\"Done\", \"Canceled\"]}}}){nodes {url identifier state {name}}}}}" \
-#macbookpro     | fx 'x => x.user.assignedIssues.nodes.map(xx => [ xx.url, xx.identifier, xx.state.name].join("\t")).join("\n")' \
-#macbookpro     | fzf -1 -q "'$*"
-#macbookpro }
-#macbookpro function lfg(){
-#macbookpro   issues $* | cut -f2 | gawk '{print tolower($0)}' | xargs git checkout -b
-#macbookpro }
+#mcbpro function linear(){
+#mcbpro   jo query="$*" \
+#mcbpro     | curl -Lis -H 'content-type: application/json' -H "authorization: Bearer $LINEAR_TOKEN" https://api.linear.app/graphql -XPOST -d@- \
+#mcbpro     | alola 'status should be 200' 2>/dev/null \
+#mcbpro     | fx 'x => x.body.data'
+#mcbpro }
+#mcbpro 
+#mcbpro function issues(){
+#mcbpro   if test -z $LINEAR_USER_ID
+#mcbpro   then
+#mcbpro     export LINEAR_USER_ID=`linear '{viewer{id}}' | fx .viewer.id`
+#mcbpro   fi
+#mcbpro   linear "{user(id: \"$LINEAR_USER_ID\") {assignedIssues(filter: {state: {name: {nin: [\"Done\", \"Canceled\"]}}}){nodes {url identifier state {name}}}}}" \
+#mcbpro     | fx 'x => x.user.assignedIssues.nodes.map(xx => [ xx.url, xx.identifier, xx.state.name].join("\t")).join("\n")' \
+#mcbpro     | fzf -1 -q "'$*"
+#mcbpro }
+#mcbpro function lfg(){
+#mcbpro   issues $* | cut -f2 | gawk '{print tolower($0)}' | xargs git checkout -b
+#mcbpro }
 
 function s3fzf(){
   aws s3 ls ${1} --recursive \
@@ -723,24 +723,24 @@ function ip() {
   dig $1 | awk "/^$1/ {print \$NF}"
 }
 
-#macbookpro function bypass() {
-#macbookpro   set -o pipefail
-#macbookpro   echo $* \
-#macbookpro     | xargs -t curl -Lisf -c /dev/null --resolve ${RESOLVER:-'nothing:443:127.0.0.1'} \
-#macbookpro     | alola 'redirects.0.headers.set-cookie should match _jwt' 'status should be 200' \
-#macbookpro     | fx jwt \
-#macbookpro     | jwt
-#macbookpro }
+#mcbpro function bypass() {
+#mcbpro   set -o pipefail
+#mcbpro   echo $* \
+#mcbpro     | xargs -t curl -Lisf -c /dev/null --resolve ${RESOLVER:-'nothing:443:127.0.0.1'} \
+#mcbpro     | alola 'redirects.0.headers.set-cookie should match _jwt' 'status should be 200' \
+#mcbpro     | fx jwt \
+#mcbpro     | jwt
+#mcbpro }
 
-#macbookpro function cosmos() {
-#macbookpro   echo $CSMS_CONTAINERS \
-#macbookpro     | tr ' ' '\n' \
-#macbookpro     | fzf --reverse --height=50% -1 -q "'$1"\
-#macbookpro     | xargs -I{} curl -H "Authorization: Bearer $VC_TOKEN" -Ls  "$CSMS_TOKEN" -XPOST -H 'content-type: application/json' -d '{ "containers": ["{}"], "type": "read" }' \
-#macbookpro     | fx 'x => x.map(xx => xx.connectionString).join("\n")' \
-#macbookpro     | pbcopy
-#macbookpro     open https://cosmos.azure.com
-#macbookpro }
+#mcbpro function cosmos() {
+#mcbpro   echo $CSMS_CONTAINERS \
+#mcbpro     | tr ' ' '\n' \
+#mcbpro     | fzf --reverse --height=50% -1 -q "'$1"\
+#mcbpro     | xargs -I{} curl -H "Authorization: Bearer $VC_TOKEN" -Ls  "$CSMS_TOKEN" -XPOST -H 'content-type: application/json' -d '{ "containers": ["{}"], "type": "read" }' \
+#mcbpro     | fx 'x => x.map(xx => xx.connectionString).join("\n")' \
+#mcbpro     | pbcopy
+#mcbpro     open https://cosmos.azure.com
+#mcbpro }
 
 function contrib(){
   {

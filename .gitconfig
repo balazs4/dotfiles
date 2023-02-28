@@ -5,6 +5,6 @@
   rebase = true
 [core]
 #carbon   hooksPath = /home/balazs4/.hooks
-#macbookpro  hooksPath = /Users/balazs4/.hooks
+#mcbpro  hooksPath = /Users/balazs4/.hooks
 [init]
   defaultBranch = main
