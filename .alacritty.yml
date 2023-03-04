@@ -46,7 +46,7 @@ window:
     general: alacritty
 
 font:
-#carbon   size: 12.0
+#carbon   size: 11.0
 #mcbpro   size: 14.0
   normal:
     family: SF Mono
