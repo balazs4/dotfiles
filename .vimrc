@@ -30,7 +30,7 @@ set foldmethod=manual
 set shortmess+=c
 set complete+=kspell
 set list
-set listchars=tab:\ \ ,trail:·,eol:¬,nbsp:_
+set listchars=tab:\ \ ,trail:·,eol:\ ,nbsp:_
 set guicursor=
 "mcbpro set re=2
 nnoremap <C-j> :m .+1<CR>==

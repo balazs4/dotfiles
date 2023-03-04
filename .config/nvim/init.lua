@@ -11,7 +11,7 @@ vim.opt.cursorline = false
 vim.opt.nu = true
 vim.opt.rnu = false
 vim.opt.list = true
-vim.opt.listchars = "tab:  ,trail:·,eol:¬,nbsp:_"
+vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
 
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup{ winopts = { fullscreen = false } }
