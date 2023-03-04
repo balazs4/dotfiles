@@ -77,7 +77,7 @@ function zz() {
 
   [[ $TMUX ]] \
     && cd ${to:-$PWD} \
-    || tmux new-session -A -s `basename ${to:-$PWD}` -c ${to:-$PWD}
+    || tmux new-session -A -s ${to:-$PWD} -c ${to:-$PWD}
 }
 
 alias z='TMUX=fake zz'
