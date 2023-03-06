@@ -13,16 +13,16 @@ vim.opt.rnu = false
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
 
-vim.keymap.set('n','<leader>t', function()
-  local filename = vim.fn.expand('%')
-  local testfilename = string.gsub(filename, ".ts$", ".test.ts")
-  vim.cmd('vsplit ' .. testfilename)
-end,
-{ noremap  = true, silent =true })
+vim.keymap.set('n', '<leader>t', function()
+    local filename = vim.fn.expand('%')
+    local testfilename = string.gsub(filename, ".ts$", ".test.ts")
+    vim.cmd('vsplit ' .. testfilename)
+  end,
+  { noremap = true, silent = true })
 
 
 -- https://github.com/ibhagwan/fzf-lua
-require('fzf-lua').setup{ winopts = { fullscreen = false } }
+require('fzf-lua').setup { winopts = { fullscreen = false } }
 vim.keymap.set('n', '<c-P>', require('fzf-lua').files, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>[', require('fzf-lua').buffers, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader><leader>', require('fzf-lua').builtin, { noremap = true, silent = true })
@@ -38,29 +38,30 @@ vim.keymap.set('n', '<leader>]', require('fzf-lua').live_grep, { noremap = true,
 require('cmp').setup({
   snippet = { expand = function(args) vim.fn["vsnip#anonymous"](args.body) end, },
   mapping = require('cmp').mapping.preset.insert({
-    ['<C-b>'] = require('cmp').mapping.scroll_docs(-4),
-    ['<C-f>'] = require('cmp').mapping.scroll_docs(4),
-    ['<C-Space>'] = require('cmp').mapping.complete(),
-    ['<C-e>'] = require('cmp').mapping.abort(),
-    ['<CR>'] = require('cmp').mapping.confirm({ select = true }),
+        ['<C-b>'] = require('cmp').mapping.scroll_docs(-4),
+        ['<C-f>'] = require('cmp').mapping.scroll_docs(4),
+        ['<C-Space>'] = require('cmp').mapping.complete(),
+        ['<C-e>'] = require('cmp').mapping.abort(),
+        ['<CR>'] = require('cmp').mapping.confirm({ select = true }),
   }),
-  sources = require('cmp').config.sources({{ name = 'nvim_lsp' }})
+  sources = require('cmp').config.sources({ { name = 'nvim_lsp' } })
 })
 
 -- https://github.com/neovim/nvim-lspconfig
-vim.diagnostic.config({virtual_text = true, signs = false, update_in_insert = false})
+vim.diagnostic.config({ virtual_text = true, signs = false, update_in_insert = false })
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local function on_attach(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, {noremap=true, silent=true, buffer=bufnr})
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap=true, silent=true, buffer=bufnr})
-  vim.keymap.set('n', 'gR', vim.lsp.buf.rename, {noremap=true, silent=true, buffer=bufnr})
-  vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true} end, {noremap=true, silent=true, buffer=bufnr})
-  vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, {noremap=true, silent=true, buffer=bufnr})
-  vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, {noremap=true, silent=true, buffer=bufnr})
-  vim.keymap.set('n', 'gb', require('fzf-lua').lsp_document_diagnostics, {noremap=true, silent=true, buffer=bufnr})
+  vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, { noremap = true, silent = true, buffer = bufnr })
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true, buffer = bufnr })
+  vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true, buffer = bufnr })
+  vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end,
+  { noremap = true, silent = true, buffer = bufnr })
+  vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { noremap = true, silent = true, buffer = bufnr })
+  vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, { noremap = true, silent = true, buffer = bufnr })
+  vim.keymap.set('n', 'gb', require('fzf-lua').lsp_document_diagnostics, { noremap = true, silent = true, buffer = bufnr })
 end
 
 require('lspconfig')['rust_analyzer'].setup({ capabilities = capabilities, on_attach = on_attach })
@@ -70,10 +71,10 @@ require('lspconfig')['tsserver'].setup({
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
--- https://github.com/prettier/vim-prettier
-    vim.keymap.del('n', '<leader>p', {buffer=bufnr})
+    -- https://github.com/prettier/vim-prettier
+    vim.keymap.del('n', '<leader>p', { buffer = bufnr })
     vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent = true })
-	end
+  end
 })
 
 require('lspconfig')['lua_ls'].setup({
@@ -83,7 +84,7 @@ require('lspconfig')['lua_ls'].setup({
     Lua = {
       telemetry = { enable = false, },
       runtime = { version = 'LuaJIT', },
-      diagnostics = { globals = {'vim', 'ngx', 'describe', 'it'}, },
+      diagnostics = { globals = { 'vim', 'ngx', 'describe', 'it' }, },
       workspace = { checkThirdParty = false }
     }
   }
@@ -104,7 +105,7 @@ require("gruvbox").setup({
   invert_tabline = false,
   invert_intend_guides = false,
   inverse = true, -- invert background for search, diffs, statuslines and errors
-  contrast = "", -- can be "hard", "soft" or empty string
+  contrast = "",  -- can be "hard", "soft" or empty string
   palette_overrides = {},
   overrides = {},
   dim_inactive = false,
