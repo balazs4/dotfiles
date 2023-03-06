@@ -71,7 +71,7 @@ require('lspconfig')['tsserver'].setup({
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
-    -- https://github.com/prettier/vim-prettier
+-- https://github.com/pretttier/vim-prettier
     vim.keymap.del('n', '<leader>p', { buffer = bufnr })
     vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent = true })
   end
