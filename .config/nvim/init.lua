@@ -13,6 +13,14 @@ vim.opt.rnu = false
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
 
+vim.keymap.set('n','<leader>t', function()
+  local filename = vim.fn.expand('%')
+  local testfilename = string.gsub(filename, ".ts$", ".test.ts")
+  vim.cmd('vsplit ' .. testfilename)
+end,
+{ noremap  = true, silent =true })
+
+
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup{ winopts = { fullscreen = false } }
 vim.keymap.set('n', '<c-P>', require('fzf-lua').files, { noremap = true, silent = true })
