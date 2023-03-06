@@ -182,7 +182,6 @@ alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua"
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
 #carbon alias xx='xclip -rmlastnl -selection clipboard'
 #mcbpro alias xx='pbcopy'
-#mcbpro alias xx='pbcopy'
 alias ls='ls --color=auto'
 alias grep='grep --color'
 alias tree='tree -I node_modules'

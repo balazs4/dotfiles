@@ -58,20 +58,21 @@ local function on_attach(_, bufnr)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true, buffer = bufnr })
   vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true, buffer = bufnr })
   vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end,
-  { noremap = true, silent = true, buffer = bufnr })
+    { noremap = true, silent = true, buffer = bufnr })
   vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { noremap = true, silent = true, buffer = bufnr })
   vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, { noremap = true, silent = true, buffer = bufnr })
-  vim.keymap.set('n', 'gb', require('fzf-lua').lsp_document_diagnostics, { noremap = true, silent = true, buffer = bufnr })
+  vim.keymap.set('n', 'gb', require('fzf-lua').lsp_document_diagnostics,
+  { noremap = true, silent = true, buffer = bufnr })
 end
 
 require('lspconfig')['rust_analyzer'].setup({ capabilities = capabilities, on_attach = on_attach })
 require('lspconfig')['gopls'].setup({ capabilities = capabilities, on_attach = on_attach })
 
+-- https://github.com/prettier/vim-prettier
 require('lspconfig')['tsserver'].setup({
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
--- https://github.com/pretttier/vim-prettier
     vim.keymap.del('n', '<leader>p', { buffer = bufnr })
     vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent = true })
   end
