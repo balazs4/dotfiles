@@ -200,7 +200,7 @@ alias sshignore="ssh -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/nu
 alias gd='git diff'
 alias gst='git status'
 alias gco='git checkout'
-alias gpp='git pull --prune --tags; git gc'
+alias gpp='git pull --prune --tags'
 alias gcm='git checkout `git branch | grep -m 1 -E "^\s+(canary|main|master)$" | sed "s|^* ||g"`'
 alias gf="git status --porcelain | awk '{print \$NF}'"
 alias shrug='curl -s http://shrug.io | xx'
