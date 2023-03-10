@@ -13,13 +13,6 @@ vim.opt.rnu = false
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
 
-vim.keymap.set('n', '<leader>t', function()
-    local filename = vim.fn.expand('%')
-    local testfilename = string.gsub(filename, ".ts$", ".test.ts")
-    vim.cmd('vsplit ' .. testfilename)
-  end,
-  { noremap = true, silent = true })
-
 
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup { winopts = { fullscreen = false } }
@@ -27,7 +20,6 @@ vim.keymap.set('n', '<c-P>', require('fzf-lua').files, { noremap = true, silent 
 vim.keymap.set('n', '<leader>[', require('fzf-lua').buffers, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader><leader>', require('fzf-lua').builtin, { noremap = true, silent = true })
 vim.keymap.set('n', '``', require('fzf-lua').resume, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_document_diagnostics, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>]', require('fzf-lua').live_grep, { noremap = true, silent = true })
 
 -- https://github.com/hrsh7th/cmp-nvim-lsp
@@ -61,8 +53,8 @@ local function on_attach(_, bufnr)
     { noremap = true, silent = true, buffer = bufnr })
   vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { noremap = true, silent = true, buffer = bufnr })
   vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, { noremap = true, silent = true, buffer = bufnr })
-  vim.keymap.set('n', 'gb', require('fzf-lua').lsp_document_diagnostics,
-  { noremap = true, silent = true, buffer = bufnr })
+  vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_document_diagnostics, { noremap = true, silent = true })
+  vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols, { noremap = true, silent = true })
 end
 
 require('lspconfig')['rust_analyzer'].setup({ capabilities = capabilities, on_attach = on_attach })
@@ -75,6 +67,16 @@ require('lspconfig')['tsserver'].setup({
     on_attach(client, bufnr)
     vim.keymap.del('n', '<leader>p', { buffer = bufnr })
     vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent = true })
+
+    vim.keymap.set('n', '<leader>t', function()
+      local filename = vim.fn.expand('%')
+      local testfilename = string.gsub(filename, ".ts$", ".test.ts")
+      vim.cmd('vsplit ' .. testfilename)
+    end, { noremap = true, silent = true })
+
+    vim.keymap.set('n', '<leader>r', function()
+      vim.cmd('! tmux split-window npm run test -- --watch %')
+    end, { noremap = true, silent = true })
   end
 })
 
