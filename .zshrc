@@ -174,6 +174,7 @@ function nvimplug(){
   popd
 }
 
+alias so="source $HOME/.zshenv"
 alias v="vim -c ':GFiles?'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
@@ -738,8 +739,14 @@ function ip() {
 #mcbpro     | xargs -I{} curl -H "Authorization: Bearer $VC_TOKEN" -Ls  "$CSMS_TOKEN" -XPOST -H 'content-type: application/json' -d '{ "containers": ["{}"], "type": "read" }' \
 #mcbpro     | fx 'x => x.map(xx => xx.connectionString).join("\n")' \
 #mcbpro     | pbcopy
-#mcbpro     carbonyl https://cosmos.azure.com
+#mcbpro     docker run --rm -it fathyb/carbonyl https://cosmos.azure.com
 #mcbpro }
+
+function va(){
+  local api=${1}
+  shift
+  curl --http1.1 -sLfS -H "$VC_BACKOFFICE_AUTH" "$VC_BACKOFFICE${api}" ${*}
+}
 
 function contrib(){
   {
