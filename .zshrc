@@ -115,9 +115,6 @@ export PATH=${GOPATH}/bin:${PATH}
 
 #rust
 export PATH=$HOME/.cargo/bin:$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/:${PATH}
-#carbon function dcargo(){
-#carbon   docker run -it --rm --user `id -u`:`id -g` -v "$PWD:/`basename $PWD`" -w /`basename $PWD` ghcr.io/rust-lang/rust:nightly-alpine cargo $@
-#carbon }
 
 
 function dot(){
@@ -374,8 +371,6 @@ function blue() {
   fi
   pkill -SIGRTMIN+1 i3blocks
 }
-#carbon alias vercel='npx -qy vercel@latest -t $VERCEL_TOKEN'
-#carbon alias vc='npx -qy vercel@latest -t $VERCEL_TOKEN'
 
 #carbon alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
 #carbon alias telegram='google-chrome-stable --user-data-dir=$HOME/.config/webapp/telegram --app=https://web.telegram.org'
