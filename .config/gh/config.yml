@@ -25,7 +25,8 @@ aliases:
       "browse $2")
         gh api 'repos/{owner}/{repo}' \
           | xurls \
-          | grep -Eo '^https:\/\/github.com\/\S+\/\S+[^\.git]$' \
+          | grep -Eo '^https.*\.git$' \
+          | sed 's/\.git$//' \
           | sort \
           | uniq \
 #mcbpro          | xargs -t -I{} open {}/blob/`git rev-parse --abbrev-ref HEAD`/`echo $2 | sed -E 's/:([0-9]+)$/#L\1/g'`
