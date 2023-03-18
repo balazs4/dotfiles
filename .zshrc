@@ -167,7 +167,7 @@ function nvimplug(){
   mkdir -p $HOME/.local/share/nvim/site/pack/_/start/ 2>/dev/null
 
   pushd $HOME/.local/share/nvim/site/pack/_/start/
-    grep '^-- https://github' $HOME/.config/nvim/init.lua | sed 's/-- //g' | xargs -t -L1 git clone --depth=1
+    grep '^\s*-- https://github' $HOME/.config/nvim/init.lua | sed 's/^[[:space:]]*-- //g' | xargs -t -L1 git clone --depth=1
   popd
 }
 
