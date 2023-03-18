@@ -2,9 +2,9 @@
 super + Print
   shotgun `hacksaw -f "-i %i -g %g"` - | xclip -t 'image/png' -selection clipboard && dunstify "shotgun" "copied to clipboard"
 
-# super + space
-#   [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us \
-#     ;pkill -SIGRTMIN+2 i3blocks
+super + space
+  [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us \
+    ;pkill -SIGRTMIN+2 i3blocks
 
 super + c
   $BROWSER
@@ -30,7 +30,7 @@ super + {Next,Prior,Control_R}
 super + backslash
   zsh -i -c 'source ~/.zshrc; now'
 
-super + space
+super + a
   i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 
 
 super + l
