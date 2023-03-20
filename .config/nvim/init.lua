@@ -96,25 +96,6 @@ require('lspconfig')['lua_ls'].setup({
 -- https://github.com/terrortylor/nvim-comment
 require('nvim_comment').setup()
 
--- https://github.com/ellisonleao/gruvbox.nvim
-require("gruvbox").setup({
-  undercurl = false,
-  underline = false,
-  bold = false,
-  italic = false,
-  strikethrough = false,
-  invert_selection = false,
-  invert_signs = false,
-  invert_tabline = false,
-  invert_intend_guides = false,
-  inverse = true, -- invert background for search, diffs, statuslines and errors
-  contrast = "",  -- can be "hard", "soft" or empty string
-  palette_overrides = {},
-  overrides = {},
-  dim_inactive = false,
-  transparent_mode = false,
-})
-
 -- https://github.com/catppuccin/nvim catppuccin
 
 -- https://github.com/balazs4/zeitgeist

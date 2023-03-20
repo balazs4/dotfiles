@@ -38,7 +38,7 @@ colors:
 
 ## custom
 window:
-#mcbpro   decorations: None
+  decorations: None
   title: alacritty
   dynamic_title: true
   class:
