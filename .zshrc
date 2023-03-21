@@ -451,7 +451,7 @@ function news(){
   tmux new-session -s 'news' -d
 
   tmux rename-window -t "news.1" "wttr"
-  tmux send-keys -t "news:wttr.1" "curl -s http://wttr.in/91085" Enter
+  tmux send-keys -t "news:wttr.1" "curl -s v2.wttr.in/91085" Enter
 
   tmux new-window -t "news" -n "hackernews"
   tmux send-keys -t "news:hackernews.1" "hackernews 10" Enter
