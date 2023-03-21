@@ -217,7 +217,7 @@ alias delta='delta --side-by-side --syntax-theme=Nord'
 
 function srv(){
   node -e "
-  require('http').createServer(async (req, res) => {
+  require('http').createServer((req, res) => {
     process.stdout.write('\n');
     process.stdout.write(req.method + ' ' + req.url);
     process.stdout.write('\n');
