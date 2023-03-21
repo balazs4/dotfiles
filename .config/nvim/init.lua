@@ -12,6 +12,7 @@ vim.opt.nu = true
 vim.opt.rnu = false
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
+vim.opt.cmdheight = 2
 
 
 -- https://github.com/ibhagwan/fzf-lua
@@ -75,7 +76,10 @@ require('lspconfig')['tsserver'].setup({
     end, { noremap = true, silent = true })
 
     vim.keymap.set('n', '<leader>r', function()
-      vim.cmd('! tmux split-window npm run test -- --watch %')
+      local filename = vim.fn.expand('%')
+      local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts' and filename or string.gsub(filename, ".ts$", ".test.ts")
+      vim.cmd('! tmux split-window npm run test -- --watch ' .. testfilename)
+      vim.cmd('! tmux select-pane -l')
     end, { noremap = true, silent = true })
   end
 })
