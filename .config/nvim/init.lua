@@ -12,8 +12,13 @@ vim.opt.nu = true
 vim.opt.rnu = false
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
-vim.opt.cmdheight = 2
+vim.opt.cmdheight = 3
 
+vim.keymap.set('n', '<leader>g', function()
+  local filename = vim.fn.expand('%')
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+  vim.cmd('! gh _ browse ' .. filename .. ':' .. row)
+end, { noremap = true, silent = true })
 
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup { winopts = { fullscreen = false } }
