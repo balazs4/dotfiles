@@ -12,7 +12,7 @@ vim.opt.nu = true
 vim.opt.rnu = false
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
-vim.opt.cmdheight = 3
+vim.opt.cmdheight = 1
 
 vim.keymap.set('n', '<leader>g', function()
   local filename = vim.fn.expand('%')
