@@ -201,6 +201,7 @@ alias gco='git checkout'
 alias gpp='git pull --prune --tags'
 alias gcm='git checkout `git branch | grep -m 1 -E "^\s+(canary|main|master)$" | sed "s|^* ||g"`'
 alias gf="git status --porcelain | awk '{print \$NF}'"
+alias gpick='git log -300 --oneline --color $1 | fzf -m --ansi --preview "git show --color {1}" | awk "{print $1}"'
 alias shrug='curl -s http://shrug.io | xx'
 alias wipe='docker rm -f `docker ps -aq`; docker network prune -f; docker volume prune -f'
 #carbon alias dco='docker compose'
