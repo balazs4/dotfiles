@@ -645,33 +645,12 @@ function meme(){
 
 alias cmm='meme 129242436'
 
-#mcbpro function linear(){
-#mcbpro   jo query="$*" \
-#mcbpro     | curl -Lis -H 'content-type: application/json' -H "authorization: Bearer $LINEAR_TOKEN" https://api.linear.app/graphql -XPOST -d@- \
-#mcbpro     | alola 'status should be 200' 2>/dev/null \
-#mcbpro     | fx 'x => x.body.data'
-#mcbpro }
-#mcbpro 
-#mcbpro function issues(){
-#mcbpro   if test -z $LINEAR_USER_ID
-#mcbpro   then
-#mcbpro     export LINEAR_USER_ID=`linear '{viewer{id}}' | fx .viewer.id`
-#mcbpro   fi
-#mcbpro   linear "{user(id: \"$LINEAR_USER_ID\") {assignedIssues(filter: {state: {name: {nin: [\"Done\", \"Canceled\"]}}}){nodes {url identifier state {name}}}}}" \
-#mcbpro     | fx 'x => x.user.assignedIssues.nodes.map(xx => [ xx.url, xx.identifier, xx.state.name].join("\t")).join("\n")' \
-#mcbpro     | fzf -1 -q "'$*"
-#mcbpro }
-#mcbpro function lfg(){
-#mcbpro   issues $* | cut -f2 | gawk '{print tolower($0)}' | xargs git checkout -b
-#mcbpro }
-
 function s3fzf(){
   aws s3 ls ${1} --recursive \
     | fzf --preview "aws s3 cp ${1}{4} -" \
     | awk '{print $NF}' \
     | xargs -I{} aws s3 cp ${1}{} -
 }
-
 
 function vvv(){
   latest_release=`gh release list -L1 | cut -f1`
