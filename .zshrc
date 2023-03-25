@@ -203,7 +203,7 @@ alias gcm='git checkout `git branch | grep -m 1 -E "^\s+(canary|main|master)$" |
 alias gf="git status --porcelain | awk '{print \$NF}'"
 alias gpick='git log -300 --oneline --color $1 | fzf -m --ansi --preview "git show --color {1}" | awk "{print $1}"'
 alias shrug='curl -s http://shrug.io | xx'
-alias wipe='docker rm -f `docker ps -aq`; docker network prune -f; docker volume prune -f'
+alias wipe='docker rm -f `docker ps -aq`'
 #carbon alias dco='docker compose'
 #mcbpro alias dco='docker-compose'
 alias rg='rg --hidden'
@@ -756,7 +756,7 @@ function brag(){
     && cd -
 }
 
-alias carbonyl='docker run --rm -it fathyb/carbonyl'
+alias carbonyl='docker run --rm -it -v carbonyl:/carbonyl/data fathyb/carbonyl'
 
 function home(){
   echo "There is no place like home"
