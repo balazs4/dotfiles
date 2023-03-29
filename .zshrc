@@ -433,18 +433,18 @@ services:
 #carbon   local title="`playerctl metadata --format '{{title}}'`"
 #carbon   local artist="`playerctl metadata --format '{{artist}}'`"
 #carbon   local searchterm=`node -p "encodeURIComponent('$artist $title'.trim())"`
-#carbon 
+#carbon
 #carbon   [[ $artUrl ]] && curl -s $artUrl -o /tmp/$searchterm.png
-#carbon 
+#carbon
 #carbon   if [[ ! -f /tmp/$searchterm.png ]]
 #carbon   then
 #carbon     curl -Lisk "https://api.deezer.com/search?strict=on&q=$searchterm" \
-#carbon       | ALOLA_REPORT=silent npx alola 'status should be 200' \
-#carbon       | npx fx 'x => x.body.data.map(xx => xx.album.cover_medium).join("\n")' \
+#carbon       | alola 'status should be 200' \
+#carbon       | fx 'x => x.body.data.map(xx => xx.album.cover_medium).join("\n")' \
 #carbon       | head -1 \
 #carbon       | xargs -I{} curl -s {} -o /tmp/$searchterm.png
 #carbon   fi
-#carbon 
+#carbon
 #carbon   dunstify -I /tmp/$searchterm.png "$title" "$artist"
 #carbon }
 
