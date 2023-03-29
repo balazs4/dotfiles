@@ -15,7 +15,7 @@ vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
 vim.opt.cmdheight = 1
 
 vim.keymap.set('n', '<leader>g', function()
-  local filename = vim.fn.expand('%')
+  local filename = string.gsub(vim.fn.expand('%'), os.getenv('PWD') or "", "")
   local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
   vim.cmd('! gh _ browse ' .. filename .. ':' .. row)
 end, { noremap = true, silent = true })
@@ -82,7 +82,8 @@ require('lspconfig')['tsserver'].setup({
 
     vim.keymap.set('n', '<leader>r', function()
       local filename = vim.fn.expand('%')
-      local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts' and filename or string.gsub(filename, ".ts$", ".test.ts")
+      local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts' and filename or
+      string.gsub(filename, ".ts$", ".test.ts")
       vim.cmd('! tmux split-window npm run test -- --watch ' .. testfilename)
       vim.cmd('! tmux select-pane -l')
     end, { noremap = true, silent = true })
