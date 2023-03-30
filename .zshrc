@@ -762,3 +762,5 @@ function home(){
   echo "There is no place like home"
   tmux new-session -A -s $HOME -c $HOME
 }
+
+alias resume='git diff main..HEAD --name-only | xargs nvim'
