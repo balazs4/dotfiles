@@ -119,7 +119,7 @@ export PATH=$HOME/.cargo/bin:$HOME/.rustup/toolchains/stable-x86_64-unknown-linu
 
 function dot(){
   pushd $HOME/.files > /dev/null
-    $EDITOR ${1:-.}
+    $EDITOR + ${1:-.}
     TMUX= source $PWD/.zprofile
   popd > /dev/null
 }
@@ -763,4 +763,7 @@ function home(){
   tmux new-session -A -s $HOME -c $HOME
 }
 
-alias resume='git diff main..HEAD --name-only | xargs nvim'
+function resume() {
+    git diff main..HEAD --name-only \
+    | xargs nvim -c ":FzfLua buffers"
+}
