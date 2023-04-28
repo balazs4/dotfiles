@@ -767,13 +767,3 @@ function resume() {
     git diff main..HEAD --name-only \
     | xargs nvim -c ":FzfLua buffers"
 }
-
-function tap() {
-  awk '
-     /not ok/     {print "\033[1;91m" $0           ;next}
-     /\.\.\./     {print              $0 "\033[0m" ;next}
-     /# tests/    {print "\033[1m"    $0 "\033[0m" ;next}
-     /# pass/     {print "\033[0;32m" $0 "\033[0m" ;next}
-     /# fail/     {print "\033[0;31m" $0 "\033[0m" ;next}
-                  {print "\033[2m"    $0                }'
-}
