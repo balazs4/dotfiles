@@ -108,6 +108,8 @@ export N_PREFIX=$HOME/.n/prefix
 export N_PRESERVE_NPM=1
 export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
 export PATH=./node_modules/.bin/:${PATH}
+export PNPM_HOME=$HOME/.pnpm-global
+export PATH=$PNPM_HOME:${PATH}
 
 #go
 export GOPATH=$HOME/.go
@@ -766,4 +768,16 @@ function home(){
 function resume() {
     git diff main..HEAD --name-only \
     | xargs nvim -c ":FzfLua buffers"
+}
+
+function redis(){
+  docker rm -f redis-server 2>/dev/null
+  docker run --rm -d --name redis-server -p 6379:6379 redis
+  docker ps
+}
+
+function dynamo(){
+  docker rm -f dynamodb-local 2>/dev/null
+  docker run --rm -d --name dynamodb-local -p 4133:8000 amazon/dynamodb-local
+  docker ps
 }

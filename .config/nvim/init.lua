@@ -81,11 +81,26 @@ require('lspconfig')['tsserver'].setup({
     end, { noremap = true, silent = true })
 
     vim.keymap.set('n', '<leader>r', function()
+      local function split(inputstr, sep)
+        if sep == nil then
+          sep = "%s"
+        end
+        local t = {}
+        for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
+          table.insert(t, str)
+        end
+        return t
+      end
+
       local filename = vim.fn.expand('%')
-      local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts' and filename or
-      string.gsub(filename, ".ts$", ".test.ts")
-      vim.cmd('! tmux split-window npm run test -- --watch ' .. testfilename)
+      local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
+          and filename
+          or string.gsub(filename, ".ts$", ".test.ts")
+      local config = split(testfilename, "/")
+
+      vim.cmd('! tmux split-window jest --config ./' .. config[1] .. '/jest.config.js --watch ' .. testfilename)
       vim.cmd('! tmux select-pane -l')
+      vim.cmd('! tmux send-keys Enter')
     end, { noremap = true, silent = true })
   end
 })
