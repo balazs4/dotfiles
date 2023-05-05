@@ -17,16 +17,15 @@ vim.opt.cmdheight = 1
 vim.keymap.set('n', '<leader>g', function()
   local filename = string.gsub(vim.fn.expand('%'), os.getenv('PWD') or "", "")
   local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
-  vim.cmd('! gh _ browse ' .. filename .. ':' .. row)
+  vim.cmd('! gh browse ' .. filename .. ':' .. row)
 end, { noremap = true, silent = true })
 
 -- https://github.com/ibhagwan/fzf-lua
-require('fzf-lua').setup { winopts = { fullscreen = false } }
-vim.keymap.set('n', '<c-P>', require('fzf-lua').files, { noremap = true, silent = true })
+require('fzf-lua').setup { winopts = { fullscreen = false, preview = { layout = 'vertical' } } }
+vim.keymap.set('n', '<leader>]', require('fzf-lua').files, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>[', require('fzf-lua').buffers, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader><leader>', require('fzf-lua').builtin, { noremap = true, silent = true })
 vim.keymap.set('n', '``', require('fzf-lua').resume, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>]', require('fzf-lua').live_grep, { noremap = true, silent = true })
 
 -- https://github.com/hrsh7th/cmp-nvim-lsp
 -- https://github.com/hrsh7th/cmp-buffer
