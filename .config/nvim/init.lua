@@ -95,7 +95,6 @@ require('lspconfig')['tsserver'].setup({
       local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
           and filename
           or string.gsub(filename, ".ts$", ".test.ts")
-      local config = split(testfilename, "/")
 
       vim.cmd('! tmux split-window jest --watch ' .. testfilename)
       vim.cmd('! tmux select-pane -l')
