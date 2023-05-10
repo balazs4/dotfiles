@@ -97,7 +97,7 @@ require('lspconfig')['tsserver'].setup({
           or string.gsub(filename, ".ts$", ".test.ts")
       local config = split(testfilename, "/")
 
-      vim.cmd('! tmux split-window jest --config ./' .. config[1] .. '/jest.config.js --watch ' .. testfilename)
+      vim.cmd('! tmux split-window jest --watch ' .. testfilename)
       vim.cmd('! tmux select-pane -l')
       vim.cmd('! tmux send-keys Enter')
     end, { noremap = true, silent = true })
