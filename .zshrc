@@ -618,7 +618,7 @@ function dark(){
 #mcbpro   git status --porcelain | awk '{print $NF}' | xargs -t npx prettier --ignore-unknown --write
 #mcbpro }
 #mcbpro function lint(){
-#mcbpro   { git status --porcelain | awk '{print $NF}'; } | grep '\.ts' | sort | uniq | xargs -t npx eslint --fix --max-warnings=0 --no-error-on-unmatched-pattern
+#mcbpro   { git status --porcelain | awk '{print $NF}'; gh pr diff --name-only } | grep '\.ts' | sort | uniq | xargs -t npx eslint --fix --max-warnings=0 --no-error-on-unmatched-pattern
 #mcbpro }
 #mcbpro
 #mcbpro function transpile() {
@@ -765,9 +765,10 @@ function home(){
   tmux new-session -A -s $HOME -c $HOME
 }
 
-function resume() {
-    git diff main..HEAD --name-only \
-    | xargs nvim -c ":FzfLua buffers"
+alias changes='git diff main..HEAD --name-only'
+
+function re() {
+    gh pr diff --name-only | xargs -t nvim -c ":FzfLua buffers"
 }
 
 function redis(){
