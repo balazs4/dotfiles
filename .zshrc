@@ -610,21 +610,10 @@ function dark(){
 #carbon   echo level ${1:-7} | sudo tee /proc/acpi/ibm/fan
 #carbon }
 
-#mcbpro function feedback() {
-#mcbpro   npm run test -- --watch `fzf -m -1 --query="'.test.ts !snap '$*"`
-#mcbpro }
-#mcbpro
-#mcbpro function fmt(){
-#mcbpro   git status --porcelain | awk '{print $NF}' | xargs -t npx prettier --ignore-unknown --write
-#mcbpro }
-#mcbpro function lint(){
-#mcbpro   { git status --porcelain | awk '{print $NF}'; gh pr diff --name-only } | grep '\.ts' | sort | uniq | xargs -t npx eslint --fix --max-warnings=0 --no-error-on-unmatched-pattern
-#mcbpro }
-#mcbpro
-#mcbpro function transpile() {
-#mcbpro   npx tsc --noEmit --watch --project `fzf -1 --query="'tsconfig.json $*"`
-#mcbpro }
-#mcbpro alias annoyme=transpile
+function fmt(){
+  git status --porcelain | awk '{print $NF}' | xargs -t npx prettier --ignore-unknown --write
+}
+
 function ff(){
   { git status --porcelain | awk '{print $NF}'; gh pr diff --patch | grep '^+++ b' | sed 's/+++ b\///' 2>/dev/null } | sort | uniq
 }
