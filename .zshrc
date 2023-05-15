@@ -771,3 +771,10 @@ function dynamo(){
   docker run --rm -d --name dynamodb-local -p 4133:8000 amazon/dynamodb-local
   docker ps
 }
+
+function lint(){
+  awk -F/ '{print $2}' \
+    | sort \
+    | uniq \
+    | xargs -I{} pnpm --filter {} eslint-fix
+}
