@@ -761,13 +761,11 @@ function re() {
 }
 
 function redis(){
-  docker rm -f redis-server 2>/dev/null
   docker run --rm -d --name redis-server -p 6379:6379 redis
   docker ps
 }
 
 function dynamo(){
-  docker rm -f dynamodb-local 2>/dev/null
   docker run --rm -d --name dynamodb-local -p 4133:8000 amazon/dynamodb-local
   docker ps
 }
