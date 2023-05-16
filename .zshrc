@@ -708,12 +708,6 @@ function ip() {
 #mcbpro     docker run --rm -it fathyb/carbonyl https://cosmos.azure.com
 #mcbpro }
 
-function va(){
-  local api=${1}
-  shift
-  curl --http1.1 -sLfS -H "$VC_BACKOFFICE_AUTH" "$VC_BACKOFFICE${api}" ${*}
-}
-
 function contrib(){
   {
     gh api --paginate "/search/issues?per_page=100&q=org:$GITHUB_ORG+sort:created+created:>$GITHUB_START+involves:@me+is:pr";
