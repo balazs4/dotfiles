@@ -599,6 +599,7 @@ function light(){
   echo "color shine" >> $HOME/.vimrc
 
   echo '--theme="gruvbox-light"' >> $HOME/.config/bat/config
+  echo '' > /home/balazs4/.config/chromium-flags.conf
 }
 
 function dark(){
