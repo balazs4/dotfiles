@@ -60,6 +60,7 @@ local function on_attach(_, bufnr)
   vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, { noremap = true, silent = true, buffer = bufnr })
   vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_document_diagnostics, { noremap = true, silent = true })
   vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols, { noremap = true, silent = true })
+  vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
 end
 
 require('lspconfig')['rust_analyzer'].setup({ capabilities = capabilities, on_attach = on_attach })
