@@ -771,3 +771,9 @@ function lint(){
     | uniq \
     | xargs -I{} pnpm --filter {} eslint-fix
 }
+
+function pacs(){
+  yay -Q \
+    | fzf --multi --reverse \
+    | awk '{print $1}'
+}
