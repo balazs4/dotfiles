@@ -777,3 +777,5 @@ function pacs(){
     | fzf --multi --reverse \
     | awk '{print $1}'
 }
+
+alias na='n auto; pnpm install'
