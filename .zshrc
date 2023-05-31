@@ -765,25 +765,11 @@ function dynamo(){
   docker ps
 }
 
-function lint(){
+function pf(){
   fd package.json \
     | fzf \
     | awk -F/ '{print $(NF-1)}' \
-    | xargs -t -I{} zsh -i -c 'watchexec -vv -c -- pnpm --filter {} eslint-check'
-}
-
-function typecheck(){
-  fd package.json \
-    | fzf \
-    | awk -F/ '{print $(NF-1)}' \
-    | xargs -t -I{} pnpm --filter {} typecheck --noEmit --watch
-}
-
-function test(){
-  fd package.json \
-    | fzf \
-    | awk -F/ '{print $(NF-1)}' \
-    | xargs -t -I{} pnpm --filter {} typecheck --noEmit --watch
+    | xargs -t -I{} pnpm --filter {} ${*}
 }
 
 function pacs(){
