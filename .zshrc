@@ -769,7 +769,7 @@ function lint(){
   fd package.json \
     | fzf \
     | awk -F/ '{print $(NF-1)}' \
-    | xargs -t -I{} zsh -i -c 'watchexec -vv -c -- pnpm --filter {} eslint-fix'
+    | xargs -t -I{} zsh -i -c 'watchexec -vv -c -- pnpm --filter {} eslint-check'
 }
 
 function typecheck(){
