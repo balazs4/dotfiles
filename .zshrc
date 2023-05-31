@@ -766,10 +766,24 @@ function dynamo(){
 }
 
 function lint(){
-  awk -F/ '{print $2}' \
-    | sort \
-    | uniq \
-    | xargs -I{} pnpm --filter {} eslint-fix
+  fd package.json \
+    | fzf \
+    | awk -F/ '{print $(NF-1)}' \
+    | xargs -t -I{} zsh -i -c 'watchexec -vv -c -- pnpm --filter {} eslint-fix'
+}
+
+function typecheck(){
+  fd package.json \
+    | fzf \
+    | awk -F/ '{print $(NF-1)}' \
+    | xargs -t -I{} pnpm --filter {} typecheck --noEmit --watch
+}
+
+function test(){
+  fd package.json \
+    | fzf \
+    | awk -F/ '{print $(NF-1)}' \
+    | xargs -t -I{} pnpm --filter {} typecheck --noEmit --watch
 }
 
 function pacs(){
