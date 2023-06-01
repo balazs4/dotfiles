@@ -769,7 +769,7 @@ function pf(){
   fd package.json \
     | fzf \
     | awk -F/ '{print $(NF-1)}' \
-    | xargs -t -I{} pnpm --filter {} ${*}
+    | xargs -t -I{} zsh -i -c "watchexec -vv -c -- pnpm --filter {} ${*}"
 }
 
 function pacs(){
