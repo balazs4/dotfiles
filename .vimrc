@@ -46,8 +46,7 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 "https://github.com/junegunn/fzf.vim
 "mcbpro set rtp+=/opt/homebrew/opt/fzf
 nnoremap <Leader>[ :Buffers<CR>
-nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
-nnoremap <Leader>] :Rg<CR>
+nnoremap <Leader>] :GFiles<CR>
 nnoremap <leader><leader> :Commands<CR>
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
