@@ -766,10 +766,12 @@ function dynamo(){
 }
 
 function pf(){
-  fd package.json \
-    | fzf \
-    | awk -F/ '{print $(NF-1)}' \
-    | xargs -t -I{} zsh -i -c "watchexec -vv -c -- pnpm --filter {} ${*}"
+  local packagejson=`fd package.json | fzf --height '25%' -1 -q"${*:-service}"`
+  local app=`echo $packagejson | awk -F/ '{print $(NF-1)}'`
+  local cmd=`fx $packagejson 'x => Object.entries(x.scripts).map(x => x.join("\t")).join("\n")' | fzf --height '25%' -1 -q"'${PF}" | awk '{print $1}'`
+  local dir=`dirname $packagejson`
+
+  watchexec -vv -c --print-events  -w $dir --project-origin $dir -- pnpm --filter $app $cmd
 }
 
 function pacs(){
