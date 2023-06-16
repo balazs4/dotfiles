@@ -21,6 +21,7 @@ setopt share_history          # share command history data
 #mcbpro export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 #mcbpro FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 #mcbpro export PATH="$HOME/.luarocks/bin:${PATH}"
+#mcbpro export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
