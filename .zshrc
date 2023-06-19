@@ -432,9 +432,9 @@ services:
 }
 
 #carbon function now(){
-#carbon   local artUrl=`playerctl metadata --format '{{mpris:artUrl}}'`
-#carbon   local title="`playerctl metadata --format '{{title}}'`"
-#carbon   local artist="`playerctl metadata --format '{{artist}}'`"
+#carbon   local artUrl="`mpris-ctl info '%art_url'`"
+#carbon   local title="`mpris-ctl info '%track_name'`"
+#carbon   local artist="`mpris-ctl info '%artist_name'`"
 #carbon   local searchterm=`node -p "encodeURIComponent('$artist $title'.trim())"`
 #carbon
 #carbon   [[ $artUrl ]] && curl -s $artUrl -o /tmp/$searchterm.png
