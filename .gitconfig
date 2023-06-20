@@ -1,6 +1,7 @@
 # Linux Darwin
 [user]
   name = balazs4
+  email = balas4web@gmail.com
 [pull]
   rebase = true
 [core]
