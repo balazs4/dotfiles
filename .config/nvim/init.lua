@@ -21,7 +21,7 @@ vim.keymap.set('n', '<leader>g', function()
 end, { noremap = true, silent = true })
 
 -- https://github.com/ibhagwan/fzf-lua
-require('fzf-lua').setup { winopts = { fullscreen = false, preview = { layout = 'vertical' } } }
+require('fzf-lua').setup { 'default',  winopts = { fullscreen = false, preview = { layout = 'vertical' } } }
 vim.keymap.set('n', '<leader>]', require('fzf-lua').files, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>[', require('fzf-lua').buffers, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader><leader>', require('fzf-lua').builtin, { noremap = true, silent = true })
