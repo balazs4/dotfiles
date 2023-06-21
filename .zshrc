@@ -782,3 +782,7 @@ function pacs(){
 }
 
 alias na='n auto; pnpm install'
+
+function nodepoch(){
+  node -p "new Date($1).toJSON()"
+}

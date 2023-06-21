@@ -127,6 +127,3 @@ require('nvim_comment').setup()
 vim.cmd("colorscheme zeitgeist")
 
 -- https://github.com/navarasu/onedark.nvim
-
--- https://github.com/phaazon/hop.nvim
-require('hop').setup { keys = 'etovxqpdygfblzhckisuran' }
