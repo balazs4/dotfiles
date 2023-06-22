@@ -772,7 +772,7 @@ function pf(){
   local cmd=`fx $packagejson 'x => Object.entries(x.scripts).map(x => x.join("\t")).join("\n")' | fzf --height '25%' -1 -q"'${PF}" | awk '{print $1}'`
   local dir=`dirname $packagejson`
 
-  watchexec -vv -c --print-events  -w $dir --project-origin $dir -- pnpm --filter $app $cmd
+  watchexec -vv -c --print-events  -w $dir --project-origin $dir -s SIGKILL -- pnpm --filter $app $cmd
 }
 
 function pacs(){
