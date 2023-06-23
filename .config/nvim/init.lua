@@ -21,7 +21,7 @@ vim.keymap.set('n', '<leader>g', function()
 end, { noremap = true, silent = true })
 
 -- https://github.com/ibhagwan/fzf-lua
-require('fzf-lua').setup { 'default',  winopts = { fullscreen = false, preview = { layout = 'vertical' } } }
+require('fzf-lua').setup { 'default', winopts = { fullscreen = false, preview = { layout = 'vertical' } } }
 vim.keymap.set('n', '<leader>]', require('fzf-lua').files, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>[', require('fzf-lua').buffers, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader><leader>', require('fzf-lua').builtin, { noremap = true, silent = true })
@@ -77,8 +77,11 @@ require('lspconfig')['tsserver'].setup({
 
     vim.keymap.set('n', '<leader>t', function()
       local filename = vim.fn.expand('%')
-      local testfilename = string.gsub(filename, ".ts$", ".test.ts")
-      vim.cmd('vsplit ' .. testfilename)
+      local targetfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
+          and string.gsub(filename, ".test.ts$", ".ts")
+          or string.gsub(filename, ".ts$", ".test.ts")
+
+      vim.cmd('vsplit ' .. targetfilename)
     end, { noremap = true, silent = true })
 
     vim.keymap.set('n', '<leader>r', function()
