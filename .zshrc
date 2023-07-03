@@ -221,7 +221,7 @@ alias delta='delta --side-by-side --syntax-theme=Nord'
 
 function srv(){
   node -e "
-  require('http').createServer((req, res) => {
+  require('node:http').createServer(async (req, res) => {
     process.stdout.write('\n');
     process.stdout.write(req.method + ' ' + req.url);
     process.stdout.write('\n');
@@ -229,6 +229,21 @@ function srv(){
       process.stdout.write(key + ': ' + value);
       process.stdout.write('\n');
     });
+
+    if (req.method.toUpperCase() !== 'GET'){
+      process.stdout.write('\n');
+      await require('node:stream/promises')
+        .pipeline(
+          req,
+          async function*(source) {
+            for await (const chunk of source){
+              process.stdout.write(chunk);
+            }
+          }
+        ).catch();
+      process.stdout.write('\n');
+    }
+
     process.stdout.write('\n');
     res.writeHead(200, { 'content-type': 'text/plain' });
     res.end();
