@@ -23,42 +23,6 @@
 //carbon   return traverse(json).filter(Boolean).join('\n');
 //carbon }
 
-const find = (predicate) => (level) => {
-  if (predicate(level)) return level;
-  const [found = null] = level.nodes
-    .map((node) => find(predicate)(node))
-    .filter((x) => x);
-  return found;
-};
-
-function youtubevideos(json) {
-  const findarrays = (obj) => {
-    if (obj.length) return obj;
-    return Object.values(obj)
-      .map((child) => findarrays(child))
-      .flat();
-  };
-  const arrays = findarrays(json).flat();
-  if (arrays === null || arrays === undefined) return undefined;
-  const videos = arrays.find((x) =>
-    x?.itemSectionRenderer?.contents.find((xx) => xx?.videoRenderer)
-  )?.itemSectionRenderer?.contents;
-  if (videos === null || videos === undefined) return undefined;
-
-  return videos
-    .filter((x) => x?.videoRenderer?.videoId)
-    .filter((x) => x)
-    .map((x) =>
-      [
-        x.videoRenderer.videoId,
-        x.videoRenderer.lengthText.simpleText.padStart(8),
-        x.videoRenderer.viewCountText.simpleText.padStart(16),
-        x.videoRenderer.title.runs[0].text,
-      ].join('\t')
-    )
-    .join('\n');
-}
-
 function jwt(json){
   return json.redirects[0].headers['set-cookie'].split(';')[0].split('=')[1];
 }

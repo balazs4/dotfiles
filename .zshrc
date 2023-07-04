@@ -367,7 +367,23 @@ function yt(){
     | xargs -t -I{} curl -Lfs -H "accept-language: ${LNG:-en}" https://www.youtube.com/results\?search_query={} \
     | pup 'script:contains("var ytInitialData") text{}' \
     | sed 's/var ytInitialData = //g; s/};/}/' \
-    | fx youtubevideos \
+    | fx 'yt => yt
+      .contents
+      .twoColumnSearchResultsRenderer
+      .primaryContents
+      .sectionListRenderer
+      .contents[0]
+      .itemSectionRenderer
+      .contents
+      .filter(x => x?.videoRenderer)
+      .map(x =>
+      [
+        x.videoRenderer.videoId,
+        x.videoRenderer.lengthText.simpleText.padStart(8),
+        x.videoRenderer.viewCountText.simpleText.padStart(16),
+        x.videoRenderer.title.runs[0].text,
+      ].join("\t")
+    ) .join("\n")' \
     | sort -k3 -rh \
     | fzf --sync --reverse --height=50% \
     | cut -f1 \
