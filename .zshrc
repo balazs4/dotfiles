@@ -785,7 +785,7 @@ function home(){
 alias changes='git diff main..HEAD --name-only'
 
 function re() {
-    gh pr diff --name-only | xargs -t nvim -c ":FzfLua buffers"
+  gh pr diff --name-only | xargs -t nvim -c ":FzfLua buffers"
 }
 
 function redis(){
