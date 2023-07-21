@@ -509,7 +509,8 @@ function hackernews(){
     | alola 'status should be 200' 2>/dev/null \
     | fx "x=> x.body.slice(0,${1:-10}).join(\"\n\")" \
     | xargs -I{} curl -s https://hacker-news.firebaseio.com/v0/item/{}.json \
-    | fx 'x => [`\x1b[2m${x.url}\x1b[0m`, `\x1b[1m${x.title}\x1b[0m`, " "].join("\n")' 
+    | fx 'x => [x.url, x.title].join("\t")' \
+    | fzf --with-nth="2.." --preview 'echo {} | xurls | xargs reader -i -o'
 }
 
 function reddit(){
