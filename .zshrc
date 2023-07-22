@@ -826,7 +826,7 @@ function servus(){
   require('node:http').createServer((req,res) => {
     if (req.url === '/servus'){
       res.writeHead(200,{ 'content-type': 'text/event-stream', 'connection': 'keep-alive', 'cache-control': 'no-cache' });
-      const handler = () => req.write('data: servus\n\n');
+      const handler = () => res.write('data: servus\n\n');
       res.on('close', () => require('node:process').off('SIGUSR2', handler));
       require('node:process').on('SIGUSR2', handler);
       return;
@@ -851,6 +851,6 @@ function servus(){
         console.log([req.method, req.url, res.statusCode, res.statusText, err?.message].join(' '))
       }
    );
-  }).listen(${PORT:-4269}, () => console.log('[servus] http://localhost:' + ${PORT:-4269}));
+   }).listen(${PORT:-4269}, () => console.log('[servus] http://localhost:' + ${PORT:-4269} + ' kill -s SIGUSR2 ' + require('node:process').pid));
   "
 }
