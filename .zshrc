@@ -822,11 +822,11 @@ function nodepoch(){
 }
 
 function servus(){
-  node -e "
+  watchexec --print-events --no-meta --shell=none --signal=SIGUSR2 -- node -e "
   require('node:http').createServer((req,res) => {
-    if (req.url === '/servus'){
+    if (req.url === '/.servus' ){
       res.writeHead(200,{ 'content-type': 'text/event-stream', 'connection': 'keep-alive', 'cache-control': 'no-cache' });
-      const handler = () => res.write('data: servus\n\n');
+      const handler = () => res.write('data: servus pid:' + require('node:process').pid + '\n\n');
       res.on('close', () => require('node:process').off('SIGUSR2', handler));
       require('node:process').on('SIGUSR2', handler);
       return;
@@ -842,7 +842,7 @@ function servus(){
       require('node:fs').createReadStream(file),
       async function* (source) {
         for await (const chunk of source){ yield chunk; }
-        if (filename.endsWith('.html') === true){ yield '<script>new EventSource(\'/servus\').onmessage = function(){ location.reload();}</script>'; }
+        if (filename.endsWith('.html') === true){ yield '<script>new EventSource(\'/.servus\').onmessage = function(){ location.reload();}</script>'; }
       },
       res,
       err => {
@@ -851,6 +851,6 @@ function servus(){
         console.log([req.method, req.url, res.statusCode, res.statusText, err?.message].join(' '))
       }
    );
-   }).listen(${PORT:-4269}, () => console.log('[servus] http://localhost:' + ${PORT:-4269} + ' kill -s SIGUSR2 ' + require('node:process').pid));
+   }).listen(${PORT:-4269}, () => console.log('[servus:pid=' + require('node:process').pid + '] http://localhost:' + ${PORT:-4269}));
   "
 }
