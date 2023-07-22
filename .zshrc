@@ -821,3 +821,36 @@ function nodepoch(){
   node -p "new Date($1).toJSON()"
 }
 
+function servus(){
+  node -e "
+  require('node:http').createServer((req,res) => {
+    if (req.url === '/servus'){
+      res.writeHead(200,{ 'content-type': 'text/event-stream', 'connection': 'keep-alive', 'cache-control': 'no-cache' });
+      const handler = () => req.write('data: servus\n\n');
+      res.on('close', () => require('node:process').off('SIGUSR2', handler));
+      require('node:process').on('SIGUSR2', handler);
+      return;
+    }
+
+    if (req.url === '/favicon.ico') return res.end('shut up chromium');
+
+    let filename = req.url;
+    if (filename.endsWith('/') === true ) filename = filename + 'index.html';
+    if (filename.includes('.') === false) filename = filename + '.html';
+    const file = require('node:path').join(process.env.PWD, filename);
+    require('node:stream').pipeline(
+      require('node:fs').createReadStream(file),
+      async function* (source) {
+        for await (const chunk of source){ yield chunk; }
+        if (filename.endsWith('.html') === true){ yield '<script>new EventSource(\'/servus\').onmessage = function(){ location.reload();}</script>'; }
+      },
+      res,
+      err => {
+        if (err) res.statusCode = 404;
+        res.statusText = require('node:http').STATUS_CODES[res.statusCode];
+        console.log([req.method, req.url, res.statusCode, res.statusText, err?.message].join(' '))
+      }
+   );
+  }).listen(${PORT:-4269}, () => console.log('[servus] http://localhost:' + ${PORT:-4269}));
+  "
+}
