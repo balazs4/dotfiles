@@ -822,7 +822,7 @@ function nodepoch(){
 }
 
 function servus(){
-  watchexec --print-events --no-meta --shell=none --signal=SIGUSR2 -- node -e "
+  watchexec --project-origin $PWD --print-events --no-meta --shell=none --signal=SIGUSR2 -- node -e "
   require('node:http').createServer((req,res) => {
     if (req.url === '/.servus' ){
       res.writeHead(200,{ 'content-type': 'text/event-stream', 'connection': 'keep-alive', 'cache-control': 'no-cache' });
