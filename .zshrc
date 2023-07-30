@@ -822,35 +822,35 @@ function nodepoch(){
 }
 
 function servus(){
-  watchexec --project-origin $PWD --print-events --no-meta --shell=none --signal=SIGUSR2 -- node -e "
-  require('node:http').createServer((req,res) => {
-    if (req.url === '/.servus' ){
-      res.writeHead(200,{ 'content-type': 'text/event-stream', 'connection': 'keep-alive', 'cache-control': 'no-cache' });
-      const handler = () => res.write('data: servus pid:' + require('node:process').pid + '\n\n');
-      res.on('close', () => require('node:process').off('SIGUSR2', handler));
-      require('node:process').on('SIGUSR2', handler);
+  PORT=4269 watchexec --project-origin $PWD --print-events --no-meta --shell=none --signal=SIGUSR2 -- node -e '
+  require("node:http").createServer((req,res) => {
+    if (req.url === "/.servus" ){
+      res.writeHead(200,{ "content-type": "text/event-stream", "connection": "keep-alive", "cache-control": "no-cache" });
+      const handler = () => res.write("data: servus pid:" + require("node:process").pid + "\n\n");
+      res.on("close", () => require("node:process").off("SIGUSR2", handler));
+      require("node:process").on("SIGUSR2", handler);
       return;
     }
 
-    if (req.url === '/favicon.ico') return res.end('shut up chromium');
+    if (req.url === "/favicon.ico") return res.end("shut up chromium");
 
     let filename = req.url;
-    if (filename.endsWith('/') === true ) filename = filename + 'index.html';
-    if (filename.includes('.') === false) filename = filename + '.html';
-    const file = require('node:path').join(process.env.PWD, filename);
-    require('node:stream').pipeline(
-      require('node:fs').createReadStream(file),
+    if (filename.endsWith("/") === true ) filename = filename + "index.html";
+    if (filename.includes(".") === false) filename = filename + ".html";
+    const file = require("node:path").join(process.env.PWD, filename);
+    require("node:stream").pipeline(
+      require("node:fs").createReadStream(file),
       async function* (source) {
         for await (const chunk of source){ yield chunk; }
-        if (filename.endsWith('.html') === true){ yield '<script>new EventSource(\'/.servus\').onmessage = function(){ location.reload();}</script>'; }
+        if (filename.endsWith(".html") === true){ yield "<script>new EventSource(\"/.servus\").onmessage = function(){ location.reload();}</script>"; }
       },
       res,
       err => {
         if (err) res.statusCode = 404;
-        res.statusText = require('node:http').STATUS_CODES[res.statusCode];
-        console.log([req.method, req.url, res.statusCode, res.statusText, err?.message].join(' '))
+        res.statusText = require("node:http").STATUS_CODES[res.statusCode];
+        console.log([req.method, req.url, res.statusCode, res.statusText, err?.message].join(" "))
       }
    );
-   }).listen(${PORT:-4269}, () => console.log('[servus:pid=' + require('node:process').pid + '] http://localhost:' + ${PORT:-4269}));
-  "
+   }).listen(process.env.PORT, () => console.log("[servus:pid=" + require("node:process").pid + "] http://localhost:" + process.env.PORT));
+  '
 }
