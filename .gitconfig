@@ -1,11 +1,10 @@
 # Linux Darwin
 [user]
-  name = balazs4
-  email = balas4web@gmail.com
+  name  = balazs4
+  email = balazs4web@gmail.com
 [pull]
   rebase = true
-[core]
+#carbon [core]
 #carbon   hooksPath = /home/balazs4/.hooks
-#mcbpro  hooksPath = /Users/balazs4/.hooks
 [init]
   defaultBranch = main
