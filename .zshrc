@@ -74,7 +74,7 @@ function zz() {
     echo $HOME/.files;
     find $HOME/src -maxdepth 1 -type d;
     find /tmp -maxdepth 1 -type d;
-  } | fzf --layout=reverse --height '40%' -q "'${*:-$PWD} " -1`
+  } | fzf --layout=reverse --height '40%' -q "'${1:-$PWD} " || (mkdir -p $HOME/src/$1 &> /dev/null; git init $HOME/src/$1 &> /dev/null; echo $HOME/src/$1)`
 
   [[ $TMUX ]] \
     && cd ${to:-$PWD} \
