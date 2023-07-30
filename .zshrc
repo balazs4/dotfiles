@@ -35,19 +35,13 @@ bindkey '\e[A' history-beginning-search-backward-end
 bindkey '\e[B' history-beginning-search-forward-end
 
 function zsh-git() {
-  local __branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
-  [[ -z $__branch ]] && return
-
-  git config --local --get user.email >/dev/null || \
-    git config --local --get remote.origin.url \
-      | awk '/gitlab.com/ {print "959395-balazs4@users.noreply.gitlab.com"}; /github.com/ {print "balazs4@users.noreply.github.com"}' \
-      | xargs git config --local user.email
+  git rev-parse --abbrev-ref HEAD 2> /dev/null || return
 
   git status --porcelain --branch --no-ahead-behind \
     | gawk '
-      BEGIN                             { branch; staged=0;modified=0;untracked=0 }
-      /^##/                             {sub(/\.\.\./," "); branch=$2; }
-      /^##.*\[different\]$/             {branch=$4branch; }
+      BEGIN                             {branch;staged=0;modified=0;untracked=0}
+      /^##/                             {sub(/\.\.\./," "); branch=$2;}
+      /^##.*\[different\]$/             {branch=$4branch;}
       /^## No commits yet/              {branch="???";}
       /^(M|T|A|D|R|C|U) /               {staged++}
       /^ (M|T|A|D|R|C|U)/               {modified++}
