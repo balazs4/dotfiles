@@ -35,11 +35,10 @@ bindkey '\e[A' history-beginning-search-backward-end
 bindkey '\e[B' history-beginning-search-forward-end
 
 function zsh-git() {
-  git rev-parse --abbrev-ref HEAD &> /dev/null || return
-
-  git status --porcelain --branch --no-ahead-behind \
+  git status --porcelain --branch --no-ahead-behind 2>&1 \
     | gawk '
       BEGIN                             {branch;staged=0;modified=0;untracked=0}
+      /^fatal: /                        {exit;}
       /^##/                             {sub(/\.\.\./," "); branch=$2}
       /^##.*\[different\]$/             {branch=$4branch }
       /^## No commits yet/              {branch="???"}
@@ -47,7 +46,7 @@ function zsh-git() {
       /^ (M|T|A|D|R|C|U)/               {modified++}
       /^(M|T|A|D|R|C|U)(M|T|A|D|R|C|U)/ {staged++; modified++}
       /^\?\?/                           {untracked++}
-      END                               { print " [ %F{white}" branch "%f«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b ]"}' \
+      END { if ($1 != "fatal:") print " [ %F{white}" branch "%f«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b ]" }' \
     | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|%F{white}\[different\]|%B%F{red}! %f%b%F{white}|g'
 }
 
@@ -68,7 +67,7 @@ function zz() {
     echo $HOME/.files;
     find $HOME/src -maxdepth 1 -type d;
     find /tmp -maxdepth 1 -type d;
-  } | fzf --layout=reverse --height '40%' -q "'${1:-$PWD} " || (mkdir -p $HOME/src/$1 &> /dev/null; git init $HOME/src/$1 &> /dev/null; echo $HOME/src/$1)`
+  } | fzf --layout=reverse --height '40%' -q "'${1:-$PWD} " -1 || (mkdir -p $HOME/src/$1 &> /dev/null; git init $HOME/src/$1 &> /dev/null; echo $HOME/src/$1)`
 
   [[ $TMUX ]] \
     && cd ${to:-$PWD} \
