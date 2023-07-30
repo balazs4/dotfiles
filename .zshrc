@@ -63,11 +63,18 @@ zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
 function zz() {
+  if test $2 = 'batman'
+  then
+    mkdir -p $HOME/src/$1
+    git init $HOME/src/$1
+    git -C $HOME/src/$1 commit -m batman --allow-empty
+  fi
+
   local to=`{
     echo $HOME/.files;
     find $HOME/src -maxdepth 1 -type d;
     find /tmp -maxdepth 1 -type d;
-  } | fzf --layout=reverse --height '40%' -q "'${1:-$PWD} " -1 || (mkdir -p $HOME/src/$1 &> /dev/null; git init $HOME/src/$1 &> /dev/null; echo $HOME/src/$1)`
+  } | fzf --layout=reverse --height '40%' -q "'${1:-$PWD} " -1`
 
   [[ $TMUX ]] \
     && cd ${to:-$PWD} \
