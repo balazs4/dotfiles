@@ -35,14 +35,14 @@ bindkey '\e[A' history-beginning-search-backward-end
 bindkey '\e[B' history-beginning-search-forward-end
 
 function zsh-git() {
-  git rev-parse --abbrev-ref HEAD 2> /dev/null || return
+  git rev-parse --abbrev-ref HEAD &> /dev/null || return
 
   git status --porcelain --branch --no-ahead-behind \
     | gawk '
       BEGIN                             {branch;staged=0;modified=0;untracked=0}
-      /^##/                             {sub(/\.\.\./," "); branch=$2;}
-      /^##.*\[different\]$/             {branch=$4branch;}
-      /^## No commits yet/              {branch="???";}
+      /^##/                             {sub(/\.\.\./," "); branch=$2}
+      /^##.*\[different\]$/             {branch=$4branch }
+      /^## No commits yet/              {branch="???"}
       /^(M|T|A|D|R|C|U) /               {staged++}
       /^ (M|T|A|D|R|C|U)/               {modified++}
       /^(M|T|A|D|R|C|U)(M|T|A|D|R|C|U)/ {staged++; modified++}
