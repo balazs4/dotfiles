@@ -97,4 +97,4 @@ bindsym $mod+shift+grave scratchpad show
 for_window [instance="temp_terminal"] move scratchpad
 for_window [instance="temp_terminal"] scratchpad show
 
-#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/PPoWdNggYu8/download?force=true&w=1920
+#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/aQHeEG2nYuU/download?force=true&w=1920
