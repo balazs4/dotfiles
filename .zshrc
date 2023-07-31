@@ -63,13 +63,6 @@ zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
 function zz() {
-  if test $2 = 'batman'
-  then
-    mkdir -p $HOME/src/$1
-    git init $HOME/src/$1
-    git -C $HOME/src/$1 commit -m batman --allow-empty
-  fi
-
   local to=`{
     echo $HOME/.files;
     find $HOME/src -maxdepth 1 -type d;
@@ -82,6 +75,13 @@ function zz() {
 }
 
 alias z='TMUX=fake zz'
+
+function zzz() {
+  mkdir -p $HOME/src/$1
+  git init $HOME/src/$1
+  git -C $HOME/src/$1 commit -m batman --allow-empty
+  zz $1
+}
 
 #carbon source /usr/share/fzf/completion.zsh
 #carbon source /usr/share/fzf/key-bindings.zsh
