@@ -854,3 +854,15 @@ function servus(){
    }).listen(process.env.PORT, () => console.log("[servus:pid=" + require("node:process").pid + "] http://localhost:" + process.env.PORT));
   '
 }
+
+function fixup(){
+  git add .
+  git commit --fixup=HEAD
+  EDITOR=cat git rebase -i --root --autosquash > /dev/null
+  git log
+}
+
+function mkdird() {
+  mkdir -p $1
+  pushd $1
+}
