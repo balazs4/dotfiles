@@ -866,3 +866,13 @@ function mkdird() {
   mkdir -p $1
   pushd $1
 }
+
+
+function rust-project-json(){
+cat <<EOF | esh -o - -- - | prettier --stdin-filepath _.json > rust-project.json
+{
+  "sysroot_src": "<% rustc --print sysroot | tr -d '\n' %>/lib/rustlib/src/rust/library",
+  "crates": <% jo -p -a *.rs | fx 'x => x.map(xx => ({root_module: xx, edition: "2021", deps: []}))' | tr -d '\n' %>
+}
+EOF
+}
