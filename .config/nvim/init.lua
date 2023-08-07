@@ -72,8 +72,11 @@ require('lspconfig')['tsserver'].setup({
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
     vim.keymap.del('n', '<leader>p', { buffer = bufnr })
-    -- https://github.com/prettier/vim-prettier
-    vim.keymap.set('n', '<leader>p', ':PrettierAsync<CR>', { noremap = true, silent = true })
+
+    vim.keymap.set('n', '<leader>p', function()
+      local filename = vim.fn.expand('%')
+      vim.cmd('! npx prettier --write ' .. filename)
+    end, { noremap = true, silent = true })
 
     vim.keymap.set('n', '<leader>t', function()
       local filename = vim.fn.expand('%')
