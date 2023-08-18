@@ -388,7 +388,7 @@ function yt(){
     | sort -k3 -rh \
     | fzf --sync --reverse --height=50% \
     | cut -f1 \
-    | xargs -Iwatch mpv ${MPV:---ytdl-format='[height=1080]/best'} https://youtu.be/watch
+    | xargs -t -Iwatch mpv ${MPV:---ytdl-format='[height=1080]/best'} https://youtu.be/watch
 }
 alias yta="MPV='--no-video' yt"
 
@@ -838,6 +838,7 @@ function servus(){
     if (filename.endsWith("/") === true ) filename = filename + "index.html";
     if (filename.includes(".") === false) filename = filename + ".html";
     const file = require("node:path").join(process.env.PWD, filename);
+
     require("node:stream").pipeline(
       require("node:fs").createReadStream(file),
       async function* (source) {
@@ -851,7 +852,8 @@ function servus(){
         console.log([req.method, req.url, res.statusCode, res.statusText, err?.message].join(" "))
       }
    );
-   }).listen(process.env.PORT, () => console.log("[servus:pid=" + require("node:process").pid + "] http://localhost:" + process.env.PORT));
+
+  }).listen(process.env.PORT, () => console.log("[servus:pid=" + require("node:process").pid + "] http://localhost:" + process.env.PORT));
   '
 }
 
