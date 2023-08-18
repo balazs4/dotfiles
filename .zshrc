@@ -867,7 +867,6 @@ function mkdird() {
   pushd $1
 }
 
-
 function rust-project-json(){
 cat <<EOF | esh -o - -- - | prettier --stdin-filepath _.json > rust-project.json
 {
