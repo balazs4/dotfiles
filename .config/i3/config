@@ -48,7 +48,7 @@ workspace 6 output eDP1
 workspace 7 output eDP1
 workspace 8 output eDP1
 workspace 9 output eDP1
-workspace 10 output DP2
+workspace 10 output HDM1
 
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
@@ -97,4 +97,4 @@ bindsym $mod+shift+grave scratchpad show
 for_window [instance="temp_terminal"] move scratchpad
 for_window [instance="temp_terminal"] scratchpad show
 
-#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/e4xOmzd8vzg/download?force=true&w=1920
+#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/UExx0KnnkjY/download?force=true&w=1920

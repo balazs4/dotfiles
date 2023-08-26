@@ -540,30 +540,35 @@ function mongodb-rs(){
 }
 
 
-#carbon function desk-on(){
+#carbon function dp2(){
 #carbon   xrandr \
 #carbon     --dpi 136 \
 #carbon     --output eDP1 --primary --mode 1920x1080 --pos 800x2160 --rotate normal --scale 1.4 \
 #carbon     --output DP1 --off \
-#carbon     --output DP2 --mode 3840x2160 --pos 0x0 --rotate normal
-#carbon 
+#carbon     --output DP2 --mode 3840x2160 --pos 0x0 --rotate normal \
+#carbon     --output HDMI1 --off
+#carbon
 #carbon    echo "Xft.dpi: 136" | xrdb -merge
 #carbon    i3-msg restart
 #carbon    imwheel >/dev/null &
 #carbon }
-#carbon 
-#carbon function desk-off(){
+#carbon
+#carbon function edp(){
 #carbon   xrandr \
 #carbon     --dpi 96 \
 #carbon     --output eDP1 --primary --mode 1920x1080 --rotate normal --scale 1.0 \
 #carbon     --output DP1 --off \
-#carbon     --output DP2 --off 
-#carbon 
+#carbon     --output DP2 --off \
+#carbon     --output HDMI1 --off
+#carbon
 #carbon    echo "Xft.dpi: 96" | xrdb -merge
 #carbon    i3-msg restart
 #carbon    killall -9 imwheel >/dev/null
 #carbon }
 
+#carbon function hdmi(){
+#carbon   xrandr --output HDMI1 --mode 1920x1080 --pos 0x0 --rotate normal
+#carbon }
 
 #carbon function record-tmux(){
 #carbon   local cast="/tmp/tmux-$1.json"
