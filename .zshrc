@@ -882,3 +882,15 @@ cat <<EOF | esh -o - -- - | prettier --stdin-filepath _.json > rust-project.json
 }
 EOF
 }
+
+function timer(){
+  local target=`tmux display-message -p '#I'`
+  tmux clock-mode
+  dateseq 00:00:00 5s ${1:-00:05:00} | xargs -I{} sh -c "tmux rename-window -t:$target {}; sleep 5"
+  tmux rename-window -t:$target TIMEOUT
+}
+
+function stars(){
+#mcbpro  open 'https://github.com/balazs4?tab=stars'
+#carbon  xdg-open 'https://github.com/balazs4?tab=stars'
+}
