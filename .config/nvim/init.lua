@@ -78,8 +78,10 @@ require('lspconfig')['tsserver'].setup({
     vim.keymap.del('n', '<leader>p', { buffer = bufnr })
 
     vim.keymap.set('n', '<leader>p', function()
+      vim.cmd(':w %')
       local filename = vim.fn.expand('%')
       vim.cmd('! npx prettier --write ' .. filename)
+      vim.cmd(':e %')
     end, { noremap = true, silent = true })
 
     vim.keymap.set('n', '<leader>t', function()
