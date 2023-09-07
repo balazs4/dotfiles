@@ -23,7 +23,8 @@ end, { noremap = true, silent = true })
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup { 'default', winopts = { fullscreen = false, preview = { layout = 'vertical' } } }
 vim.keymap.set('n', '<leader>[', require('fzf-lua').files, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>]', require('fzf-lua').buffers, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>{', require('fzf-lua').buffers, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>]', function() vim.cmd('bp') end, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader><leader>', require('fzf-lua').grep_project, { noremap = true, silent = true })
 vim.keymap.set('n', '``', require('fzf-lua').grep_cword, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>`', require('fzf-lua').builtin, { noremap = true, silent = true })
