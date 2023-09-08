@@ -93,7 +93,7 @@ export TERMINAL=alacritty
 export TERM=xterm-256color
 #mcbpro export BROWSER=open
 #carbon export BROWSER=chromium
-export EDITOR=vim
+export EDITOR=nvim
 export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #mcbpro export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs open)'"
@@ -175,7 +175,6 @@ function nvimplug(){
 }
 
 alias so="source $HOME/.zshenv"
-alias v="vim -c ':GFiles?'"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="dot .vimrc"
 alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua"
@@ -635,6 +634,7 @@ function light(){
 #carbon  xbacklight \=100
   curl -Ls https://raw.githubusercontent.com/aarowill/base16-alacritty/914727e48ebf3eab1574e23ca0db0ecd0e5fe9d0/colors/base16-github.yml >> $HOME/.alacritty.yml
 
+  #todo: patch init.lua
   echo "set background=light" >> $HOME/.vimrc
   echo "color shine" >> $HOME/.vimrc
 
@@ -804,9 +804,9 @@ function dynamo(){
 }
 
 function pf(){
-  local packagejson=`fd package.json | fzf --height '25%' -1 -q"${*:-service} "`
+  local packagejson=`fd package.json | fzf --height '25%' -1 -q"'${PROJECT}"`
   local app=`echo $packagejson | awk -F/ '{print $(NF-1)}'`
-  local cmd=`fx $packagejson 'x => Object.entries(x.scripts).map(x => x.join("\t")).join("\n")' | fzf --height '25%' -1 -q"'${PF}" | awk '{print $1}'`
+  local cmd=`fx $packagejson 'x => Object.entries(x.scripts).map(x => x.join("\t")).join("\n")' | fzf --height '25%' -1 -q"'${*}" | awk '{print $1}'`
   local dir=`dirname $packagejson`
 
   watchexec -vv -c --print-events  -w $dir --project-origin $dir -s SIGKILL -- pnpm --filter $app $cmd
