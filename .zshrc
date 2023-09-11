@@ -892,3 +892,6 @@ function stars(){
 #mcbpro  open 'https://github.com/balazs4?tab=stars'
 #carbon  xdg-open 'https://github.com/balazs4?tab=stars'
 }
+
+#carbon alias 100='xbacklight \=100'
+#carbon alias 25='xbacklight \=25'
