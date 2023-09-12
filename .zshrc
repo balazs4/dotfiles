@@ -895,3 +895,4 @@ function stars(){
 
 #carbon alias 100='xbacklight \=100'
 #carbon alias 25='xbacklight \=25'
+#carbon alias 15='xbacklight \=15'
