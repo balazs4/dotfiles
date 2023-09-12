@@ -896,3 +896,8 @@ function stars(){
 #carbon alias 100='xbacklight \=100'
 #carbon alias 25='xbacklight \=25'
 #carbon alias 15='xbacklight \=15'
+
+function dpl(){
+  echo "dpl ${*:-preview}: `date`" | tee index.txt
+  vc -d -t $VC_TOKEN deploy ${*}
+}
