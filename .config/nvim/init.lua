@@ -71,6 +71,7 @@ require('lspconfig')['rust_analyzer'].setup({ capabilities = capabilities, on_at
 require('lspconfig')['gopls'].setup({ capabilities = capabilities, on_attach = on_attach })
 
 require('lspconfig')['tsserver'].setup({
+  filetypes = {"typescript", "typescriptreact", "typescript.tsx"},
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
