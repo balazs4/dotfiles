@@ -129,8 +129,3 @@ require('nvim_comment').setup()
 
 -- https://github.com/balazs4/zeitgeist
 vim.cmd("colorscheme zeitgeist")
-
--- https://github.com/navarasu/onedark.nvim
-
--- https://github.com/nvim-treesitter/nvim-treesitter
-require('nvim-treesitter').setup()
