@@ -48,6 +48,14 @@ require('cmp').setup({
   sources = require('cmp').config.sources({ { name = 'nvim_lsp' } })
 })
 
+-- javascript: TOOD: prevent load tsserver on package.json
+vim.keymap.set('n', '<leader>p', function()
+  vim.cmd(':w %')
+  local filename = vim.fn.expand('%')
+  vim.cmd('! bun prettier --write ' .. filename)
+  vim.cmd(':e %')
+end, { noremap = true, silent = true })
+
 -- https://github.com/neovim/nvim-lspconfig
 vim.diagnostic.config({ virtual_text = true, signs = false, update_in_insert = false })
 
@@ -80,7 +88,7 @@ require('lspconfig')['tsserver'].setup({
     vim.keymap.set('n', '<leader>p', function()
       vim.cmd(':w %')
       local filename = vim.fn.expand('%')
-      vim.cmd('! npx prettier --write ' .. filename)
+      vim.cmd('! bunx prettier --write ' .. filename)
       vim.cmd(':e %')
     end, { noremap = true, silent = true })
 
