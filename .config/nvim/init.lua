@@ -141,6 +141,5 @@ vim.cmd("colorscheme zeitgeist")
 
 -- https://github.com/nvim-treesitter/nvim-treesitter
 require('nvim-treesitter.configs').setup({
-  ensure_installed = {"lua", "javascript", "typescript", "rust", "go"},
   highlight = { enable = true }
 })
