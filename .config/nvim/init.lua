@@ -26,7 +26,7 @@ vim.diagnostic.config({ virtual_text = true, signs = false, update_in_insert = f
 vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, { noremap = true, silent = true})
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true})
 vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true})
-vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end, { noremap = true, silent = true)
+vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end, { noremap = true, silent = true} )
 vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
 
 -- prettier
@@ -53,6 +53,21 @@ vim.api.nvim_create_autocmd('FileType', {
           name = 'gopls',
           cmd = {'gopls'},
           root_dir = vim.fs.dirname( vim.fs.find({'go.mod'}, { upward = true })[1])
+      })
+    )
+  end
+})
+
+-- LSP: go
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = {'rust'},
+  callback = function()
+    vim.lsp.buf_attach_client(
+      0,
+      vim.lsp.start({
+          name = 'rust-analyzer',
+          cmd = {'rust-analyzer'},
+          root_dir = vim.fs.dirname( vim.fs.find({'Cargo.toml'}, { upward = true })[1])
       })
     )
   end
