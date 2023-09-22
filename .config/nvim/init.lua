@@ -21,6 +21,28 @@ vim.keymap.set('n', '<leader>g', function()
   vim.cmd('! gh browse ' .. filename .. ':' .. row)
 end, { noremap = true, silent = true })
 
+vim.diagnostic.config({ virtual_text = true, signs = false, update_in_insert = false })
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'go',
+  callback = function()
+    vim.lsp.buf_attach_client(
+      0,
+      vim.lsp.start({
+          name = 'gopls',
+          cmd = {'gopls'},
+          root_dir = vim.fs.dirname( vim.fs.find({'go.mod'}, { upward = true })[1])
+      })
+    )
+  end
+})
+
+vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, { noremap = true, silent = true, buffer = bufnr })
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true, buffer = bufnr })
+vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true, buffer = bufnr })
+vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end, { noremap = true, silent = true, buffer = bufnr })
+vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
+
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup { 'default', winopts = { fullscreen = true, preview = { layout = 'vertical' } } }
 vim.keymap.set('n', '<leader>=', require('fzf-lua').builtin, { noremap = true, silent = true })
@@ -32,104 +54,10 @@ vim.keymap.set('n', '<leader>W', require('fzf-lua').grep_cWORD, { noremap = true
 vim.keymap.set('n', '<leader>/', require('fzf-lua').blines, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>`', require('fzf-lua').git_status, { noremap = true, silent = true })
 
--- https://github.com/hrsh7th/cmp-nvim-lsp
--- https://github.com/hrsh7th/cmp-buffer
--- https://github.com/hrsh7th/nvim-cmp
--- https://github.com/hrsh7th/cmp-vsnip
--- https://github.com/hrsh7th/vim-vsnip
-require('cmp').setup({
-  snippet = { expand = function(args) vim.fn["vsnip#anonymous"](args.body) end, },
-  mapping = require('cmp').mapping.preset.insert({
-    ['<C-b>'] = require('cmp').mapping.scroll_docs(-4),
-    ['<C-f>'] = require('cmp').mapping.scroll_docs(4),
-    ['<C-Space>'] = require('cmp').mapping.complete(),
-    ['<C-e>'] = require('cmp').mapping.abort(),
-    ['<CR>'] = require('cmp').mapping.confirm({ select = true }),
-  }),
-  sources = require('cmp').config.sources({ { name = 'nvim_lsp' } })
-})
-
--- javascript: TOOD: prevent load tsserver on package.json
-vim.keymap.set('n', '<leader>p', function()
-  vim.cmd(':w %')
-  local filename = vim.fn.expand('%')
-  vim.cmd('! bun prettier --write ' .. filename)
-  vim.cmd(':e %')
-end, { noremap = true, silent = true })
-
--- https://github.com/neovim/nvim-lspconfig
-vim.diagnostic.config({ virtual_text = true, signs = false, update_in_insert = false })
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-local function on_attach(_, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, { noremap = true, silent = true, buffer = bufnr })
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true, buffer = bufnr })
-  vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true, buffer = bufnr })
-  vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end,
-    { noremap = true, silent = true, buffer = bufnr })
-  vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { noremap = true, silent = true, buffer = bufnr })
-  vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, { noremap = true, silent = true, buffer = bufnr })
-  vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_document_diagnostics, { noremap = true, silent = true })
-  vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols, { noremap = true, silent = true })
-  vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
-end
-
-require('lspconfig')['rust_analyzer'].setup({ capabilities = capabilities, on_attach = on_attach })
-require('lspconfig')['gopls'].setup({ capabilities = capabilities, on_attach = on_attach })
-
-require('lspconfig')['tsserver'].setup({
-  filetypes = {"typescript", "typescriptreact", "typescript.tsx"},
-  capabilities = capabilities,
-  on_attach = function(client, bufnr)
-    on_attach(client, bufnr)
-    vim.keymap.del('n', '<leader>p', { buffer = bufnr })
-
-    vim.keymap.set('n', '<leader>p', function()
-      vim.cmd(':w %')
-      local filename = vim.fn.expand('%')
-      vim.cmd('! bunx prettier --write ' .. filename)
-      vim.cmd(':e %')
-    end, { noremap = true, silent = true })
-
-    vim.keymap.set('n', '<leader>t', function()
-      local filename = vim.fn.expand('%')
-      local targetfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
-          and string.gsub(filename, ".test.ts$", ".ts")
-          or string.gsub(filename, ".ts$", ".test.ts")
-
-      vim.cmd('vsplit ' .. targetfilename)
-    end, { noremap = true, silent = true })
-
-    vim.keymap.set('n', '<leader>r', function()
-      local filename = vim.fn.expand('%')
-      local workspace = {}
-      for p in string.gmatch(filename, "([^/]+)") do table.insert(workspace, p) end
-
-      local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
-          and filename
-          or string.gsub(filename, ".ts$", ".test.ts")
-
-      vim.cmd('! tmux split-window pnpm --filter ' .. workspace[2] .. ' test -- --watch ' .. testfilename)
-      vim.cmd('! tmux select-pane -l')
-      vim.cmd('! tmux send-keys Enter')
-    end, { noremap = true, silent = true })
-  end
-})
-
-require('lspconfig')['lua_ls'].setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  settings = {
-    Lua = {
-      telemetry = { enable = false, },
-      runtime = { version = 'LuaJIT', },
-      diagnostics = { globals = { 'vim', 'ngx', 'describe', 'it' }, },
-      workspace = { checkThirdParty = false }
-    }
-  }
-})
+vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { noremap = true, silent = true, buffer = bufnr })
+vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, { noremap = true, silent = true, buffer = bufnr })
+vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_document_diagnostics, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols, { noremap = true, silent = true })
 
 -- https://github.com/terrortylor/nvim-comment
 require('nvim_comment').setup()
