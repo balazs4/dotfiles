@@ -652,7 +652,7 @@ function dark(){
 #carbon }
 
 function fmt(){
-  git status --porcelain | awk '{print $NF}' | xargs -t npx prettier --ignore-unknown --write
+  git status --porcelain | awk '{print $NF}' | xargs -t bun x prettier --ignore-unknown --write
 }
 
 function ff(){
