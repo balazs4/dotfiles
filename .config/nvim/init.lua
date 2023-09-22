@@ -29,63 +29,27 @@ vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true})
 vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end, { noremap = true, silent = true} )
 vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
 
--- prettier
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = {'typescript', 'typescriptreact', 'javascript', 'javascriptreact', 'html', 'md'},
-  callback = function()
-    vim.keymap.del('n', '<leader>p', { buffer = 0 })
-    vim.keymap.set('n', '<leader>p', function()
-      vim.cmd(':w %')
-      local filename = vim.fn.expand('%')
-      vim.cmd('! bun x prettier --write ' .. filename)
-      vim.cmd(':e %')
-    end, { noremap = true, silent = true })
-  end
-})
 
--- LSP: go
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = {'go'},
-  callback = function()
-    vim.lsp.buf_attach_client(
-      0,
-      vim.lsp.start({
-          name = 'gopls',
-          cmd = {'gopls'},
-          root_dir = vim.fs.dirname( vim.fs.find({'go.mod'}, { upward = true })[1])
-      })
-    )
-  end
-})
+function lsp(pattern, cmd, project, setup)
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = pattern,
+    callback = function()
+      vim.lsp.buf_attach_client(0,
+        vim.lsp.start({
+            name = cmd[1],
+            cmd = cmd,
+            root_dir = vim.fs.dirname( vim.fs.find(project, { upward = true })[1])
+        })
+      )
+      if setup then setup() end
+    end
+  })
+end
 
--- LSP: go
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = {'rust'},
-  callback = function()
-    vim.lsp.buf_attach_client(
-      0,
-      vim.lsp.start({
-          name = 'rust-analyzer',
-          cmd = {'rust-analyzer'},
-          root_dir = vim.fs.dirname( vim.fs.find({'Cargo.toml'}, { upward = true })[1])
-      })
-    )
-  end
-})
-
--- LSP: typescript
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = {'typescript', 'typescriptreact'},
-  callback = function()
-    vim.lsp.buf_attach_client(
-      0,
-      vim.lsp.start({
-          name = 'typescript-language-server',
-          cmd = {'typescript-language-server', '--stdio'},
-          root_dir = vim.fs.dirname( vim.fs.find({'tsconfig.json'}, { upward = true })[1])
-      })
-    )
-
+lsp({'go'}, {'gopls'}, {'go.mod'})
+lsp({'rust'}, {'rust-analyzer'}, {'Cargo.toml'})
+lsp({'typescript', 'typescriptreact'}, {'typescript-language-server', '--stdio'}, {'tsconfig.json'},
+  function()
     vim.keymap.set('n', '<leader>t', function()
       local filename = vim.fn.expand('%')
       local targetfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
@@ -109,9 +73,21 @@ vim.api.nvim_create_autocmd('FileType', {
       vim.cmd('! tmux send-keys Enter')
     end, { noremap = true, silent = true })
   end
+)
+
+-- prettier
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = {'typescript', 'typescriptreact', 'javascript', 'javascriptreact', 'html', 'md'},
+  callback = function()
+    vim.keymap.del('n', '<leader>p')
+    vim.keymap.set('n', '<leader>p', function()
+      vim.cmd(':w %')
+      local filename = vim.fn.expand('%')
+      vim.cmd('! bun x prettier --write ' .. filename)
+      vim.cmd(':e %')
+    end, { noremap = true, silent = true })
+  end
 })
-
-
 
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup { 'default', winopts = { fullscreen = true, preview = { layout = 'vertical' } } }
