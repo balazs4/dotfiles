@@ -34,13 +34,8 @@ function lsp(pattern, cmd, project, setup)
   vim.api.nvim_create_autocmd('FileType', {
     pattern = pattern,
     callback = function()
-      vim.lsp.buf_attach_client(0,
-        vim.lsp.start({
-            name = cmd[1],
-            cmd = cmd,
-            root_dir = vim.fs.dirname( vim.fs.find(project, { upward = true })[1])
-        })
-      )
+      local client = vim.lsp.start({ name = cmd[1], cmd = cmd, root_dir = vim.fs.dirname( vim.fs.find(project, { upward = true })[1]) })
+      vim.lsp.buf_attach_client(0, client)
       if setup then setup() end
     end
   })
@@ -108,8 +103,6 @@ vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols, { nore
 -- https://github.com/terrortylor/nvim-comment
 require('nvim_comment').setup()
 
--- https://github.com/catppuccin/nvim catppuccin
-
 -- https://github.com/balazs4/zeitgeist
 vim.cmd("colorscheme zeitgeist")
 
@@ -117,3 +110,40 @@ vim.cmd("colorscheme zeitgeist")
 require('nvim-treesitter.configs').setup({
   highlight = { enable = true }
 })
+
+-- https://github.com/mattn/emmet-vim
+vim.cmd("let g:user_emmet_leader_key='<C-Z>'")
+
+-- https://github.com/ellisonleao/gruvbox.nvim
+require("gruvbox").setup({
+  terminal_colors = true, -- add neovim terminal colors
+  undercurl = true,
+  underline = true,
+  bold = true,
+  italic = {
+    strings = false,
+    emphasis = false,
+    comments = false,
+    operators = false,
+    folds = false,
+  },
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = "", -- can be "hard", "soft" or empty string
+  palette_overrides = {},
+  overrides = {},
+  dim_inactive = false,
+  transparent_mode = false,
+})
+vim.cmd("colorscheme gruvbox")
+
+-- https://github.com/Shatur/neovim-ayu
+
+-- https://github.com/projekt0n/github-nvim-theme
+vim.cmd("colorscheme github_dark_dimmed")
+
+
