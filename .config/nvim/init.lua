@@ -28,6 +28,7 @@ vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true})
 vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true})
 vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end, { noremap = true, silent = true} )
 vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
+vim.keymap.set('i', '<Tab>', '<C-X><C-O>', { noremap = true, silent = true})
 
 
 function lsp(pattern, cmd, project, setup)
