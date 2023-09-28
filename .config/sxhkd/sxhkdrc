@@ -13,10 +13,10 @@ super + Return
   $TERMINAL
 
 super + d
-  dmenu_run -i -sb "#777777"
+  dmenu_run -i -sb "#777777" -fn 'SanFrancisco-12'
 
 super + shift + d 
-  zsh -i -c `cat ~/.zshrc | grep -e ^alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#f81ce5"`
+  zsh -i -c `cat ~/.zshrc | grep -e ^alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#f81ce5" -fn 'SanFrancisco-12'`
 
 super + grave
   alacritty --class=temp_terminal --command zsh -i -c "todos edit"
