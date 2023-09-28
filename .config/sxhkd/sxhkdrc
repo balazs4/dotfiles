@@ -7,7 +7,7 @@ super + space
     ;pkill -SIGRTMIN+2 i3blocks
 
 super + c
-  $BROWSER
+  [[ `xbacklight -get` -gt 60 ]] && chromium || chromium --force-dark-mode --enable-features=WebUIDarkMode
 
 super + Return
   $TERMINAL
