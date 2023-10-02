@@ -119,6 +119,8 @@ export PATH=${GOPATH}/bin:${PATH}
 #rust
 export PATH=$HOME/.cargo/bin:$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/:${PATH}
 
+#bun
+export DO_NOT_TRACK=1
 
 function dot(){
   pushd $HOME/.files > /dev/null
