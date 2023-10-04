@@ -46,7 +46,7 @@ function zsh-git() {
       /^ (M|T|A|D|R|C|U)/               {modified++}
       /^(M|T|A|D|R|C|U)(M|T|A|D|R|C|U)/ {staged++; modified++}
       /^\?\?/                           {untracked++}
-      END { if ($1 != "fatal:") print " [ %F{white}" branch "%f«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b ]" }' \
+      END { if ($1 != "fatal:") print " [ %F{#ffffff}" branch "%f«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b ]" }' \
     | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|%F{white}\[different\]|%B%F{red}! %f%b%F{white}|g'
 }
 
