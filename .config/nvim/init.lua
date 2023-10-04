@@ -35,7 +35,7 @@ function lsp(pattern, cmd, project, setup)
   vim.api.nvim_create_autocmd('FileType', {
     pattern = pattern,
     callback = function()
-      local client = vim.lsp.start({ name = cmd[1], cmd = cmd, root_dir = vim.fs.dirname( vim.fs.find(project, { upward = true })[1]) })
+      local client = vim.lsp.start({ name = pattern[1], cmd = cmd, root_dir = vim.fs.dirname( vim.fs.find(project, { upward = true })[1]) })
       vim.lsp.buf_attach_client(0, client)
       if setup then setup() end
     end
