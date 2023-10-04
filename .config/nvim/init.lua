@@ -118,10 +118,10 @@ vim.cmd("let g:user_emmet_leader_key='<C-Z>'")
 
 -- https://github.com/ellisonleao/gruvbox.nvim
 require("gruvbox").setup({
-  terminal_colors = true, -- add neovim terminal colors
-  undercurl = true,
-  underline = true,
-  bold = true,
+  terminal_colors = false, -- add neovim terminal colors
+  undercurl = false,
+  underline = false,
+  bold = false,
   italic = {
     strings = false,
     emphasis = false,
@@ -129,23 +129,21 @@ require("gruvbox").setup({
     operators = false,
     folds = false,
   },
-  strikethrough = true,
+  strikethrough = false,
   invert_selection = false,
   invert_signs = false,
   invert_tabline = false,
   invert_intend_guides = false,
   inverse = true, -- invert background for search, diffs, statuslines and errors
-  contrast = "", -- can be "hard", "soft" or empty string
+  contrast = "soft", -- can be "hard", "soft" or empty string
   palette_overrides = {},
   overrides = {},
   dim_inactive = false,
-  transparent_mode = false,
+  transparent_mode = true,
 })
 vim.cmd("colorscheme gruvbox")
 
 -- https://github.com/Shatur/neovim-ayu
 
 -- https://github.com/projekt0n/github-nvim-theme
-vim.cmd("colorscheme github_dark_dimmed")
-
 
