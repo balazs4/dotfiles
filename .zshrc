@@ -133,7 +133,7 @@ function dotsync(){
   git -C $HOME/.files commit -am "`date +%s`@`hostname -s`"
   git -C $HOME/.files pull
   git -C $HOME/.files push
-  source $HOME/.files/.zprofile
+  TMUX= source $HOME/.files/.zprofile
 }
 
 function dotfile(){
