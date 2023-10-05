@@ -283,4 +283,4 @@ schemes:
       white:   '0xfcfdfe'
 
 # Apply the color scheme.
-colors: *gruvbox_material_medium_dark
+colors: *base16-brewer-256
