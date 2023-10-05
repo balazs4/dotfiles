@@ -94,193 +94,226 @@ font:
 
 
 # https://gist.githubusercontent.com/sainnhe/ad5cbc4f05c4ced83f80e54d9a75d22f/raw/939021739051393ceff88d3df014fb5e4e90e7aa/gruvbox-material-alacritty.yml
-schemes:
-  gruvbox_material_hard_dark: &gruvbox_material_hard_dark
-    primary:
-      background: '0x1d2021'
-      foreground: '0xd4be98'
-    normal:
-      black:   '0x32302f'
-      red:     '0xea6962'
-      green:   '0xa9b665'
-      yellow:  '0xd8a657'
-      blue:    '0x7daea3'
-      magenta: '0xd3869b'
-      cyan:    '0x89b482'
-      white:   '0xd4be98'
-    bright:
-      black:   '0x32302f'
-      red:     '0xea6962'
-      green:   '0xa9b665'
-      yellow:  '0xd8a657'
-      blue:    '0x7daea3'
-      magenta: '0xd3869b'
-      cyan:    '0x89b482'
-      white:   '0xd4be98'
-  gruvbox_material_medium_dark: &gruvbox_material_medium_dark
-    primary:
-      background: '0x282828'
-      foreground: '0xd4be98'
-    normal:
-      black:   '0x3c3836'
-      red:     '0xea6962'
-      green:   '0xa9b665'
-      yellow:  '0xd8a657'
-      blue:    '0x7daea3'
-      magenta: '0xd3869b'
-      cyan:    '0x89b482'
-      white:   '0xd4be98'
-    bright:
-      black:   '0x3c3836'
-      red:     '0xea6962'
-      green:   '0xa9b665'
-      yellow:  '0xd8a657'
-      blue:    '0x7daea3'
-      magenta: '0xd3869b'
-      cyan:    '0x89b482'
-      white:   '0xd4be98'
-  gruvbox_material_soft_dark: &gruvbox_material_soft_dark
-    primary:
-      background: '0x32302f'
-      foreground: '0xd4be98'
-    normal:
-      black:   '0x45403d'
-      red:     '0xea6962'
-      green:   '0xa9b665'
-      yellow:  '0xd8a657'
-      blue:    '0x7daea3'
-      magenta: '0xd3869b'
-      cyan:    '0x89b482'
-      white:   '0xd4be98'
-    bright:
-      black:   '0x45403d'
-      red:     '0xea6962'
-      green:   '0xa9b665'
-      yellow:  '0xd8a657'
-      blue:    '0x7daea3'
-      magenta: '0xd3869b'
-      cyan:    '0x89b482'
-      white:   '0xd4be98'
-  gruvbox_material_hard_light: &gruvbox_material_hard_light
-    primary:
-      background: '0xf9f5d7'
-      foreground: '0x654735'
-    normal:
-      black:   '0x654735'
-      red:     '0xc14a4a'
-      green:   '0x6c782e'
-      yellow:  '0xb47109'
-      blue:    '0x45707a'
-      magenta: '0x945e80'
-      cyan:    '0x4c7a5d'
-      white:   '0xf2e5bc'
-    bright:
-      black:   '0x654735'
-      red:     '0xc14a4a'
-      green:   '0x6c782e'
-      yellow:  '0xb47109'
-      blue:    '0x45707a'
-      magenta: '0x945e80'
-      cyan:    '0x4c7a5d'
-      white:   '0xf2e5bc'
-  gruvbox_material_medium_light: &gruvbox_material_medium_light
-    primary:
-      background: '0xfbf1c7'
-      foreground: '0x654735'
-    normal:
-      black:   '0x654735'
-      red:     '0xc14a4a'
-      green:   '0x6c782e'
-      yellow:  '0xb47109'
-      blue:    '0x45707a'
-      magenta: '0x945e80'
-      cyan:    '0x4c7a5d'
-      white:   '0xeee0b7'
-    bright:
-      black:   '0x654735'
-      red:     '0xc14a4a'
-      green:   '0x6c782e'
-      yellow:  '0xb47109'
-      blue:    '0x45707a'
-      magenta: '0x945e80'
-      cyan:    '0x4c7a5d'
-      white:   '0xeee0b7'
-  gruvbox_material_soft_light: &gruvbox_material_soft_light
-    primary:
-      background: '0xf2e5bc'
-      foreground: '0x654735'
-    normal:
-      black:   '0x654735'
-      red:     '0xc14a4a'
-      green:   '0x6c782e'
-      yellow:  '0xb47109'
-      blue:    '0x45707a'
-      magenta: '0x945e80'
-      cyan:    '0x4c7a5d'
-      white:   '0xe6d5ae'
-    bright:
-      black:   '0x654735'
-      red:     '0xc14a4a'
-      green:   '0x6c782e'
-      yellow:  '0xb47109'
-      blue:    '0x45707a'
-      magenta: '0x945e80'
-      cyan:    '0x4c7a5d'
-      white:   '0xe6d5ae'
+gruvbox_material_hard_dark: &gruvbox_material_hard_dark
+  primary:
+    background: '0x1d2021'
+    foreground: '0xd4be98'
+  normal:
+    black:   '0x32302f'
+    red:     '0xea6962'
+    green:   '0xa9b665'
+    yellow:  '0xd8a657'
+    blue:    '0x7daea3'
+    magenta: '0xd3869b'
+    cyan:    '0x89b482'
+    white:   '0xd4be98'
+  bright:
+    black:   '0x32302f'
+    red:     '0xea6962'
+    green:   '0xa9b665'
+    yellow:  '0xd8a657'
+    blue:    '0x7daea3'
+    magenta: '0xd3869b'
+    cyan:    '0x89b482'
+    white:   '0xd4be98'
+gruvbox_material_medium_dark: &gruvbox_material_medium_dark
+  primary:
+    background: '0x282828'
+    foreground: '0xd4be98'
+  normal:
+    black:   '0x3c3836'
+    red:     '0xea6962'
+    green:   '0xa9b665'
+    yellow:  '0xd8a657'
+    blue:    '0x7daea3'
+    magenta: '0xd3869b'
+    cyan:    '0x89b482'
+    white:   '0xd4be98'
+  bright:
+    black:   '0x3c3836'
+    red:     '0xea6962'
+    green:   '0xa9b665'
+    yellow:  '0xd8a657'
+    blue:    '0x7daea3'
+    magenta: '0xd3869b'
+    cyan:    '0x89b482'
+    white:   '0xd4be98'
+gruvbox_material_soft_dark: &gruvbox_material_soft_dark
+  primary:
+    background: '0x32302f'
+    foreground: '0xd4be98'
+  normal:
+    black:   '0x45403d'
+    red:     '0xea6962'
+    green:   '0xa9b665'
+    yellow:  '0xd8a657'
+    blue:    '0x7daea3'
+    magenta: '0xd3869b'
+    cyan:    '0x89b482'
+    white:   '0xd4be98'
+  bright:
+    black:   '0x45403d'
+    red:     '0xea6962'
+    green:   '0xa9b665'
+    yellow:  '0xd8a657'
+    blue:    '0x7daea3'
+    magenta: '0xd3869b'
+    cyan:    '0x89b482'
+    white:   '0xd4be98'
+gruvbox_material_hard_light: &gruvbox_material_hard_light
+  primary:
+    background: '0xf9f5d7'
+    foreground: '0x654735'
+  normal:
+    black:   '0x654735'
+    red:     '0xc14a4a'
+    green:   '0x6c782e'
+    yellow:  '0xb47109'
+    blue:    '0x45707a'
+    magenta: '0x945e80'
+    cyan:    '0x4c7a5d'
+    white:   '0xf2e5bc'
+  bright:
+    black:   '0x654735'
+    red:     '0xc14a4a'
+    green:   '0x6c782e'
+    yellow:  '0xb47109'
+    blue:    '0x45707a'
+    magenta: '0x945e80'
+    cyan:    '0x4c7a5d'
+    white:   '0xf2e5bc'
+gruvbox_material_medium_light: &gruvbox_material_medium_light
+  primary:
+    background: '0xfbf1c7'
+    foreground: '0x654735'
+  normal:
+    black:   '0x654735'
+    red:     '0xc14a4a'
+    green:   '0x6c782e'
+    yellow:  '0xb47109'
+    blue:    '0x45707a'
+    magenta: '0x945e80'
+    cyan:    '0x4c7a5d'
+    white:   '0xeee0b7'
+  bright:
+    black:   '0x654735'
+    red:     '0xc14a4a'
+    green:   '0x6c782e'
+    yellow:  '0xb47109'
+    blue:    '0x45707a'
+    magenta: '0x945e80'
+    cyan:    '0x4c7a5d'
+    white:   '0xeee0b7'
+gruvbox_material_soft_light: &gruvbox_material_soft_light
+  primary:
+    background: '0xf2e5bc'
+    foreground: '0x654735'
+  normal:
+    black:   '0x654735'
+    red:     '0xc14a4a'
+    green:   '0x6c782e'
+    yellow:  '0xb47109'
+    blue:    '0x45707a'
+    magenta: '0x945e80'
+    cyan:    '0x4c7a5d'
+    white:   '0xe6d5ae'
+  bright:
+    black:   '0x654735'
+    red:     '0xc14a4a'
+    green:   '0x6c782e'
+    yellow:  '0xb47109'
+    blue:    '0x45707a'
+    magenta: '0x945e80'
+    cyan:    '0x4c7a5d'
+    white:   '0xe6d5ae'
 
 # https://raw.githubusercontent.com/projekt0n/github-theme-contrib/main/themes/alacritty/github_dark_dimmed.yml 
-  github_dark_dimmed: &github_dark_dimmed
-    colors:
-      primary:
-        background: '0x22272e'
-        foreground: '0xadbac7'
-      cursor:
-        text: '0x22272e'
-        cursor: '0xadbac7'
-      normal:
-        black: '0x545d68'
-        red: '0xf47067'
-        green: '0x57ab5a'
-        yellow: '0xc69026'
-        blue: '0x539bf5'
-        magenta: '0xb083f0'
-        cyan: '0x39c5cf'
-        white: '0x909dab'
-      bright:
-        black: '0x636e7b'
-        red: '0xff938a'
-        green: '0x6bc46d'
-        yellow: '0xdaaa3f'
-        blue: '0x6cb6ff'
-        magenta: '0xb083f0'
-        cyan: '0x39c5cf'
-        white: '0x909dab'
+github_dark_dimmed: &github_dark_dimmed
+  colors:
+    primary:
+      background: '0x22272e'
+      foreground: '0xadbac7'
+    cursor:
+      text: '0x22272e'
+      cursor: '0xadbac7'
+    normal:
+      black: '0x545d68'
+      red: '0xf47067'
+      green: '0x57ab5a'
+      yellow: '0xc69026'
+      blue: '0x539bf5'
+      magenta: '0xb083f0'
+      cyan: '0x39c5cf'
+      white: '0x909dab'
+    bright:
+      black: '0x636e7b'
+      red: '0xff938a'
+      green: '0x6bc46d'
+      yellow: '0xdaaa3f'
+      blue: '0x6cb6ff'
+      magenta: '0xb083f0'
+      cyan: '0x39c5cf'
+      white: '0x909dab'
 
 # https://raw.githubusercontent.com/aarowill/base16-alacritty/master/colors/base16-brewer-256.yml
-  base16-brewer-256: &base16-brewer-256
-    primary:
-      background: '0x0c0d0e'
-      foreground: '0xa3a3a3'
-    cursor:
-      cursor: '0xf81ce5'
-    normal:
-      black:   '0x0c0d0e'
-      red:     '0xe31a1c'
-      green:   '0x31a354'
-      yellow:  '0xdca060'
-      blue:    '0x3182bd'
-      magenta: '0x756bb1'
-      cyan:    '0x80b1d3'
-      white:   '0xffffff'
-    bright:
-      black:   '0x737475'
-      red:     '0xe31a1c'
-      green:   '0x31a354'
-      yellow:  '0xdca060'
-      blue:    '0x3182bd'
-      magenta: '0x756bb1'
-      cyan:    '0x80b1d3'
-      white:   '0xfcfdfe'
+base16_brewer_256: &base16_brewer_256
+  primary:
+    background: '0x0c0d0e'
+    foreground: '0xa3a3a3'
+  cursor:
+    cursor: '0xf81ce5'
+  normal:
+    black:   '0x0c0d0e'
+    red:     '0xe31a1c'
+    green:   '0x31a354'
+    yellow:  '0xdca060'
+    blue:    '0x3182bd'
+    magenta: '0x756bb1'
+    cyan:    '0x80b1d3'
+    white:   '0xffffff'
+  bright:
+    black:   '0x737475'
+    red:     '0xe31a1c'
+    green:   '0x31a354'
+    yellow:  '0xdca060'
+    blue:    '0x3182bd'
+    magenta: '0x756bb1'
+    cyan:    '0x80b1d3'
+    white:   '0xfcfdfe'
 
-# Apply the color scheme.
-colors: *github_dark_dimmed
+#https://raw.githubusercontent.com/aarowill/base16-alacritty/master/colors/base16-ayu-dark-256.yml
+base16_ayu_dark_256: &base16_ayu_dark_256
+  primary:
+    background: '0x0f1419'
+    foreground: '0xe6e1cf'
+  cursor:
+    text: '0x0f1419'
+    cursor: '0xe6e1cf'
+  normal:
+    black:   '0x0f1419'
+    red:     '0xf07178'
+    green:   '0xb8cc52'
+    yellow:  '0xffb454'
+    blue:    '0x59c2ff'
+    magenta: '0xd2a6ff'
+    cyan:    '0x95e6cb'
+    white:   '0xe6e1cf'
+  bright:
+    black:   '0x3e4b59'
+    red:     '0xf07178'
+    green:   '0xb8cc52'
+    yellow:  '0xffb454'
+    blue:    '0x59c2ff'
+    magenta: '0xd2a6ff'
+    cyan:    '0x95e6cb'
+    white:   '0xf3f4f5'
+
+  indexed_colors:
+    - { index: 16, color: '0xff8f40' }
+    - { index: 17, color: '0xe6b673' }
+    - { index: 18, color: '0x131721' }
+    - { index: 19, color: '0x272d38' }
+    - { index: 20, color: '0xbfbdb6' }
+    - { index: 21, color: '0xe6e1cf' }
+
+colors: *base16_ayu_dark_256
