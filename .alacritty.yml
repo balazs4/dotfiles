@@ -283,4 +283,4 @@ schemes:
       white:   '0xfcfdfe'
 
 # Apply the color scheme.
-colors: *base16-brewer-256
+colors: *github_dark_dimmed

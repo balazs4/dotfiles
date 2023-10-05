@@ -46,8 +46,8 @@ function zsh-git() {
       /^ (M|T|A|D|R|C|U)/               {modified++}
       /^(M|T|A|D|R|C|U)(M|T|A|D|R|C|U)/ {staged++; modified++}
       /^\?\?/                           {untracked++}
-      END { if ($1 != "fatal:") print "%F{#ffffff} [ %f" branch "%f%F{#ffffff}«%B%F{green}" staged "%f%b%F{#ffffff}«%B%F{red}" modified "%f%b%F{#ffffff}«%B%F{red}" untracked "%f%b %F{#ffffff}]%f" }' \
-    | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|%F{#ffffff}\[different\]|%B%F{red}! %f%b%F{#ffffff}|g'
+      END { if ($1 != "fatal:") print "%F{#ffffff} [ %f" branch "«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b %F{#ffffff}]%f" }' \
+    | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|\[different\]|%B%F{red}! %f%b|g'
 }
 
 setopt PROMPT_SUBST
