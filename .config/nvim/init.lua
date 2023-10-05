@@ -116,34 +116,8 @@ require('nvim-treesitter.configs').setup({
 -- https://github.com/mattn/emmet-vim
 vim.cmd("let g:user_emmet_leader_key='<C-Z>'")
 
--- https://github.com/ellisonleao/gruvbox.nvim
-require("gruvbox").setup({
-  terminal_colors = false, -- add neovim terminal colors
-  undercurl = false,
-  underline = false,
-  bold = false,
-  italic = {
-    strings = false,
-    emphasis = false,
-    comments = false,
-    operators = false,
-    folds = false,
-  },
-  strikethrough = false,
-  invert_selection = false,
-  invert_signs = false,
-  invert_tabline = false,
-  invert_intend_guides = false,
-  inverse = true, -- invert background for search, diffs, statuslines and errors
-  contrast = "soft", -- can be "hard", "soft" or empty string
-  palette_overrides = {},
-  overrides = {},
-  dim_inactive = false,
-  transparent_mode = true,
-})
-vim.cmd("colorscheme gruvbox")
 
--- https://github.com/Shatur/neovim-ayu
-
--- https://github.com/projekt0n/github-nvim-theme
-
+-- https://github.com/tinted-theming/base16-vim
+vim.g.base16_colorspace = 256
+vim.g.base16_background_transparent = 1
+vim.cmd("colorscheme base16-ayu-dark")
