@@ -178,7 +178,7 @@ function nvimplug(){
 
 alias so="source $HOME/.zshenv"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
-alias vimrc="dot .vimrc"
+alias vimrc="EDITOR=vim dot .vimrc"
 alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua"
 #carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
