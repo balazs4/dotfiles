@@ -118,6 +118,6 @@ require('nvim-treesitter.configs').setup({
 -- https://github.com/mattn/emmet-vim
 vim.cmd("let g:user_emmet_leader_key='<C-Z>'")
 
--- https://github.com/tinted-theming/base16-vim
-vim.g.base16_background_transparent = 1
-vim.cmd("colorscheme base16-ayu-dark")
+-- https://github.com/RRethy/nvim-base16
+vim.cmd('colorscheme base16-gruvbox-dark-soft')
+
