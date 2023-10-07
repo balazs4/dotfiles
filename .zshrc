@@ -896,3 +896,66 @@ function stars(){
 }
 
 #carbon alias xb='xbacklight -set'
+#
+
+function base16(){
+  deno eval "
+import { render } from 'https://deno.land/x/mustache_ts@v0.4.1.1/mustache.ts';
+import { parse } from 'https://deno.land/std@0.202.0/yaml/mod.ts';
+import { Color } from 'https://deno.land/x/color@v0.3.0/mod.ts';
+
+const template = Deno.readTextFileSync(Deno.args[0]);
+
+const decoder = new TextDecoder('utf-8');
+
+const lines = [];
+for await (const chunk of Deno.stdin.readable) {
+  lines.push(decoder.decode(chunk));
+}
+
+const input = parse(lines.join('\n'));
+
+const view = {
+  'scheme-name': input['scheme'],
+  'scheme-author': input['author'],
+  'scheme-slug': input['scheme'].toLowerCase().replace(/ /g, '-'),
+};
+
+const suffixes = [
+  '00', '01', '02', '03', '04', '05', '06', '07',
+  '08', '09', '0A', '0B', '0C', '0D', '0E', '0F'
+];
+
+for (const suffix of suffixes) {
+  const value = input['base' + suffix];
+
+  const r = [value[0], value[1]].join('');
+  const g = [value[2], value[3]].join('');
+  const b = [value[4], value[5]].join('');
+
+  view['base' + suffix + '-hex'] = value;
+  view['base' + suffix + '-hex-bgr'] = [b, g, r].join('');
+
+  view['base' + suffix + '-hex-r'] = r;
+  view['base' + suffix + '-hex-g'] = g;
+  view['base' + suffix + '-hex-b'] = b;
+
+  view['base' + suffix + '-rgb-r'] = parseInt(r, 16).toString();
+  view['base' + suffix + '-rgb-g'] = parseInt(g, 16).toString();
+  view['base' + suffix + '-rgb-b'] = parseInt(b, 16).toString();
+
+  const [h, s, l] = Color.string('#' + value)
+    .hsl()
+    .array();
+
+  view['base' + suffix + '-dec-r'] = parseFloat(h / 100).toString();
+  view['base' + suffix + '-dec-g'] = parseFloat(s / 100).toString();
+  view['base' + suffix + '-dec-b'] = parseFloat(l / 100).toString();
+  view['base' + suffix + '-hsl-h'] = parseFloat(h / 100).toString();
+  view['base' + suffix + '-hsl-s'] = parseFloat(s / 100).toString();
+  view['base' + suffix + '-hsl-l'] = parseFloat(l / 100).toString();
+}
+
+const output = render(template, view);
+console.log(output);" ${*}
+}
