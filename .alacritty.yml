@@ -8524,4 +8524,4 @@ base16_zenburn: &base16_zenburn
     - { index: 20, color: '0x808080' }
     - { index: 21, color: '0xc0c0c0' }
 
-colors: *base16_ayu_mirage
+colors: *base16_ayu_dark

@@ -45,32 +45,33 @@ end
 
 lsp({'go'}, {'gopls'}, {'go.mod'})
 lsp({'rust'}, {'rust-analyzer'}, {'Cargo.toml'})
-lsp({'typescript', 'typescriptreact'}, {'typescript-language-server', '--stdio'}, {'tsconfig.json'},
-  function()
-    vim.keymap.set('n', '<leader>t', function()
-      local filename = vim.fn.expand('%')
-      local targetfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
-          and string.gsub(filename, ".test.ts$", ".ts")
-          or string.gsub(filename, ".ts$", ".test.ts")
-
-      vim.cmd('vsplit ' .. targetfilename)
-    end, { noremap = true, silent = true })
-
-    vim.keymap.set('n', '<leader>r', function()
-      local filename = vim.fn.expand('%')
-      local workspace = {}
-      for p in string.gmatch(filename, "([^/]+)") do table.insert(workspace, p) end
-
-      local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
-          and filename
-          or string.gsub(filename, ".ts$", ".test.ts")
-
-      vim.cmd('! tmux split-window pnpm --filter ' .. workspace[2] .. ' test -- --watch ' .. testfilename)
-      vim.cmd('! tmux select-pane -l')
-      vim.cmd('! tmux send-keys Enter')
-    end, { noremap = true, silent = true })
-  end
-)
+--carbon lsp({'javascript', 'typescript'}, {'deno', 'lsp'}, {'deno.json'})
+--mcbpro lsp({'typescript', 'typescriptreact'}, {'typescript-language-server', '--stdio'}, {'tsconfig.json'},
+--mcbpro   function()
+--mcbpro     vim.keymap.set('n', '<leader>t', function()
+--mcbpro       local filename = vim.fn.expand('%')
+--mcbpro       local targetfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
+--mcbpro           and string.gsub(filename, ".test.ts$", ".ts")
+--mcbpro           or string.gsub(filename, ".ts$", ".test.ts")
+--mcbpro
+--mcbpro       vim.cmd('vsplit ' .. targetfilename)
+--mcbpro     end, { noremap = true, silent = true })
+--mcbpro
+--mcbpro     vim.keymap.set('n', '<leader>r', function()
+--mcbpro       local filename = vim.fn.expand('%')
+--mcbpro       local workspace = {}
+--mcbpro       for p in string.gmatch(filename, "([^/]+)") do table.insert(workspace, p) end
+--mcbpro
+--mcbpro       local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
+--mcbpro           and filename
+--mcbpro           or string.gsub(filename, ".ts$", ".test.ts")
+--mcbpro
+--mcbpro       vim.cmd('! tmux split-window pnpm --filter ' .. workspace[2] .. ' test -- --watch ' .. testfilename)
+--mcbpro       vim.cmd('! tmux select-pane -l')
+--mcbpro       vim.cmd('! tmux send-keys Enter')
+--mcbpro     end, { noremap = true, silent = true })
+--mcbpro   end
+--mcbpro )
 
 -- prettier
 vim.api.nvim_create_autocmd('FileType', {
@@ -118,6 +119,5 @@ require('nvim-treesitter.configs').setup({
 vim.cmd("let g:user_emmet_leader_key='<C-Z>'")
 
 -- https://github.com/tinted-theming/base16-vim
-vim.g.base16_colorspace = 256
 vim.g.base16_background_transparent = 1
 vim.cmd("colorscheme base16-ayu-dark")
