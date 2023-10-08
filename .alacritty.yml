@@ -92,29 +92,3 @@ font:
 #mcbpro   - { key: Backslash, mods: Alt|Shift, chars: "\x1b|"                       } # Alt + |
 
 
-#base16_vim_partnerlook
-colors: #base16_vim_partnerlook
-  primary: #base16_vim_partnerlook
-    background: '0x202020' #base16_vim_partnerlook
-    foreground: '0xddc7a1' #base16_vim_partnerlook
-  cursor: #base16_vim_partnerlook
-    text:       '0x202020' #base16_vim_partnerlook
-    cursor:     '0xddc7a1' #base16_vim_partnerlook
-  normal: #base16_vim_partnerlook
-    black:      '0x202020' #base16_vim_partnerlook
-    red:        '0xea6962' #base16_vim_partnerlook
-    green:      '0xa9b665' #base16_vim_partnerlook
-    yellow:     '0xd8a657' #base16_vim_partnerlook
-    blue:       '0x7daea3' #base16_vim_partnerlook
-    magenta:    '0xd3869b' #base16_vim_partnerlook
-    cyan:       '0x89b482' #base16_vim_partnerlook
-    white:      '0xddc7a1' #base16_vim_partnerlook
-  bright: #base16_vim_partnerlook
-    black:      '0x5a524c' #base16_vim_partnerlook
-    red:        '0xea6962' #base16_vim_partnerlook
-    green:      '0xa9b665' #base16_vim_partnerlook
-    yellow:     '0xd8a657' #base16_vim_partnerlook
-    blue:       '0x7daea3' #base16_vim_partnerlook
-    magenta:    '0xd3869b' #base16_vim_partnerlook
-    cyan:       '0x89b482' #base16_vim_partnerlook
-    white:      '0xfbf1c7' #base16_vim_partnerlook
