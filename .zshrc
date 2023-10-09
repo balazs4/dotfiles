@@ -903,32 +903,33 @@ function base16-alacritty(){
 import { render } from 'https://deno.land/x/mustache_ts@v0.4.1.1/mustache.ts';
 import { parse } from 'https://deno.land/std@0.202.0/yaml/mod.ts';
 
-const template = \`#base16_vim_partnerlook
-colors: #base16_vim_partnerlook
-  primary: #base16_vim_partnerlook
-    background: '0x{{base00-hex}}' #base16_vim_partnerlook
-    foreground: '0x{{base05-hex}}' #base16_vim_partnerlook
-  cursor: #base16_vim_partnerlook
-    text:       '0x{{base00-hex}}' #base16_vim_partnerlook
-    cursor:     '0x{{base05-hex}}' #base16_vim_partnerlook
-  normal: #base16_vim_partnerlook
-    black:      '0x{{base00-hex}}' #base16_vim_partnerlook
-    red:        '0x{{base08-hex}}' #base16_vim_partnerlook
-    green:      '0x{{base0B-hex}}' #base16_vim_partnerlook
-    yellow:     '0x{{base0A-hex}}' #base16_vim_partnerlook
-    blue:       '0x{{base0D-hex}}' #base16_vim_partnerlook
-    magenta:    '0x{{base0E-hex}}' #base16_vim_partnerlook
-    cyan:       '0x{{base0C-hex}}' #base16_vim_partnerlook
-    white:      '0x{{base05-hex}}' #base16_vim_partnerlook
-  bright: #base16_vim_partnerlook
-    black:      '0x{{base03-hex}}' #base16_vim_partnerlook
-    red:        '0x{{base08-hex}}' #base16_vim_partnerlook
-    green:      '0x{{base0B-hex}}' #base16_vim_partnerlook
-    yellow:     '0x{{base0A-hex}}' #base16_vim_partnerlook
-    blue:       '0x{{base0D-hex}}' #base16_vim_partnerlook
-    magenta:    '0x{{base0E-hex}}' #base16_vim_partnerlook
-    cyan:       '0x{{base0C-hex}}' #base16_vim_partnerlook
-    white:      '0x{{base07-hex}}' #base16_vim_partnerlook\`;
+const template = [
+'colors:',
+'  primary:',
+'    background: \'0x{{base00-hex}}\'',
+'    foreground: \'0x{{base05-hex}}\'',
+'  cursor:',
+'    text:       \'0x{{base00-hex}}\'',
+'    cursor:     \'0x{{base05-hex}}\'',
+'  normal:',
+'    black:      \'0x{{base00-hex}}\'',
+'    red:        \'0x{{base08-hex}}\'',
+'    green:      \'0x{{base0B-hex}}\'',
+'    yellow:     \'0x{{base0A-hex}}\'',
+'    blue:       \'0x{{base0D-hex}}\'',
+'    magenta:    \'0x{{base0E-hex}}\'',
+'    cyan:       \'0x{{base0C-hex}}\'',
+'    white:      \'0x{{base05-hex}}\'',
+'  bright:',
+'    black:      \'0x{{base03-hex}}\'',
+'    red:        \'0x{{base08-hex}}\'',
+'    green:      \'0x{{base0B-hex}}\'',
+'    yellow:     \'0x{{base0A-hex}}\'',
+'    blue:       \'0x{{base0D-hex}}\'',
+'    magenta:    \'0x{{base0E-hex}}\'',
+'    cyan:       \'0x{{base0C-hex}}\'',
+'    white:      \'0x{{base07-hex}}\'',
+].map(l => l + ' #base16_vim_partnerlook').join('\n');
 
 const decoder = new TextDecoder('utf-8');
 const lines = [];
