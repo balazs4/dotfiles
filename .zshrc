@@ -900,47 +900,48 @@ function stars(){
 
 function base16-alacritty(){
   deno eval "
-import { render } from 'https://deno.land/x/mustache_ts@v0.4.1.1/mustache.ts';
-import { parse } from 'https://deno.land/std@0.202.0/yaml/mod.ts';
+  import { render } from 'https://deno.land/x/mustache_ts@v0.4.1.1/mustache.ts';
+  import { parse } from 'https://deno.land/std@0.202.0/yaml/mod.ts';
 
-const template = [
-'colors:',
-'  primary:',
-'    background: \'0x{{base00-hex}}\'',
-'    foreground: \'0x{{base05-hex}}\'',
-'  cursor:',
-'    text:       \'0x{{base00-hex}}\'',
-'    cursor:     \'0x{{base05-hex}}\'',
-'  normal:',
-'    black:      \'0x{{base00-hex}}\'',
-'    red:        \'0x{{base08-hex}}\'',
-'    green:      \'0x{{base0B-hex}}\'',
-'    yellow:     \'0x{{base0A-hex}}\'',
-'    blue:       \'0x{{base0D-hex}}\'',
-'    magenta:    \'0x{{base0E-hex}}\'',
-'    cyan:       \'0x{{base0C-hex}}\'',
-'    white:      \'0x{{base05-hex}}\'',
-'  bright:',
-'    black:      \'0x{{base03-hex}}\'',
-'    red:        \'0x{{base08-hex}}\'',
-'    green:      \'0x{{base0B-hex}}\'',
-'    yellow:     \'0x{{base0A-hex}}\'',
-'    blue:       \'0x{{base0D-hex}}\'',
-'    magenta:    \'0x{{base0E-hex}}\'',
-'    cyan:       \'0x{{base0C-hex}}\'',
-'    white:      \'0x{{base07-hex}}\'',
-].map(l => l + ' #base16_vim_partnerlook').join('\n');
+  const template = [
+  'colors:',
+  '  primary:',
+  '    background: \'0x{{base00-hex}}\'',
+  '    foreground: \'0x{{base05-hex}}\'',
+  '  cursor:',
+  '    text:       \'0x{{base00-hex}}\'',
+  '    cursor:     \'0x{{base05-hex}}\'',
+  '  normal:',
+  '    black:      \'0x{{base00-hex}}\'',
+  '    red:        \'0x{{base08-hex}}\'',
+  '    green:      \'0x{{base0B-hex}}\'',
+  '    yellow:     \'0x{{base0A-hex}}\'',
+  '    blue:       \'0x{{base0D-hex}}\'',
+  '    magenta:    \'0x{{base0E-hex}}\'',
+  '    cyan:       \'0x{{base0C-hex}}\'',
+  '    white:      \'0x{{base05-hex}}\'',
+  '  bright:',
+  '    black:      \'0x{{base03-hex}}\'',
+  '    red:        \'0x{{base08-hex}}\'',
+  '    green:      \'0x{{base0B-hex}}\'',
+  '    yellow:     \'0x{{base0A-hex}}\'',
+  '    blue:       \'0x{{base0D-hex}}\'',
+  '    magenta:    \'0x{{base0E-hex}}\'',
+  '    cyan:       \'0x{{base0C-hex}}\'',
+  '    white:      \'0x{{base07-hex}}\'',
+  ].map(l => l + ' #base16_vim_partnerlook').join('\n');
 
-const decoder = new TextDecoder('utf-8');
-const lines = [];
-for await (const chunk of Deno.stdin.readable) { lines.push(decoder.decode(chunk)); }
-const input = parse(lines.join('\n'));
-const view = [ '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '0A', '0B', '0C', '0D', '0E', '0F' ].reduce((acc, suffix) => {
-  acc['base' + suffix + '-hex'] =  input['base' + suffix];
-  return acc;
-},{});
-const output = render(template, view);
-console.log(output);" ${*}
+  const decoder = new TextDecoder('utf-8');
+  const lines = [];
+  for await (const chunk of Deno.stdin.readable) { lines.push(decoder.decode(chunk)); }
+  const input = parse(lines.join('\n'));
+  const view = [ '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '0A', '0B', '0C', '0D', '0E', '0F' ].reduce((acc, suffix) => {
+    acc['base' + suffix + '-hex'] =  input['base' + suffix];
+    return acc;
+  },{});
+  const output = render(template, view);
+  console.log(output);
+" ${*}
 }
 
 
