@@ -903,6 +903,7 @@ function base16-alacritty(){
   import { render } from 'https://deno.land/x/mustache_ts@v0.4.1.1/mustache.ts';
   import { parse } from 'https://deno.land/std@0.202.0/yaml/mod.ts';
 
+  // https://github.com/aarowill/base16-alacritty/blob/63d8ae5dfefe5db825dd4c699d0cdc2fc2c3eaf7/templates/default.mustache
   const template = [
   'colors:',
   '  primary:',
@@ -929,6 +930,13 @@ function base16-alacritty(){
   '    magenta:    \'0x{{base0E-hex}}\'',
   '    cyan:       \'0x{{base0C-hex}}\'',
   '    white:      \'0x{{base07-hex}}\'',
+  '  indexed_colors:',
+  '    - { index: 16, color: \'0x{{base09-hex}}\' }',
+  '    - { index: 17, color: \'0x{{base0F-hex}}\' }',
+  '    - { index: 18, color: \'0x{{base01-hex}}\' }',
+  '    - { index: 19, color: \'0x{{base02-hex}}\' }',
+  '    - { index: 20, color: \'0x{{base04-hex}}\' }',
+  '    - { index: 21, color: \'0x{{base06-hex}}\' }',
   ].map(l => l + ' #base16_vim_partnerlook').join('\n');
 
   const decoder = new TextDecoder('utf-8');
