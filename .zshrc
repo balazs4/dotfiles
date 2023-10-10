@@ -964,3 +964,14 @@ function partnerlook(){
     | base16-alacritty >> $HOME/.files/.alacritty.yml
   TMUX= source $HOME/.files/.zprofile
 }
+
+function theme-alacritty(){
+    ls $HOME/.local/share/nvim/site/pack/_/start/base16-vim/colors/ | fzf --preview "
+      cat $HOME/.local/share/nvim/site/pack/_/start/base16-vim/colors/{} \
+      | grep 'let g:base16_gui' \
+      | sed 's/let g:base16_gui/base/g;s/ =/:/g' \
+      | zsh -c 'source ~/.zshrc; base16-alacritty' \
+      | tee -a $HOME/.alacritty.yml \
+      | bat --color=always --language yaml
+    "
+}
