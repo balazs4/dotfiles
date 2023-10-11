@@ -179,7 +179,7 @@ function nvimplug(){
 alias so="source $HOME/.zshenv"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="EDITOR=vim dot .vimrc"
-alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua && partnerlook"
+alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua && partnerlook 1> /dev/null"
 #carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
 #carbon alias xx='xclip -rmlastnl -selection clipboard'
