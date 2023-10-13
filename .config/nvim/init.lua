@@ -43,7 +43,7 @@ function lsp(pattern, cmd, project, setup)
   })
 end
 
-lsp({'go'}, {'gopls'}, {'go.mod'})
+lsp({'go', 'templ'}, {'gopls'}, {'go.mod'})
 lsp({'rust'}, {'rust-analyzer'}, {'Cargo.toml'})
 --carbon lsp({'javascript', 'typescript'}, {'deno', 'lsp'}, {'deno.json'})
 --mcbpro lsp({'typescript', 'typescriptreact'}, {'typescript-language-server', '--stdio'}, {'tsconfig.json'},
