@@ -6,10 +6,10 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.guicursor = 'i:block'
 vim.opt.termguicolors = true
-vim.opt.completeopt = 'menu'
+vim.opt.completeopt = 'menu,menuone,noselect'
 vim.opt.cursorline = false
 vim.opt.nu = true
-vim.opt.rnu = false
+vim.opt.rnu = true
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
 vim.opt.cmdheight = 1
@@ -21,7 +21,10 @@ vim.keymap.set('n', '<leader>g', function()
   vim.cmd('! gh browse ' .. filename .. ':' .. row)
 end, { noremap = true, silent = true })
 
-vim.diagnostic.config({ virtual_text = true, signs = false, update_in_insert = false })
+vim.diagnostic.config({
+  signs = false, update_in_insert = false, underline = false
+  ,virtual_text = { severity = vim.diagnostic.severity.ERROR , spacing = 4 },
+})
 
 vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, { noremap = true, silent = true})
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true})
