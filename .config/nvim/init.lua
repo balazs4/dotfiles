@@ -26,14 +26,6 @@ vim.diagnostic.config({
   ,virtual_text = { severity = vim.diagnostic.severity.ERROR , spacing = 4 },
 })
 
-vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, { noremap = true, silent = true})
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true})
-vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true})
-vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end, { noremap = true, silent = true} )
-vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
-vim.keymap.set('i', '<C-N>', '<C-X><C-O>', { noremap = true, silent = true})
-
-
 function lsp(pattern, cmd, project, setup)
   vim.api.nvim_create_autocmd('FileType', {
     pattern = pattern,
@@ -41,6 +33,13 @@ function lsp(pattern, cmd, project, setup)
       local client = vim.lsp.start({ name = pattern[1], cmd = cmd, root_dir = vim.fs.dirname( vim.fs.find(project, { upward = true })[1]) })
       vim.lsp.buf_attach_client(0, client)
       print("lsp:" .. pattern[1] .. " > " .. cmd[1])
+
+      vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true})
+      vim.keymap.set('i', '<C-N>', '<C-X><C-O>', { noremap = true, silent = true})
+      vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end, { noremap = true, silent = true} )
+      vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true})
+      vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
+
       if setup then setup() end
     end
   })
