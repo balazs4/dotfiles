@@ -14,6 +14,7 @@ vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
 vim.opt.cmdheight = 1
 vim.cmd('let g:loaded_matchparen=1')
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
 vim.keymap.set('n', '<leader>g', function()
   local filename = string.gsub(vim.fn.expand('%'), os.getenv('PWD') or "", "")
