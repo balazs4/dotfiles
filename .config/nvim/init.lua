@@ -35,7 +35,7 @@ function lsp(pattern, cmd, project, setup)
       print("lsp:" .. pattern[1] .. " > " .. cmd[1])
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true})
-      vim.keymap.set('i', '<C-N>', '<C-X><C-O>', { noremap = true, silent = true})
+      vim.keymap.set('i', '.', '.<C-X><C-O>', { noremap = true, silent = true})
       vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end, { noremap = true, silent = true} )
       vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true})
       vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
