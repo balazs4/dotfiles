@@ -817,6 +817,13 @@ function pf(){
   watchexec -vv -c --print-events  -w $dir --project-origin $dir -s SIGKILL -- pnpm --filter $app $cmd
 }
 
+# !mono?
+function stereo(){
+  fd package.json \
+    | fzf --height '25%' -1 -q"'${PROJECT}" \
+    | xargs dirname
+}
+
 function pacs(){
   yay -Q \
     | fzf --multi --reverse \
