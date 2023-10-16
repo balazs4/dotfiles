@@ -82,8 +82,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.del('n', '<leader>p')
     vim.keymap.set('n', '<leader>p', function()
       vim.cmd(':w %')
-      local filename = vim.fn.expand('%')
-      vim.cmd('! bun x prettier --write ' .. filename)
+      vim.cmd('! bun x prettier --write %')
       vim.cmd(':e %')
     end, { noremap = true, silent = true })
   end
@@ -91,13 +90,13 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup { 'default', winopts = { fullscreen = false, preview = { layout = 'vertical' } } }
-vim.keymap.set('n', '<leader>-', require('fzf-lua').builtin, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>/', require('fzf-lua').builtin, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader><leader>', require('fzf-lua').files, { noremap = true, silent = true })
 vim.keymap.set('n', '``', require('fzf-lua').buffers, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>=', require('fzf-lua').grep_project, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>w', require('fzf-lua').grep_cword, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>W', require('fzf-lua').grep_cWORD, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>/', require('fzf-lua').blines, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>-', require('fzf-lua').blines, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>`', require('fzf-lua').git_status, { noremap = true, silent = true })
 
 vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { noremap = true, silent = true})
