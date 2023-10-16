@@ -94,33 +94,33 @@ font:
 
 colors: #base16_vim_partnerlook
   primary: #base16_vim_partnerlook
-    background: '0x0f1419' #base16_vim_partnerlook
-    foreground: '0xe6e1cf' #base16_vim_partnerlook
+    background: '0x1d2021' #base16_vim_partnerlook
+    foreground: '0xd5c4a1' #base16_vim_partnerlook
   cursor: #base16_vim_partnerlook
-    text:       '0x0f1419' #base16_vim_partnerlook
-    cursor:     '0xe6e1cf' #base16_vim_partnerlook
+    text:       '0x1d2021' #base16_vim_partnerlook
+    cursor:     '0xd5c4a1' #base16_vim_partnerlook
   normal: #base16_vim_partnerlook
-    black:      '0x0f1419' #base16_vim_partnerlook
-    red:        '0xf07178' #base16_vim_partnerlook
-    green:      '0xb8cc52' #base16_vim_partnerlook
-    yellow:     '0xffb454' #base16_vim_partnerlook
-    blue:       '0x59c2ff' #base16_vim_partnerlook
-    magenta:    '0xd2a6ff' #base16_vim_partnerlook
-    cyan:       '0x95e6cb' #base16_vim_partnerlook
-    white:      '0xe6e1cf' #base16_vim_partnerlook
+    black:      '0x1d2021' #base16_vim_partnerlook
+    red:        '0xfb4934' #base16_vim_partnerlook
+    green:      '0xb8bb26' #base16_vim_partnerlook
+    yellow:     '0xfabd2f' #base16_vim_partnerlook
+    blue:       '0x83a598' #base16_vim_partnerlook
+    magenta:    '0xd3869b' #base16_vim_partnerlook
+    cyan:       '0x8ec07c' #base16_vim_partnerlook
+    white:      '0xd5c4a1' #base16_vim_partnerlook
   bright: #base16_vim_partnerlook
-    black:      '0x3e4b59' #base16_vim_partnerlook
-    red:        '0xf07178' #base16_vim_partnerlook
-    green:      '0xb8cc52' #base16_vim_partnerlook
-    yellow:     '0xffb454' #base16_vim_partnerlook
-    blue:       '0x59c2ff' #base16_vim_partnerlook
-    magenta:    '0xd2a6ff' #base16_vim_partnerlook
-    cyan:       '0x95e6cb' #base16_vim_partnerlook
-    white:      '0xf3f4f5' #base16_vim_partnerlook
+    black:      '0x665c54' #base16_vim_partnerlook
+    red:        '0xfb4934' #base16_vim_partnerlook
+    green:      '0xb8bb26' #base16_vim_partnerlook
+    yellow:     '0xfabd2f' #base16_vim_partnerlook
+    blue:       '0x83a598' #base16_vim_partnerlook
+    magenta:    '0xd3869b' #base16_vim_partnerlook
+    cyan:       '0x8ec07c' #base16_vim_partnerlook
+    white:      '0xfbf1c7' #base16_vim_partnerlook
   indexed_colors: #base16_vim_partnerlook
-    - { index: 16, color: '0xff8f40' } #base16_vim_partnerlook
-    - { index: 17, color: '0xe6b673' } #base16_vim_partnerlook
-    - { index: 18, color: '0x131721' } #base16_vim_partnerlook
-    - { index: 19, color: '0x272d38' } #base16_vim_partnerlook
-    - { index: 20, color: '0xbfbdb6' } #base16_vim_partnerlook
-    - { index: 21, color: '0xe6e1cf' } #base16_vim_partnerlook
+    - { index: 16, color: '0xfe8019' } #base16_vim_partnerlook
+    - { index: 17, color: '0xd65d0e' } #base16_vim_partnerlook
+    - { index: 18, color: '0x3c3836' } #base16_vim_partnerlook
+    - { index: 19, color: '0x504945' } #base16_vim_partnerlook
+    - { index: 20, color: '0xbdae93' } #base16_vim_partnerlook
+    - { index: 21, color: '0xebdbb2' } #base16_vim_partnerlook
