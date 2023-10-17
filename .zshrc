@@ -176,7 +176,7 @@ function nvimplug(){
   popd
 
   #base16: no italic
-  sed -i 's/"italic"/""/g' $HOME/.local/share/nvim/site/pack/_/start/base16-vim/*.vim
+  sed -i 's/"italic"/""/g' $HOME/.local/share/nvim/site/pack/_/start/base16-vim/colors/*.vim
 }
 
 alias so="source $HOME/.zshenv"
