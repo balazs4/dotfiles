@@ -163,6 +163,8 @@ function nvimplug(){
   if [[ ! -z "$1" ]]
   then
     echo "\n-- $1" >> $HOME/.files/.config/nvim/init.lua
+    local name=`echo $1 | awk -F/ '{print $NF}'`
+    echo "require('$name').setup()" >> $HOME/.files/.config/nvim/init.lua
     TMUX= source $HOME/.files/.zprofile
     git -C $HOME/.local/share/nvim/site/pack/_/start/ clone --depth=1 $1
     return
