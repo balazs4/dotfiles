@@ -13,8 +13,7 @@ vim.opt.rnu = true
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
 vim.opt.cmdheight = 1
-vim.cmd('let g:loaded_matchparen=1')
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.g.loaded_matchparen = 1
 
 vim.keymap.set('n', '<leader>g', function()
   local filename = string.gsub(vim.fn.expand('%'), os.getenv('PWD') or "", "")
@@ -39,13 +38,13 @@ local function lsp(pattern, cmd, project_file, setup)
 
       local client = vim.lsp.start({ name = pattern[1], cmd = cmd, root_dir = root_dir })
       vim.lsp.buf_attach_client(0, client)
+      print("lsp:" .. pattern[1] .. " > " .. cmd[1])
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true})
       vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { noremap = true, silent = true} )
       vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true})
       vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
 
-      print("lsp:" .. pattern[1] .. " > " .. cmd[1])
       if setup then setup(client) end
 
     end
@@ -57,45 +56,35 @@ lsp({'templ'}, {'templ', 'lsp'}, {'go.mod'})
 lsp({'lua'}, {'lua-language-server'}, {'.luarc.json'})
 lsp({'rust'}, {'rust-analyzer'}, {'Cargo.toml'})
 --carbon lsp({'typescript'}, {'deno', 'lsp'}, {'deno.json'})
---mcbpro lsp({'typescript', 'typescriptreact'}, {'typescript-language-server', '--stdio'}, {'tsconfig.json'},
---mcbpro   function()
---mcbpro     vim.keymap.set('n', '<leader>t', function()
---mcbpro       local filename = vim.fn.expand('%')
---mcbpro       local targetfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
---mcbpro           and string.gsub(filename, ".test.ts$", ".ts")
---mcbpro           or string.gsub(filename, ".ts$", ".test.ts")
---mcbpro
---mcbpro       vim.cmd('vsplit ' .. targetfilename)
---mcbpro     end, { noremap = true, silent = true })
---mcbpro
---mcbpro     vim.keymap.set('n', '<leader>r', function()
---mcbpro       local filename = vim.fn.expand('%')
---mcbpro       local workspace = {}
---mcbpro       for p in string.gmatch(filename, "([^/]+)") do table.insert(workspace, p) end
---mcbpro
---mcbpro       local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
---mcbpro           and filename
---mcbpro           or string.gsub(filename, ".ts$", ".test.ts")
---mcbpro
---mcbpro       vim.cmd('! tmux split-window pnpm --filter ' .. workspace[2] .. ' test -- --watch ' .. testfilename)
---mcbpro       vim.cmd('! tmux select-pane -l')
---mcbpro       vim.cmd('! tmux send-keys Enter')
---mcbpro     end, { noremap = true, silent = true })
---mcbpro   end
---mcbpro )
-
--- prettier
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = {'typescript', 'typescriptreact', 'javascript', 'javascriptreact', 'html', 'md', 'json'},
-  callback = function()
+lsp({'typescript', 'typescriptreact'}, {'typescript-language-server', '--stdio'}, {'tsconfig.json'},
+  function()
     pcall(vim.keymap.del, 'n', '<leader>p')
-    vim.keymap.set('n', '<leader>p', function()
-      vim.cmd(':w %')
-      vim.cmd('! bun x prettier --write %')
-      vim.cmd(':e %')
+    vim.keymap.set('n', '<leader>p', function() vim.cmd(':PrettierAsync') end, { noremap = true, silent = true} )
+
+    vim.keymap.set('n', '<leader>t', function()
+      local filename = vim.fn.expand('%')
+      local targetfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
+          and string.gsub(filename, ".test.ts$", ".ts")
+          or string.gsub(filename, ".ts$", ".test.ts")
+
+      vim.cmd('vsplit ' .. targetfilename)
+    end, { noremap = true, silent = true })
+
+    vim.keymap.set('n', '<leader>r', function()
+      local filename = vim.fn.expand('%')
+      local workspace = {}
+      for p in string.gmatch(filename, "([^/]+)") do table.insert(workspace, p) end
+
+      local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
+          and filename
+          or string.gsub(filename, ".ts$", ".test.ts")
+
+      vim.cmd('! tmux split-window pnpm --filter ' .. workspace[2] .. ' test -- --watch ' .. testfilename)
+      vim.cmd('! tmux select-pane -l')
+      vim.cmd('! tmux send-keys Enter')
     end, { noremap = true, silent = true })
   end
-})
+)
 
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup { 'default', winopts = { fullscreen = false, preview = { layout = 'vertical' } } }
@@ -121,6 +110,14 @@ require('nvim-treesitter.configs').setup({
   highlight = { enable = true },
   ensure_installed = { 'lua', 'typescript', 'javascript', 'rust', 'go' }
 })
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+
+-- https://github.com/nvim-treesitter/nvim-treesitter-context
+require('treesitter-context').setup()
+
+-- https://github.com/vrischmann/tree-sitter-templ
+require('tree-sitter-templ').setup({ highlight = { enable = true } })
+
 
 -- https://github.com/mattn/emmet-vim
 vim.g.user_emmet_leader_key='<C-Z>'
@@ -138,10 +135,4 @@ require('mini.surround').setup()
 -- https://github.com/echasnovski/mini.comment
 require('mini.comment').setup()
 
--- https://github.com/vrischmann/tree-sitter-templ
-require('tree-sitter-templ').setup({
-  highlight = { enable = true }
-})
-
--- https://github.com/nvim-treesitter/nvim-treesitter-context
-require('treesitter-context').setup()
+-- https://github.com/prettier/vim-prettier
