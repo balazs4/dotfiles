@@ -23,58 +23,66 @@ vim.keymap.set('n', '<leader>g', function()
 end, { noremap = true, silent = true })
 
 vim.diagnostic.config({
-  signs = false, update_in_insert = false, underline = false
-  ,virtual_text = { severity = vim.diagnostic.severity.ERROR , spacing = 4 },
+  signs = false,
+  update_in_insert = false,
+  underline = false,
+  virtual_text = { severity = vim.diagnostic.severity.ERROR , spacing = 4 }
 })
 
-function lsp(pattern, cmd, project, setup)
+function lsp(pattern, cmd, project_file, setup)
   vim.api.nvim_create_autocmd('FileType', {
     pattern = pattern,
     callback = function()
-      local client = vim.lsp.start({ name = pattern[1], cmd = cmd, root_dir = vim.fs.dirname( vim.fs.find(project, { upward = true })[1]) })
+      local root_dir = vim.fs.dirname( 
+        vim.fs.find(project_file and project_file or vim.fn.expand('%'), { upward = true })[1]
+      )
+
+      local client = vim.lsp.start({ name = pattern[1], cmd = cmd, root_dir = root_dir })
       vim.lsp.buf_attach_client(0, client)
-      print("lsp:" .. pattern[1] .. " > " .. cmd[1])
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true})
-      -- vim.keymap.set('i', '.', '.<C-X><C-O>', { noremap = true, silent = true})
       vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end, { noremap = true, silent = true} )
       vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true})
       vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
 
-      if setup then setup() end
+      print("lsp:" .. pattern[1] .. " > " .. cmd[1])
+      if setup then setup(client) end
+
     end
   })
 end
 
-lsp({'go', 'templ'}, {'gopls'}, {'go.mod'})
+
+lsp({'lua'}, {'lua-language-server'}, {'.luarc.json'})
+lsp({'go'}, {'gopls'}, {'go.mod'})
 lsp({'rust'}, {'rust-analyzer'}, {'Cargo.toml'})
---carbon lsp({'javascript', 'typescript'}, {'deno', 'lsp'}, {'deno.json'})
---mcbpro lsp({'typescript', 'typescriptreact'}, {'typescript-language-server', '--stdio'}, {'tsconfig.json'},
---mcbpro   function()
---mcbpro     vim.keymap.set('n', '<leader>t', function()
---mcbpro       local filename = vim.fn.expand('%')
---mcbpro       local targetfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
---mcbpro           and string.gsub(filename, ".test.ts$", ".ts")
---mcbpro           or string.gsub(filename, ".ts$", ".test.ts")
---mcbpro
---mcbpro       vim.cmd('vsplit ' .. targetfilename)
---mcbpro     end, { noremap = true, silent = true })
---mcbpro
---mcbpro     vim.keymap.set('n', '<leader>r', function()
---mcbpro       local filename = vim.fn.expand('%')
---mcbpro       local workspace = {}
---mcbpro       for p in string.gmatch(filename, "([^/]+)") do table.insert(workspace, p) end
---mcbpro
---mcbpro       local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
---mcbpro           and filename
---mcbpro           or string.gsub(filename, ".ts$", ".test.ts")
---mcbpro
---mcbpro       vim.cmd('! tmux split-window pnpm --filter ' .. workspace[2] .. ' test -- --watch ' .. testfilename)
---mcbpro       vim.cmd('! tmux select-pane -l')
---mcbpro       vim.cmd('! tmux send-keys Enter')
---mcbpro     end, { noremap = true, silent = true })
---mcbpro   end
---mcbpro )
+lsp({'typescript'}, {'deno', 'lsp'}, {'deno.json'})
+lsp({'typescript', 'typescriptreact'}, {'typescript-language-server', '--stdio'}, {'tsconfig.json'},
+  function()
+    vim.keymap.set('n', '<leader>t', function()
+      local filename = vim.fn.expand('%')
+      local targetfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
+          and string.gsub(filename, ".test.ts$", ".ts")
+          or string.gsub(filename, ".ts$", ".test.ts")
+
+      vim.cmd('vsplit ' .. targetfilename)
+    end, { noremap = true, silent = true })
+
+    vim.keymap.set('n', '<leader>r', function()
+      local filename = vim.fn.expand('%')
+      local workspace = {}
+      for p in string.gmatch(filename, "([^/]+)") do table.insert(workspace, p) end
+
+      local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
+          and filename
+          or string.gsub(filename, ".ts$", ".test.ts")
+
+      vim.cmd('! tmux split-window pnpm --filter ' .. workspace[2] .. ' test -- --watch ' .. testfilename)
+      vim.cmd('! tmux select-pane -l')
+      vim.cmd('! tmux send-keys Enter')
+    end, { noremap = true, silent = true })
+  end
+)
 
 -- prettier
 vim.api.nvim_create_autocmd('FileType', {
