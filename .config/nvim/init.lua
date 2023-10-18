@@ -41,7 +41,7 @@ local function lsp(pattern, cmd, project_file, setup)
       vim.lsp.buf_attach_client(0, client)
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true})
-      vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end, { noremap = true, silent = true} )
+      vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { noremap = true, silent = true} )
       vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true})
       vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
 
