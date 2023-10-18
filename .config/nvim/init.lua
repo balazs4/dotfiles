@@ -29,7 +29,7 @@ vim.diagnostic.config({
   virtual_text = { severity = vim.diagnostic.severity.ERROR , spacing = 4 }
 })
 
-function lsp(pattern, cmd, project_file, setup)
+local function lsp(pattern, cmd, project_file, setup)
   vim.api.nvim_create_autocmd('FileType', {
     pattern = pattern,
     callback = function()
@@ -51,7 +51,6 @@ function lsp(pattern, cmd, project_file, setup)
     end
   })
 end
-
 
 lsp({'lua'}, {'lua-language-server'}, {'.luarc.json'})
 lsp({'go'}, {'gopls'}, {'go.mod'})
@@ -88,7 +87,7 @@ lsp({'typescript', 'typescriptreact'}, {'typescript-language-server', '--stdio'}
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {'typescript', 'typescriptreact', 'javascript', 'javascriptreact', 'html', 'md', 'json'},
   callback = function()
-    vim.keymap.del('n', '<leader>p')
+    pcall(vim.keymap.del, 'n', '<leader>p')
     vim.keymap.set('n', '<leader>p', function()
       vim.cmd(':w %')
       vim.cmd('! bun x prettier --write %')
