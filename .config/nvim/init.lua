@@ -52,8 +52,9 @@ local function lsp(pattern, cmd, project_file, setup)
   })
 end
 
-lsp({'lua'}, {'lua-language-server'}, {'.luarc.json'})
 lsp({'go'}, {'gopls'}, {'go.mod'})
+lsp({'templ'}, {'templ', 'lsp'}, {'go.mod'})
+lsp({'lua'}, {'lua-language-server'}, {'.luarc.json'})
 lsp({'rust'}, {'rust-analyzer'}, {'Cargo.toml'})
 lsp({'typescript'}, {'deno', 'lsp'}, {'deno.json'})
 lsp({'typescript', 'typescriptreact'}, {'typescript-language-server', '--stdio'}, {'tsconfig.json'},
@@ -118,7 +119,7 @@ vim.cmd("colorscheme zeitgeist")
 -- https://github.com/nvim-treesitter/nvim-treesitter
 require('nvim-treesitter.configs').setup({
   highlight = { enable = true },
-  ensure_installed = { 'lua', 'typescript', 'javascript', 'go', 'rust' }
+  ensure_installed = { 'lua', 'typescript', 'javascript', 'rust', 'go' }
 })
 
 -- https://github.com/mattn/emmet-vim
@@ -136,3 +137,8 @@ require('mini.surround').setup()
 
 -- https://github.com/echasnovski/mini.comment
 require('mini.comment').setup()
+
+-- https://github.com/vrischmann/tree-sitter-templ
+require('tree-sitter-templ').setup({
+  highlight = { enable = true }
+})
