@@ -39,6 +39,3 @@ vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
 colorscheme industry
-
-"https://github.com/tinted-theming/base16-vim
-colorscheme base16-ayu-dark
