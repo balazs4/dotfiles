@@ -186,7 +186,7 @@ function nvimplug(){
 alias so="source $HOME/.zshenv"
 alias zshrc="dot .zshrc; source $HOME/.zshrc"
 alias vimrc="EDITOR=vim dot .vimrc"
-alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua && partnerlook 1> /dev/null"
+alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua /dev/null"
 #carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
 #carbon alias xx='xclip -rmlastnl -selection clipboard'
@@ -966,7 +966,6 @@ function base16-alacritty(){
 " ${*}
 }
 
-
 function partnerlook(){
   sed -i '/#base16_vim_partnerlook/d' $HOME/.files/.alacritty.yml
   cat $HOME/.files/.config/nvim/init.lua \
@@ -977,15 +976,4 @@ function partnerlook(){
     | sed 's/let g:base16_gui/base/g;s/ =/:/g' \
     | base16-alacritty >> $HOME/.files/.alacritty.yml
   TMUX= source $HOME/.files/.zprofile
-}
-
-function theme-alacritty(){
-    ls $HOME/.local/share/nvim/site/pack/_/start/base16-vim/colors/ | fzf --preview "
-      cat $HOME/.local/share/nvim/site/pack/_/start/base16-vim/colors/{} \
-      | grep 'let g:base16_gui' \
-      | sed 's/let g:base16_gui/base/g;s/ =/:/g' \
-      | zsh -c 'source ~/.zshrc; base16-alacritty' \
-      | tee -a $HOME/.alacritty.yml \
-      | bat --color=always --language yaml
-    "
 }
