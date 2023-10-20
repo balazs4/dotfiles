@@ -92,7 +92,6 @@ font:
 #mcbpro   - { key: Backslash, mods: Alt|Shift, chars: "\x1b|"                       } # Alt + |
 
 
-#base16_vim_partnerlook
 colors: #base16_vim_partnerlook
   primary: #base16_vim_partnerlook
     background: '0x171b24' #base16_vim_partnerlook
@@ -118,3 +117,10 @@ colors: #base16_vim_partnerlook
     magenta:    '0xd4bfff' #base16_vim_partnerlook
     cyan:       '0x95e6cb' #base16_vim_partnerlook
     white:      '0xf3f4f5' #base16_vim_partnerlook
+  indexed_colors: #base16_vim_partnerlook
+    - { index: 16, color: '0xffad66' } #base16_vim_partnerlook
+    - { index: 17, color: '0xf29e74' } #base16_vim_partnerlook
+    - { index: 18, color: '0x1f2430' } #base16_vim_partnerlook
+    - { index: 19, color: '0x242936' } #base16_vim_partnerlook
+    - { index: 20, color: '0x8a9199' } #base16_vim_partnerlook
+    - { index: 21, color: '0xd9d7ce' } #base16_vim_partnerlook
