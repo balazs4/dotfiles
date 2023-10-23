@@ -176,11 +176,6 @@ function nvimplug(){
   pushd $HOME/.local/share/nvim/site/pack/_/start/
     grep '^\s*-- https://github' $HOME/.config/nvim/init.lua | sed 's/^[[:space:]]*-- //g' | xargs -t -L1 git clone --depth=1
   popd
-
-  #base16: no italic
-  pushd $HOME/.local/share/nvim/site/pack/_/start/base16-vim/colors/
-    gsed -i 's/"italic"/""/g' ./*.vim
-  popd
 }
 
 alias so="source $HOME/.zshenv"
