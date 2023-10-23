@@ -38,7 +38,6 @@ local function lsp(pattern, cmd, project_file, setup)
 
       local client = vim.lsp.start({ name = pattern[1], cmd = cmd, root_dir = root_dir })
       vim.lsp.buf_attach_client(0, client)
-      print("lsp:" .. pattern[1] .. " > " .. cmd[1])
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true})
       vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { noremap = true, silent = true} )
@@ -79,7 +78,7 @@ lsp({'typescript', 'typescriptreact'}, {'typescript-language-server', '--stdio'}
           and filename
           or string.gsub(filename, ".ts$", ".test.ts")
 
-      vim.cmd('! tmux split-window pnpm --filter ' .. workspace[2] .. ' test -- --watch ' .. testfilename)
+      vim.cmd('! tmux split-window -h pnpm --filter ' .. workspace[2] .. ' test -- --watch ' .. testfilename)
       vim.cmd('! tmux select-pane -l')
       vim.cmd('! tmux send-keys Enter')
     end, { noremap = true, silent = true })
