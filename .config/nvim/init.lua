@@ -129,13 +129,10 @@ require('treesitter-context').setup()
 -- https://github.com/vrischmann/tree-sitter-templ
 require('tree-sitter-templ').setup({ highlight = { enable = true } })
 
-
 -- https://github.com/mattn/emmet-vim
 vim.g.user_emmet_leader_key='<C-Z>'
 
--- https://github.com/tinted-theming/base16-vim
-vim.g.base16_background_transparent = 1
-vim.cmd("colorscheme base16-ayu-mirage")
+-- https://github.com/prettier/vim-prettier
 
 -- https://github.com/echasnovski/mini.completion
 require('mini.completion').setup()
@@ -146,5 +143,26 @@ require('mini.surround').setup()
 -- https://github.com/echasnovski/mini.comment
 require('mini.comment').setup()
 
--- https://github.com/prettier/vim-prettier
-
+-- https://github.com/echasnovski/mini.base16
+require('mini.base16').setup({
+  palette = {
+    base00 = '#{{base00-hex}}',
+    base01 = '#{{base01-hex}}',
+    base02 = '#{{base02-hex}}',
+    base03 = '#{{base03-hex}}',
+    base04 = '#{{base04-hex}}',
+    base05 = '#{{base05-hex}}',
+    base06 = '#{{base06-hex}}',
+    base07 = '#{{base07-hex}}',
+    base08 = '#{{base08-hex}}',
+    base09 = '#{{base09-hex}}',
+    base0A = '#{{base0A-hex}}',
+    base0B = '#{{base0B-hex}}',
+    base0C = '#{{base0C-hex}}',
+    base0D = '#{{base0D-hex}}',
+    base0E = '#{{base0E-hex}}',
+    base0F = '#{{base0F-hex}}',
+  },
+  use_cterm = nil
+})
+vim.g.colors_name = 'base16'

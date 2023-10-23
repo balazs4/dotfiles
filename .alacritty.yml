@@ -14,6 +14,41 @@ font:
     family: SF Mono
 #carbon     style: regular
 
+colors:
+  primary:
+    background: '0x{{base00-hex}}'
+    foreground: '0x{{base05-hex}}'
+  cursor:
+    text:    '0x{{base00-hex}}'
+    cursor:  '0x{{base05-hex}}'
+  normal:
+    black:   '0x{{base00-hex}}'
+    red:     '0x{{base08-hex}}'
+    green:   '0x{{base0B-hex}}'
+    yellow:  '0x{{base0A-hex}}'
+    blue:    '0x{{base0D-hex}}'
+    magenta: '0x{{base0E-hex}}'
+    cyan:    '0x{{base0C-hex}}'
+    white:   '0x{{base05-hex}}'
+  bright:
+    black:   '0x{{base03-hex}}'
+    red:     '0x{{base08-hex}}'
+    green:   '0x{{base0B-hex}}'
+    yellow:  '0x{{base0A-hex}}'
+    blue:    '0x{{base0D-hex}}'
+    magenta: '0x{{base0E-hex}}'
+    cyan:    '0x{{base0C-hex}}'
+    white:   '0x{{base07-hex}}'
+
+  indexed_colors:
+    - { index: 16, color: '0x{{base09-hex}}' }
+    - { index: 17, color: '0x{{base0F-hex}}' }
+    - { index: 18, color: '0x{{base01-hex}}' }
+    - { index: 19, color: '0x{{base02-hex}}' }
+    - { index: 20, color: '0x{{base04-hex}}' }
+    - { index: 21, color: '0x{{base06-hex}}' }
+
+
 #mcbpro key_bindings:
 #mcbpro   - { key: A,         mods: Alt,       chars: "\x1ba"                       }
 #mcbpro   - { key: B,         mods: Alt,       chars: "\x1bb"                       }
@@ -90,37 +125,3 @@ font:
 #mcbpro   - { key: Key6,      mods: Alt|Shift, chars: "\x1b^"                       } # Alt + ^
 #mcbpro   - { key: Backslash, mods: Alt,       chars: "\x1b\\"                      } # Alt + \
 #mcbpro   - { key: Backslash, mods: Alt|Shift, chars: "\x1b|"                       } # Alt + |
-
-
-colors: #base16_vim_partnerlook
-  primary: #base16_vim_partnerlook
-    background: '0x171b24' #base16_vim_partnerlook
-    foreground: '0xcccac2' #base16_vim_partnerlook
-  cursor: #base16_vim_partnerlook
-    text:       '0x171b24' #base16_vim_partnerlook
-    cursor:     '0xcccac2' #base16_vim_partnerlook
-  normal: #base16_vim_partnerlook
-    black:      '0x171b24' #base16_vim_partnerlook
-    red:        '0xf28779' #base16_vim_partnerlook
-    green:      '0xd5ff80' #base16_vim_partnerlook
-    yellow:     '0xffd173' #base16_vim_partnerlook
-    blue:       '0x5ccfe6' #base16_vim_partnerlook
-    magenta:    '0xd4bfff' #base16_vim_partnerlook
-    cyan:       '0x95e6cb' #base16_vim_partnerlook
-    white:      '0xcccac2' #base16_vim_partnerlook
-  bright: #base16_vim_partnerlook
-    black:      '0x707a8c' #base16_vim_partnerlook
-    red:        '0xf28779' #base16_vim_partnerlook
-    green:      '0xd5ff80' #base16_vim_partnerlook
-    yellow:     '0xffd173' #base16_vim_partnerlook
-    blue:       '0x5ccfe6' #base16_vim_partnerlook
-    magenta:    '0xd4bfff' #base16_vim_partnerlook
-    cyan:       '0x95e6cb' #base16_vim_partnerlook
-    white:      '0xf3f4f5' #base16_vim_partnerlook
-  indexed_colors: #base16_vim_partnerlook
-    - { index: 16, color: '0xffad66' } #base16_vim_partnerlook
-    - { index: 17, color: '0xf29e74' } #base16_vim_partnerlook
-    - { index: 18, color: '0x1f2430' } #base16_vim_partnerlook
-    - { index: 19, color: '0x242936' } #base16_vim_partnerlook
-    - { index: 20, color: '0x8a9199' } #base16_vim_partnerlook
-    - { index: 21, color: '0xd9d7ce' } #base16_vim_partnerlook
