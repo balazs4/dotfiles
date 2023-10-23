@@ -42,4 +42,3 @@ do
 done
 
 echo "$HOME/.files/ >> ${uname} >> ${hostname} >> $HOME/"
-echo $colors
