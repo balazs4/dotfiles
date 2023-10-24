@@ -812,6 +812,7 @@ function pf(){
   local app=`echo $packagejson | awk -F/ '{print $(NF-1)}'`
   local cmd=`fx $packagejson 'x => Object.entries(x.scripts).map(x => x.join("\t")).join("\n")' | fzf --height '25%' -1 -q"'${*}" | awk '{print $1}'`
   local dir=`dirname $packagejson`
+  echo "pnpm --filter $app $cmd"
 
   watchexec -vv -c --print-events  -w $dir --project-origin $dir -s SIGKILL -- pnpm --filter $app $cmd
 }
