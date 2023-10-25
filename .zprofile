@@ -1,38 +1,32 @@
-# Linux Darwin
 
 [[ $TMUX ]] && return
 PAGER= git -C $HOME/.files diff -p
 local hostname=`hostname -s`
 local uname=`uname -s`
 
-# https://github.com/tinted-theming/base16-schemes
 local colors=`cat <<EOF \
   | awk -F: '/base.*/ {print $1 $2}' \
   | awk -F" " '{ print "s/{{" $1 "-hex}}/" $2 "/g"}' \
   | tr -d '"' \
   | tr "\n" ";"
-FOE
-
-scheme: "Ayu Mirage"
-author: "Khue Nguyen <Z5483Y@gmail.com>"
-base00: "171B24"
-base01: "1F2430"
-base02: "242936"
-base03: "707A8C"
-base04: "8A9199"
-base05: "CCCAC2"
-base06: "D9D7CE"
-base07: "F3F4F5"
-base08: "F28779"
-base09: "FFAD66"
-base0A: "FFD173"
-base0B: "D5FF80"
-base0C: "95E6CB"
-base0D: "5CCFE6"
-base0E: "D4BFFF"
-base0F: "F29E74"
-
-EOF
+scheme: "Gruvbox dark, soft"
+author: "Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)"
+base00: "32302f" # ----
+base01: "3c3836" # ---
+base02: "504945" # --
+base03: "665c54" # -
+base04: "bdae93" # +
+base05: "d5c4a1" # ++
+base06: "ebdbb2" # +++
+base07: "fbf1c7" # ++++
+base08: "fb4934" # red
+base09: "fe8019" # orange
+base0A: "fabd2f" # yellow
+base0B: "b8bb26" # green
+base0C: "8ec07c" # aqua/cyan
+base0D: "83a598" # blue
+base0E: "d3869b" # purple
+base0F: "d65d0e" # brown
 `
 
 for dotfile in $(git -C $HOME/.files grep --name-only -- ${uname})
