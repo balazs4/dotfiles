@@ -46,15 +46,15 @@ function zsh-git() {
       /^ (M|T|A|D|R|C|U)/               {modified++}
       /^(M|T|A|D|R|C|U)(M|T|A|D|R|C|U)/ {staged++; modified++}
       /^\?\?/                           {untracked++}
-      END { if ($1 != "fatal:") print "%F{#ffffff} [ %f" branch "«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b %F{#ffffff}]%f" }' \
+      END { if ($1 != "fatal:") print "%F{#{{base04-hex}}} [ %f" branch "«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b %F{#{{base04-hex}}}]%f" }' \
     | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|\[different\]|%B%F{red}! %f%b|g'
 }
 
 setopt PROMPT_SUBST
 
 function zle-line-init zle-keymap-select {
-  PROMPT='%B%F{#ffffff} %~%f%b$(zsh-git &) %B%F{#ffffff}»%f%b '
-  RPROMPT="%(?.%F{white}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
+  PROMPT='%B%F{#{{base04-hex}}} %~%f%b$(zsh-git &) %B%F{#{{base04-hex}}}»%f%b '
+  RPROMPT="%(?.%F{#{{base04-hex}}}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
   zle reset-prompt
 }
 
@@ -626,30 +626,11 @@ function gb(){
 
 alias .env='set -o allexport; source .env; set +o allexport'
 
-alias flip='rev | perl -Mopen=locale -Mutf8 -pe tr/a-z/ɐqɔpǝɟƃɥıɾʞlɯuodᕹɹsʇnʌʍxʎz/'
-
 alias src='fx package.json .scripts'
 
 #mcbpro export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
 #mcbpro export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
 #mcbpro export BUILD_LIBRDKAFKA=0
-
-function light(){
-#carbon  xbacklight \=100
-  curl -Ls https://raw.githubusercontent.com/aarowill/base16-alacritty/914727e48ebf3eab1574e23ca0db0ecd0e5fe9d0/colors/base16-github.yml >> $HOME/.alacritty.yml
-
-  #todo: patch init.lua
-  echo "set background=light" >> $HOME/.vimrc
-  echo "color shine" >> $HOME/.vimrc
-
-  echo '--theme="gruvbox-light"' >> $HOME/.config/bat/config
-  echo '' > /home/balazs4/.config/chromium-flags.conf
-}
-
-function dark(){
-  source $HOME/.files/.zprofile &> /dev/null
-#carbon  xbacklight \=20
-}
 
 #carbon function cool(){
 #carbon   echo level ${1:-7} | sudo tee /proc/acpi/ibm/fan
@@ -911,7 +892,7 @@ function base16(){
   test -d /tmp/base16-schemes || {
     git clone https://github.com/tinted-theming/base16-schemes /tmp/base16-schemes --depth=1 --branch=main
   }
-  local base16_theme=`fd . /tmp/base16-schemes/ | fzf --height='40%' --reverse --preview 'cat {}'`
+  local base16_theme=`fd . /tmp/base16-schemes/ | fzf --height='40%' --reverse --preview 'cat {}' -q"'$1" -1`
 
   # https://stackoverflow.com/questions/49507384/how-to-replace-multiple-lines-between-two-patterns-with-content-of-a-file-using
   sed -e '/FOE/,/EOF/!b' -e "/EOF/!d;r $base16_theme" -e 'd' $HOME/.zprofile > $HOME/.files/.zprofile
