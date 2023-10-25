@@ -9,24 +9,24 @@ local colors=`cat <<EOF \
   | awk -F" " '{ print "s/{{" $1 "-hex}}/" $2 "/g"}' \
   | tr -d '"' \
   | tr "\n" ";"
-scheme: "Gruvbox dark, soft"
-author: "Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)"
-base00: "32302f" # ----
-base01: "3c3836" # ---
-base02: "504945" # --
-base03: "665c54" # -
-base04: "bdae93" # +
-base05: "d5c4a1" # ++
-base06: "ebdbb2" # +++
-base07: "fbf1c7" # ++++
-base08: "fb4934" # red
-base09: "fe8019" # orange
-base0A: "fabd2f" # yellow
-base0B: "b8bb26" # green
-base0C: "8ec07c" # aqua/cyan
-base0D: "83a598" # blue
-base0E: "d3869b" # purple
-base0F: "d65d0e" # brown
+scheme: "Gruvbox Material Light, Medium"
+author: "Mayush Kumar (https://github.com/MayushKumar), sainnhe (https://github.com/sainnhe/gruvbox-material-vscode)"
+base00: "fbf1c7"
+base01: "f2e5bc"
+base02: "d5c4a1"
+base03: "bdae93"
+base04: "665c54"
+base05: "654735"
+base06: "3c3836"
+base07: "282828"
+base08: "c14a4a"
+base09: "c35e0a"
+base0A: "b47109"
+base0B: "6c782e"
+base0C: "4c7a5d"
+base0D: "45707a"
+base0E: "945e80"
+base0F: "e78a4e"
 `
 
 for dotfile in $(git -C $HOME/.files grep --name-only -- ${uname})
