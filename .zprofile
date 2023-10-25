@@ -9,24 +9,25 @@ local colors=`cat <<EOF \
   | awk -F" " '{ print "s/{{" $1 "-hex}}/" $2 "/g"}' \
   | tr -d '"' \
   | tr "\n" ";"
-scheme: "iA Light"
-author: "iA Inc. (modified by aramisgithub)"
-base00: "f6f6f6"
-base01: "dedede"
-base02: "bde5f2"
-base03: "898989"
-base04: "767676"
-base05: "181818"
-base06: "e8e8e8"
-base07: "f8f8f8"
-base08: "9c5a02"
-base09: "c43e18"
-base0A: "c48218"
-base0B: "38781c"
-base0C: "2d6bb1"
-base0D: "48bac2"
-base0E: "a94598"
-base0F: "8b6c37"
+# Ashes scheme for the Base16 Builder (https://github.com/chriskempson/base16-builder)
+scheme: "Ashes"
+author: "Jannik Siebert (https://github.com/janniks)"
+base00: "1C2023" # ----
+base01: "393F45" # ---
+base02: "565E65" # --
+base03: "747C84" # -
+base04: "ADB3BA" # +
+base05: "C7CCD1" # ++
+base06: "DFE2E5" # +++
+base07: "F3F4F5" # ++++
+base08: "C7AE95" # orange
+base09: "C7C795" # yellow
+base0A: "AEC795" # poison green
+base0B: "95C7AE" # turquois
+base0C: "95AEC7" # aqua
+base0D: "AE95C7" # purple
+base0E: "C795AE" # pink
+base0F: "C79595" # light red
 `
 
 for dotfile in $(git -C $HOME/.files grep --name-only -- ${uname})
