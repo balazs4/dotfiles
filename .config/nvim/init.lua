@@ -123,9 +123,6 @@ require('nvim-treesitter.configs').setup({
 })
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
--- https://github.com/nvim-treesitter/nvim-treesitter-context
-require('treesitter-context').setup()
-
 -- https://github.com/vrischmann/tree-sitter-templ
 require('tree-sitter-templ').setup({ highlight = { enable = true } })
 
