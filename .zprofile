@@ -9,29 +9,28 @@ local colors=`cat <<EOF \
   | awk -F" " '{ print "s/{{" $1 "-hex}}/" $2 "/g"}' \
   | tr -d '"' \
   | tr "\n" ";"
-scheme: "Grayscale Light"
-author: "Alexandre Gavioli (https://github.com/Alexx2/)"
-base00: "f7f7f7"
-base01: "e3e3e3"
-base02: "b9b9b9"
-base03: "ababab"
-base04: "525252"
-base05: "464646"
-base06: "252525"
-base07: "101010"
-base08: "7c7c7c"
-base09: "999999"
-base0A: "a0a0a0"
-base0B: "8e8e8e"
-base0C: "868686"
-base0D: "686868"
-base0E: "747474"
-base0F: "5e5e5e"
+scheme: "Ayu Dark"
+author: "Khue Nguyen <Z5483Y@gmail.com>"
+base00: "0F1419"
+base01: "131721"
+base02: "272D38"
+base03: "3E4B59"
+base04: "BFBDB6"
+base05: "E6E1CF"
+base06: "E6E1CF"
+base07: "F3F4F5"
+base08: "F07178"
+base09: "FF8F40"
+base0A: "FFB454"
+base0B: "B8CC52"
+base0C: "95E6CB"
+base0D: "59C2FF"
+base0E: "D2A6FF"
+base0F: "E6B673"
 `
 
 for dotfile in $(git -C $HOME/.files grep --name-only -- ${uname})
 do
-  echo $dotfile
   mkdir -p `dirname $HOME/$dotfile`
   cat $HOME/.files/$dotfile \
     | sed -r "s/^[--;#\/\"\!]+${hostname} //g;/^[#]+/d;" \
