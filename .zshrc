@@ -370,24 +370,35 @@ function yt(){
     | xargs -t -I{} curl -Lfs -H "accept-language: ${LNG:-en}" https://www.youtube.com/results\?search_query={} \
     | pup 'script:contains("var ytInitialData") text{}' \
     | sed 's/var ytInitialData = //g; s/};/}/' \
-    | fx 'yt => yt
-      .contents
-      .twoColumnSearchResultsRenderer
-      .primaryContents
-      .sectionListRenderer
-      .contents[0]
-      .itemSectionRenderer
-      .contents
-      .filter(x => x?.videoRenderer)
-      .map(x =>
-      [
-        x.videoRenderer.videoId,
-        x.videoRenderer.lengthText.simpleText.padStart(8),
-        x.videoRenderer.viewCountText.simpleText.padStart(16),
-        x.videoRenderer.title.runs[0].text,
-        x.videoRenderer.thumbnail?.thumbnails[0]?.url
-      ].join("\t")
-    ) .join("\n")' \
+    | node -e '
+      (async() => {
+        const lines = [];
+        for await (const line of require("node:readline").createInterface(process.stdin)) {
+          lines.push(line);
+        }
+        const yt = JSON.parse(lines.join("\n"));
+        const result = yt
+          .contents
+          .twoColumnSearchResultsRenderer
+          .primaryContents
+          .sectionListRenderer
+          .contents[0]
+          .itemSectionRenderer
+          .contents
+          .filter(x => x?.videoRenderer)
+          .map(x =>
+          [
+            x.videoRenderer.videoId,
+            x.videoRenderer.lengthText.simpleText.padStart(8),
+            x.videoRenderer.viewCountText.simpleText.padStart(16),
+            x.videoRenderer.title.runs[0].text,
+            x.videoRenderer.thumbnail?.thumbnails[0]?.url
+          ].join("\t")
+        ).join("\n");
+
+        console.log(result);
+      })();
+      ' \
     | sort -k3 -rh \
     | fzf --sync --reverse --height=50% \
     | cut -f1 \
