@@ -1,5 +1,5 @@
 # Linux Darwin
 [theme]
-highlight = "#{{base07-hex}}"
+highlight = "#{{base08-hex}}"
 highlight_bg = "#{{base00-hex}}"
 # vim: ft=cfg
