@@ -28,6 +28,7 @@ base0C: "95E6CB"
 base0D: "59C2FF"
 base0E: "D2A6FF"
 base0F: "E6B673"
+
 EOF
 `
 

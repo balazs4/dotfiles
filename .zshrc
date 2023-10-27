@@ -905,8 +905,10 @@ function base16(){
   }
   local base16_theme=`fd . /tmp/base16-schemes/ | fzf --height='40%' --reverse --preview 'cat {}' -q"'$1 " -1`
 
-  # https://stackoverflow.com/questions/49507384/how-to-replace-multiple-lines-between-two-patterns-with-content-of-a-file-using
-  sed -e '/FOE/,/EOF/!b' -e "/EOF/!d;r $base16_theme" -e 'd' $HOME/.files/.zprofile
-  # TMUX= source $HOME/.files/.zprofile
-  # source $HOME/.zshrc
+  sed '/FOE/,/EOF/{//!d}' $HOME/.files/.zprofile \
+    | awk "/FOE/ {print; system(\"cat ${base16_theme}\"); print\"\"; next} 1" \
+    | sponge $HOME/.files/.zprofile
+
+  TMUX= source $HOME/.files/.zprofile
+  source $HOME/.zshrc
 }
