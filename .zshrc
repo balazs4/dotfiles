@@ -223,19 +223,19 @@ alias less='less -r'
 alias delta='delta --side-by-side --syntax-theme=Nord'
 
 function srv(){
-  node -e "
-  require('node:http').createServer(async (req, res) => {
-    process.stdout.write('\n');
-    process.stdout.write(req.method + ' ' + req.url);
-    process.stdout.write('\n');
+  PORT=8000 node -e '
+  require("node:http").createServer(async (req, res) => {
+    process.stdout.write("\n");
+    process.stdout.write(req.method + " " + req.url);
+    process.stdout.write("\n");
     Object.entries(req.headers).forEach(([key, value]) => {
-      process.stdout.write(key + ': ' + value);
-      process.stdout.write('\n');
+      process.stdout.write(key + ": " + value);
+      process.stdout.write("\n");
     });
 
-    if (req.method.toUpperCase() !== 'GET'){
-      process.stdout.write('\n');
-      await require('node:stream/promises')
+    if (req.method.toUpperCase() !== "GET"){
+      process.stdout.write("\n");
+      await require("node:stream/promises")
         .pipeline(
           req,
           async function*(source) {
@@ -244,14 +244,14 @@ function srv(){
             }
           }
         ).catch();
-      process.stdout.write('\n');
+      process.stdout.write("\n");
     }
 
-    process.stdout.write('\n');
-    res.writeHead(200, { 'content-type': 'text/plain' });
+    process.stdout.write("\n");
+    res.writeHead(200, { "content-type": "text/plain" });
     res.end();
-  }).listen(${PORT:-8000}, () => console.log('http://localhost:${PORT:-8000}'));
-  "
+  }).listen(process.env.PORT, () => console.log("http://localhost:" + process.env.PORT));
+  '
 }
 
 function cheat(){
