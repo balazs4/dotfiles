@@ -9,6 +9,7 @@ local colors=`cat <<EOF \
   | awk -F" " '{ print "s/{{" $1 "-hex}}/" $2 "/g"}' \
   | tr -d '"' \
   | tr "\n" ";"
+FOE
 scheme: "Ayu Dark"
 author: "Khue Nguyen <Z5483Y@gmail.com>"
 base00: "0F1419"
@@ -27,6 +28,7 @@ base0C: "95E6CB"
 base0D: "59C2FF"
 base0E: "D2A6FF"
 base0F: "E6B673"
+EOF
 `
 
 for dotfile in $(git -C $HOME/.files grep --name-only -- ${uname})
