@@ -602,11 +602,9 @@ function mongodb-rs(){
 #carbon   tmux send-keys -t "$target" Enter
 #carbon }
 #carbon 
-#carbon test -f $HOME/.nix-profile/etc/profile.d/nix.sh && source $HOME/.nix-profile/etc/profile.d/nix.sh
-#carbon 
-#carbon function raw(){
-#carbon   curl -Ls "$1?raw=true"
-#carbon }
+function raw(){
+  curl -Ls "$1?raw=true"
+}
 #carbon 
 #carbon function yayfzf(){
 #carbon   yay -Sy
@@ -784,10 +782,6 @@ function home(){
 }
 
 alias changes='git diff main..HEAD --name-only'
-
-function re() {
-  gh pr diff --name-only | xargs -t nvim -c ":FzfLua buffers"
-}
 
 function redis(){
   docker run --rm -d --name redis-server -p 6379:6379 redis
