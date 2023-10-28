@@ -1,5 +1,6 @@
 -- Linux Darwin
 
+vim.cmd('colorscheme base16') -- $HOME/.config/nvim/colors/
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -113,9 +114,6 @@ vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, { noremap = true,
 vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_document_diagnostics, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols, { noremap = true, silent = true })
 
--- https://github.com/balazs4/zeitgeist
-vim.cmd('colorscheme zeitgeist')
-vim.cmd('colorscheme base16') -- $HOME/.config/nvim/colors/base16.vim
 
 -- https://github.com/nvim-treesitter/nvim-treesitter
 require('nvim-treesitter.configs').setup({
