@@ -114,7 +114,8 @@ vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_document_diagnostics, { 
 vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols, { noremap = true, silent = true })
 
 -- https://github.com/balazs4/zeitgeist
-vim.cmd("colorscheme zeitgeist")
+vim.cmd('colorscheme zeitgeist')
+vim.cmd('colorscheme base16') -- $HOME/.config/nvim/colors/base16.vim
 
 -- https://github.com/nvim-treesitter/nvim-treesitter
 require('nvim-treesitter.configs').setup({
@@ -140,4 +141,3 @@ require('mini.surround').setup()
 -- https://github.com/echasnovski/mini.comment
 require('mini.comment').setup()
 
-vim.cmd('colorscheme base16')
