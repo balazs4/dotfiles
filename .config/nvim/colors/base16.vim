@@ -2,19 +2,6 @@
 " vi:syntax=vim
 
 " base16-vim (https://github.com/tinted-theming/base16-vim)
-" Scheme name: {{scheme-name}}
-" Scheme author: {{scheme-author}}
-" Template author: Tinted Theming (https://github.com/tinted-theming)
-
-" This enables the coresponding base16-shell script to run so that
-" :colorscheme works in terminals supported by base16-shell scripts
-" User must set this variable in .vimrc
-"   let g:base16_shell_path=base16-builder/output/shell/
-if !has("gui_running")
-  if exists("g:base16_shell_path")
-    execute "silent !/bin/sh ".g:base16_shell_path."/base16-{{scheme-slug}}.sh"
-  endif
-endif
 
 " GUI color definitions
 let s:gui00        = "{{base00-hex}}"
