@@ -622,7 +622,7 @@ function gitlab-pipeline(){
 
   curl -Ls -H "private-token: $GITLAB_AUTH_TOKEN" "https://gitlab.com/api/v4/projects/$project/pipelines/?sha=$sha&ref=$ref" \
     | xurls \
-    | xargs xdg-open
+    | xargs open
 }
 
 function gb(){
