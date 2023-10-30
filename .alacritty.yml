@@ -8,8 +8,7 @@ window:
     general: alacritty
 
 font:
-#carbon   size: 11.0
-#mcbpro   size: 14.0
+  size: 11.0
   normal:
     family: Geist Mono
     style: Thin
