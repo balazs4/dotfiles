@@ -1,5 +1,9 @@
 # Linux Darwin
 [theme]
+title = "#{{base09-hex}}"
 highlight = "#{{base02-hex}}"
 highlight_bg = "#{{base09-hex}}"
+playing = "#{{base09-hex}}"
+playing_selected = "#{{base00-hex}}"
+playing_bg = "#{{base00-hex}}"
 # vim: ft=cfg
