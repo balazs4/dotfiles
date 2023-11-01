@@ -191,7 +191,7 @@ alias grep='grep --color'
 alias tree='fd | tree --fromfile'
 alias :q='exit'
 alias :q!='exit'
-alias ll='ls -lsh'
+alias ll='ls -hal'
 alias rm='rm -i'
 alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map(c=>Math.random()>0.5?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
 alias yolo='git add . && git commit -m "`bob yolo commit` :sponge:" --no-verify && git push --no-verify || true'
