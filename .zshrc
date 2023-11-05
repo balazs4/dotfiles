@@ -62,6 +62,10 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
+function TRAPUSR1(){
+  source $HOME/.zshrc
+}
+
 function zz() {
   local to=`{
     echo $HOME/.files;
@@ -125,8 +129,8 @@ export DO_NOT_TRACK=1
 function dot(){
   pushd $HOME/.files > /dev/null
     $EDITOR ${1:-.}
-    TMUX= source $PWD/.zprofile
   popd > /dev/null
+  TMUX= source $HOME/.files/.zprofile
 }
 
 function dotsync(){
@@ -179,7 +183,7 @@ function nvimplug(){
 }
 
 alias so="source $HOME/.zshenv"
-alias zshrc="dot .zshrc; source $HOME/.zshrc"
+alias zshrc="dot .zshrc"
 alias vimrc="EDITOR=vim dot .vimrc"
 alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua /dev/null"
 #carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
@@ -904,5 +908,4 @@ function base16(){
     | sponge $HOME/.files/.zprofile
 
   TMUX= source $HOME/.files/.zprofile
-  source $HOME/.zshrc
 }

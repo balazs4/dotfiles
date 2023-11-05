@@ -41,4 +41,5 @@ do
     > $HOME/$dotfile
 done
 
+pkill -SIGUSR1 zsh #see TRAPUSR1 in $HOME/.zshrc
 echo "$HOME/.files/ >> ${uname} >> ${hostname} >> $HOME/"
