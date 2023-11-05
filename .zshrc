@@ -64,6 +64,7 @@ export KEYTIMEOUT=1
 
 function TRAPUSR1(){
   source $HOME/.zshrc
+  source $HOME/.zshenv
 }
 
 function zz() {
@@ -182,7 +183,10 @@ function nvimplug(){
   popd
 }
 
-alias so="source $HOME/.zshenv"
+function so(){
+  vim $HOME/.zshenv && killall -SIGUSR1 zsh
+}
+
 alias zshrc="dot .zshrc"
 alias vimrc="EDITOR=vim dot .vimrc"
 alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua /dev/null"
