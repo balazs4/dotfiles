@@ -5,6 +5,7 @@ local hostname=`hostname -s`
 local uname=`uname -s`
 
 local colors=`cat <<EOF \
+  | tr '[:upper:]' '[:lower:]' \
   | awk -F: '/base.*/ {print $1 $2}' \
   | awk -F" " '{ print "s/{{" $1 "-hex}}/" $2 "/g"}' \
   | tr -d '"' \
