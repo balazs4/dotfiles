@@ -1,6 +1,6 @@
 // Linux Darwin
 
-//carbon function i3windows(json) {
+//carbon global.i3windows = function (json) {
 //carbon   const select = (item, parent) => {
 //carbon     if (item.window_type !== 'normal') return null;
 //carbon     return [
@@ -22,7 +22,3 @@
 //carbon   };
 //carbon   return traverse(json).filter(Boolean).join('\n');
 //carbon }
-
-function jwt(json){
-  return json.redirects[0].headers['set-cookie'].split(';')[0].split('=')[1];
-}
