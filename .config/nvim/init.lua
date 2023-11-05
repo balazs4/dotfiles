@@ -118,7 +118,7 @@ vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols, { nore
 -- https://github.com/nvim-treesitter/nvim-treesitter
 require('nvim-treesitter.configs').setup({
   highlight = { enable = true, additional_vim_regex_highlighting = false },
-  ensure_installed = { 'lua', 'typescript', 'javascript', 'rust', 'go' }
+  ensure_installed = { 'lua', 'typescript', 'javascript', 'go' }
 })
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
@@ -138,4 +138,3 @@ require('mini.surround').setup()
 
 -- https://github.com/echasnovski/mini.comment
 require('mini.comment').setup()
-

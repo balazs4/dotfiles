@@ -269,6 +269,10 @@ function cheat(){
 }
 
 function radio(){
+  test $TMUX && {
+    local target=`tmux display-message -p '#I'`
+    tmux rename-window -t:$target radio
+  }
   term=$(echo $* | tr ' ' '+')
   curl http://opml.radiotime.com/Search.ashx\?query\=$term -s \
     | fxparser \
@@ -387,6 +391,10 @@ function aws-off(){
 }
 
 function yt(){
+  test $TMUX && {
+    local target=`tmux display-message -p '#I'`
+    tmux rename-window -t:$target youtube
+  }
   echo $* \
     | tr ' ' '+' \
     | xargs -t -I{} curl -Lfs -H "accept-language: ${LNG:-en}" https://www.youtube.com/results\?search_query={} \
