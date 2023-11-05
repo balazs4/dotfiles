@@ -7,7 +7,7 @@ super + space
     ;pkill -SIGRTMIN+2 i3blocks
 
 super + c
-  [[ `xbacklight -get` -gt 70 ]] && chromium || chromium --force-dark-mode --enable-features=WebUIDarkMode
+  [[ `xbacklight -get | awk -F. '{print $1}'` -gt 70 ]] && chromium || chromium --force-dark-mode --enable-features=WebUIDarkMode
 
 super + Return
   $TERMINAL
