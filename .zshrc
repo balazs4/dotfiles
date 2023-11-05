@@ -389,9 +389,9 @@ function yt(){
           .map(x =>
           [
             x.videoRenderer.videoId,
-            x.videoRenderer.lengthText.simpleText.padStart(8),
-            x.videoRenderer.viewCountText.simpleText.padStart(16),
-            x.videoRenderer.title.runs[0].text,
+            x.videoRenderer.lengthText?.simpleText?.padStart(8),
+            x.videoRenderer.viewCountText?.simpleText?.padStart(16),
+            x.videoRenderer.title?.runs[0].text,
             x.videoRenderer.thumbnail?.thumbnails[0]?.url
           ].join("\t")
         ).join("\n");
