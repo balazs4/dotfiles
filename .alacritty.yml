@@ -12,7 +12,7 @@ font:
 #mcbpro   size: 14.0
   normal:
     family: Geist Mono
-    style: Bold
+    style: Medium
 
 colors:
   primary:
