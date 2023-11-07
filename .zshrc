@@ -65,6 +65,7 @@ export KEYTIMEOUT=1
 function TRAPUSR1(){
   source $HOME/.zshrc
   source $HOME/.zshenv
+  tmux source-file $HOME/.tmux.conf 2>/dev/null || true
 }
 
 function zz() {
@@ -142,7 +143,6 @@ function dotsync(){
   popd > /dev/null
   TMUX= source $HOME/.files/.zprofile
   killall -USR1 zsh
-  tmux source-file $HOME/.tmux.conf 2>/dev/null || true
 }
 
 function dotfile(){
@@ -188,7 +188,7 @@ function nvimplug(){
 }
 
 alias so="vim $HOME/.zshenv; killall -USR1 zsh"
-alias tmuxrc="dot .tmux.conf; tmux source-file $HOME/.tmux.conf 2>/dev/null"
+alias tmuxrc="dot .tmux.conf; killall -USR1 zsh"
 alias zshrc="dot .zshrc; killall -USR1 zsh"
 alias vimrc="EDITOR=vim dot .vimrc"
 alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua"
@@ -934,4 +934,5 @@ function base16(){
     | sponge $HOME/.files/.zprofile
 
   TMUX= source $HOME/.files/.zprofile
+  killall -USR1 zsh
 }
