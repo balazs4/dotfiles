@@ -7,16 +7,16 @@ super + space
     ;pkill -SIGRTMIN+2 i3blocks
 
 super + c
-  [[ `xbacklight -get | awk -F. '{print $1}'` -gt 70 ]] && chromium || chromium --force-dark-mode --enable-features=WebUIDarkMode
+  test `xbacklight -get | cut -d"." -f1` -gt 70 && chromium || chromium --force-dark-mode  --enable-features=WebUIDarkMode
 
 super + Return
   $TERMINAL
 
 super + d
-  dmenu_run -i -sb "#777777" -fn 'SanFrancisco-12'
+  dmenu_run -i -sb "#{{base0D-hex}}" -fn 'GeistMono-12'
 
 super + shift + d 
-  zsh -i -c `cat ~/.zshrc | grep -e ^alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#f81ce5" -fn 'SanFrancisco-12'`
+  zsh -i -c `cat ~/.zshrc | grep -e ^alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#{{base09-hex}}" -fn 'GeistMono-12'`
 
 super + grave
   alacritty --class=temp_terminal --command zsh -i -c "todos edit"
