@@ -42,6 +42,3 @@ do
 done
 
 echo "$HOME/.files/ >> ${uname} >> ${hostname} >> $HOME/"
-
-source $HOME/.zshrc
-tmux source-file $HOME/.tmux.conf 2>/dev/null || true
