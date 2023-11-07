@@ -142,7 +142,7 @@ vim.g.user_emmet_leader_key = '<C-Z>'
 -- https://github.com/prettier/vim-prettier
 
 -- https://github.com/echasnovski/mini.completion
-require('mini.completion').setup()
+-- require('mini.completion').setup()
 
 -- https://github.com/echasnovski/mini.surround
 require('mini.surround').setup()
