@@ -14,7 +14,6 @@ vim.opt.rnu = true
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
 vim.opt.cmdheight = 1
-vim.g.loaded_matchparen = 1
 
 -- theprimeagen
 vim.keymap.set("n", "<leader>y", "\"+y")
