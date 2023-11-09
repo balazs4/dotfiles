@@ -846,7 +846,12 @@ function pacs(){
     | awk '{print $1}'
 }
 
-alias na='n auto; pnpm install; git checkout -- pnpm-lock.yaml 1>/dev/null 2>/dev/null'
+function na(){
+  n auto
+  grep -z private $HOME/.npmrc || $HOME/.local/bin/npmrc
+  pnpm install
+  git checkout -- pnpm-lock.yaml 1>/dev/null 2>/dev/null
+}
 
 function nodepoch(){
   node -p "new Date($1).toJSON()"

@@ -104,13 +104,13 @@ require('fzf-lua').setup({
   }
 })
 
-vim.keymap.set('n', '<leader>=', require('fzf-lua').builtin, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>-', require('fzf-lua').builtin, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader><leader>', require('fzf-lua').files, { noremap = true, silent = true })
 vim.keymap.set('n', '``', require('fzf-lua').buffers, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>/', require('fzf-lua').grep_project, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>=', require('fzf-lua').grep_project, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>w', require('fzf-lua').grep_cword, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>W', require('fzf-lua').grep_cWORD, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>-', require('fzf-lua').blines, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>/', require('fzf-lua').blines, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>`', require('fzf-lua').git_status, { noremap = true, silent = true })
 
 vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { noremap = true, silent = true })
@@ -135,7 +135,7 @@ vim.g.user_emmet_leader_key = '<C-Z>'
 -- https://github.com/prettier/vim-prettier
 
 -- https://github.com/echasnovski/mini.completion
--- require('mini.completion').setup()
+require('mini.completion').setup()
 
 -- https://github.com/echasnovski/mini.surround
 require('mini.surround').setup()
