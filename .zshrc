@@ -941,3 +941,15 @@ function base16(){
   TMUX= source $HOME/.files/.zprofile
   killall -USR1 zsh
 }
+
+#mcbpro function dark(){
+#mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true"
+#mcbpro   base16 ayu-dark
+#mcbpro   source $HOME/.zshrc
+#mcbpro }
+
+#mcbpro function light(){
+#mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false"
+#mcbpro   base16 ayu-light
+#mcbpro   source $HOME/.zshrc
+#mcbpro }
