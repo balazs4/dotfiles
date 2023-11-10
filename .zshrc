@@ -846,12 +846,12 @@ function pacs(){
     | awk '{print $1}'
 }
 
-function na(){
-  n auto
-  grep -z private $HOME/.npmrc || $HOME/.local/bin/npmrc
-  pnpm install
-  git checkout -- pnpm-lock.yaml 1>/dev/null 2>/dev/null
-}
+#mcbpro function na(){
+#mcbpro   n auto
+#mcbpro   grep private $HOME/.npmrc || $HOME/.local/bin/npmrc
+#mcbpro   pnpm install
+#mcbpro   git checkout -- pnpm-lock.yaml 1>/dev/null 2>/dev/null
+#mcbpro }
 
 function nodepoch(){
   node -p "new Date($1).toJSON()"

@@ -1,6 +1,6 @@
 -- Linux Darwin
 
-vim.cmd('colorscheme base16') -- $HOME/.config/nvim/colors/
+vim.cmd('colorscheme base16') -- $HOME/.files/.config/nvim/colors/
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -14,6 +14,7 @@ vim.opt.rnu = true
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
 vim.opt.cmdheight = 1
+vim.opt.cursorline = true
 
 -- theprimeagen
 vim.keymap.set("n", "<leader>y", "\"+y")
