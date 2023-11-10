@@ -942,14 +942,14 @@ function base16(){
   killall -USR1 zsh
 }
 
-#mcbpro function dark(){
+function dark(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true"
-#mcbpro   base16 ayu-dark
+base16 ayu-dark
 #mcbpro   source $HOME/.zshrc
-#mcbpro }
+}
 
-#mcbpro function light(){
+function light(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false"
-#mcbpro   base16 ayu-light
+base16 ayu-light
 #mcbpro   source $HOME/.zshrc
-#mcbpro }
+}
