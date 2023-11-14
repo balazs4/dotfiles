@@ -56,7 +56,7 @@ local function lsp(pattern, cmd, project_file, setup)
   })
 end
 
-lsp({ 'go' }, { 'gopls' }, { 'go.mod' }, function() print("hmmmm") end)
+lsp({ 'go' }, { 'gopls' }, { 'go.mod' })
 lsp({ 'templ' }, { 'templ', 'lsp' }, { 'go.mod' })
 lsp({ 'lua' }, { 'lua-language-server' }, { '.luarc.json' })
 lsp({ 'rust' }, { 'rust-analyzer' }, { 'Cargo.toml' })
