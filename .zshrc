@@ -142,7 +142,7 @@ function dotsync(){
     git push
   popd > /dev/null
   TMUX= source $HOME/.files/.zprofile
-  killall -USR1 zsh
+  kill -USR1 `pgrep zsh`
 }
 
 function dotfile(){
@@ -187,11 +187,11 @@ function nvimplug(){
   popd
 }
 
-alias so="vim $HOME/.zshenv; killall -USR1 zsh"
-alias tmuxrc="dot .tmux.conf; killall -USR1 zsh"
-alias zshrc="dot .zshrc; killall -USR1 zsh"
-alias vimrc="EDITOR=vim dot .vimrc"
-alias nvimrc="EDITOR=nvim dot .config/nvim/init.lua"
+alias so='vim $HOME/.zshenv; kill -USR1 `pgrep zsh`'
+alias tmuxrc='dot .tmux.conf; kill -USR1 `pgrep zsh`'
+alias zshrc='dot .zshrc; kill -USR1 `pgrep zsh`'
+alias vimrc='EDITOR=vim dot .vimrc'
+alias nvimrc='EDITOR=nvim dot .config/nvim/init.lua'
 #carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
 #carbon alias xx='xclip -rmlastnl -selection clipboard'
@@ -940,7 +940,7 @@ function base16(){
     | sponge $HOME/.files/.zprofile
 
   TMUX= source $HOME/.files/.zprofile
-  killall -USR1 zsh
+  kill -USR1 `pgrep zsh`
 }
 
 function dark(){
