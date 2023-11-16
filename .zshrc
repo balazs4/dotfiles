@@ -954,3 +954,7 @@ function light(){
 base16 ayu-light
 #mcbpro   source $HOME/.zshrc
 }
+
+function parrot(){
+  curl --max-time ${1:-3} parrot.live 2>/dev/null
+}
