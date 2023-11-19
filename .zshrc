@@ -314,7 +314,7 @@ function browse(){
 
 function song(){
   test -d /tmp/$USER-songs || {
-    git clone git@gist.github.com:d610367acbf0c49435e55c0fa0c2a969.git /tmp/$USER-songs --depth=1
+    git clone git@gist.github.com:d610367acbf0c49435e55c0fa0c2a969.git /tmp/$USER-songs --depth=1 >/dev/null
   }
   test "$1" = "ls" && {
     cat /tmp/$USER-songs/songs;
@@ -322,8 +322,8 @@ function song(){
   }
   pushd /tmp/$USER-songs > /dev/null
     mpris-ctl info '%track_name /// %artist_name' | tee -a songs
-    git commit -am `date +'%s'`
-    git push
+    git commit -am `date +'%s'` 1> /dev/null 2>/dev/null
+    git push 1> /dev/null 2> /dev/null
   popd > /dev/null
 }
 
