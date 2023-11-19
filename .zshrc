@@ -142,7 +142,7 @@ function dotsync(){
     git push
   popd > /dev/null
   TMUX= source $HOME/.files/.zprofile
-  kill -USR1 `pgrep zsh`
+  kill -USR1 `pgrep zsh` 2>/dev/null
 }
 
 function dotfile(){
