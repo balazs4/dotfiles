@@ -187,9 +187,9 @@ function nvimplug(){
   popd
 }
 
-alias so='vim $HOME/.zshenv; kill -USR1 `pgrep zsh`'
-alias tmuxrc='dot .tmux.conf; kill -USR1 `pgrep zsh`'
-alias zshrc='dot .zshrc; kill -USR1 `pgrep zsh`'
+alias so='vim $HOME/.zshenv; kill -USR1 `pgrep zsh` 2>/dev/null'
+alias tmuxrc='dot .tmux.conf; kill -USR1 `pgrep zsh` 2>/dev/null'
+alias zshrc='dot .zshrc; kill -USR1 `pgrep zsh` 2>/dev/null'
 alias vimrc='EDITOR=vim dot .vimrc'
 alias nvimrc='EDITOR=nvim dot .config/nvim/init.lua'
 #carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
@@ -940,7 +940,7 @@ function base16(){
     | sponge $HOME/.files/.zprofile
 
   TMUX= source $HOME/.files/.zprofile
-  kill -USR1 `pgrep zsh`
+  kill -USR1 `pgrep zsh` 2>/dev/null
 }
 
 function dark(){
