@@ -819,6 +819,12 @@ function redis(){
   docker ps
 }
 
+function redis-cli(){
+  local id=`docker run --rm -d redis:alpine`
+  docker exec -it ${id} redis-cli
+  docker rm -f $id
+}
+
 function dynamo(){
   docker run --rm -d --name dynamodb-local -p 4133:8000 amazon/dynamodb-local
   docker ps
