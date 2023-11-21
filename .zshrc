@@ -940,7 +940,7 @@ function base16(){
   test -d /tmp/base16-schemes || {
     git clone https://github.com/tinted-theming/base16-schemes /tmp/base16-schemes --depth=1 --branch=main
   }
-  local base16_theme=`fd . /tmp/base16-schemes/ | fzf --height='40%' --reverse --preview 'cat {}' -q"'$1 " -1`
+  local base16_theme=`fd . /tmp/base16-schemes/ | fzf --height='40%' --reverse --preview 'cat {}' -q"${*} " -1`
 
   sed '/FOE/,/EOF/{//!d}' $HOME/.files/.zprofile \
     | awk "/FOE/ {print; system(\"cat ${base16_theme}\"); print\"\"; next} 1" \
@@ -952,13 +952,13 @@ function base16(){
 
 function dark(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true"
-base16 ayu-dark
+base16 \!light ${*}
 #mcbpro   source $HOME/.zshrc
 }
 
 function light(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false"
-base16 ayu-light
+base16 \'light ${*}
 #mcbpro   source $HOME/.zshrc
 }
 
