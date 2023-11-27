@@ -965,3 +965,7 @@ base16 \'light ${*}
 function parrot(){
   curl --max-time ${1:-3} parrot.live 2>/dev/null
 }
+
+function 525powertracks(){
+  mpv --no-video "https://www.youtube.com/playlist?list=PL_XeeZIL0i2aKfca01e7eFG1p_2c9Y71_"
+}
