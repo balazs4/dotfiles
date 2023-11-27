@@ -11,7 +11,7 @@ font:
 #carbon   size: 11.0
 #mcbpro   size: 14.0
   normal:
-    family: GeistMono
+    family: Geist Mono
     style: Medium
 
 colors:
