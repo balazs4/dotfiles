@@ -479,8 +479,8 @@ function qrdecode {
 }
 
 function wallomat {
-  # wallomat 6D-A6CL3Pv8 24
-  mpv "https://www.youtube.com/watch?v=$1&t=$2" --no-audio --frames=1 -o /tmp/mpv.png
+  # wallomat 'https://www.youtube.com/watch?v=Gx6NVCRyMzk' 69
+  mpv "$1&t=$2" --no-audio --frames=1 -o /tmp/mpv.png
   feh --no-fehbg --bg-fill /tmp/mpv.png
 }
 
