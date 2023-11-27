@@ -480,8 +480,8 @@ function qrdecode {
 
 function wallomat {
   # wallomat 'https://www.youtube.com/watch?v=Gx6NVCRyMzk' 69
-  mpv "$1&t=$2" --no-audio --frames=1 -o /tmp/mpv.png
-  feh --no-fehbg --bg-fill /tmp/mpv.png
+  mpv "$1&t=$2" --no-audio --frames=1 -o /tmp/wall.png
+  feh --no-fehbg --bg-fill /tmp/wall.png
 }
 
 function public() {
