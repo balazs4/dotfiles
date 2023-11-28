@@ -574,12 +574,12 @@ function archnews(){
 
 function mongodb-rs(){
   docker ps -a | grep 27017 | cut -f1 -d" " | xargs -tr docker kill
-  mongo_container_id=`docker run -d --rm -p "27017:27017" mongo:${1:-4.4.4} --replSet rs` 
+  mongo_container_id=`docker run -d --rm -p "27017:27017" mongo:${1:-latest} --replSet rs`
   docker exec -i $mongo_container_id sh -c '
-    while ! mongo  --eval "db.version()" >/dev/null; do sleep 0.5s; done; \
-    mongo --eval "rs.initiate()"; \
-    while ! mongo  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
-    mongo --eval "db.createCollection(\"test\")"
+    while ! mongosh  --eval "db.version()" >/dev/null; do sleep 0.5s; done; \
+    mongosh --eval "rs.initiate()"; \
+    while ! mongosh  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
+    mongosh --eval "db.createCollection(\"test\")"
   '
   docker ps -a | grep 27017 
 }
