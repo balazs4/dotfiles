@@ -856,7 +856,7 @@ function pacs(){
 
 #mcbpro function na(){
 #mcbpro   n auto
-#mcbpro   grep private $HOME/.npmrc || $HOME/.local/bin/npmrc
+#mcbpro   grep private $HOME/.npmrc > /dev/null || $HOME/.local/bin/npmrc
 #mcbpro   pnpm install
 #mcbpro   git checkout -- pnpm-lock.yaml 1>/dev/null 2>/dev/null
 #mcbpro }
