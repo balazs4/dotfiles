@@ -969,3 +969,5 @@ function parrot(){
 function 525powertracks(){
   mpv --no-video "https://www.youtube.com/playlist?list=PL_XeeZIL0i2aKfca01e7eFG1p_2c9Y71_"
 }
+
+alias kw='gdate +"current calendar week: %U"'
