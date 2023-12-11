@@ -2,16 +2,15 @@
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=10000
-setopt appendhistory     #Append history to the history file (no overwriting)
-setopt sharehistory      #Share history across terminals
-setopt incappendhistory  #Immediately append to the history file, not just when a term is killed
-## History command configuration
-setopt extended_history       # record timestamp of command in HISTFILE
-setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt hist_ignore_dups       # ignore duplicated commands history list
-setopt hist_ignore_space      # ignore commands that start with space
-setopt hist_verify            # show command with history expansion to user before running it
-setopt share_history          # share command history data
+setopt appendhistory
+setopt sharehistory
+setopt incappendhistory
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt share_history
 #mcbpro export HOMEBREW_PREFIX="/opt/homebrew";
 #mcbpro export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
 #mcbpro export HOMEBREW_REPOSITORY="/opt/homebrew";
