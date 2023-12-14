@@ -836,7 +836,7 @@ function pf(){
   local dir=`dirname $packagejson`
   shift
 
-  watchexec -vv -c --print-events  -w $dir --project-origin $dir -s SIGKILL -- pnpm $cmd --filter=$app -- ${*}
+  watchexec -vv -c --print-events  -w $dir --project-origin $dir -s SIGKILL -- pnpm --filter=$app $cmd ${*}
 }
 
 # !mono?
