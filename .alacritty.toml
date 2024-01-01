@@ -1,3 +1,5 @@
+#Linux Darwin
+
 [[colors.indexed_colors]]
 color = "0x{{base09-hex}}"
 index = 16
@@ -53,6 +55,10 @@ foreground = "0x{{base05-hex}}"
 [font.normal]
 family = "Geist Mono"
 style = "Medium"
+
+[font]
+#carbon size = 11.0
+#mcbpro size = 14.0
 
 #mcbpro [[keyboard.bindings]]
 #mcbpro chars = "\u001Ba"
