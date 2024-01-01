@@ -1,0 +1,439 @@
+[[colors.indexed_colors]]
+color = "0x{{base09-hex}}"
+index = 16
+
+[[colors.indexed_colors]]
+color = "0x{{base0F-hex}}"
+index = 17
+
+[[colors.indexed_colors]]
+color = "0x{{base01-hex}}"
+index = 18
+
+[[colors.indexed_colors]]
+color = "0x{{base02-hex}}"
+index = 19
+
+[[colors.indexed_colors]]
+color = "0x{{base04-hex}}"
+index = 20
+
+[[colors.indexed_colors]]
+color = "0x{{base06-hex}}"
+index = 21
+
+[colors.bright]
+black = "0x{{base03-hex}}"
+blue = "0x{{base0D-hex}}"
+cyan = "0x{{base0C-hex}}"
+green = "0x{{base0B-hex}}"
+magenta = "0x{{base0E-hex}}"
+red = "0x{{base08-hex}}"
+white = "0x{{base07-hex}}"
+yellow = "0x{{base0A-hex}}"
+
+[colors.cursor]
+cursor = "0x{{base09-hex}}"
+text = "0x{{base00-hex}}"
+
+[colors.normal]
+black = "0x{{base00-hex}}"
+blue = "0x{{base0D-hex}}"
+cyan = "0x{{base0C-hex}}"
+green = "0x{{base0B-hex}}"
+magenta = "0x{{base0E-hex}}"
+red = "0x{{base08-hex}}"
+white = "0x{{base05-hex}}"
+yellow = "0x{{base0A-hex}}"
+
+[colors.primary]
+background = "0x{{base00-hex}}"
+foreground = "0x{{base05-hex}}"
+
+[font.normal]
+family = "Geist Mono"
+style = "Medium"
+
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Ba"
+#mcbpro key = "A"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bb"
+#mcbpro key = "B"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bc"
+#mcbpro key = "C"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bd"
+#mcbpro key = "D"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Be"
+#mcbpro key = "E"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bf"
+#mcbpro key = "F"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bg"
+#mcbpro key = "G"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bh"
+#mcbpro key = "H"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bi"
+#mcbpro key = "I"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bj"
+#mcbpro key = "J"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bk"
+#mcbpro key = "K"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bl"
+#mcbpro key = "L"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bm"
+#mcbpro key = "M"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bn"
+#mcbpro key = "N"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bo"
+#mcbpro key = "O"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bp"
+#mcbpro key = "P"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bq"
+#mcbpro key = "Q"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Br"
+#mcbpro key = "R"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bs"
+#mcbpro key = "S"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bt"
+#mcbpro key = "T"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bu"
+#mcbpro key = "U"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bv"
+#mcbpro key = "V"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bw"
+#mcbpro key = "W"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bx"
+#mcbpro key = "X"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001By"
+#mcbpro key = "Y"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001Bz"
+#mcbpro key = "Z"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BA"
+#mcbpro key = "A"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BB"
+#mcbpro key = "B"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BC"
+#mcbpro key = "C"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BD"
+#mcbpro key = "D"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BE"
+#mcbpro key = "E"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BF"
+#mcbpro key = "F"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BG"
+#mcbpro key = "G"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BH"
+#mcbpro key = "H"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BI"
+#mcbpro key = "I"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BJ"
+#mcbpro key = "J"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BK"
+#mcbpro key = "K"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BL"
+#mcbpro key = "L"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BM"
+#mcbpro key = "M"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BN"
+#mcbpro key = "N"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BO"
+#mcbpro key = "O"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BP"
+#mcbpro key = "P"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BQ"
+#mcbpro key = "Q"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BR"
+#mcbpro key = "R"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BS"
+#mcbpro key = "S"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BT"
+#mcbpro key = "T"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BU"
+#mcbpro key = "U"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BV"
+#mcbpro key = "V"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BW"
+#mcbpro key = "W"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BX"
+#mcbpro key = "X"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BY"
+#mcbpro key = "Y"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001BZ"
+#mcbpro key = "Z"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B1"
+#mcbpro key = "Key1"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B2"
+#mcbpro key = "Key2"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B3"
+#mcbpro key = "Key3"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B4"
+#mcbpro key = "Key4"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B5"
+#mcbpro key = "Key5"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B6"
+#mcbpro key = "Key6"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B7"
+#mcbpro key = "Key7"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B8"
+#mcbpro key = "Key8"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B9"
+#mcbpro key = "Key9"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B0"
+#mcbpro key = "Key0"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u0000"
+#mcbpro key = "Space"
+#mcbpro mods = "Control"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B`"
+#mcbpro key = "Grave"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B~"
+#mcbpro key = "Grave"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B."
+#mcbpro key = "Period"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B*"
+#mcbpro key = "Key8"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B#"
+#mcbpro key = "Key3"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B>"
+#mcbpro key = "Period"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B<"
+#mcbpro key = "Comma"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B_"
+#mcbpro key = "Minus"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B%"
+#mcbpro key = "Key5"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B^"
+#mcbpro key = "Key6"
+#mcbpro mods = "Alt|Shift"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B\\"
+#mcbpro key = "Backslash"
+#mcbpro mods = "Alt"
+#mcbpro
+#mcbpro [[keyboard.bindings]]
+#mcbpro chars = "\u001B|"
+#mcbpro key = "Backslash"
+#mcbpro mods = "Alt|Shift"
+
+[window]
+decorations = "None"
+dynamic_title = true
+title = "alacritty"
+
+[window.class]
+general = "alacritty"
+instance = "alacritty"
