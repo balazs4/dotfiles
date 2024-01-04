@@ -56,6 +56,22 @@ local function lsp(pattern, cmd, project_file, setup)
   })
 end
 
+vim.api.nvim_create_user_command("LspRestart",
+  function()
+    vim.lsp.stop_client(vim.lsp.get_active_clients(), false)
+    vim.wait(500)
+    vim.cmd(':edit')
+  end,
+  {}
+)
+
+vim.api.nvim_create_user_command("LspInfo",
+  function()
+    vim.cmd(":lua= vim.lsp.get_active_clients()")
+  end,
+  {}
+)
+
 lsp({ 'go' }, { 'gopls' }, { 'go.mod' })
 lsp({ 'templ' }, { 'templ', 'lsp' }, { 'go.mod' })
 lsp({ 'lua' }, { 'lua-language-server' }, { '.luarc.json' })
