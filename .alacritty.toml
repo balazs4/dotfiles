@@ -376,16 +376,6 @@ style = "Medium"
 #mcbpro mods = "Control"
 #mcbpro
 #mcbpro [[keyboard.bindings]]
-#mcbpro chars = "\u001B`"
-#mcbpro key = "Grave"
-#mcbpro mods = "Alt"
-#mcbpro
-#mcbpro [[keyboard.bindings]]
-#mcbpro chars = "\u001B~"
-#mcbpro key = "Grave"
-#mcbpro mods = "Alt|Shift"
-#mcbpro
-#mcbpro [[keyboard.bindings]]
 #mcbpro chars = "\u001B."
 #mcbpro key = "Period"
 #mcbpro mods = "Alt"
