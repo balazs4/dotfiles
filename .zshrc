@@ -935,10 +935,13 @@ function stars(){
 #carbon alias xb='xbacklight -set'
 
 function base16(){
-  test -d /tmp/base16-schemes || {
-    git clone https://github.com/tinted-theming/base16-schemes /tmp/base16-schemes --depth=1 --branch=main
+  test -d /tmp/schemes || {
+    echo "foo"
+    git clone https://github.com/tinted-theming/schemes /tmp/schemes --depth=1
+    echo "bar"
   }
-  local base16_theme=`fd . /tmp/base16-schemes/ | fzf --height='40%' --reverse --preview 'cat {}' -q"${*} " -1`
+
+  local base16_theme=`fd . /tmp/schemes/base16/ | fzf --height='40%' --reverse --preview 'cat {}' -q"${*} " -1`
 
   sed '/FOE/,/EOF/{//!d}' $HOME/.files/.zprofile \
     | awk "/FOE/ {print; system(\"cat ${base16_theme}\"); print\"\"; next} 1" \
