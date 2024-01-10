@@ -676,7 +676,9 @@ alias src='fx package.json .scripts'
 #carbon }
 
 function fmt(){
-  git status --porcelain | awk '{print $NF}' | xargs -t bun x prettier --ignore-unknown --write
+  test "$#" -eq 0 \
+    && git status --porcelain | awk '{print $NF}' | xargs -t bun x prettier --ignore-unknown --write \
+    || bun x prettier --ignore-unknown --write ${*}
 }
 
 function ff(){
