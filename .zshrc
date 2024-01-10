@@ -320,7 +320,7 @@ function song(){
     return
   }
   pushd /tmp/$USER-songs > /dev/null
-    mpris-ctl info '%track_name' | tee -a songs
+    tmux capture-pane -p -t radio | awk -F':' '/icy-title:/ {print $2}' | tail -1 | sed 's/ //' | tee -a songs
     git commit -am `date +'%s'` 1> /dev/null 2>/dev/null
     git push 1> /dev/null 2> /dev/null
   popd > /dev/null
