@@ -2,10 +2,7 @@
 decorations = "None"
 dynamic_title = true
 title = "alacritty"
-
-[window.class]
-general = "alacritty"
-instance = "alacritty"
+class = { general = "alacritty", instance = "alacritty" }
 
 [colors.primary]
 background = "0x{{base00-hex}}"
@@ -46,12 +43,9 @@ indexed_colors = [
 ]
 
 [font]
+normal = { family = "Geist Mono", style = "Medium" }
 #carbon size = 11.0
 #mcbpro size = 14.0
-
-[font.normal]
-family = "Geist Mono"
-style = "Medium"
 
 #mcbpro [keyboard]
 #mcbpro bindings = [
