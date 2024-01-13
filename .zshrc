@@ -114,8 +114,8 @@ export N_PREFIX=$HOME/.n/prefix
 export N_PRESERVE_NPM=1
 export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
 export PATH=./node_modules/.bin/:${PATH}
-export PNPM_HOME=$HOME/.pnpm-global
-export PATH=$PNPM_HOME:${PATH}
+#mcbpro export PNPM_HOME=$HOME/.pnpm-global
+#mcbpro export PATH=$PNPM_HOME:${PATH}
 
 #go
 export GOPATH=$HOME/.go
@@ -141,7 +141,10 @@ function dotsync(){
     git push
   popd > /dev/null
   TMUX= source $HOME/.files/.zprofile
-  kill -USR1 `pgrep zsh` 2>/dev/null
+
+  source $HOME/.zshrc
+  source $HOME/.zshenv
+  tmux source-file $HOME/.tmux.conf 2>/dev/null || true
 }
 
 function dotfile(){
@@ -186,9 +189,9 @@ function nvimplug(){
   popd
 }
 
-alias so='vim $HOME/.zshenv; kill -USR1 `pgrep zsh` 2>/dev/null'
-alias tmuxrc='dot .tmux.conf; kill -USR1 `pgrep zsh` 2>/dev/null'
-alias zshrc='dot .zshrc; kill -USR1 `pgrep zsh` 2>/dev/null'
+alias so='vim $HOME/.zshenv; source $HOME/.zshenv'
+alias tmuxrc='dot .tmux.conf; tmux source-file $HOME/.tmux.conf 2>/dev/null || true'
+alias zshrc='dot .zshrc; source $HOME/.zshrc'
 alias vimrc='EDITOR=vim dot .vimrc'
 alias nvimrc='EDITOR=nvim dot .config/nvim/init.lua'
 #carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
@@ -950,27 +953,24 @@ function base16(){
     | sponge $HOME/.files/.zprofile
 
   TMUX= source $HOME/.files/.zprofile
-  kill -USR1 `pgrep zsh` 2>/dev/null
+
+  source $HOME/.zshrc
+  source $HOME/.zshenv
+  tmux source-file $HOME/.tmux.conf 2>/dev/null || true
 }
 
 function dark(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true"
 base16 \!light ${*}
-#mcbpro   source $HOME/.zshrc
 }
 
 function light(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false"
 base16 \'light ${*}
-#mcbpro   source $HOME/.zshrc
 }
 
 function parrot(){
   curl --max-time ${1:-3} parrot.live 2>/dev/null
-}
-
-function 525powertracks(){
-  mpv --no-video "https://www.youtube.com/playlist?list=PL_XeeZIL0i2aKfca01e7eFG1p_2c9Y71_"
 }
 
 alias kw='gdate +"current calendar week: %U"'
