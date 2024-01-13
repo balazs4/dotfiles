@@ -1,5 +1,3 @@
-#Linux Darwin
-
 [[colors.indexed_colors]]
 color = "0x{{base09-hex}}"
 index = 16

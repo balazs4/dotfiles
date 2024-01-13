@@ -1,4 +1,3 @@
-# Linux Darwin
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=10000

@@ -1,4 +1,3 @@
-# Linux
 # Speed up scrolling for chromium and pass unchanged for zoom
 "^chromium$"
     None, Up, Button4, 3

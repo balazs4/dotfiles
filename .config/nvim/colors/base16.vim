@@ -1,4 +1,3 @@
-" Linux Darwin
 " vi:syntax=vim
 
 " base16-vim (https://github.com/tinted-theming/base16-vim)

@@ -1,5 +1,3 @@
--- Linux Darwin
-
 vim.cmd('colorscheme base16') -- $HOME/.files/.config/nvim/colors/
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true

@@ -1,5 +1,3 @@
-// Linux
-
 global.i3windows = function (json) {
   const select = (item, parent) => {
     if (item.window_type !== 'normal') return null;

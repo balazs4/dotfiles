@@ -1,4 +1,3 @@
-" Linux Darwin
 set termguicolors
 syntax on
 

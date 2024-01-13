@@ -1,8 +1,6 @@
-# Linux Darwin
 [[ $TMUX ]] && return
 PAGER= git -C $HOME/.files diff -p
 local hostname=`hostname -s`
-local uname=`uname -s`
 
 local colors=`cat <<EOF \
   | awk -F: '/base.*/ {print $1 $2}' \
@@ -35,7 +33,7 @@ palette:
 EOF
 `
 
-for dotfile in $(git -C $HOME/.files grep --name-only -- ${uname})
+for dotfile in $(git -C $HOME/.files ls-files)
 do
   mkdir -p `dirname $HOME/$dotfile`
   cat $HOME/.files/$dotfile \
@@ -44,4 +42,4 @@ do
     > $HOME/$dotfile
 done
 
-echo "$HOME/.files/ >> ${uname} >> ${hostname} >> $HOME/"
+echo "$HOME/.files/ >> ${hostname} >> $HOME/"

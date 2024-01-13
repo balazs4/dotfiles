@@ -1,4 +1,3 @@
-" Linux Darwin
 " Minimal dark color theme
 "
 " orig: https://github.com/romannmk/ambiance-vim

@@ -1,4 +1,3 @@
-# Linux
 super + Print
   shotgun `hacksaw -f "-i %i -g %g"` - | xclip -t 'image/png' -selection clipboard && dunstify "shotgun" "copied to clipboard"
 
