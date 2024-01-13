@@ -21,6 +21,7 @@ setopt share_history
 #mcbpro FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 #mcbpro export PATH="$HOME/.luarocks/bin:${PATH}"
 #mcbpro export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+#mcbpro alias xdg-open='open'
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
@@ -60,12 +61,6 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
-
-function TRAPUSR1(){
-  source $HOME/.zshrc
-  source $HOME/.zshenv
-  tmux source-file $HOME/.tmux.conf 2>/dev/null || true
-}
 
 function zz() {
   local to=`{
