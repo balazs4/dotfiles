@@ -1,4 +1,5 @@
 [window]
+opacity = 0.98
 decorations = "None"
 dynamic_title = true
 title = "alacritty"
