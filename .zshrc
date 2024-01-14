@@ -934,13 +934,10 @@ function stars(){
 #carbon alias xb='xbacklight -set'
 
 function base16(){
-  test -d /tmp/schemes || {
-    echo "foo"
-    git clone https://github.com/tinted-theming/schemes /tmp/schemes --depth=1
-    echo "bar"
-  }
+  local schemes_folder=$HOME/.cache/schemes
+  git clone https://github.com/tinted-theming/schemes $schemes_folder --depth=1 2>/dev/null || git -C $schemes_folder pull
 
-  local base16_theme=`fd . /tmp/schemes/base16/ | fzf --height='40%' --reverse --preview 'cat {}' -q"${*} " -1`
+  local base16_theme=$schemes_folder/base16/`git -C $schemes_folder/base16 ls-files | fzf --height='40%' --reverse --preview "cat $schemes_folder/base16/{}" -q"${*} " -1`
 
   sed '/FOE/,/EOF/{//!d}' $HOME/.files/.zprofile \
     | awk "/FOE/ {print; system(\"cat ${base16_theme}\"); print\"\"; next} 1" \
@@ -951,15 +948,16 @@ function base16(){
   source $HOME/.zshrc
   source $HOME/.zshenv
   tmux source-file $HOME/.tmux.conf 2>/dev/null || true
+  echo $base16_theme
 }
 
 function dark(){
-#mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true"
+#mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" > /dev/null
 base16 \!light ${*}
 }
 
 function light(){
-#mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false"
+#mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" > /dev/null
 base16 \'light ${*}
 }
 
