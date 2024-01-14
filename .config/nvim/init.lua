@@ -136,16 +136,11 @@ vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, { noremap = true,
 vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_document_diagnostics, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols, { noremap = true, silent = true })
 
-
 -- https://github.com/nvim-treesitter/nvim-treesitter
 require('nvim-treesitter.configs').setup({
   highlight = { enable = true, additional_vim_regex_highlighting = false },
-  ensure_installed = { 'lua', 'typescript', 'javascript', 'go' }
 })
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-
--- https://github.com/vrischmann/tree-sitter-templ
-require('tree-sitter-templ').setup({ highlight = { enable = true } })
 
 -- https://github.com/mattn/emmet-vim
 vim.g.user_emmet_leader_key = '<C-Z>'
