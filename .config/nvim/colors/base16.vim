@@ -270,16 +270,6 @@ call <sid>hi("Todo",         s:gui08, s:guibg, s:cterm08, s:ctermbg, "", "")
 call <sid>hi("Type",         s:gui0A, "", s:cterm0A, "", "none", "")
 call <sid>hi("Typedef",      s:gui0A, "", s:cterm0A, "", "", "")
 
-" Treesitter
-if has("nvim-0.8.0")
-  call <sid>hi("@field",            s:gui08, "", s:cterm08, "", "", "")
-  call <sid>hi("@property",            s:gui08, "", s:cterm08, "", "", "")
-  call <sid>hi("@namespace",        s:gui05, "", s:cterm05, "", "", "")
-  call <sid>hi("@variable.builtin", s:gui05, "", s:cterm05, "", "", "")
-  call <sid>hi("@text.reference",   s:gui08, "", s:cterm08, "", "", "")
-  call <sid>hi("@text.uri",         s:gui08, "", s:cterm08, "", "", "")
-endif
-
 " Standard highlights to be used by plugins
 call <sid>hi("Deprecated",   "", "", "", "", "strikethrough", "")
 call <sid>hi("SearchMatch",  s:gui0C, "", s:cterm0C, "", "", "")
