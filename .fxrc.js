@@ -1,18 +1,18 @@
-global.i3windows = function (json) {
-  const select = (item, parent) => {
-    if (item.window_type !== 'normal') return null;
-    return [
-      item.id,
-      parent.name.padStart(2, ' '),
-      item.window_properties.instance.padEnd(16, ' '),
-      item.window_properties.title,
-    ].join('  ');
-  };
-  const traverse = (item, parent = null) => {
-    const children = item.nodes.map((child) => {
-      return traverse(child, item.type === 'workspace' ? item : parent);
-    });
-    return [select(item, parent), ...children.flat()];
-  };
-  return traverse(json).filter(Boolean).join('\n');
-};
+//carbon global.i3windows = function (json) {
+//carbon   const select = (item, parent) => {
+//carbon     if (item.window_type !== 'normal') return null;
+//carbon     return [
+//carbon       item.id,
+//carbon       parent.name.padStart(2, ' '),
+//carbon       item.window_properties.instance.padEnd(16, ' '),
+//carbon       item.window_properties.title,
+//carbon     ].join('  ');
+//carbon   };
+//carbon   const traverse = (item, parent = null) => {
+//carbon     const children = item.nodes.map((child) => {
+//carbon       return traverse(child, item.type === 'workspace' ? item : parent);
+//carbon     });
+//carbon     return [select(item, parent), ...children.flat()];
+//carbon   };
+//carbon   return traverse(json).filter(Boolean).join('\n');
+//carbon };
