@@ -43,3 +43,5 @@ do
 done
 
 echo "$HOME/.files/ >> ${hostname} >> $HOME/"
+
+#mcbpro $HOME/.local/bin/npmrc
