@@ -966,3 +966,11 @@ function parrot(){
 }
 
 alias kw='gdate +"current calendar week: %U"'
+
+function vipe(){
+  local f=/tmp/`pwgen`
+  cat - > $f
+  nvim $f
+  echo $f
+  rm -f $f 2>/dev/null 1>/dev/null
+}
