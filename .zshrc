@@ -974,3 +974,8 @@ function vipe(){
   echo $f
   rm -f $f 2>/dev/null 1>/dev/null
 }
+
+
+function a(){
+  sed "s/^opacity = .*/opacity = 0.${1:-99}/" -i $HOME/.alacritty.toml
+}
