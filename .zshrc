@@ -309,14 +309,15 @@ function browse(){
 #carbon }
 
 function song(){
-  test -d /tmp/$USER-songs || {
-    git clone git@gist.github.com:d610367acbf0c49435e55c0fa0c2a969.git /tmp/$USER-songs --depth=1 >/dev/null
+  test -d $HOME/.cache/songs || {
+    git clone git@gist.github.com:d610367acbf0c49435e55c0fa0c2a969.git $HOME/.cache/songs --depth=1 >/dev/null
   }
   test "$1" = "ls" && {
-    cat /tmp/$USER-songs/songs;
+    cat $HOME/.cache/songs/songs;
     return
   }
-  pushd /tmp/$USER-songs > /dev/null
+
+  pushd $HOME/.cache/songs > /dev/null
     tmux capture-pane -p -t radio | awk -F':' '/icy-title:/ {print $2}' | tail -1 | sed 's/ //' | tee -a songs
     git commit -am `date +'%s'` 1> /dev/null 2>/dev/null
     git push 1> /dev/null 2> /dev/null
@@ -979,3 +980,11 @@ function vipe(){
 function a(){
   sed "s/^opacity = .*/opacity = 0.${1:-99}/" -i $HOME/.alacritty.toml
 }
+
+#mcbpro function dpl(){
+#mcbpro   tmux capture-pane -p \
+#mcbpro     | grep -Eo 'dpl_[a-zA-Z0-9]+' \
+#mcbpro     | sort \
+#mcbpro     | uniq \
+#mcbpro     | xargs -I{} -t open $VC_ADMIN/deployment/{}/json#:~:text=%22-,handleBuildWithSbq,-%22%3A%20true
+#mcbpro }
