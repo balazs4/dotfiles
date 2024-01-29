@@ -96,5 +96,4 @@ bindsym $mod+shift+grave scratchpad show
 for_window [instance="temp_terminal"] move scratchpad
 for_window [instance="temp_terminal"] scratchpad show
 
-#exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/BYu8ITUWMfc/download?force=true&w=1920
-exec_always mpv "https://www.youtube.com/watch?v=Gx6NVCRyMzk&t=$(( ( RANDOM % 236 ) + 1 ))" --no-audio --frames=1 -o /tmp/wall.png && feh --no-fehbg --bg-fill /tmp/wall.png
+exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/BYu8ITUWMfc/download?force=true&w=1920

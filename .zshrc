@@ -989,3 +989,9 @@ function a(){
 #mcbpro     | uniq \
 #mcbpro     | xargs -I{} -t open $VC_ADMIN/deployment/{}/json#:~:text=%22-,handleBuildWithSbq,-%22%3A%20true
 #mcbpro }
+
+
+function nyc(){
+  mpv "https://www.youtube.com/watch?v=Gx6NVCRyMzk&t=$(( ( RANDOM % 236 ) + 1 ))" --no-audio --frames=1 -o /tmp/nyc.png \
+    && feh --no-fehbg --bg-fill /tmp/nyc.png
+}
