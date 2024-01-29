@@ -978,6 +978,7 @@ function vipe(){
 }
 
 function a(){
+#carbon  (pidof xcompmgr || xcompmgr & ) > /dev/null
   sed "s/^opacity = .*/opacity = 0.${1:-99}/" -i $HOME/.alacritty.toml
 }
 
