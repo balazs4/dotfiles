@@ -991,7 +991,12 @@ function a(){
 #mcbpro }
 
 
-function nyc(){
-  mpv "https://www.youtube.com/watch?v=Gx6NVCRyMzk&t=$(( ( RANDOM % 236 ) + 1 ))" --no-audio --frames=1 -o /tmp/nyc.png \
-    && feh --no-fehbg --bg-fill /tmp/nyc.png
-}
+#carbon function nyc(){
+#carbon   mpv "https://www.youtube.com/watch?v=Gx6NVCRyMzk&t=$(( ( RANDOM % 236 ) + 1 ))" --no-audio --frames=1 -o /tmp/nyc.png \
+#carbon     && feh --no-fehbg --bg-fill /tmp/nyc.png
+#carbon }
+
+#mcbpro function dog(){
+#mcbpro   local service=`git -C $HOME/src/api ls-files | grep services | grep package.json | awk -F/ '{print $2}' | fzf -1 --height '25%' -q"${1}"`
+#mcbpro   open "https://app.datadoghq.com/logs/livetail?query=service%3A${service}%20&cols=host%2Cservice&index=%2A&messageDisplay=inline&refresh_mode=sliding&storage=live&stream_sort=desc&view=spans&viz=stream&live=true"
+#mcbpro }
