@@ -54,5 +54,5 @@ aliases:
             }
           }
         }
-    " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.createdAt, xx.node.author.login.padEnd(16), xx.node.url.padEnd(32), xx.node.title.padEnd(48), ">>>", xx.node.reviews.nodes.map(xxx => "[" + xxx.state + "]" + xxx.author.login).join(" ")].join("\t")).join("\n")'
+    " | npx -q fx 'x => x.data.search.edges.map(xx=> [xx.node.createdAt, xx.node.author.login.padEnd(16), xx.node.url.padEnd(32), xx.node.title.padEnd(48), ">>>", xx.node.reviews.nodes.map(xxx => "[" + xxx.state + "]" + xxx.author.login).join(" ")].join("\t")).join("\n")' | fzf --sync --height '25%' --reverse | xurls | xargs open
 
