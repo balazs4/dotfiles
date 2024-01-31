@@ -42,7 +42,7 @@ aliases:
   prs: >-
     !gh api graphql -f query="
         {
-          search(query: \"type:pr state:open ${1:-review-requested}:${USER}\", type: ISSUE, first: 10) {
+          search(query: \"type:pr state:open ${1:-author}:${USER}\", type: ISSUE, first: 10) {
             edges {
               node {
                 ... on PullRequest { 

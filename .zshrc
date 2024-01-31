@@ -65,8 +65,8 @@ function zz() {
   local to=`{
     echo $HOME/.files;
     find $HOME/src -maxdepth 1 -type d;
-    find /tmp -maxdepth 1 -type d;
-  } | fzf --layout=reverse --height '40%' -q "'${*:-$PWD} " -1`
+#mcbpro    find $HOME/src/api/services -maxdepth 1 -type d;
+  } | fzf --layout=reverse --height '40%' -q "${*:-$PWD} " -1`
 
   [[ $TMUX ]] \
     && cd ${to:-$PWD} \
