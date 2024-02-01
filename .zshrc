@@ -255,7 +255,7 @@ function srv(){
 
     process.stdout.write("\n");
     res.writeHead(200, { "content-type": "text/plain" });
-    //res.end();
+    res.end();
   }).listen(process.env.PORT, () => console.log("http://localhost:" + process.env.PORT));
   '
 }
@@ -308,34 +308,63 @@ function browse(){
 #carbon     | awk '{print $1 | "xclip -rmlastnl -selection primary" }; {print $2 | "xclip -rmlastnl -selection clipboard" }'
 #carbon }
 
+function track(){
+  for i in {1..2}
+  do
+    local access_token=`cat $HOME/.cache/spotify 2>/dev/null`
+
+    local status_code=`curl "https://api.spotify.com/v1/playlists/${SPOTIFY_PLAYLIST_ID}" \
+      --oauth2-bearer ${access_token:-no_token} \
+      -sS \
+      -o /dev/null \
+      -w "%{http_code}"`
+
+    test $status_code -eq 200 && break
+
+    curl "https://accounts.spotify.com/api/token" \
+      -X POST \
+      -sS \
+      -H "Content-Type: application/x-www-form-urlencoded" \
+      -d "grant_type=client_credentials&client_id=$SPOTIFY_CLIENT_ID&client_secret=$SPOTIFY_CLIENT_SECRET" \
+      | fx .access_token > $HOME/.cache/spotify
+  done
+
+  local icy_title=`tmux capture-pane -p -t radio | awk -F':' '/icy-title:/ {print $2}' | tail -1 | sed 's/ //'`
+  local icy_title_encoded=`node -p "encodeURIComponent('${icy_title}')"`
+
+  local spotify_track_uri=`curl "https://api.spotify.com/v1/search?type=track&market=DE&limit=1&q=${icy_title_encoded}" \
+    --oauth2-bearer $(cat $HOME/.cache/spotify) \
+    -LisS \
+    | alola 'status should be 200' 'body.tracks.items.length should be 1' 'body.tracks.items.0.uri should not be undefined' \
+    | fx 'x => x.body.tracks.items[0].uri'`
+
+  echo "$icy_title $spotify_track_uri" >&2
+
+  local body=`node -p "JSON.stringify({uris: ['${spotify_track_uri}'], position: 0})"`
+
+  curl "https://api.spotify.com/v1/playlists/${SPOTIFY_PLAYLIST_ID}/tracks" \
+    --oauth2-bearer `cat $HOME/.cache/spotify` \
+    -X POST \
+    -H 'Content-Type: application/json' \
+    -d "$body" \
+    -LisS \
+    | alola 'status should be 201' 1>/dev/null
+}
+
 function song(){
-  local SPOTIFY_TOKEN=`curl -X POST "https://accounts.spotify.com/api/token" -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=client_credentials&client_id=$SPOTIFY_CLIENT_ID&client_secret=$SPOTIFY_CLIENT_SECRET" -s | fx .access_token`
-  echo $SPOTIFY_TOKEN
+  test -d $HOME/.cache/songs || {
+    git clone git@gist.github.com:d610367acbf0c49435e55c0fa0c2a969.git $HOME/.cache/songs --depth=1 >/dev/null
+  }
+  test "$1" = "ls" && {
+    cat $HOME/.cache/songs/songs;
+    return
+  }
 
-  curl -H "Authorization: Bearer $SPOTIFY_TOKEN" https://api.spotify.com/v1/me
-
-  return
-
-
-
-
-
-
-
-
-  # test -d $HOME/.cache/songs || {
-  #   git clone git@gist.github.com:d610367acbf0c49435e55c0fa0c2a969.git $HOME/.cache/songs --depth=1 >/dev/null
-  # }
-  # test "$1" = "ls" && {
-  #   cat $HOME/.cache/songs/songs;
-  #   return
-  # }
-  #
-  # pushd $HOME/.cache/songs > /dev/null
-  #   tmux capture-pane -p -t radio | awk -F':' '/icy-title:/ {print $2}' | tail -1 | sed 's/ //' | tee -a songs
-  #   git commit -am `date +'%s'` 1> /dev/null 2>/dev/null
-  #   git push 1> /dev/null 2> /dev/null
-  # popd > /dev/null
+  pushd $HOME/.cache/songs > /dev/null
+    tmux capture-pane -p -t radio | awk -F':' '/icy-title:/ {print $2}' | tail -1 | sed 's/ //' | tee -a songs
+    git commit -am `date +'%s'` 1> /dev/null 2>/dev/null
+    git push 1> /dev/null 2> /dev/null
+  popd > /dev/null
 }
 
 #carbon function record(){
