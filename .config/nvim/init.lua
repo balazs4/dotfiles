@@ -101,9 +101,7 @@ lsp({ 'typescript', 'typescriptreact' }, { 'typescript-language-server', '--stdi
           and filename
           or string.gsub(filename, ".ts$", ".test.ts")
 
-      vim.cmd('! tmux split-window -h pnpm --filter ' .. workspace[2] .. ' test -- --watch ' .. testfilename)
-      vim.cmd('! tmux select-pane -l')
-      vim.cmd('! tmux send-keys Enter')
+      vim.cmd('! tmux split-window -h zsh -i -c "nx ' .. workspace[2] .. ' test -- ' .. testfilename .. '"')
     end, { noremap = true, silent = true })
   end
 )
