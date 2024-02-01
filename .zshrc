@@ -255,7 +255,7 @@ function srv(){
 
     process.stdout.write("\n");
     res.writeHead(200, { "content-type": "text/plain" });
-    res.end();
+    //res.end();
   }).listen(process.env.PORT, () => console.log("http://localhost:" + process.env.PORT));
   '
 }
@@ -309,19 +309,33 @@ function browse(){
 #carbon }
 
 function song(){
-  test -d $HOME/.cache/songs || {
-    git clone git@gist.github.com:d610367acbf0c49435e55c0fa0c2a969.git $HOME/.cache/songs --depth=1 >/dev/null
-  }
-  test "$1" = "ls" && {
-    cat $HOME/.cache/songs/songs;
-    return
-  }
+  local SPOTIFY_TOKEN=`curl -X POST "https://accounts.spotify.com/api/token" -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=client_credentials&client_id=$SPOTIFY_CLIENT_ID&client_secret=$SPOTIFY_CLIENT_SECRET" -s | fx .access_token`
+  echo $SPOTIFY_TOKEN
 
-  pushd $HOME/.cache/songs > /dev/null
-    tmux capture-pane -p -t radio | awk -F':' '/icy-title:/ {print $2}' | tail -1 | sed 's/ //' | tee -a songs
-    git commit -am `date +'%s'` 1> /dev/null 2>/dev/null
-    git push 1> /dev/null 2> /dev/null
-  popd > /dev/null
+  curl -H "Authorization: Bearer $SPOTIFY_TOKEN" https://api.spotify.com/v1/me
+
+  return
+
+
+
+
+
+
+
+
+  # test -d $HOME/.cache/songs || {
+  #   git clone git@gist.github.com:d610367acbf0c49435e55c0fa0c2a969.git $HOME/.cache/songs --depth=1 >/dev/null
+  # }
+  # test "$1" = "ls" && {
+  #   cat $HOME/.cache/songs/songs;
+  #   return
+  # }
+  #
+  # pushd $HOME/.cache/songs > /dev/null
+  #   tmux capture-pane -p -t radio | awk -F':' '/icy-title:/ {print $2}' | tail -1 | sed 's/ //' | tee -a songs
+  #   git commit -am `date +'%s'` 1> /dev/null 2>/dev/null
+  #   git push 1> /dev/null 2> /dev/null
+  # popd > /dev/null
 }
 
 #carbon function record(){
@@ -708,26 +722,6 @@ function s3fzf(){
     | xargs -I{} aws s3 cp ${1}{} -
 }
 
-function vvv(){
-  latest_release=`gh release list -L1 | cut -f1`
-  if test -z $latest_release
-  then
-    npm version --no-git-tag-version 1.0.0
-    return 0
-  fi
-
-  git log --oneline --all $latest_release...HEAD \
-    gawk '
-      BEGIN                   { major=0;minor=0;patch=0 }
-      /^[0-9a-z]{7} breaking/ { major++ }
-      /^[0-9a-z]{7} major/    { major++ }
-      /^[0-9a-z]{7} minor/    { minor++ }
-      /^[0-9a-z]{7} patch/    { patch++ }
-    END                   { if (major > 0) print "major"; else if (minor>0) print "minor"; else if (patch > 0) print "patch"; else print "noop"}' \
-    | xargs -t npm version --no-git-tag-version
-}
-
-
 function tv(){
   curl -Ls "https://onlinestream.live/?search=$1" \
     | pup 'a[href^="/play.m3u8"] attr{href}' \
@@ -753,25 +747,6 @@ function jwt(){
 function ip() {
   dig $1 | awk "/^$1/ {print \$NF}"
 }
-
-#mcbpro function bypass() {
-#mcbpro   set -o pipefail
-#mcbpro   echo $* \
-#mcbpro     | xargs -t curl -Lisf -c /dev/null --resolve ${RESOLVER:-'nothing:443:127.0.0.1'} \
-#mcbpro     | alola 'redirects.0.headers.set-cookie should match _jwt' 'status should be 200' \
-#mcbpro     | fx jwt \
-#mcbpro     | jwt
-#mcbpro }
-
-#mcbpro function cosmos() {
-#mcbpro   echo $CSMS_CONTAINERS \
-#mcbpro     | tr ' ' '\n' \
-#mcbpro     | fzf --reverse --height=50% -1 -q "'$1"\
-#mcbpro     | xargs -I{} curl -H "Authorization: Bearer $VC_TOKEN" -Ls  "$CSMS_TOKEN" -XPOST -H 'content-type: application/json' -d '{ "containers": ["{}"], "type": "read" }' \
-#mcbpro     | fx 'x => x.map(xx => xx.connectionString).join("\n")' \
-#mcbpro     | pbcopy
-#mcbpro     docker run --rm -it fathyb/carbonyl https://cosmos.azure.com
-#mcbpro }
 
 function contrib(){
   {
@@ -829,14 +804,14 @@ function dynamo(){
   docker ps
 }
 
-function pf(){
-  local packagejson=`fd package.json | fzf --height '25%' -q"$PROJECT" -1`
-  local app=`echo $packagejson | awk -F/ '{print $(NF-1)}'`
-  local cmd=`fx $packagejson 'x => Object.entries(x.scripts).map(x => x.join("\t")).join("\n")' | fzf --height '25%' -1 -q"'${1}" | awk '{print $1}'`
+function nx(){
+  local packagejson=`fd package.json | fzf --height '25%' -q"${1}" -1`
   local dir=`dirname $packagejson`
   shift
 
-  watchexec -vv -c --print-events  -w $dir --project-origin $dir -s SIGKILL -- pnpm --filter=$app $cmd ${*}
+  pushd $dir
+    watchexec -v -c --print-events --project-origin $PWD -s SIGKILL -- npm run --silent ${*}
+  popd
 }
 
 # !mono?
@@ -903,22 +878,13 @@ function servus(){
 function fixup(){
   git add .
   git commit --fixup=HEAD
-  EDITOR=cat git rebase -i --root --autosquash > /dev/null
+  EDITOR=cat git rebase -i --autosquash > /dev/null
   git log
 }
 
 function mkdird() {
   mkdir -p $1
   pushd $1
-}
-
-function rust-project-json(){
-cat <<EOF | esh -o - -- - | prettier --stdin-filepath _.json > rust-project.json
-{
-  "sysroot_src": "<% rustc --print sysroot | tr -d '\n' %>/lib/rustlib/src/rust/library",
-  "crates": <% jo -p -a *.rs | fx 'x => x.map(xx => ({root_module: xx, edition: "2021", deps: []}))' | tr -d '\n' %>
-}
-EOF
 }
 
 function timer(){
