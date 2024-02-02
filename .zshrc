@@ -308,32 +308,35 @@ function browse(){
 #carbon     | awk '{print $1 | "xclip -rmlastnl -selection primary" }; {print $2 | "xclip -rmlastnl -selection clipboard" }'
 #carbon }
 
+
+
+function spotify-oauth2(){
+  local url="https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:8000/&scope=playlist-modify-public"
+  (google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify $url 1>/dev/null 2>/dev/null &)
+  local spotify_code=`node -e "
+  require('node:http').createServer((req, res) => {
+    res.end();
+    const code = new URL('http://localhost:8000' + req.url).searchParams.get('code');
+    console.log(code);
+    process.exit(0);
+  }).listen(8000);"`
+  killall -9 chrome
+
+  curl https://accounts.spotify.com/api/token \
+    -XPOST \
+    -H "Content-Type: application/x-www-form-urlencoded" \
+    -d "client_id=$SPOTIFY_CLIENT_ID&client_secret=$SPOTIFY_CLIENT_SECRET&grant_type=authorization_code&code=$spotify_code&redirect_uri=http://localhost:8000/" \
+    | fx .access_token > $HOME/.cache/spotify
+}
+
 function track(){
-  for i in {1..2}
-  do
-    local access_token=`cat $HOME/.cache/spotify 2>/dev/null`
-
-    local status_code=`curl "https://api.spotify.com/v1/playlists/${SPOTIFY_PLAYLIST_ID}" \
-      --oauth2-bearer ${access_token:-no_token} \
-      -sS \
-      -o /dev/null \
-      -w "%{http_code}"`
-
-    test $status_code -eq 200 && break
-
-    curl "https://accounts.spotify.com/api/token" \
-      -X POST \
-      -sS \
-      -H "Content-Type: application/x-www-form-urlencoded" \
-      -d "grant_type=client_credentials&client_id=$SPOTIFY_CLIENT_ID&client_secret=$SPOTIFY_CLIENT_SECRET" \
-      | fx .access_token > $HOME/.cache/spotify
-  done
+  local access_token=`cat $HOME/.cache/spotify 2>/dev/null`
 
   local icy_title=`tmux capture-pane -p -t radio | awk -F':' '/icy-title:/ {print $2}' | tail -1 | sed 's/ //'`
   local icy_title_encoded=`node -p "encodeURIComponent('${icy_title}')"`
 
   local spotify_track_uri=`curl "https://api.spotify.com/v1/search?type=track&market=DE&limit=1&q=${icy_title_encoded}" \
-    --oauth2-bearer $(cat $HOME/.cache/spotify) \
+    --oauth2-bearer $access_token \
     -LisS \
     | alola 'status should be 200' 'body.tracks.items.length should be 1' 'body.tracks.items.0.uri should not be undefined' \
     | fx 'x => x.body.tracks.items[0].uri'`
@@ -343,7 +346,7 @@ function track(){
   local body=`node -p "JSON.stringify({uris: ['${spotify_track_uri}'], position: 0})"`
 
   curl "https://api.spotify.com/v1/playlists/${SPOTIFY_PLAYLIST_ID}/tracks" \
-    --oauth2-bearer `cat $HOME/.cache/spotify` \
+    --oauth2-bearer $access_token \
     -X POST \
     -H 'Content-Type: application/json' \
     -d "$body" \
