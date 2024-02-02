@@ -721,7 +721,7 @@ alias src='fx package.json .scripts'
 
 function fmt(){
   test "$#" -eq 0 \
-    && git status --porcelain | awk '{print $NF}' | xargs -t bun x prettier --ignore-unknown --write \
+    && git status -s | awk '{print $NF}' | xargs -t bun x prettier --ignore-unknown --write \
     || bun x prettier --ignore-unknown --write ${*}
 }
 
@@ -837,13 +837,22 @@ function dynamo(){
 }
 
 function nx(){
-  local packagejson=`fd package.json | fzf --height '25%' -q"${1}" -1`
-  local dir=`dirname $packagejson`
+  local dir=${1}
+  test ${dir} = '.' || {
+    dir=`fd package.json | fzf --height '25%' -q"'services ${1}" -1 | xargs dirname`
+  }
   shift
 
   pushd $dir
-    watchexec -v -c --print-events --project-origin $PWD -s SIGKILL -- npm run --silent ${*}
+    watchexec -vv -c --print-events --project-origin $PWD -s SIGKILL -- npm run --silent ${*}
   popd
+}
+
+# watchexec with zshrc
+function wz() {
+  local origin=${1}
+  shift
+  watchexec -vv -c --print-events --project-origin $origin -s SIGKILL -n -- zsh -i -c "${*}"
 }
 
 # !mono?
