@@ -310,7 +310,8 @@ function browse(){
 
 function spotify-oauth2(){
   local url="https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:8000/&scope=playlist-modify-public"
-  (google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify $url 1>/dev/null 2>/dev/null &)
+#carbon  (google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify $url 1>/dev/null 2>/dev/null &)
+#mcbpro open $url
   local spotify_code=`node -e "
   require('node:http').createServer((req, res) => {
     res.end();
@@ -318,7 +319,8 @@ function spotify-oauth2(){
     console.log(code);
     process.exit(0);
   }).listen(8000);"`
-  killall -9 chrome
+
+#carbon  killall -9 chrome
 
   curl https://accounts.spotify.com/api/token \
     -XPOST \
