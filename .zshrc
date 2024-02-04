@@ -51,6 +51,14 @@ function zsh-git() {
 
 setopt PROMPT_SUBST
 
+function TRAPUSR1(){
+  source $HOME/.zshrc
+  source $HOME/.zshenv
+  tmux source-file $HOME/.tmux.conf 2>/dev/null || true
+  echo "TRAPUSR1" >&2
+}
+
+
 function zle-line-init zle-keymap-select {
   PROMPT='%B%F{#{{base07-hex}}} %~%f%b$(zsh-git &) %B%F{#{{base07-hex}}}»%f%b '
   RPROMPT="%(?.%F{#{{base07-hex}}}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
@@ -953,21 +961,17 @@ function base16(){
     | sponge $HOME/.files/.zprofile
 
   TMUX= source $HOME/.files/.zprofile
-
-  source $HOME/.zshrc
-  source $HOME/.zshenv
-  tmux source-file $HOME/.tmux.conf 2>/dev/null || true
-  echo $base16_theme
+  kill -USR1 `pgrep zsh` 2>/dev/null
 }
 
 function dark(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" > /dev/null
-base16 \!light ${*}
+  base16 \!light ${*}
 }
 
 function light(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" > /dev/null
-base16 \'light ${*}
+  base16 \'light ${*}
 }
 
 function parrot(){
