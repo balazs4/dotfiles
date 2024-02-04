@@ -316,29 +316,39 @@ function browse(){
 #carbon     | awk '{print $1 | "xclip -rmlastnl -selection primary" }; {print $2 | "xclip -rmlastnl -selection clipboard" }'
 #carbon }
 
-function spotify-oauth2(){
-  local url="https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:8000/&scope=playlist-modify-public"
-#carbon  (google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify $url 1>/dev/null 2>/dev/null &)
-#mcbpro open $url
-  local spotify_code=`node -e "
-  require('node:http').createServer((req, res) => {
-    res.end();
-    const code = new URL('http://localhost:8000' + req.url).searchParams.get('code');
-    console.log(code);
-    process.exit(0);
-  }).listen(8000);"`
-
-#carbon  killall -9 chrome
-
-  curl https://accounts.spotify.com/api/token \
-    -XPOST \
-    -H "Content-Type: application/x-www-form-urlencoded" \
-    -d "client_id=$SPOTIFY_CLIENT_ID&client_secret=$SPOTIFY_CLIENT_SECRET&grant_type=authorization_code&code=$spotify_code&redirect_uri=http://localhost:8000/" \
-    | fx .access_token > $HOME/.cache/spotify
-}
-
 function track(){
-  local access_token=`cat $HOME/.cache/spotify 2>/dev/null`
+  test -e $HOME/.cache/spotify || {
+    local url="https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:8000/&scope=playlist-modify-public"
+#carbon    (google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify $url 1>/dev/null 2>/dev/null &)
+#mcbpro    open $url
+    local spotify_code=`node -e "
+    require('node:http').createServer((req, res) => {
+      res.end('you can close this tab');
+      const code = new URL('http://localhost:8000' + req.url).searchParams.get('code');
+      console.log(code);
+      process.exit(0);
+    }).listen(8000);"`
+
+#carbon    killall -9 chrome
+
+    curl "https://accounts.spotify.com/api/token" \
+      -XPOST \
+      -H "Content-Type: application/x-www-form-urlencoded" \
+      -d "grant_type=authorization_code&code=$spotify_code&client_id=$SPOTIFY_CLIENT_ID&client_secret=$SPOTIFY_CLIENT_SECRET&redirect_uri=http://localhost:8000/" \
+      -o $HOME/.cache/spotify
+  }
+
+  test ${1:-"access_token"} = "refresh_token" && {
+    local refresh_token=`cat $HOME/.cache/spotify | fx .refresh_token`
+    curl "https://accounts.spotify.com/api/token" \
+      -XPOST \
+      -H "Content-Type: application/x-www-form-urlencoded" \
+      -u "$SPOTIFY_CLIENT_ID:$SPOTIFY_CLIENT_SECRET" \
+      -d "grant_type=refresh_token&refresh_token=$refresh_token&client_id=$SPOTIFY_CLIENT_ID&scope=playlist-modify-public" \
+      | fx "x => ({refresh_token: '$refresh_token', ...x})" > $HOME/.cache/spotify
+  }
+
+  local access_token=`cat $HOME/.cache/spotify | fx .access_token`
 
   local icy_title=`tmux capture-pane -p -t radio | awk -F':' '/icy-title:/ {print $2}' | tail -1 | sed 's/ //'`
   local icy_title_encoded=`node -p "encodeURIComponent('${icy_title}')"`
@@ -349,8 +359,6 @@ function track(){
     | alola 'status should be 200' 'body.tracks.items.length should be 1' 'body.tracks.items.0.uri should not be undefined' \
     | fx 'x => x.body.tracks.items[0].uri'`
 
-  echo "$icy_title $spotify_track_uri" >&2
-
   local body=`node -p "JSON.stringify({uris: ['${spotify_track_uri}'], position: 0})"`
 
   curl "https://api.spotify.com/v1/playlists/${SPOTIFY_PLAYLIST_ID}/tracks" \
@@ -360,6 +368,8 @@ function track(){
     -d "$body" \
     -LisS \
     | alola 'status should be 201' 1>/dev/null
+
+  echo "\n$icy_title $spotify_track_uri" >&2
 }
 
 function song(){
