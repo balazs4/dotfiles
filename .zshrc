@@ -274,6 +274,10 @@ function cheat(){
 }
 
 function radio(){
+  test $# -eq 0 && {
+    echo "no search term, no radio"
+    return 1
+  }
   test $TMUX && {
     local target=`tmux display-message -p '#I'`
     tmux rename-window -t:$target radio
