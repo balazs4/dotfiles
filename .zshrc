@@ -55,6 +55,7 @@ function TRAPUSR1(){
   source $HOME/.zshrc
   source $HOME/.zshenv
   tmux source-file $HOME/.tmux.conf 2>/dev/null || true
+#carbon  killall -USR1 sxhkd
   echo "TRAPUSR1" >&2
 }
 
@@ -373,7 +374,7 @@ function track(){
     -LisS \
     | alola 'status should be 201' 1>/dev/null
 
-  echo "\n$icy_title $spotify_track_uri" >&2
+  echo "\n$icy_title $spotify_track_uri on https://open.spotify.com/playlist/${SPOTIFY_PLAYLIST_ID}" >&2
 }
 
 function song(){
