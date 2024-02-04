@@ -338,7 +338,11 @@ function track(){
       -o $HOME/.cache/spotify
   }
 
-  test ${1:-"access_token"} = "refresh_token" && {
+  local last_changed=`stat --format=%Y $HOME/.cache/spotify`
+  local now=`date +%s`
+  local expires_in=`cat $HOME/.cache/spotify | fx .expires_in`
+
+  test $(($now - $last_changed)) -ge $expires_in && {
     local refresh_token=`cat $HOME/.cache/spotify | fx .refresh_token`
     curl "https://accounts.spotify.com/api/token" \
       -XPOST \
