@@ -1,42 +1,10 @@
 git_protocol: ssh
 aliases:
-  ship: >-
-    !fn(){
-      local service=`git status --porcelain | awk -F/ '{print $2}'`
-      gh pr create --title "[${service}] $*" --label 'pr: automerge'
-    }; fn
   checks: >-
     !fn(){
       while gh pr checks 2>&1 | grep 'no checks reported'; do sleep 2; done
       gh pr checks --watch --interval ${GH_INTERVAL:-10}
       gh pr checks | grep fail | xurls | awk -F'/' '/github.com/ {print $NF}' | xargs -I{} gh run view --log-failed --job {}
-      title=`gh pr view | grep title | cut -f2`
-      click=`gh pr checks | gawk '/pass/ { print "✅" }; /fail/ {print "❌" $1 }' | xargs | tr -d ' ' | notify -t "$title"`
-      [[ $click = 'activate' ]] && gh pr view -w
-    }; fn
-  watch: >-
-    !fn(){
-      branch=${BRANCH:-`git rev-parse --abbrev-ref HEAD`}
-      id=''
-      while true
-      do
-        echo "Looking for 'in_progress' or 'queued' run on '$branch'..."
-        id=`gh run list --limit 5 | grep $branch | grep 'in_progress\|queued' | head -1 | cut -f7` 
-        [[ -z $id ]] && sleep ${GH_INTERVAL:-3} || break
-      done
-      echo $id
-      gh run watch $id --interval ${GH_INTERVAL:-3}
-      (
-      outcome=`gh run list | grep $id | cut -f2`
-      origin=`git config --get remote.origin.url`
-      color=`echo $outcome | sed -r 's/\s//g;s/success/00ff33/g;s/failure/ff4747/g'`
-      [[ -f /tmp/github-action-$color.svg ]] || `curl -Lks https://cdn.svgporn.com/logos/github-icon.svg | sed "s/#161614/#${color:-161614}/g" > /tmp/github-action-$color.svg`
-#carbon      click=`dunstify --action="default,open" -I /tmp/github-action-$color.svg "$outcome" "$branch\n$origin"`
-#carbon      [[ $click = 'default' ]] && gh run view $id -w
-#mcbpro      click=`notify --icon /tmp/github-action-$color.svg --title "$outcome" --subtitle "$branch" --message "$origin"`
-#mcbpro      [[ $click = 'activate' ]] && gh run view $id -w
-      ) &
-      gh run view $id --log
     }; fn
 
   prs: >-
@@ -45,7 +13,7 @@ aliases:
           search(query: \"type:pr state:open ${1:-author}:${USER}\", type: ISSUE, first: 10) {
             edges {
               node {
-                ... on PullRequest { 
+                ... on PullRequest {
                   title url createdAt
                   reviews(first: 20){ nodes{ author{ ... on User{ login } } state } }
                   author{ ... on User{ login } }
@@ -53,6 +21,8 @@ aliases:
               }
             }
           }
-        }
-    " | fx > /tmp/prs
-
+        }" \
+        | fx 'x => x.data.search.edges.map(xx => [xx.node.createdAt, xx.node.url ,JSON.stringify(xx.node.reviews.nodes.reduce((acc,xxx) => {  acc[xxx.state] = 1 + (acc[xxx.state] || 0); return acc; }, {})), xx.node.title].join("\t")).join("\n")' \
+        | fzf --reverse --height='32%' \
+        | xurls \
+        | xargs xdg-open
