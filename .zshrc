@@ -343,7 +343,8 @@ function track(){
       -o $HOME/.cache/spotify
   }
 
-  local last_changed=`stat --format=%Y $HOME/.cache/spotify`
+#carbon  local last_changed=`stat --format=%Y $HOME/.cache/spotify`
+#mcbpro  local last_changed=`stat -f %m $HOME/.cache/spotify`
   local now=`date +%s`
   local expires_in=`cat $HOME/.cache/spotify | fx .expires_in`
 
