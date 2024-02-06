@@ -132,7 +132,7 @@ export DO_NOT_TRACK=1
 
 function dot(){
   pushd $HOME/.files > /dev/null
-    $EDITOR ${1:-.}
+    $EDITOR ${1:-`git ls-files | fzf --height '25%' --sync --reverse`}
   popd > /dev/null
   TMUX= source $HOME/.files/.zprofile
 }
