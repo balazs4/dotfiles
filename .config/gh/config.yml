@@ -22,7 +22,7 @@ aliases:
             }
           }
         }" \
-        | fx 'x => x.data.search.edges.map(xx => [xx.node.createdAt, xx.node.url ,JSON.stringify(xx.node.reviews.nodes.reduce((acc,xxx) => {  acc[xxx.state] = 1 + (acc[xxx.state] || 0); return acc; }, {})), xx.node.title].join("\t")).join("\n")' \
+        | fx 'x => x.data.search.edges.map(xx => [xx.node.createdAt, xx.node.url.padEnd(40), xx.node.title.substring(0,80).padEnd(80), JSON.stringify(xx.node.reviews.nodes.reduce((acc,xxx) => {  acc[xxx.state] = 1 + (acc[xxx.state] || 0); return acc; }, {}))].join("\t")).join("\n")' \
         | fzf --reverse --height='32%' \
         | xurls \
         | xargs xdg-open
