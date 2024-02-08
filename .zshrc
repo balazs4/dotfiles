@@ -380,6 +380,7 @@ function track(){
     | alola 'status should be 201' 1>/dev/null
 
   echo "\n$icy_title $spotify_track_uri on https://open.spotify.com/playlist/${SPOTIFY_PLAYLIST_ID}" >&2
+  echo  $spotify_track_uri | sed 's|:|/|g; s|spotify|https://open.spotify.com|g';
 }
 
 function song(){
