@@ -366,7 +366,7 @@ function track(){
   local spotify_track_uri=`curl "https://api.spotify.com/v1/search?type=track&market=DE&limit=1&q=${icy_title_encoded}" \
     --oauth2-bearer $access_token \
     -LisS \
-    | alola 'status should be 200' 'body.tracks.items.length should be 1' 'body.tracks.items.0.uri should not be undefined' \
+    | alola 'status should be 200' 'body.tracks.items.length should be 1' 'body.tracks.items.0.uri should not be undefined' 2>/dev/null \
     | fx 'x => x.body.tracks.items[0].uri'`
 
   local body=`node -p "JSON.stringify({uris: ['${spotify_track_uri}'], position: 0})"`
@@ -377,11 +377,11 @@ function track(){
     -H 'Content-Type: application/json' \
     -d "$body" \
     -LisS \
-    | alola 'status should be 201' 1>/dev/null
+    | alola 'status should be 201' 2>/dev/null 1>/dev/null
 
   echo "https://open.spotify.com/playlist/${SPOTIFY_PLAYLIST_ID}"
-  echo "\n$icy_title"
   echo  $spotify_track_uri | sed 's|:|/|g; s|spotify|https://open.spotify.com|g';
+  echo "$icy_title"
 }
 
 function song(){
