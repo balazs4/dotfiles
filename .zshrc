@@ -983,6 +983,7 @@ function base16(){
     | sponge $HOME/.files/.zprofile
 
   TMUX= source $HOME/.files/.zprofile
+  source $HOME/.zshrc
   kill -USR1 `pgrep zsh` 2>/dev/null
 }
 
