@@ -203,7 +203,6 @@ alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'
 #mcbpro alias xx='pbcopy'
 alias ls='ls --color=auto'
 alias grep='grep --color'
-alias tree='fd | tree --fromfile'
 alias :q='exit'
 alias :q!='exit'
 alias ll='ls -hal'
@@ -211,7 +210,7 @@ alias rm='rm -i'
 alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map(c=>Math.random()>0.5?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
 alias yolo='git add . && git commit -m "`bob yolo commit` :sponge:" --no-verify && git push --no-verify || true'
 alias foo='echo bar'
-alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf --sync"
+alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf --sync --reverse --height=25%"
 alias mc='mc -b'
 alias ssh='TERM=xterm-256color ssh'
 alias scpignore="scp -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
@@ -222,6 +221,8 @@ alias gco='git checkout'
 alias gpp='git pull --prune --tags'
 alias gcm='git checkout `git branch | grep -m 1 -E "^\s+(canary|main|master)$" | sed "s|^* ||g"`'
 alias gf="git ls-files --modified"
+alias gtree='git ls-files | tree --fromfile'
+alias gmv='git ls-files | vidir -'
 alias gpick='git log -300 --oneline --color $1 | fzf -m --ansi --preview "git show --color {1}" | awk "{print $1}"'
 alias shrug='curl -s http://shrug.io | xx'
 alias wipe='docker rm -f `docker ps -aq`'
