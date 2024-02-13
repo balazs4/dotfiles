@@ -221,7 +221,7 @@ alias gst='git status'
 alias gco='git checkout'
 alias gpp='git pull --prune --tags'
 alias gcm='git checkout `git branch | grep -m 1 -E "^\s+(canary|main|master)$" | sed "s|^* ||g"`'
-alias gf="git status --porcelain | awk '{print \$NF}'"
+alias gf="git ls-files --modified"
 alias gpick='git log -300 --oneline --color $1 | fzf -m --ansi --preview "git show --color {1}" | awk "{print $1}"'
 alias shrug='curl -s http://shrug.io | xx'
 alias wipe='docker rm -f `docker ps -aq`'
@@ -750,14 +750,10 @@ alias src='fx package.json .scripts'
 #carbon }
 
 function fmt(){
-  test "$#" -eq 0 \
-    && git status -s | awk '{print $NF}' | xargs -t bun x prettier --ignore-unknown --write \
-    || bun x prettier --ignore-unknown --write ${*}
+    xargs -t bun x prettier --ignore-unknown --write
+    #xargs bunx @biomejs/biome format --write --quote-style=single --indent-style=space
 }
-
-function ff(){
-  { git status --porcelain | awk '{print $NF}'; gh pr diff --patch | grep '^+++ b' | sed 's/+++ b\///' 2>/dev/null } | sort | uniq
-}
+alias gfmt='git ls-files --modified | fmt'
 
 function meme(){
   local auth=`pass imgflip.com | grep username`
@@ -846,8 +842,6 @@ alias carbonyl='docker run --rm -it -v carbonyl:/carbonyl/data fathyb/carbonyl'
 function x(){
   tmux new-session -A -s $HOME -c $HOME
 }
-
-alias changes='git diff main..HEAD --name-only'
 
 function redis(){
   docker run --rm -d --name redis-server -p 6379:6379 redis
