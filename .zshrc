@@ -20,6 +20,7 @@ setopt share_history
 #mcbpro FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 #mcbpro export PATH="$HOME/.luarocks/bin:${PATH}"
 #mcbpro export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+#mcbpro export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 #mcbpro alias xdg-open='open'
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
