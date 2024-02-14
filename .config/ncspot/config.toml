@@ -2,16 +2,15 @@
 statusbar_format = "> %artists - %title >"
 
 [theme]
-title = "#{{base09-hex}}"
-statusbar_progress = "#{{base09-hex}}"
 statusbar_format = "%artists - %title"
-cmdline_bg = "#{{base09-hex}}"
-#carbon highlight = "#{{base00-hex}}"
-#carbon highlight_bg = "#{{base09-hex}}"
-#carbon playing = "#{{base09-hex}}"
 
-#mcbpro highlight = "#{{base05-hex}}"
-#mcbpro highlight_bg = "#{{base00-hex}}"
-#mcbpro playing = "#{{base05-hex}}"
-#mcbpro playing_bg = "#{{base00-hex}}"
-#mcbpro playing_selected = "#{{base05-hex}}"
+title = "#{{base09-hex}}"
+# statusbar_progress = "#{{base09-hex}}"
+# cmdline_bg = "#{{base09-hex}}"
+# highlight = "#{{base00-hex}}"
+# highlight_bg = "#{{base09-hex}}"
+# playing = "#{{base09-hex}}"
+# highlight = "#{{base00-hex}}"
+# highlight_bg = "#{{base09-hex}}"
+# playing = "#{{base09-hex}}"
+#
