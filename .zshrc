@@ -386,22 +386,6 @@ function track(){
   echo "$icy_title"
 }
 
-function song(){
-  test -d $HOME/.cache/songs || {
-    git clone git@gist.github.com:d610367acbf0c49435e55c0fa0c2a969.git $HOME/.cache/songs --depth=1 >/dev/null
-  }
-  test "$1" = "ls" && {
-    cat $HOME/.cache/songs/songs;
-    return
-  }
-
-  pushd $HOME/.cache/songs > /dev/null
-    tmux capture-pane -p -t radio | awk -F':' '/icy-title:/ {print $2}' | tail -1 | sed 's/ //' | tee -a songs
-    git commit -am `date +'%s'` 1> /dev/null 2>/dev/null
-    git push 1> /dev/null 2> /dev/null
-  popd > /dev/null
-}
-
 #carbon function record(){
 #carbon   FILENAME=${1:-/tmp/`date "+%Y%m%d_%H%M%S"`.mp4}
 #carbon   ffmpeg -f x11grab -r 30 `hacksaw -f "-s %wx%h -i :0.0+%x,%y"` -q:v 0 -q:a 0 $FILENAME
