@@ -94,14 +94,11 @@ lsp({ 'typescript', 'typescriptreact' }, { 'typescript-language-server', '--stdi
 
     vim.keymap.set('n', '<leader>r', function()
       local filename = vim.fn.expand('%')
-      local workspace = {}
-      for p in string.gmatch(filename, "([^/]+)") do table.insert(workspace, p) end
-
       local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
           and filename
           or string.gsub(filename, ".ts$", ".test.ts")
 
-      vim.cmd('! tmux split-window -h zsh -i -c "nx ' .. workspace[2] .. ' test -- ' .. testfilename .. '"')
+      vim.cmd('! tmux split-window -h zsh -i -c "nx ' .. testfilename .. ' test -- ' .. testfilename .. '"')
     end, { noremap = true, silent = true })
   end
 )

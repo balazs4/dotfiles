@@ -861,15 +861,30 @@ function dynamo(){
   docker ps
 }
 
-function nx(){
-  local dir=${1}
-  test ${dir} = '.' || {
-    dir=`fd package.json | fzf --height '25%' -q"'services ${1}" -1 | xargs dirname`
-  }
-  shift
+function closest_packagejson(){
+  local git_root=`git rev-parse --show-toplevel`
+  local file='package.json'
+  local real_path=`realpath $1`
+  local dir=`dirname $real_path`
+  while true
+  do
+    test "$dir" = "$git_root" && return 1;
+    test -f $dir/$file && { echo $dir; return 0; }
+    dir=`dirname $dir`
+  done
+}
 
+function nx(){
+  local file=$1
+  shift
+  local dir=`closest_packagejson $file`
+  local script="${*:-test}"
+  if test "${script}" = 'test'
+  then
+    script="${script} -- ${file}"
+  fi
   pushd $dir
-    watchexec -vv -c --print-events --project-origin $PWD -s SIGKILL -- npm run --silent ${*}
+    watchexec -vv -c --print-events --project-origin $PWD -s SIGKILL -- npm run --silent "${script}"
   popd
 }
 
@@ -878,19 +893,6 @@ function wz() {
   local origin=${1}
   shift
   watchexec -vv -c --print-events --project-origin $origin -s SIGKILL -n -- zsh -i -c "${*}"
-}
-
-# !mono?
-function stereo(){
-  fd package.json \
-    | fzf --height '25%' -1 -q"'${PROJECT}" \
-    | xargs dirname
-}
-
-function pacs(){
-  yay -Q \
-    | fzf --multi --reverse \
-    | awk '{print $1}'
 }
 
 #mcbpro function na(){
