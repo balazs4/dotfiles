@@ -1,5 +1,5 @@
 # vim: ft=cfg
-statusbar_format = "> %artists - %title >"
+statusbar_format = "@ %artists - %title @"
 
 [theme]
 background = "transparent"
