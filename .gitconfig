@@ -1,6 +1,9 @@
 [user]
   name  = balazs4
   email = balazs4web@gmail.com
+  signingkey = ~/.ssh/id_ed25519.pub
+[gpg]
+  format = ssh
 [push]
   autoSetupRemote = true
 [pull]
