@@ -76,7 +76,7 @@ function zz() {
     echo $HOME/.files;
     find $HOME/src -maxdepth 1 -type d;
 #mcbpro    find $HOME/src/api/services -maxdepth 1 -type d;
-  } | fzf --layout=reverse --height '40%' -q "${*:-$PWD} " -1`
+  } | fzf --layout=reverse --height '40%' -q "${*:-$PWD} " -1 --preview 'ls {}'`
 
   [[ $TMUX ]] \
     && cd ${to:-$PWD} \
