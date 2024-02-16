@@ -4,6 +4,8 @@
   signingkey = ~/.ssh/id_ed25519.pub
 [gpg]
   format = ssh
+[commit]
+  gpgSign = true
 [push]
   autoSetupRemote = true
 [pull]
