@@ -222,6 +222,7 @@ alias gco='git checkout'
 alias gpp='git pull --prune --tags'
 alias gcm='git checkout `git branch | grep -m 1 -E "^\s+(canary|main|master)$" | sed "s|^* ||g"`'
 alias gf="git ls-files --modified"
+alias gff="git ls-files"
 alias gtree='git ls-files | tree --fromfile'
 alias gmv='git ls-files | vidir - && git status'
 alias gpick='git log --oneline --color | fzf -m --ansi --preview "git show --color {1}" | awk "{print $1}"'
@@ -740,6 +741,7 @@ function fmt(){
     #xargs bunx @biomejs/biome format --write --quote-style=single --indent-style=space
 }
 alias gfmt='git ls-files --modified | fmt'
+alias fmtg='git ls-files --modified | fmt'
 
 function meme(){
   local auth=`pass imgflip.com | grep username`
