@@ -77,8 +77,7 @@ lsp({ 'templ' }, { 'templ', 'lsp' }, { 'go.mod' })
 lsp({ 'lua' }, { 'lua-language-server' }, { '.luarc.json' })
 lsp({ 'rust' }, { 'rust-analyzer' }, { 'Cargo.toml' })
 lsp({ 'terraform' }, { 'terraform-ls', 'serve' }, { '.terrform.lock.hcl' })
---carbon lsp({'typescript'}, {'deno', 'lsp'}, {'deno.json'})
-lsp({ 'typescript', 'typescriptreact', 'javascript' }, { 'typescript-language-server', '--stdio' }, { 'tsconfig.json' },
+lsp({ 'typescript', 'typescriptreact', 'javascript' }, { 'bun', 'x', 'typescript-language-server', '--stdio' }, { 'tsconfig.json' },
   function()
     pcall(vim.keymap.del, 'n', '<leader>p')
     vim.keymap.set('n', '<leader>p', function() vim.cmd(':PrettierAsync') end, { noremap = true, silent = true })
@@ -109,11 +108,6 @@ require('fzf-lua').setup({
   winopts = {
     fullscreen = false,
     preview = { layout = 'vertical' }
-  },
-  colorschemes = {
-    post_reset_cb = function()
-      -- TODO
-    end
   }
 })
 
