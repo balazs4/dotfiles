@@ -1,1 +1,8 @@
 singleQuote: true
+#mcbpro endOfLine: 'lf'
+#mcbpro tabWidth: 2
+#mcbpro printWidth: 80
+#mcbpro useTabs: false
+#mcbpro trailingComma: 'all'
+#mcbpro plugins:
+#mcbpro   - 'prettier-plugin-packagejson'

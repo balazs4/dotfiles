@@ -122,7 +122,7 @@ vim.keymap.set('n', '<leader>`', require('fzf-lua').git_status, { noremap = true
 
 vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { noremap = true, silent = true })
 vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_document_diagnostics, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_workspace_diagnostics, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols, { noremap = true, silent = true })
 
 -- https://github.com/nvim-treesitter/nvim-treesitter
