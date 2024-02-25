@@ -34,10 +34,6 @@ vim.diagnostic.config({
   virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4 }
 })
 
-vim.keymap.set('v', '<leader>b', function()
-  vim.cmd(":'<,'> !source ~/.zshrc; bs jsdoc comment")
-end, { noremap = true, silent = true })
-
 local function lsp(pattern, cmd, project_file, setup)
   vim.api.nvim_create_autocmd('FileType', {
     pattern = pattern,

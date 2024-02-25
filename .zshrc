@@ -1004,6 +1004,10 @@ function a(){
 export BUILDKIT_PROGRESS=plain
 
 function bs(){
+  # (n)vim integration: $HOME/.local/bin/bs (or something on path)
+  # #! /usr/bin/zsh
+  # source $HOME/.zshrc; bs ${*}
+
   test -z $OPENAI_API_KEY && export OPENAI_API_KEY=`pass openai`
 
   node -e '
