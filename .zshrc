@@ -388,9 +388,10 @@ function track(){
 }
 
 #carbon function record(){
-#carbon   FILENAME=${1:-/tmp/`date "+%Y%m%d_%H%M%S"`.mp4}
-#carbon   ffmpeg -f x11grab -r 30 `hacksaw -f "-s %wx%h -i :0.0+%x,%y"` -q:v 0 -q:a 0 $FILENAME
-#carbon   echo $FILENAME
+#carbon   local filename=${1:-/tmp/`date "+%Y%m%d_%H%M%S"`.mp4}
+#carbon   echo "Press [q] when you want to stop recording."
+#carbon   ffmpeg -hide_banner -loglevel panic -f x11grab -r 30 `hacksaw -f "-s %wx%h -i :0.0+%x,%y"` -q:v 0 -q:a 0 $filename
+#carbon   echo $filename
 #carbon }
 
 function co(){
@@ -1014,7 +1015,7 @@ function bs(){
   (async function() {
     const lines = [];
     for await (const line of require("node:readline").createInterface(process.stdin)){ lines.push(line); }
-    const prompt = { model: "gpt-3.5-turbo-0125",  messages: [ { role: "user", content: "rephrase text as " + process.argv.slice(1).join(" ")  + ". text:" + lines.join("\n") } ] };
+    const prompt = { model: "gpt-3.5-turbo-0125",  messages: [ { role: "user", content: "rephrase text (without code) as " + process.argv.slice(1).join(" ")  + ". text:" + lines.join("\n") } ] };
     console.log(JSON.stringify(prompt));
   })();
   ' ${*} \
