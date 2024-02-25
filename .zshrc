@@ -991,15 +991,6 @@ function a(){
   sed "s/^opacity = .*/opacity = 0.${1:-99}/" -i $HOME/.alacritty.toml
 }
 
-#mcbpro function dpl(){
-#mcbpro   tmux capture-pane -p \
-#mcbpro     | grep -Eo 'dpl_[a-zA-Z0-9]+' \
-#mcbpro     | sort \
-#mcbpro     | uniq \
-#mcbpro     | xargs -I{} -t open $VC_ADMIN/deployment/{}/json#:~:text=%22-,handleBuildWithSbq,-%22%3A%20true
-#mcbpro }
-
-
 #carbon function nyc(){
 #carbon   mpv "https://www.youtube.com/watch?v=Gx6NVCRyMzk&t=$(( ( RANDOM % 236 ) + 1 ))" --no-audio --frames=1 -o /tmp/nyc.png \
 #carbon     && feh --no-fehbg --bg-fill /tmp/nyc.png
@@ -1011,3 +1002,18 @@ function a(){
 #mcbpro }
 
 export BUILDKIT_PROGRESS=plain
+
+function bs(){
+  test -z $OPENAI_API_KEY && export OPENAI_API_KEY=`pass openai`
+
+  node -e '
+  (async function() {
+    const lines = [];
+    for await (const line of require("node:readline").createInterface(process.stdin)){ lines.push(line); }
+    const prompt = { model: "gpt-3.5-turbo-0125",  messages: [ { role: "user", content: "rephrase text as " + process.argv.slice(1).join(" ")  + ". text:" + lines.join("\n") } ] };
+    console.log(JSON.stringify(prompt));
+  })();
+  ' ${*} \
+    | curl -s https://api.openai.com/v1/chat/completions  -H "Content-Type: application/json" -H "Authorization: Bearer $OPENAI_API_KEY" -d @- \
+    | fx 'x => x.choices[0].message.content'
+}

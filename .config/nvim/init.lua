@@ -34,6 +34,10 @@ vim.diagnostic.config({
   virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4 }
 })
 
+vim.keymap.set('v', '<leader>b', function()
+  vim.cmd(":'<,'> !source ~/.zshrc; bs jsdoc comment")
+end, { noremap = true, silent = true })
+
 local function lsp(pattern, cmd, project_file, setup)
   vim.api.nvim_create_autocmd('FileType', {
     pattern = pattern,
@@ -77,7 +81,7 @@ lsp({ 'templ' }, { 'templ', 'lsp' }, { 'go.mod' })
 lsp({ 'lua' }, { 'lua-language-server' }, { '.luarc.json' })
 lsp({ 'rust' }, { 'rust-analyzer' }, { 'Cargo.toml' })
 lsp({ 'terraform' }, { 'terraform-ls', 'serve' }, { '.terrform.lock.hcl' })
-lsp({ 'typescript', 'typescriptreact', 'javascript' }, { 'bun', 'x', 'typescript-language-server', '--stdio' }, { 'tsconfig.json' },
+lsp({ 'typescript', 'typescriptreact', 'javascript' }, { 'bun', 'x', 'typescript-language-server', '--stdio' }, { 'tsconfig.json', 'jsconfig.json' },
   function()
     pcall(vim.keymap.del, 'n', '<leader>p')
     vim.keymap.set('n', '<leader>p', function() vim.cmd(':PrettierAsync') end, { noremap = true, silent = true })
