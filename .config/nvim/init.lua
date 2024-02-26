@@ -117,6 +117,7 @@ vim.keymap.set('n', '``', require('fzf-lua').buffers, { noremap = true, silent =
 vim.keymap.set('n', '<leader>=', require('fzf-lua').grep_project, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>w', require('fzf-lua').grep_cword, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>W', require('fzf-lua').grep_cWORD, { noremap = true, silent = true })
+vim.keymap.set('v', '<leader>w', require('fzf-lua').grep_visual, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>/', require('fzf-lua').blines, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>`', require('fzf-lua').git_status, { noremap = true, silent = true })
 
