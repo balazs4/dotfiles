@@ -763,8 +763,8 @@ function closest_packagejson(){
   test -d $realpath && dir=$real_path
   while true
   do
-    test "$dir" = "$git_root" && return 1;
     test -f $dir/$file && { echo $dir; return 0; }
+    test "$dir" = "$git_root" && return 1;
     dir=`dirname $dir`
   done
 }
