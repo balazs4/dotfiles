@@ -387,12 +387,12 @@ function track(){
   echo "$icy_title"
 }
 
-#carbon function record(){
-#carbon   local filename=${1:-/tmp/`date "+%Y%m%d_%H%M%S"`.mp4}
-#carbon   echo "Press [q] when you want to stop recording."
-#carbon   ffmpeg -hide_banner -loglevel panic -f x11grab -r 30 `hacksaw -f "-s %wx%h -i :0.0+%x,%y"` -q:v 0 -q:a 0 $filename
-#carbon   echo $filename
-#carbon }
+function record(){
+  local filename=${1:-/tmp/`date "+%Y%m%d_%H%M%S"`.mp4}
+  echo "Press [q] when you want to stop recording."
+  ffmpeg -hide_banner -loglevel panic -f x11grab -r 30 `hacksaw -f "-s %wx%h -i :0.0+%x,%y"` -c:v libx264 $filename
+  echo $filename
+}
 
 function co(){
   for handle in "$@"; do echo "Co-authored-by: $handle <$handle@users.noreply.github.com>"; done
@@ -405,25 +405,6 @@ function co(){
 #carbon     | sudo tee /etc/pacman.d/mirrorlist
 #carbon }
 
-
-#carbon function remind(){
-#carbon   if [ "$#" -eq 0 ]
-#carbon   then
-#carbon     rm -f /tmp/remind
-#carbon     pkill -SIGRTMIN+4 i3blocks
-#carbon     return
-#carbon   fi
-#carbon 
-#carbon   TIME="$1"
-#carbon   shift
-#carbon   CONTENT="$*"
-#carbon 
-#carbon   echo "
-#carbon     echo '$CONTENT' > /tmp/remind
-#carbon     pkill -SIGRTMIN+4 i3blocks
-#carbon     dunstify \"\`date\`\" '$CONTENT'
-#carbon   " | at $TIME
-#carbon }
 
 function touchd(){
   mkdir -p `dirname "$1"` && touch "$1"
@@ -527,46 +508,9 @@ function pihole(){
     | npx alola 'status should be 200' 'headers.x-pi-hole should be The Pi-hole Web interface is working!' 1>/dev/null
 }
 
-#carbon function helloworld(){
-#carbon   curl -H 'accept: application/json' -H "private-token: $GITLAB_TOKEN" "$GITLAB_HELLOWORLD_URL/issues?state=opened&confidential=true" -Lis \
-#carbon     | npx alola \
-#carbon     | npx fx .body 'x => x.map(xx => [xx.iid, xx.web_url, xx.created_at, xx.user_notes_count, xx.title].join("\t") ).join("\n")' \
-#carbon     | fzf --preview-window='down,75%' --preview "echo {} | cut -f1 | xargs -Iid curl -H 'accept: application/json' -H 'private-token: $GITLAB_TOKEN' \"$GITLAB_HELLOWORLD_URL/issues/id/notes\" -Lisk | npx alola | npx fx 'x => x.body.map(xx => xx.body).join(\"\n\")'"
-#carbon }
-
 
 function qrdecode {
   shotgun `hacksaw -f "-i %i -g %g"` - | zbarimg -q --raw -
-}
-
-function wallomat {
-  # wallomat 'https://www.youtube.com/watch?v=Gx6NVCRyMzk' 69
-  mpv "$1&t=$2" --no-audio --frames=1 -o /tmp/wall.png
-  feh --no-fehbg --bg-fill /tmp/wall.png
-}
-
-function public() {
-  DOCKER_COMPOSE=tmp-docker-compose.yml
-  echo "
-services:
-  tunnel:
-    image: node:alpine
-    tty: true
-    entrypoint: /bin/sh
-    command:
-      - -c
-      - |
-        npx -y localtunnel --port 80 --local-host server --print-requests
-    environment:
-      NPM_CONFIG_LOGLEVEL: error
-  server:
-    image: nginx:alpine
-    volumes:
-`fd --type f | xargs -I{} echo "      - './{}:/usr/share/nginx/html/{}:ro'"`" \
-  | vipe --suffix .yml > $DOCKER_COMPOSE
-
-  docker compose -f $DOCKER_COMPOSE up
-  rm -f $DOCKER_COMPOSE
 }
 
 #carbon function now(){
@@ -631,21 +575,6 @@ function archnews(){
     | fx 'x => x.rss.channel.item.map(xx => [`\x1b[2m${xx.link}\x1b[0m`, new Date(xx.pubDate).toJSON() + ` >> \x1b[1m${xx.title}\x1b[0m`, " "].join("\n")).join("\n")'
 }
 
-#carbon alias screensaver='tmux new-session -s xcowsay -d "while true; do xcowsay catch me if you can; done";exit'
-
-function mongodb-rs(){
-  docker ps -a | grep 27017 | cut -f1 -d" " | xargs -tr docker kill
-  mongo_container_id=`docker run -d --rm -p "27017:27017" mongo:${1:-latest} --replSet rs`
-  docker exec -i $mongo_container_id sh -c '
-    while ! mongosh  --eval "db.version()" >/dev/null; do sleep 0.5s; done; \
-    mongosh --eval "rs.initiate()"; \
-    while ! mongosh  --eval "rs.status().members[0].stateStr" | grep PRIMARY; do sleep 0.5s; done; \
-    mongosh --eval "db.createCollection(\"test\")"
-  '
-  docker ps -a | grep 27017 
-}
-
-
 #carbon function dp2(){
 #carbon   xrandr \
 #carbon     --dpi 136 \
@@ -676,28 +605,6 @@ function mongodb-rs(){
 #carbon   xrandr --output HDMI1 --mode 1920x1080 --pos 0x0 --rotate normal
 #carbon }
 
-#carbon function record-tmux(){
-#carbon   local cast="/tmp/tmux-$1.json"
-#carbon   asciinema rec --command "tmux attach -t $1" $cast
-#carbon   #npx -yq -p svg-term-cli
-#carbon   svg-term --in $cast --out $cast.svg
-#carbon   ls -lsh $cast*
-#carbon }
-#carbon 
-#carbon function typo(){
-#carbon   local target=$1
-#carbon   shift
-#carbon   node -p 'process.argv.slice(1).map(x => x.split("").map(xx => xx + "\n").join("")).join("\n").trim()' ${*} \
-#carbon     | xargs -I% -d '\n' -n1 sh -c "tmux send-keys -t '$target' '%'; sleep 0.1s;"
-#carbon 
-#carbon   sleep 0.2s
-#carbon   tmux send-keys -t "$target" Enter
-#carbon }
-#carbon 
-function raw(){
-  curl -Ls "$1?raw=true"
-}
-#carbon 
 #carbon function yayfzf(){
 #carbon   yay -Sy
 #carbon   yay -Slq | fzf --preview 'yay -Si {1}' --query "'${1}" -1 | xargs yay -Sy --noconfirm 
