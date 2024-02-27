@@ -79,26 +79,22 @@ lsp({ 'rust' }, { 'rust-analyzer' }, { 'Cargo.toml' })
 lsp({ 'terraform' }, { 'terraform-ls', 'serve' }, { '.terrform.lock.hcl' })
 lsp({ 'typescript', 'typescriptreact', 'javascript' }, { 'bun', 'x', 'typescript-language-server', '--stdio' }, { 'tsconfig.json', 'jsconfig.json' },
   function()
+    local function filename(test)
+      local buffer = vim.fn.expand('%')
+      if buffer:sub(-string.len('test.ts')) == 'test.ts' then
+        if test == true then
+          return buffer
+        else
+          return string.gsub(buffer, ".test.ts$", ".ts")
+        end
+      end
+      return string.gsub(buffer, ".ts$", ".test.ts")
+    end
+
     pcall(vim.keymap.del, 'n', '<leader>p')
-    vim.keymap.set('n', '<leader>p', function() vim.cmd(':PrettierAsync') end, { noremap = true, silent = true })
-
-    vim.keymap.set('n', '<leader>t', function()
-      local filename = vim.fn.expand('%')
-      local targetfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
-          and string.gsub(filename, ".test.ts$", ".ts")
-          or string.gsub(filename, ".ts$", ".test.ts")
-
-      vim.cmd('vsplit ' .. targetfilename)
-    end, { noremap = true, silent = true })
-
-    vim.keymap.set('n', '<leader>r', function()
-      local filename = vim.fn.expand('%')
-      local testfilename = filename:sub(-string.len('test.ts')) == 'test.ts'
-          and filename
-          or string.gsub(filename, ".ts$", ".test.ts")
-
-      vim.cmd('! tmux split-window -h zsh -i -c "nx ' .. testfilename .. ' test -- ' .. testfilename .. '"')
-    end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>p', function() vim.cmd(':PrettierAsync')                                                        end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false))                                            end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>r', function() vim.cmd('! tmux split-window -h zsh -i -c "wnpm test ' .. filename(true) .. '"') end, { noremap = true, silent = true })
   end
 )
 

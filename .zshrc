@@ -853,6 +853,7 @@ function closest_packagejson(){
   local file='package.json'
   local real_path=`realpath $1`
   local dir=`dirname $real_path`
+  test -d $realpath && dir=$real_path
   while true
   do
     test "$dir" = "$git_root" && return 1;
@@ -861,17 +862,17 @@ function closest_packagejson(){
   done
 }
 
-function nx(){
-  local file=$1
+function wnpm(){
+  local script="${1:-test}"
+  local file=${2:-$PWD}
   shift
   local dir=`closest_packagejson $file`
-  local script="${*:-test}"
   if test "${script}" = 'test'
   then
     script="${script} -- ${file}"
   fi
   pushd $dir
-    watchexec -vv -c --print-events --project-origin $PWD -s SIGKILL -- npm run --silent "${script}"
+    watchexec -vv -c --print-events --project-origin $PWD -s SIGKILL -- npm run "${script} ${*}"
   popd
 }
 
