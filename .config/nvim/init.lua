@@ -92,9 +92,10 @@ lsp({ 'typescript', 'typescriptreact', 'javascript' }, { 'bun', 'x', 'typescript
     end
 
     pcall(vim.keymap.del, 'n', '<leader>p')
-    vim.keymap.set('n', '<leader>p', function() vim.cmd(':PrettierAsync')                                                        end, { noremap = true, silent = true })
-    vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false))                                            end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>p', function() vim.cmd(':PrettierAsync') end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end, { noremap = true, silent = true })
     vim.keymap.set('n', '<leader>r', function() vim.cmd('! tmux split-window -h zsh -i -c "wnpm test ' .. filename(true) .. '"') end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>e', function() vim.cmd('! tmux split-window -h zsh -i -c "wnpm eslint-fix ' .. filename(false) .. '"') end, { noremap = true, silent = true })
   end
 )
 
