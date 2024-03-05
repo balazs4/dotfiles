@@ -62,7 +62,7 @@ function TRAPUSR1(){
 
 
 function zle-line-init zle-keymap-select {
-  test $COLUMNS -lt 100 && NEWLINE=$'\n' || NEWLINE=''
+  test $COLUMNS -lt 120 && NEWLINE=$'\n' || NEWLINE=''
   PROMPT="%B%F{#{{base07-hex}}} %~%f%b$(zsh-git &) %B%F{#{{base07-hex}}}${NEWLINE}»%f%b "
   RPROMPT="%(?.%F{#{{base07-hex}}}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
   zle reset-prompt
@@ -792,11 +792,9 @@ function wz() {
 }
 
 #mcbpro function na(){
-#mcbpro   sh $HOME/.local/bin/npmrc
 #mcbpro   n auto
 #mcbpro   grep private $HOME/.npmrc > /dev/null || $HOME/.local/bin/npmrc
-#mcbpro   pnpm install
-#mcbpro   git checkout -- pnpm-lock.yaml 1>/dev/null 2>/dev/null
+#mcbpro   pnpm install --frozen-lockfile
 #mcbpro }
 
 function nodepoch(){
