@@ -113,7 +113,8 @@ export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 export PATH=$HOME/.local/bin:${PATH}
 
 #nodejs
-export NPM_CONFIG_LOGLEVEL=http
+#carbon export NPM_CONFIG_LOGLEVEL=http
+#mcbpro export NPM_CONFIG_LOGLEVEL=error
 export DOTENV_CONFIG_DEBUG=true
 export N_PREFIX=$HOME/.n/prefix
 export N_PRESERVE_NPM=1
