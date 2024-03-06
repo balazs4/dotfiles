@@ -781,15 +781,8 @@ function wnpm(){
     script="${script} -- ${file}"
   fi
   pushd $dir
-    watchexec -vv -c --print-events --project-origin $PWD -s SIGKILL -- npm run "${script} ${*}"
+    watchexec -vv -c --print-events --project-origin $PWD -s SIGKILL -r --stop-timeout 0 -- npm run "${script} ${*}"
   popd
-}
-
-# watchexec with zshrc
-function wz() {
-  local origin=${1}
-  shift
-  watchexec -vv -c --print-events --project-origin $origin -s SIGKILL -n -- zsh -i -c "${*}"
 }
 
 #mcbpro function na(){
@@ -798,8 +791,8 @@ function wz() {
 #mcbpro   pnpm install --frozen-lockfile
 #mcbpro }
 
-function nodepoch(){
-  node -p "new Date($1).toJSON()"
+function epoch(){
+  node -p "new Date($1).toJSON();"
 }
 
 function servus(){
