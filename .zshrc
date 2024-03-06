@@ -781,7 +781,7 @@ function wnpm(){
     script="${script} -- ${file}"
   fi
   pushd $dir
-    watchexec -vv -c --print-events --project-origin $PWD -s SIGKILL -r --stop-timeout 0 -- npm run "${script} ${*}"
+    watchexec -vv -c --print-events --project-origin $PWD -s SIGKILL --stop-timeout 0 -- npm run "${script} ${*}"
   popd
 }
 
