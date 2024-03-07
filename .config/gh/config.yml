@@ -1,12 +1,5 @@
 git_protocol: ssh
 aliases:
-  checks: >-
-    !fn(){
-      while gh pr checks 2>&1 | grep 'no checks reported'; do sleep 2; done
-      gh pr checks --watch --interval ${GH_INTERVAL:-10}
-      gh pr checks | grep fail | xurls | awk -F'/' '/github.com/ {print $NF}' | xargs -I{} gh run view --log-failed --job {}
-    }; fn
-
   prs: >-
     !gh api graphql -f query="
         {
