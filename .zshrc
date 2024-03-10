@@ -629,7 +629,7 @@ function gitlab-pipeline(){
 function gb(){
   git branch -a \
     | grep -v HEAD \
-    | fzf -1 -q "'${*}" \
+    | fzf -1 -q "'$USER ${*}" \
     | sed 's|remotes/origin/||g;s|^*||g' \
     | xargs -t git checkout
 }
@@ -923,3 +923,12 @@ function bs(){
     | curl -s https://api.openai.com/v1/chat/completions  -H "Content-Type: application/json" -H "Authorization: Bearer $OPENAI_API_KEY" -d @- \
     | fx 'x => x.choices[0].message.content'
 }
+
+
+function mvr(){
+  local cnt=0
+  while IFS= read -r line; do cnt=$((cnt+1)); printf "%04d\t%s\n" $cnt $line; done | tee /tmp/mvr.in > /tmp/mvr.out
+  nvim /tmp/mvr.out
+  delta /tmp/mvr.in /tmp/mvr.out
+}
+
