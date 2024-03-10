@@ -62,7 +62,7 @@ function TRAPUSR1(){
 
 
 function zle-line-init zle-keymap-select {
-  test $COLUMNS -lt 120 && NEWLINE=$'\n' || NEWLINE=''
+  test $COLUMNS -lt 100 && NEWLINE=$'\n' || NEWLINE=''
   PROMPT="%B%F{#{{base07-hex}}} %~%f%b$(zsh-git &) %B%F{#{{base07-hex}}}${NEWLINE}»%f%b "
   RPROMPT="%(?.%F{#{{base07-hex}}}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
   zle reset-prompt
@@ -916,7 +916,7 @@ function bs(){
   (async function() {
     const lines = [];
     for await (const line of require("node:readline").createInterface(process.stdin)){ lines.push(line); }
-    const prompt = { model: "gpt-3.5-turbo-0125",  messages: [ { role: "user", content: "rephrase text (without code) as " + process.argv.slice(1).join(" ")  + ". text:" + lines.join("\n") } ] };
+    const prompt = { model: "gpt-3.5-turbo-0125",  messages: [ { role: "user", content: "rephrase text as " + process.argv.slice(1).join(" ")  + ". text:" + lines.join("\n") } ] };
     console.log(JSON.stringify(prompt));
   })();
   ' ${*} \
@@ -924,11 +924,15 @@ function bs(){
     | fx 'x => x.choices[0].message.content'
 }
 
-
-function mvr(){
+function mvr(){ #vidir
   local cnt=0
   while IFS= read -r line; do cnt=$((cnt+1)); printf "%04d\t%s\n" $cnt $line; done | tee /tmp/mvr.in > /tmp/mvr.out
   nvim /tmp/mvr.out
-  delta /tmp/mvr.in /tmp/mvr.out
+  join -a 1 /tmp/mvr.in /tmp/mvr.out | awk '{
+    if ($2==$3){next;}
+    if (!$3){print "rm -rfv "$2; next;}
+    print "mv "$2" "$3;
+  }' | sh
+  rm -rf /tmp/mvr.in /tmp/mvr.out
 }
 
