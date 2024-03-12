@@ -930,7 +930,7 @@ function mvr(){ #vidir
   nvim /tmp/mvr.out
   join -a 1 /tmp/mvr.in /tmp/mvr.out | awk '{
     if ($2==$3){next;}
-    if (!$3){print "rm -rfv "$2; next;}
+    if (!$3){print "rm -rf "$2; next;}
     print "mv "$2" "$3;
   }' | sh
   rm -rf /tmp/mvr.in /tmp/mvr.out
