@@ -629,10 +629,12 @@ function gitlab-pipeline(){
 function gb(){
   git branch -a \
     | grep -v HEAD \
-    | fzf -1 -q "'$USER ${*}" \
+    | fzf -1 -q "'${*}" \
     | sed 's|remotes/origin/||g;s|^*||g' \
     | xargs -t git checkout
 }
+
+alias gbb='gb $USER'
 
 alias .env='set -o allexport; source .env; set +o allexport'
 
