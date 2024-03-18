@@ -833,29 +833,12 @@ function servus(){
   '
 }
 
-function fixup(){
-  git add .
-  git commit --fixup=HEAD
-  EDITOR=cat git rebase -i --autosquash > /dev/null
-  git log
-}
-
 function mkdird() {
   mkdir -p $1
   pushd $1
 }
 
-function timer(){
-  local target=`tmux display-message -p '#I'`
-  tmux clock-mode
-  dateseq 00:00:00 5s ${1:-00:05:00} | xargs -I{} sh -c "tmux rename-window -t:$target {}; sleep 5"
-  tmux rename-window -t:$target TIMEOUT
-}
-
-function stars(){
-#mcbpro  open 'https://github.com/balazs4?tab=stars'
-#carbon  xdg-open 'https://github.com/balazs4?tab=stars'
-}
+alias stars="xdg-open 'https://github.com/balazs4?tab=stars'"
 
 #carbon alias xb='xbacklight -set'
 
