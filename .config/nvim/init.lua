@@ -68,8 +68,7 @@ lsp({ 'templ' }, { 'templ', 'lsp' }, { 'go.mod' })
 lsp({ 'lua' }, { 'lua-language-server' }, { '.luarc.json' })
 lsp({ 'rust' }, { 'rust-analyzer' }, { 'Cargo.toml' })
 lsp({ 'terraform' }, { 'terraform-ls', 'serve' }, { '.terrform.lock.hcl' })
-lsp({ 'typescript', 'typescriptreact', 'javascript' }, { 'bun', 'x', 'typescript-language-server', '--stdio' },
-  { 'tsconfig.json', 'jsconfig.json' },
+lsp({ 'typescript', 'typescriptreact' }, { 'bun', 'x', 'typescript-language-server', '--stdio' }, { 'tsconfig.json', 'jsconfig.json' },
   function()
     local function filename(test)
       local buffer = vim.fn.expand('%')
