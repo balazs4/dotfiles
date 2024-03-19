@@ -34,6 +34,11 @@ vim.diagnostic.config({
   virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4 }
 })
 
+--- lsp function
+--- @param pattern table filetypes
+--- @param cmd table lsp command to execute with params
+--- @param project_file table project file in root of project
+--- @param setup function optional setup function to call on_attach-ish manner
 local function lsp(pattern, cmd, project_file, setup)
   vim.api.nvim_create_autocmd('FileType', {
     pattern = pattern,
@@ -46,8 +51,7 @@ local function lsp(pattern, cmd, project_file, setup)
       vim.lsp.buf_attach_client(0, client)
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true })
-      vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end,
-        { noremap = true, silent = true })
+      vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { noremap = true, silent = true })
       vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true })
       vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
 
@@ -56,28 +60,16 @@ local function lsp(pattern, cmd, project_file, setup)
   })
 end
 
-vim.api.nvim_create_user_command("LspRestart",
-  function()
-    vim.lsp.stop_client(vim.lsp.get_active_clients(), false)
-    vim.wait(500)
-    vim.cmd(':edit')
-  end,
-  {}
-)
+vim.api.nvim_create_user_command("LspInfo", function() vim.cmd(":lua= vim.lsp.get_active_clients()") end, {})
 
-vim.api.nvim_create_user_command("LspInfo",
-  function()
-    vim.cmd(":lua= vim.lsp.get_active_clients()")
-  end,
-  {}
-)
-
+lsp({ 'gleam' }, { 'gleam', 'lsp' }, { 'gleam.toml' })
 lsp({ 'go' }, { 'gopls' }, { 'go.mod' })
 lsp({ 'templ' }, { 'templ', 'lsp' }, { 'go.mod' })
 lsp({ 'lua' }, { 'lua-language-server' }, { '.luarc.json' })
 lsp({ 'rust' }, { 'rust-analyzer' }, { 'Cargo.toml' })
 lsp({ 'terraform' }, { 'terraform-ls', 'serve' }, { '.terrform.lock.hcl' })
-lsp({ 'typescript', 'typescriptreact', 'javascript' }, { 'bun', 'x', 'typescript-language-server', '--stdio' }, { 'tsconfig.json', 'jsconfig.json' },
+lsp({ 'typescript', 'typescriptreact', 'javascript' }, { 'bun', 'x', 'typescript-language-server', '--stdio' },
+  { 'tsconfig.json', 'jsconfig.json' },
   function()
     local function filename(test)
       local buffer = vim.fn.expand('%')
@@ -93,8 +85,11 @@ lsp({ 'typescript', 'typescriptreact', 'javascript' }, { 'bun', 'x', 'typescript
 
     pcall(vim.keymap.del, 'n', '<leader>p')
     vim.keymap.set('n', '<leader>p', function() vim.cmd(':PrettierAsync') end, { noremap = true, silent = true })
-    vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end, { noremap = true, silent = true })
-    vim.keymap.set('n', '<leader>r', function() vim.cmd('! tmux split-window -h zsh -i -c "wnpm test ' .. filename(true) .. '"') end, { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end,
+      { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>r',
+      function() vim.cmd('! tmux split-window -h zsh -i -c "wnpm test ' .. filename(true) .. '"') end,
+      { noremap = true, silent = true })
   end
 )
 
