@@ -1,7 +1,7 @@
 super + Print
   shotgun `hacksaw -f "-i %i -g %g"` - | xclip -t 'image/png' -selection clipboard && dunstify "shotgun" "copied to clipboard"
 
-super + space
+super + grave
   [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us \
     ;pkill -SIGRTMIN+2 i3blocks
 
@@ -17,9 +17,6 @@ super + d
 super + shift + d 
   zsh -i -c `cat ~/.zshrc | grep -e ^alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#{{base09-hex}}" -fn 'GeistMono-12'`
 
-super + grave
-  alacritty --class=temp_terminal --command zsh -i -c "todos edit"
-
 super + x
   alacritty --class=temp_terminal --command zsh -i -c "emojis" 
 
@@ -29,7 +26,7 @@ super + {Next,Prior,Control_R}
 super + backslash
   zsh -i -c 'source ~/.zshrc; now'
 
-super + a
+super + space
   i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 
 
 super + l

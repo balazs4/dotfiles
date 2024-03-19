@@ -307,15 +307,7 @@ function dw(){
 function wiki(){
   url="https://en.wikipedia.org/wiki/`echo $* | sed 's/\s/+/g'`"
   reader -o "$url" | glow -p -
-  echo $url
-}
-
-function todos(){
-  gh gist ${*:-view} ${GITHUB_GIST_TODOS}
-}
-
-function browse(){
-  reader -o "$*" | glow -p -
+  >&2 echo $url
 }
 
 #carbon function emojis(){
