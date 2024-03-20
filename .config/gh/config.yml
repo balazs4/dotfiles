@@ -8,6 +8,6 @@ aliases:
           }
         }" \
         | fx 'x => x.data.search.edges.map(xx => [xx.node.createdAt, xx.node.url.padEnd(48), xx.node.author.login.padEnd(32), xx.node.title.substring(0,96)].join("\t")).join("\n")' \
-        | fzf --reverse --preview-window=right --preview 'gh pr view {2}' \
+        | fzf --reverse --preview-window=bottom --preview 'gh pr view {2}' \
         | xurls \
         | xargs -t -I{} gh pr ${*:-view} {}
