@@ -30,7 +30,7 @@ end, { noremap = true, silent = true })
 vim.diagnostic.config({
   signs = false,
   update_in_insert = false,
-  underline = false,
+  underline = true,
   virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4 }
 })
 
