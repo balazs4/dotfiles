@@ -357,7 +357,7 @@ function track(){
   local access_token=`cat $HOME/.cache/spotify | fx .access_token`
 
   local icy_title=`tmux capture-pane -p -t radio | awk -F':' '/icy-title:/ {print $2}' | tail -1 | sed 's/ //'`
-  local icy_title_encoded=`node -p "encodeURIComponent('${icy_title}')"`
+  local icy_title_encoded=`node -p 'encodeURIComponent(process.argv[1])' "${icy_title}"`
 
   local spotify_track_uri=`curl "https://api.spotify.com/v1/search?type=track&market=DE&limit=1&q=${icy_title_encoded}" \
     --oauth2-bearer $access_token \
