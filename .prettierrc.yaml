@@ -4,5 +4,3 @@ singleQuote: true
 #mcbpro printWidth: 80
 #mcbpro useTabs: false
 #mcbpro trailingComma: 'all'
-#mcbpro plugins:
-#mcbpro   - 'prettier-plugin-packagejson'

@@ -3,12 +3,11 @@ aliases:
   prs: >-
     !gh api graphql -f query="
         {
-          search(query: \"type:pr state:open sort:created involves:@me archived:false\", type: ISSUE, first: 20) {
+          search(query: \"type:pr state:open sort:created-desc involves:@me archived:false\", type: ISSUE, first: 20) {
             edges { node { ... on PullRequest { title url createdAt author { ... on User {login} } } } }
           }
         }" \
-        | fx 'x => x.data.search.edges.map(xx => [xx.node.createdAt, xx.node.url.padEnd(40), xx.node.author.login, xx.node.title.substring(0,80).padEnd(80)].join("\t")).join("\n")' \
-        | sort \
-        | fzf --reverse --preview-window=bottom --preview 'gh pr view {2}' \
+        | fx 'x => x.data.search.edges.map(xx => [xx.node.createdAt, xx.node.url.padEnd(48), xx.node.author.login.padEnd(32), xx.node.title.substring(0,96)].join("\t")).join("\n")' \
+        | fzf --reverse --preview-window=right --preview 'gh pr view {2}' \
         | xurls \
         | xargs -t -I{} gh pr view {}
