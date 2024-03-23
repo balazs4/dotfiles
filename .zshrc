@@ -466,7 +466,7 @@ function yt(){
       })();
       ' \
     | sort -k3 -rh \
-    | fzf --sync --reverse --height=50% \
+    | fzf --sync --reverse \
     | cut -f1 \
     | xargs -t -Iwatch mpv ${MPV:---ytdl-format='[height=1080]/best'} https://youtu.be/watch
 }
