@@ -132,7 +132,7 @@ export PATH=$HOME/.cargo/bin:$HOME/.rustup/toolchains/stable-x86_64-unknown-linu
 #bun
 export DO_NOT_TRACK=1
 
-function dott(){
+function dot(){
   case "$1" in
     "git")
       shift
@@ -143,7 +143,7 @@ function dott(){
       git -C "$HOME/.files/" commit -am "`date +%s`@`hostname -s`"
       git -C "$HOME/.files/" pull
       git -C "$HOME/.files/" push
-      dott "source"
+      dot "source"
       ;;
 
     "file")
@@ -166,7 +166,7 @@ function dott(){
       pushd $HOME/.files > /dev/null
         nvim `git ls-files | fzf --height '25%' --sync --reverse -1 -q"'${1}"`
       popd > /dev/null
-      dott "source"
+      dot "source"
       ;;
   esac
 }
@@ -191,10 +191,10 @@ function nvimplug(){
 }
 
 alias so='vim $HOME/.zshenv; source $HOME/.zshenv'
-alias tmuxrc='dott .tmux.conf'
-alias zshrc='dott .zshrc'
-alias nvimrc='dott .config/nvim/init.lua'
-#carbon alias sx="dott .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
+alias tmuxrc='dot .tmux.conf'
+alias zshrc='dot .zshrc'
+alias nvimrc='dot .config/nvim/init.lua'
+#carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
 #carbon alias xx='xclip -rmlastnl -selection clipboard'
 #mcbpro alias xx='pbcopy'

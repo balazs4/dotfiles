@@ -1,4 +1,4 @@
-[[ $TMUX ]] && return
+test $TMUX && return
 PAGER= git -C $HOME/.files diff -p
 local hostname=`hostname -s`
 
