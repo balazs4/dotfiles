@@ -143,51 +143,32 @@ function dott(){
       git -C "$HOME/.files/" commit -am "`date +%s`@`hostname -s`"
       git -C "$HOME/.files/" pull
       git -C "$HOME/.files/" push
+      dott "source"
+      ;;
+
+    "file")
+      shift
+      [[ -e "$HOME/$1" ]] || return
+      dir=`dirname "$HOME/.files/$1"`
+      mkdir -p $dir
+      cp -v "$HOME/$1" "$HOME/.files/$1"
+      git -C "$HOME/.files/" add "$1" 
+      git -C "$HOME/.files/" commit -m "add: $1"
       ;;
 
     "source")
       TMUX= source $HOME/.files/.zprofile
       source $HOME/.zshrc
-      source $HOME/.zshenv
-      tmux source-file $HOME/.tmux.conf 2>/dev/null || true
+      test $TMUX && tmux source-file $HOME/.tmux.conf 2>/dev/null || true
       ;;
 
     *)
       pushd $HOME/.files > /dev/null
         nvim `git ls-files | fzf --height '25%' --sync --reverse -1 -q"'${1}"`
       popd > /dev/null
-      TMUX= source $HOME/.files/.zprofile
+      dott "source"
       ;;
   esac
-}
-
-function dot(){
-  pushd $HOME/.files > /dev/null
-    $EDITOR ${1:-`git ls-files | fzf --height '25%' --sync --reverse`}
-  popd > /dev/null
-}
-
-function dotfile(){
-  [[ -e "$HOME/$1" ]] || return
-  dir=`dirname "$HOME/.files/$1"`
-  mkdir -p $dir
-  cp -v "$HOME/$1" "$HOME/.files/$1"
-  git -C "$HOME/.files/" add "$1" 
-  git -C "$HOME/.files/" commit -m "add: $1"
-}
-
-function vimplug(){
-  if [[ ! -z "$1" ]]
-  then
-    echo "\n\"$1" >> $HOME/.files/.vimrc
-    TMUX= source $HOME/.files/.zprofile
-  fi
-
-  rm -rf $HOME/.vim/pack/_/start/* 2>/dev/null
-  mkdir -p $HOME/.vim/pack/_/start/ 2>/dev/null
-  pushd $HOME/.vim/pack/_/start/
-  grep '^"https://github' $HOME/.vimrc | sed 's/"//g' | xargs -t -L1 git clone --depth=1
-  popd
 }
 
 function nvimplug(){
@@ -210,11 +191,10 @@ function nvimplug(){
 }
 
 alias so='vim $HOME/.zshenv; source $HOME/.zshenv'
-alias tmuxrc='dot .tmux.conf; tmux source-file $HOME/.tmux.conf 2>/dev/null || true'
-alias zshrc='dot .zshrc; source $HOME/.zshrc'
-alias vimrc='EDITOR=vim dot .vimrc'
-alias nvimrc='EDITOR=nvim dot .config/nvim/init.lua'
-#carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
+alias tmuxrc='dott .tmux.conf'
+alias zshrc='dott .zshrc'
+alias nvimrc='dott .config/nvim/init.lua'
+#carbon alias sx="dott .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
 #carbon alias xx='xclip -rmlastnl -selection clipboard'
 #mcbpro alias xx='pbcopy'
