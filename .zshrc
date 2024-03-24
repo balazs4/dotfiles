@@ -152,7 +152,7 @@ function dot(){
       dir=`dirname "$HOME/.files/$1"`
       mkdir -p $dir
       cp -v "$HOME/$1" "$HOME/.files/$1"
-      git -C "$HOME/.files/" add "$1" 
+      git -C "$HOME/.files/" add "$1"
       git -C "$HOME/.files/" commit -m "add: $1"
       ;;
 
