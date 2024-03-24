@@ -764,7 +764,7 @@ function closest_packagejson(){
   done
 }
 
-function wnpm(){
+function npmw(){
   local script="${1:-test}"
   local file=${2:-$PWD}
   shift
@@ -776,6 +776,10 @@ function wnpm(){
   pushd $dir
     watchexec -vv -c --print-events --project-origin $PWD -s SIGKILL --stop-timeout 0 -- npm run "${script} ${*}"
   popd
+}
+
+function makew() {
+    watchexec -v -c --print-events --project-origin $PWD -s SIGKILL --stop-timeout 0 -- make "${*}"
 }
 
 #mcbpro function na(){
