@@ -132,24 +132,39 @@ export PATH=$HOME/.cargo/bin:$HOME/.rustup/toolchains/stable-x86_64-unknown-linu
 #bun
 export DO_NOT_TRACK=1
 
+function dott(){
+  case "$1" in
+    "git")
+      shift
+      git -C "$HOME/.files/" ${*}
+      ;;
+
+    "sync")
+      git -C "$HOME/.files/" commit -am "`date +%s`@`hostname -s`"
+      git -C "$HOME/.files/" pull
+      git -C "$HOME/.files/" push
+      ;;
+
+    "source")
+      TMUX= source $HOME/.files/.zprofile
+      source $HOME/.zshrc
+      source $HOME/.zshenv
+      tmux source-file $HOME/.tmux.conf 2>/dev/null || true
+      ;;
+
+    *)
+      pushd $HOME/.files > /dev/null
+        nvim `git ls-files | fzf --height '25%' --sync --reverse -1 -q"'${1}"`
+      popd > /dev/null
+      TMUX= source $HOME/.files/.zprofile
+      ;;
+  esac
+}
+
 function dot(){
   pushd $HOME/.files > /dev/null
     $EDITOR ${1:-`git ls-files | fzf --height '25%' --sync --reverse`}
   popd > /dev/null
-  TMUX= source $HOME/.files/.zprofile
-}
-
-function dotsync(){
-  pushd $HOME/.files > /dev/null
-    git commit -am "`date +%s`@`hostname -s`"
-    git pull
-    git push
-  popd > /dev/null
-  TMUX= source $HOME/.files/.zprofile
-
-  source $HOME/.zshrc
-  source $HOME/.zshenv
-  tmux source-file $HOME/.tmux.conf 2>/dev/null || true
 }
 
 function dotfile(){
