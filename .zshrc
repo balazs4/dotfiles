@@ -615,7 +615,7 @@ function gitlab-pipeline(){
 function gb(){
   git branch -a \
     | grep -v HEAD \
-    | fzf -1 -q "'${*}" \
+    | fzf -1 -q "'${*} " \
     | sed 's|remotes/origin/||g;s|^*||g' \
     | xargs -t git checkout
 }
