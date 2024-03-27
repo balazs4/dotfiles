@@ -87,7 +87,7 @@ lsp({ 'typescript', 'typescriptreact' }, { 'bun', 'x', 'typescript-language-serv
     vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end,
       { noremap = true, silent = true })
     vim.keymap.set('n', '<leader>r',
-      function() vim.cmd('! tmux split-window -h zsh -i -c "wnpm test ' .. filename(true) .. '"') end,
+      function() vim.cmd('! tmux split-window -h zsh -i -c "npmw test ' .. filename(true) .. '"') end,
       { noremap = true, silent = true })
   end
 )
