@@ -205,11 +205,8 @@ alias :q='exit'
 alias :q!='exit'
 alias ll='ls -hal'
 alias rm='rm -i'
-alias bob="node -p \"process.argv.slice(1).map(w => w.split('').map(c=>Math.random()>0.5?c.toUpperCase():c.toLowerCase()).join('')).join(' ')\""
-alias yolo='git add . && git commit -m "`bob yolo commit` :sponge:" --no-verify && git push --no-verify || true'
-alias foo='echo bar'
+alias yolo='git add . && git commit -m "yolo commit :sponge:" --no-verify && git push --no-verify || true'
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf --sync --reverse --height=25%"
-alias mc='mc -b'
 alias ssh='TERM=xterm-256color ssh'
 alias scpignore="scp -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
 alias sshignore="ssh -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"

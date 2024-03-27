@@ -3,7 +3,7 @@ aliases:
   prs: >-
     !gh api graphql -f query="
         {
-          search(query: \"type:pr state:open sort:created-desc involves:@me archived:false\", type: ISSUE, first: 20) {
+          search(query: \"type:pr state:${GH_PR_STATE:-open} sort:created-desc involves:@me archived:false\", type: ISSUE, first: 20) {
             edges { node { ... on PullRequest { title url createdAt author { ... on User {login} } } } }
           }
         }" \
