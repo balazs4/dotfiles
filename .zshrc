@@ -402,7 +402,7 @@ function touchd(){
 function wall(){
   local unsplash_id=`echo $1 | awk -F- '{print $NF}'`
   sed -i "s|#`hostname` exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/\(.*\)/download?force=true|#`hostname` exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/$unsplash_id/download?force=true|g" $HOME/.files/.config/i3/config
-  source $HOME/.files/.zprofile
+  dot source
   i3-msg restart
 }
 
