@@ -913,3 +913,4 @@ function mvr(){ #vidir
   rm -rf /tmp/mvr.in /tmp/mvr.out
 }
 
+#mcbpro alias dpl="sbq dpl"
