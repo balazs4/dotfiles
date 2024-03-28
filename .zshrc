@@ -767,12 +767,16 @@ function npmw(){
     script="${script} -- ${file}"
   fi
   pushd $dir
-    watchexec -vv -c --print-events --project-origin $PWD -s SIGKILL --stop-timeout 0 -- npm run "${script} ${*}"
+    watchexec -v -c --print-events --project-origin $PWD --restart --stop-timeout 0 -- npm run "${script} ${*}"
   popd
 }
 
 function makew() {
-    watchexec -v -c --print-events --project-origin $PWD -s SIGKILL --stop-timeout 0 -- make "${*}"
+  watchexec -v -c --print-events --project-origin $PWD --retstart --stop-timeout 0 -- make "${*}"
+}
+
+function gwatch() {
+  watchexec -v -c --print-events --project-origin $PWD --restart --stop-timeout 0 -- ${*}
 }
 
 #mcbpro function na(){
