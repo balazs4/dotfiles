@@ -15,8 +15,10 @@ vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
 vim.opt.cmdheight = 1
 vim.opt.cursorline = true
-vim.opt.backup = false
 vim.opt.undofile = false
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
 
 -- theprimeagen
 vim.keymap.set("n", "<leader>y", "\"+y")
@@ -53,7 +55,8 @@ local function lsp(pattern, cmd, project_file, setup)
       vim.lsp.buf_attach_client(0, client)
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true })
-      vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { noremap = true, silent = true })
+      vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end,
+        { noremap = true, silent = true })
       vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true })
       vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
 
@@ -70,7 +73,8 @@ lsp({ 'templ' }, { 'templ', 'lsp' }, { 'go.mod' })
 lsp({ 'lua' }, { 'lua-language-server' }, { '.luarc.json' })
 lsp({ 'rust' }, { 'rust-analyzer' }, { 'Cargo.toml' })
 lsp({ 'terraform' }, { 'terraform-ls', 'serve' }, { '.terrform.lock.hcl' })
-lsp({ 'typescript', 'typescriptreact' }, { 'bun', 'x', 'typescript-language-server', '--stdio' }, { 'tsconfig.json', 'jsconfig.json' },
+lsp({ 'typescript', 'typescriptreact' }, { 'bun', 'x', 'typescript-language-server', '--stdio' },
+  { 'tsconfig.json', 'jsconfig.json' },
   function()
     local function filename(test)
       local buffer = vim.fn.expand('%')
