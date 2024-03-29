@@ -867,7 +867,8 @@ alias kw='gdate +"current calendar week: %U"'
 
 function a(){
 #carbon  (pidof xcompmgr || xcompmgr & ) > /dev/null
-  sed "s/^opacity = .*/opacity = 0.${1:-99}/" -i $HOME/.alacritty.toml
+  sed "s/^opacity = .*/opacity = 0.${1:-99}/" -i $HOME/.files/.alacritty.toml
+  dot source
 }
 
 #carbon function nyc(){
