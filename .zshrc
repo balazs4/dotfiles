@@ -772,7 +772,7 @@ function npmw(){
 }
 
 function makew() {
-  watchexec -v -c --print-events --project-origin $PWD --retstart --stop-timeout 0 -- make "${*}"
+  watchexec -v -c --print-events --project-origin $PWD --restart --stop-timeout 0 -- make "${*}"
 }
 
 function gwatch() {
