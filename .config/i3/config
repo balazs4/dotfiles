@@ -86,7 +86,8 @@ client.focused_inactive #333333 #333333 #FFFFFF #000000
 client.focused #000000 #000000 #FFFFFF #000000
 
 for_window [class="^.*"] border pixel 1
-focus_on_window_activation focus
+focus_on_window_activation smart
+no_focus [class="mpv"]
 
 smart_gaps on
 gaps inner 2
