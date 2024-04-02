@@ -866,7 +866,7 @@ function parrot(){
 alias kw='gdate +"current calendar week: %U"'
 
 function a(){
-#carbon  (pidof picom || picom --fade-in-step=1 --fade-out-step=1 --fade-delta=0 & ) > /dev/null
+#carbon  (pidof picom || picom  & ) > /dev/null
   sed "s/^opacity = .*/opacity = 0.${1:-99}/" -i $HOME/.files/.alacritty.toml
   dot source
 }
