@@ -98,7 +98,7 @@ lsp({ 'typescript', 'typescriptreact' }, { 'bun', 'x', 'typescript-language-serv
   end
 )
 
--- https://gitlab.com/ibhagwan/fzf-lua.git
+-- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup({
   'default',
   winopts = {
