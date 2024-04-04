@@ -622,7 +622,11 @@ alias gbb='gb $USER'
 
 alias .env='set -o allexport; source .env; set +o allexport'
 
-alias src='fx package.json .scripts'
+function src() {
+  fx package.json 'x => Object.entries(x.scripts).map(xx => [xx[0].padEnd(16), xx[1]].join("\t")).join("\n")' \
+    | fzf --height 10% --reverse -q"'${*}" -1 \
+    | awk '{print $1}'
+}
 
 #mcbpro export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
 #mcbpro export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
