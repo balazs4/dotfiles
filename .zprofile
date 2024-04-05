@@ -39,6 +39,7 @@ do
   cat $HOME/.files/$dotfile \
     | sed -r "s/^[--;#\/\"\!]+${hostname} //g;/^[#]+/d;" \
     | sed "${colors}" \
+    | sed "s/^opacity = .*/opacity = ${ALACRITTY_OPACITY:-1.0}/" \
     > $HOME/$dotfile
 done
 
