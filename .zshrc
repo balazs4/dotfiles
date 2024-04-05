@@ -872,7 +872,6 @@ alias kw='gdate +"current calendar week: %U"'
 function a(){
 #carbon  (pidof picom || picom  & ) > /dev/null
   sed "s/^opacity = .*/opacity = 0.${1:-99}/" -i $HOME/.alacritty.toml
-  dot source
 }
 
 #carbon function nyc(){
