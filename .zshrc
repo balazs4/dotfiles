@@ -115,16 +115,16 @@ export PATH=$HOME/.local/bin:${PATH}
 #carbon export NPM_CONFIG_LOGLEVEL=http
 #mcbpro export NPM_CONFIG_LOGLEVEL=error
 export DOTENV_CONFIG_DEBUG=true
-export N_PREFIX=$HOME/.n/prefix
+export N_PREFIX=$HOME/.n/prefix # https://github.com/tj/n
 export N_PRESERVE_NPM=1
 export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
-export PATH=./node_modules/.bin/:${PATH}
 #mcbpro export PNPM_HOME=$HOME/.pnpm-global
 #mcbpro export PATH=$PNPM_HOME:${PATH}
 
 #go
+export GOROOT=$HOME/.g #https://github.com/stefanmaric/g
 export GOPATH=$HOME/.go
-export PATH=${GOPATH}/bin:${PATH}
+export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 
 #rust
 export PATH=$HOME/.cargo/bin:$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/:${PATH}
@@ -793,7 +793,7 @@ function epoch(){
   node -p "new Date($1).toJSON();"
 }
 
-function servus(){
+function sers(){
   PORT=4269 watchexec --project-origin $PWD --print-events --no-meta --shell=none --signal=SIGUSR2 -- node -e '
   require("node:http").createServer((req,res) => {
     if (req.url === "/.servus" ){
