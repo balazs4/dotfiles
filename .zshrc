@@ -775,13 +775,14 @@ function npmw(){
   popd
 }
 
-function makew() {
-  watchexec -v -c --print-events --project-origin $PWD --restart --stop-timeout 0 -- make "${*}"
+function gw() {
+  while inotifywait -q -e 'modify' `git ls-files`; do clear; ${*}; done
 }
 
-function gwatch() {
-  watchexec -v -c --print-events --project-origin $PWD --restart --stop-timeout 0 -- ${*}
+function gws() {
+  watchexec -v -c --print-events --project-origin $PWD --restart --stop-timeout 0 -- "${*}"
 }
+
 
 #mcbpro function na(){
 #mcbpro   n auto
