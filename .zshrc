@@ -545,7 +545,7 @@ function hackernews(){
     | fx "x=> x.body.slice(0,${1:-10}).join(\"\n\")" \
     | xargs -I{} curl -s https://hacker-news.firebaseio.com/v0/item/{}.json \
     | fx 'x => [x.url, x.title].join("\t")' \
-    | fzf --with-nth="2.." --preview 'echo {} | xurls | xargs reader -i -o'
+    | fzf --with-nth="2.." --preview 'echo {} | xurls | xargs reader -i none -o'
 }
 
 function reddit(){
