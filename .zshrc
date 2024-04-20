@@ -689,9 +689,9 @@ function jwt(){
   "
 }
 
-function ip() {
-  dig $1 | awk "/^$1/ {print \$NF}"
-}
+#mcbpro function ip() {
+#mcbpro   dig $1 | awk "/^$1/ {print \$NF}"
+#mcbpro }
 
 function contrib(){
   {
