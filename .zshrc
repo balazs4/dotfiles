@@ -156,7 +156,6 @@ function dot(){
       ;;
 
     "source")
-      source $HOME/.zshenv && printf ".zshenv sourced\n"
       TMUX= source $HOME/.files/.zprofile
       source $HOME/.zshrc && printf ".zshrc sourced"
       test $TMUX && {tmux source-file $HOME/.tmux.conf 2>/dev/null && printf "\t.tmux.conf sourced"} || true

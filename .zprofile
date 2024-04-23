@@ -32,6 +32,7 @@ palette:
 
 EOF
 `
+source $HOME/.zshenv
 
 for dotfile in $(git -C $HOME/.files ls-files)
 do
@@ -43,5 +44,5 @@ do
     > $HOME/$dotfile
 done
 
-echo "$HOME/.files/ >> ${hostname} >> $HOME/"
+echo "$HOME/.files/ >> ${hostname}($HOME/.zshenv) >> $HOME/"
 
