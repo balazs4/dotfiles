@@ -104,8 +104,8 @@ lsp({ 'go' }, { ['go.mod'] = { 'gopls' } })
 lsp({ 'templ' }, { ['go.mod'] = { 'templ', 'lsp' } })
 
 lsp({ 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' }, {
-  ['tsconfig.json'] = { 'bun', 'x', 'typescript-language-server', '--stdio' },
-  ['jsconfig.json'] = { 'bun', 'x', 'typescript-language-server', '--stdio' },
+  ['tsconfig.json'] = { 'typescript-language-server', '--stdio' },
+  ['jsconfig.json'] = { 'typescript-language-server', '--stdio' },
   ['deno.json'] = { 'deno', 'lsp' },
 })
 
