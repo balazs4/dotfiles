@@ -1,5 +1,6 @@
 test $TMUX && return
-PAGER= git -C $HOME/.files diff -p
+test NO_DIFF || PAGER= git -C $HOME/.files diff -p
+
 local hostname=`hostname -s`
 
 local colors=`cat <<EOF \

@@ -31,6 +31,8 @@ vim.keymap.set('n', '<leader>g', function()
   vim.cmd('! gh browse ' .. filename .. ':' .. row)
 end, { noremap = true, silent = true })
 
+vim.keymap.set('n', '<leader>m', function() vim.cmd('make') end, {noremap = true, silent = true})
+
 vim.diagnostic.config({
   signs = false,
   update_in_insert = false,
