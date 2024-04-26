@@ -121,7 +121,7 @@ export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
 #mcbpro export PATH=$PNPM_HOME:${PATH}
 
 #go
-export GOROOT=$HOME/.g #https://github.com/stefanmaric/g
+export GOROOT=$HOME/.g # https://github.com/stefanmaric/g
 export GOPATH=$HOME/.go
 export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 

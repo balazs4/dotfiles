@@ -18,3 +18,9 @@
 //carbon   }
 //carbon   return traverse(json).filter(Boolean).join('\n');
 //carbon };
+
+
+global.matrix = function(json) {
+  console.log(arguments);
+  return json;
+}
