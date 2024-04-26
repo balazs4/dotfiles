@@ -19,8 +19,9 @@
 //carbon   return traverse(json).filter(Boolean).join('\n');
 //carbon };
 
-
-global.matrix = function(json) {
-  console.log(arguments);
-  return json;
-}
+// example: | fx 'matrix("foo", "bar")'
+global.matrix = function (...params) {
+  return function (json) {
+    return json.map((x) => params.map((xx) => x[xx]).join('\t')).join('\n');
+  };
+};
