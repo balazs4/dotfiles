@@ -204,7 +204,7 @@ alias :q='exit'
 alias :q!='exit'
 alias ll='ls -hal'
 alias rm='rm -i'
-alias yolo='git add . && git commit -m "yolo commit :sponge:" --no-verify && git push --no-verify || true'
+alias yolo='git add . && git commit -m "yolo" --no-verify && git push --no-verify || true'
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf --sync --reverse --height=25%"
 alias ssh='TERM=xterm-256color ssh'
 alias scpignore="scp -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
@@ -231,7 +231,6 @@ alias cal='LC_ALL=de_DE.utf8 cal'
 #mcbpro alias sed='gsed'
 #mcbpro alias xargs='gxargs'
 alias less='less -r'
-alias delta='delta --side-by-side --syntax-theme=Nord'
 
 function srv(){
   PORT=8000 node -e '
