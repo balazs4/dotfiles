@@ -31,7 +31,7 @@ vim.keymap.set('n', '<leader>g', function()
   vim.cmd('! gh browse ' .. filename .. ':' .. row)
 end, { noremap = true, silent = true })
 
-vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | make | so $MYVIMRC') end)
+vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | make | source $MYVIMRC') end)
 
 vim.diagnostic.config({
   signs = false,
