@@ -158,3 +158,6 @@ require('mini.surround').setup()
 
 -- https://github.com/echasnovski/mini.comment
 require('mini.comment').setup()
+
+-- https://github.com/echasnovski/mini.files
+require('mini.files').setup()
