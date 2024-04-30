@@ -922,3 +922,16 @@ function mvr(){ #vidir
 }
 
 #mcbpro alias dpl="sbq dpl"
+
+
+function notify(){
+#mcbpro  osascript -e "display notification \"${@:2}\" with title \"${1}\""
+}
+
+
+function DS(){
+   > .DS_Store printf ""
+  >> .DS_Store printf ".PHONY: eslint-fix\n"
+  >> .DS_Store printf "eslint-fix:\n"
+  >> .DS_Store printf "\t@npm run --silent eslint-fix -- --format=unix | awk '/^\// {print \$0}'"
+}

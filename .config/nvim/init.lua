@@ -93,6 +93,7 @@ local function lsp(pattern, project_to_lsp)
         vim.keymap.set('n', '<leader>r',
           function() vim.cmd('! tmux split-window -h zsh -i -c "npmw test ' .. filename(true) .. '"') end,
           { noremap = true, silent = true })
+        vim.api.nvim_create_user_command("Eslint", function() vim.cmd(":silent make -f .DS_Store eslint-fix | copen") end, {})
       end
     end
   })
