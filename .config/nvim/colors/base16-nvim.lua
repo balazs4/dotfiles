@@ -1,11 +1,17 @@
-vim.cmd("hi clear| syntax reset")
+vim.cmd("hi clear|syntax reset")
 vim.g.colors_name = "base16-nvim"
 
--- if vim.fn.exists('syntax_on') then
---     vim.cmd('syntax reset')
--- end
--- vim.api.nvim_set_hl(0, hlgroup, { link = args })
--- vim.api.nvim_set_hl(0, hlgroup, val)
+---@format disable
+vim.api.nvim_set_hl(0,    'Comment',       { fg = '#{{base03-hex}}', bold = true })
+vim.api.nvim_set_hl(0,    'Identifier',    { fg = '#{{base07-hex}}', bold = true })
+vim.api.nvim_set_hl(0,    'Normal',        { fg = '#{{base05-hex}}' })
+vim.api.nvim_set_hl(0,    'Number',        { fg = '#{{base05-hex}}' })
+vim.api.nvim_set_hl(0,    'Operator',      { fg = '#{{base05-hex}}' })
+vim.api.nvim_set_hl(0,    'Special',       { fg = '#{{base05-hex}}' })
+vim.api.nvim_set_hl(0,    'String',        { fg = '#{{base05-hex}}' })
+vim.api.nvim_set_hl(0,    'LineNr',        { fg = '#{{base03-hex}}' })
+vim.api.nvim_set_hl(0,    'CursorLineNr',  { fg = '#{{base04-hex}}', bold = true })
+
 -- -- Vim editor colors
 -- hi.Normal                             = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm05, ctermbg = M.colors.cterm00 }
 -- hi.Bold                               = { guifg = nil, guibg = nil, gui = 'bold', guisp = nil, ctermfg = nil, ctermbg = nil }
@@ -110,12 +116,6 @@ vim.g.colors_name = "base16-nvim"
 -- hi.gitcommitUnmergedFile              = { guifg = M.colors.base08, guibg = nil, gui = 'bold', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
 -- hi.gitcommitDiscardedFile             = { guifg = M.colors.base08, guibg = nil, gui = 'bold', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
 -- hi.gitcommitSelectedFile              = { guifg = M.colors.base0B, guibg = nil, gui = 'bold', guisp = nil, ctermfg = M.colors.cterm0B, ctermbg = nil }
---
--- -- GitGutter highlighting
--- hi.GitGutterAdd                       = { guifg = M.colors.base0B, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm0B, ctermbg = M.colors.cterm00 }
--- hi.GitGutterChange                    = { guifg = M.colors.base0D, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = M.colors.cterm00 }
--- hi.GitGutterDelete                    = { guifg = M.colors.base08, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = M.colors.cterm00 }
--- hi.GitGutterChangeDelete              = { guifg = M.colors.base0E, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = M.colors.cterm00 }
 --
 -- -- Spelling highlighting
 -- hi.SpellBad                           = { guifg = nil, guibg = nil, gui = 'undercurl', guisp = M.colors.base08, ctermfg = nil, ctermbg = nil }

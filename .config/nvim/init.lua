@@ -1,4 +1,4 @@
-vim.cmd('colorscheme base16') -- $HOME/.files/.config/nvim/colors/
+vim.cmd('colorscheme base16-nvim') -- $HOME/.files/.config/nvim/colors/
 vim.api.nvim_command("hi Normal guibg=none ctermbg=none")
 vim.api.nvim_command("hi NonText guibg=none ctermbg=none")
 vim.opt.shiftwidth = 2
@@ -31,7 +31,8 @@ vim.keymap.set('n', '<leader>g', function()
   vim.cmd('! gh browse ' .. filename .. ':' .. row)
 end, { noremap = true, silent = true })
 
-vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | make | source $MYVIMRC') end)
+vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC | normal `.') end)
+vim.keymap.set('n', '<C-k>', function() print(vim.inspect(vim.treesitter.get_captures_at_cursor(0))) end)
 
 vim.diagnostic.config({
   signs = false,
@@ -65,7 +66,6 @@ local function lsp(pattern, project_to_lsp)
 
       local client = vim.lsp.start({ name = project_file, cmd = cmd, root_dir = root_dir, settings = settings })
       vim.lsp.buf_attach_client(0, client)
-      print(table.concat(cmd, " "), "<<", root_dir)
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true })
       vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end,
