@@ -42,27 +42,28 @@ vim.diagnostic.config({
 
 --- lsp function
 --- @param pattern table filetypes
---- @param project_to_lsp table lsp command to execute with params
+--- @param project_to_lsp table lsp setup
 local function lsp(pattern, project_to_lsp)
   vim.api.nvim_create_autocmd('FileType', {
     pattern = pattern,
     callback = function()
-      local project_file
       local cmd
       local root_dir
-      for project, command in pairs(project_to_lsp) do
+      local settings
+      for project, lsp in pairs(project_to_lsp) do
         local f = vim.fs.find(project) or vim.fs.find(project, { upward = true })
         if f[1] then
           root_dir = vim.fs.dirname(f[1])
-          cmd = command
-          project_file = project
+          cmd = lsp.cmd
+          settings = lsp.settings
           break
         end
       end
 
       if cmd == nil then return end
+      if vim.fn.executable(cmd[1]) == 0 then return end
 
-      local client = vim.lsp.start({ name = project_file, cmd = cmd, root_dir = root_dir })
+      local client = vim.lsp.start({ name = project_file, cmd = cmd, root_dir = root_dir, settings = settings })
       vim.lsp.buf_attach_client(0, client)
       print(table.concat(cmd, " "), "<<", root_dir)
 
@@ -72,7 +73,7 @@ local function lsp(pattern, project_to_lsp)
       vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true })
       vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
 
-      if project_file == 'tsconfig.json'
+      if cmd[1] == 'typescript-language-server'
       then
         local function filename(test)
           local buffer = vim.fn.expand('%')
@@ -99,20 +100,32 @@ end
 
 vim.api.nvim_create_user_command("LspInfo", function() vim.cmd(":lua= vim.lsp.get_active_clients()") end, {})
 
-lsp({ 'lua' }, { ['.luarc.json'] = { 'lua-language-server' } })
-
-lsp({ 'go' }, { ['go.mod'] = { 'gopls' } })
-lsp({ 'templ' }, { ['go.mod'] = { 'templ', 'lsp' } })
-
-lsp({ 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' }, {
-  ['tsconfig.json'] = { 'typescript-language-server', '--stdio' },
-  ['jsconfig.json'] = { 'typescript-language-server', '--stdio' },
-  ['deno.json'] = { 'deno', 'lsp' },
+lsp({ 'lua' }, {
+  ['.luarc.json'] = {
+    cmd = { 'lua-language-server' },
+    settings = {
+      Lua = {
+        runtime = { version = "LuaJIT", },
+        diagnostics = { globals = { "vim" }, },
+        workspace = { library = vim.api.nvim_get_runtime_file("", true), checkThirdParty = false },
+        telemetry = { enable = false, },
+      }
+    }
+  }
 })
 
-lsp({ 'rust' }, { ['Cargo.toml'] = { 'rust-analyzer' } })
-lsp({ 'terraform' }, { ['.terrform.lock.hcl'] = { 'terraform-ls', 'serve' } })
-lsp({ 'gleam' }, { ['gleam.toml'] = { 'gleam', 'lsp' } })
+lsp({ 'go' }, { ['go.mod'] = { cmd = { 'gopls' } } })
+lsp({ 'templ' }, { ['go.mod'] = { cmd = { 'templ', 'lsp' } } })
+
+lsp({ 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' }, {
+  ['tsconfig.json'] = { cmd = { 'typescript-language-server', '--stdio' } },
+  ['jsconfig.json'] = { cmd = { 'typescript-language-server', '--stdio' } },
+  ['deno.json'] = { cmd = { 'deno', 'lsp' } },
+})
+
+lsp({ 'rust' }, { ['Cargo.toml'] = { cmd = { 'rust-analyzer' } } })
+lsp({ 'terraform' }, { ['.terrform.lock.hcl'] = { cmd = { 'terraform-ls', 'serve' } } })
+lsp({ 'gleam' }, { ['gleam.toml'] = { cmd = { 'gleam', 'lsp' } } })
 
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup({
