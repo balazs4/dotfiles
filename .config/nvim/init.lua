@@ -1,4 +1,4 @@
-vim.cmd('colorscheme base16-nvim') -- $HOME/.files/.config/nvim/colors/
+vim.cmd('colorscheme custom') -- $HOME/.files/.config/nvim/colors/
 vim.api.nvim_command("hi Normal guibg=none ctermbg=none")
 vim.api.nvim_command("hi NonText guibg=none ctermbg=none")
 vim.opt.shiftwidth = 2
@@ -88,11 +88,13 @@ local function lsp(pattern, project_to_lsp)
         end
 
         pcall(vim.keymap.del, 'n', '<leader>p')
-        vim.keymap.set('n', '<leader>p', function() vim.cmd(':PrettierAsync') end)
-        vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end)
+        vim.keymap.set('n', '<leader>p', function() vim.cmd(':PrettierAsync') end, { noremap = true })
+        vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end, { noremap = true })
         vim.keymap.set('n', '<leader>r',
-          function() vim.cmd('! tmux split-window -h zsh -i -c "npmw test ' .. filename(true) .. '"') end)
-        vim.api.nvim_create_user_command("Eslint", function() vim.cmd(":silent make -f .DS_Store eslint-fix | copen") end)
+          function() vim.cmd('! tmux split-window -h zsh -i -c "npmw test ' .. filename(true) .. '"') end,
+          { noremap = true })
+        vim.api.nvim_create_user_command("Eslint", function() vim.cmd(":silent make -f .DS_Store eslint-fix | copen") end,
+          {})
       end
     end
   })
