@@ -51,9 +51,9 @@ local function lsp(pattern, project_to_lsp)
       local cmd
       local root_dir
       for project, command in pairs(project_to_lsp) do
-        local f = vim.fs.find(project, { upward = true })[1]
-        if f then
-          root_dir = vim.fs.dirname(f)
+        local f = vim.fs.find(project) or vim.fs.find(project, { upward = true })
+        if f[1] then
+          root_dir = vim.fs.dirname(f[1])
           cmd = command
           project_file = project
           break
@@ -64,7 +64,7 @@ local function lsp(pattern, project_to_lsp)
 
       local client = vim.lsp.start({ name = project_file, cmd = cmd, root_dir = root_dir })
       vim.lsp.buf_attach_client(0, client)
-      print(table.concat(cmd," "), "<<", root_dir)
+      print(table.concat(cmd, " "), "<<", root_dir)
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true })
       vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end,
@@ -87,13 +87,11 @@ local function lsp(pattern, project_to_lsp)
         end
 
         pcall(vim.keymap.del, 'n', '<leader>p')
-        vim.keymap.set('n', '<leader>p', function() vim.cmd(':PrettierAsync') end, { noremap = true, silent = true })
-        vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end,
-          { noremap = true, silent = true })
+        vim.keymap.set('n', '<leader>p', function() vim.cmd(':PrettierAsync') end)
+        vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end)
         vim.keymap.set('n', '<leader>r',
-          function() vim.cmd('! tmux split-window -h zsh -i -c "npmw test ' .. filename(true) .. '"') end,
-          { noremap = true, silent = true })
-        vim.api.nvim_create_user_command("Eslint", function() vim.cmd(":silent make -f .DS_Store eslint-fix | copen") end, {})
+          function() vim.cmd('! tmux split-window -h zsh -i -c "npmw test ' .. filename(true) .. '"') end)
+        vim.api.nvim_create_user_command("Eslint", function() vim.cmd(":silent make -f .DS_Store eslint-fix | copen") end)
       end
     end
   })
