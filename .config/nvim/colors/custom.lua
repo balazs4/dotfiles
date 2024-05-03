@@ -1,209 +1,195 @@
 vim.cmd("hi clear|syntax reset")
 vim.g.colors_name = "custom"
 
----@format disable
-vim.api.nvim_set_hl(0,    'Comment',       { fg = '#{{base03-hex}}', bold = true })
-vim.api.nvim_set_hl(0,    'Identifier',    { fg = '#{{base07-hex}}', bold = true })
-vim.api.nvim_set_hl(0,    'Normal',        { fg = '#{{base05-hex}}' })
-vim.api.nvim_set_hl(0,    'Number',        { fg = '#{{base05-hex}}' })
-vim.api.nvim_set_hl(0,    'Operator',      { fg = '#{{base05-hex}}' })
-vim.api.nvim_set_hl(0,    'Special',       { fg = '#{{base05-hex}}' })
-vim.api.nvim_set_hl(0,    'String',        { fg = '#{{base05-hex}}' })
-vim.api.nvim_set_hl(0,    'LineNr',        { fg = '#{{base03-hex}}' })
-vim.api.nvim_set_hl(0,    'CursorLineNr',  { fg = '#{{base04-hex}}', bold = true })
+vim.api.nvim_set_hl(0, 'Bold', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Boolean', { fg = '#{{base0A-hex}}' })
+vim.api.nvim_set_hl(0, 'Boolean', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Character', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'ColorColumn', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Comment', { fg = '#{{base03-hex}}' })
+vim.api.nvim_set_hl(0, 'Comment', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Conceal', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Conditional', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Constant', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Cursor', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'CursorColumn', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'CursorLine', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Debug', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Define', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Delimiter', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiagnosticError', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiagnosticHint', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiagnosticInfo', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineError', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineHint', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineInformation', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineWarn', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineWarning', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiagnosticWarn', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiffAdd', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiffAdded', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiffChange', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiffDelete', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiffFile', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiffLine', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiffNewFile', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiffRemoved', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'DiffText', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Directory', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Error', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'ErrorMsg', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Exception', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Float', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'FoldColumn', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Folded', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Function', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Identifier', { fg = '#{{base07-hex}}' })
+vim.api.nvim_set_hl(0, 'Identifier', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'IncSearch',{ bg = '#{{base0A-hex}}', fg = '#{{base00-hex}}' })
+vim.api.nvim_set_hl(0, 'Include', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Italic', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Keyword', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Label', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'LineNr', { fg = '#{{base02-hex}}' })
+vim.api.nvim_set_hl(0, 'LspInlayHint', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'LspReferenceRead', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'LspReferenceText', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'LspReferenceWrite', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Macro', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'MatchParen', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'MiniCompletionActiveParameter', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'ModeMsg', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'MoreMsg', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'NonText', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Normal', { fg = '#{{base05-hex}}' })
+vim.api.nvim_set_hl(0, 'Normal', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'NormalNC', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Number', { fg = '#{{base06-hex}}' })
+vim.api.nvim_set_hl(0, 'Number', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'NvimInternalError', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Operator', { fg = '#{{base05-hex}}' })
+vim.api.nvim_set_hl(0, 'Operator', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'PMenu', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'PMenuSel', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'PreProc', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'PreProc', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Question', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'QuickFixLine', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Repeat', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Search',{ bg = '#{{base0A-hex}}', fg = '#{{base00-hex}}' })
+vim.api.nvim_set_hl(0, 'SignColumn', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Special', { fg = '#{{base05-hex}}' })
+vim.api.nvim_set_hl(0, 'Special', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'SpecialChar', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'SpecialKey', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'SpellBad', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'SpellCap', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'SpellLocal', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'SpellRare', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Statement', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Statement', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'StatusLine', { fg = '#{{base0A-hex}}' })
+vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = '#{{base0B-hex}}' })
+vim.api.nvim_set_hl(0, 'StorageClass', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'String', { fg = '#{{base07-hex}}' })
+vim.api.nvim_set_hl(0, 'String', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Structure', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Substitute', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSAnnotation', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSAttribute', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSBoolean', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSCharacter', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSComment', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSConditional', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSConstBuiltin', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSConstMacro', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSConstant', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSConstructor', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSCurrentScope', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSDefinition', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSDefinitionUsage', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSEmphasis', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSError', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSException', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSField', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSFloat', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSFuncBuiltin', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSFuncMacro', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSFunction', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSInclude', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSKeyword', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSKeywordFunction', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSKeywordOperator', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSLabel', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSLiteral', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSMethod', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSNamespace', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSNone', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSNumber', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSOperator', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSParameter', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSParameterReference', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSProperty', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSPunctBracket', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSPunctDelimiter', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSPunctSpecial', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSRepeat', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSStrike', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSString', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSStringEscape', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSStringRegex', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSStrong', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSSymbol', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSTag', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSTagDelimiter', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSText', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSTitle', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSType', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSTypeBuiltin', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSURI', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSUnderline', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSVariable', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TSVariableBuiltin', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TabLine', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TabLineFill', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TabLineSel', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Tag', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TermCursor', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TermCursorNC', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Title', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Todo', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TooLong', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'TreesitterContext', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Type', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Typedef', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Underlined', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'VertSplit', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'Visual', { bg = '#{{base09-hex}}', fg = '#{{base00-hex}}' })
+vim.api.nvim_set_hl(0, 'VisualNOS', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'WarningMsg', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'WildMenu', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'WinBar', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'WinBarNC', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitBranch', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitComment', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitDiscarded', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitDiscardedFile', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitDiscardedType', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitHeader', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitOverflow', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitSelected', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitSelectedFile', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitSelectedType', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitSummary', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitUnmergedFile', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitUnmergedType', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitUntracked', { fg = '#{{base04-hex}}' })
+vim.api.nvim_set_hl(0, 'gitcommitUntrackedFile', { fg = '#{{base04-hex}}' })
 
--- -- Vim editor colors
--- hi.Normal                             = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm05, ctermbg = M.colors.cterm00 }
--- hi.Bold                               = { guifg = nil, guibg = nil, gui = 'bold', guisp = nil, ctermfg = nil, ctermbg = nil }
--- hi.Debug                              = { guifg = M.colors.base08, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.Directory                          = { guifg = M.colors.base0D, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.Error                              = { guifg = M.colors.base08, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = M.colors.cterm00 }
--- hi.ErrorMsg                           = { guifg = M.colors.base08, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = M.colors.cterm00 }
--- hi.Exception                          = { guifg = M.colors.base08, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.FoldColumn                         = { guifg = M.colors.base0C, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm0C, ctermbg = M.colors.cterm00 }
--- hi.Folded                             = { guifg = M.colors.base03, guibg = M.colors.base01, gui = nil, guisp = nil, ctermfg = M.colors.cterm03, ctermbg = M.colors.cterm01 }
--- hi.IncSearch                          = { guifg = M.colors.base01, guibg = M.colors.base09, gui = 'none', guisp = nil, ctermfg = M.colors.cterm01, ctermbg = M.colors.cterm09 }
--- hi.Italic                             = { guifg = nil, guibg = nil, gui = 'none', guisp = nil, ctermfg = nil, ctermbg = nil }
--- hi.Macro                              = { guifg = M.colors.base08, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.MatchParen                         = { guifg = nil, guibg = M.colors.base03, gui = nil, guisp = nil, ctermfg = nil, ctermbg = M.colors.cterm03 }
--- hi.ModeMsg                            = { guifg = M.colors.base0B, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0B, ctermbg = nil }
--- hi.MoreMsg                            = { guifg = M.colors.base0B, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0B, ctermbg = nil }
--- hi.Question                           = { guifg = M.colors.base0D, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.Search                             = { guifg = M.colors.base01, guibg = M.colors.base0A, gui = nil, guisp = nil, ctermfg = M.colors.cterm01, ctermbg = M.colors.cterm0A }
--- hi.Substitute                         = { guifg = M.colors.base01, guibg = M.colors.base0A, gui = 'none', guisp = nil, ctermfg = M.colors.cterm01, ctermbg = M.colors.cterm0A }
--- hi.SpecialKey                         = { guifg = M.colors.base03, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm03, ctermbg = nil }
--- hi.TooLong                            = { guifg = M.colors.base08, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.Underlined                         = { guifg = M.colors.base08, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.Visual                             = { guifg = nil, guibg = M.colors.base02, gui = nil, guisp = nil, ctermfg = nil, ctermbg = M.colors.cterm02 }
--- hi.VisualNOS                          = { guifg = M.colors.base08, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.WarningMsg                         = { guifg = M.colors.base08, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.WildMenu                           = { guifg = M.colors.base08, guibg = M.colors.base0A, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = M.colors.cterm0A }
--- hi.Title                              = { guifg = M.colors.base0D, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.Conceal                            = { guifg = M.colors.base0D, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = M.colors.cterm00 }
--- hi.Cursor                             = { guifg = M.colors.base00, guibg = M.colors.base05, gui = nil, guisp = nil, ctermfg = M.colors.cterm00, ctermbg = M.colors.cterm05 }
--- hi.NonText                            = { guifg = M.colors.base03, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm03, ctermbg = nil }
--- hi.LineNr                             = { guifg = M.colors.base04, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm04, ctermbg = M.colors.cterm00 }
--- hi.SignColumn                         = { guifg = M.colors.base04, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm04, ctermbg = M.colors.cterm00 }
--- hi.StatusLine                         = { guifg = M.colors.base05, guibg = M.colors.base02, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = M.colors.cterm02 }
--- hi.StatusLineNC                       = { guifg = M.colors.base04, guibg = M.colors.base01, gui = 'none', guisp = nil, ctermfg = M.colors.cterm04, ctermbg = M.colors.cterm01 }
--- hi.WinBar                             = { guifg = M.colors.base05, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = nil }
--- hi.WinBarNC                           = { guifg = M.colors.base04, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm04, ctermbg = nil }
--- hi.VertSplit                          = { guifg = M.colors.base05, guibg = M.colors.base00, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = M.colors.cterm00 }
--- hi.ColorColumn                        = { guifg = nil, guibg = M.colors.base01, gui = 'none', guisp = nil, ctermfg = nil, ctermbg = M.colors.cterm01 }
--- hi.CursorColumn                       = { guifg = nil, guibg = M.colors.base01, gui = 'none', guisp = nil, ctermfg = nil, ctermbg = M.colors.cterm01 }
--- hi.CursorLine                         = { guifg = nil, guibg = M.colors.base01, gui = 'none', guisp = nil, ctermfg = nil, ctermbg = M.colors.cterm01 }
--- hi.CursorLineNr                       = { guifg = M.colors.base04, guibg = M.colors.base01, gui = nil, guisp = nil, ctermfg = M.colors.cterm04, ctermbg = M.colors.cterm01 }
--- hi.QuickFixLine                       = { guifg = nil, guibg = M.colors.base01, gui = 'none', guisp = nil, ctermfg = nil, ctermbg = M.colors.cterm01 }
--- hi.PMenu                              = { guifg = M.colors.base05, guibg = M.colors.base01, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = M.colors.cterm01 }
--- hi.PMenuSel                           = { guifg = M.colors.base01, guibg = M.colors.base05, gui = nil, guisp = nil, ctermfg = M.colors.cterm01, ctermbg = M.colors.cterm05 }
--- hi.TabLine                            = { guifg = M.colors.base03, guibg = M.colors.base01, gui = 'none', guisp = nil, ctermfg = M.colors.cterm03, ctermbg = M.colors.cterm01 }
--- hi.TabLineFill                        = { guifg = M.colors.base03, guibg = M.colors.base01, gui = 'none', guisp = nil, ctermfg = M.colors.cterm03, ctermbg = M.colors.cterm01 }
--- hi.TabLineSel                         = { guifg = M.colors.base0B, guibg = M.colors.base01, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0B, ctermbg = M.colors.cterm01 }
---
--- -- Standard syntax highlighting
--- hi.Boolean                            = { guifg = M.colors.base09, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm09, ctermbg = nil }
--- hi.Character                          = { guifg = M.colors.base08, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.Comment                            = { guifg = M.colors.base03, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm03, ctermbg = nil }
--- hi.Conditional                        = { guifg = M.colors.base0E, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = nil }
--- hi.Constant                           = { guifg = M.colors.base09, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm09, ctermbg = nil }
--- hi.Define                             = { guifg = M.colors.base0E, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = nil }
--- hi.Delimiter                          = { guifg = M.colors.base0F, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0F, ctermbg = nil }
--- hi.Float                              = { guifg = M.colors.base09, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm09, ctermbg = nil }
--- hi.Function                           = { guifg = M.colors.base0D, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.Identifier                         = { guifg = M.colors.base08, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.Include                            = { guifg = M.colors.base0D, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.Keyword                            = { guifg = M.colors.base0E, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = nil }
--- hi.Label                              = { guifg = M.colors.base0A, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0A, ctermbg = nil }
--- hi.Number                             = { guifg = M.colors.base09, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm09, ctermbg = nil }
--- hi.Operator                           = { guifg = M.colors.base0E, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = nil }
--- hi.PreProc                            = { guifg = M.colors.base0A, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0A, ctermbg = nil }
--- hi.Repeat                             = { guifg = M.colors.base0A, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0A, ctermbg = nil }
--- hi.Special                            = { guifg = M.colors.base0C, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0C, ctermbg = nil }
--- hi.SpecialChar                        = { guifg = M.colors.base0F, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0F, ctermbg = nil }
--- hi.Statement                          = { guifg = M.colors.base08, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.StorageClass                       = { guifg = M.colors.base0A, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0A, ctermbg = nil }
--- hi.String                             = { guifg = M.colors.base0B, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0B, ctermbg = nil }
--- hi.Structure                          = { guifg = M.colors.base0E, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = nil }
--- hi.Tag                                = { guifg = M.colors.base0A, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0A, ctermbg = nil }
--- hi.Todo                               = { guifg = M.colors.base0A, guibg = M.colors.base01, gui = nil, guisp = nil, ctermfg = M.colors.cterm0A, ctermbg = M.colors.cterm01 }
--- hi.Type                               = { guifg = M.colors.base0A, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0A, ctermbg = nil }
--- hi.Typedef                            = { guifg = M.colors.base0A, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0A, ctermbg = nil }
---
--- -- Diff highlighting
--- hi.DiffAdd                            = { guifg = M.colors.base0B, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm0B, ctermbg = M.colors.cterm00 }
--- hi.DiffChange                         = { guifg = M.colors.base03, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm03, ctermbg = M.colors.cterm00 }
--- hi.DiffDelete                         = { guifg = M.colors.base08, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = M.colors.cterm00 }
--- hi.DiffText                           = { guifg = M.colors.base0D, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = M.colors.cterm00 }
--- hi.DiffAdded                          = { guifg = M.colors.base0B, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm0B, ctermbg = M.colors.cterm00 }
--- hi.DiffFile                           = { guifg = M.colors.base08, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = M.colors.cterm00 }
--- hi.DiffNewFile                        = { guifg = M.colors.base0B, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm0B, ctermbg = M.colors.cterm00 }
--- hi.DiffLine                           = { guifg = M.colors.base0D, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = M.colors.cterm00 }
--- hi.DiffRemoved                        = { guifg = M.colors.base08, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = M.colors.cterm00 }
---
--- -- Git highlighting
--- hi.gitcommitOverflow                  = { guifg = M.colors.base08, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.gitcommitSummary                   = { guifg = M.colors.base0B, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0B, ctermbg = nil }
--- hi.gitcommitComment                   = { guifg = M.colors.base03, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm03, ctermbg = nil }
--- hi.gitcommitUntracked                 = { guifg = M.colors.base03, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm03, ctermbg = nil }
--- hi.gitcommitDiscarded                 = { guifg = M.colors.base03, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm03, ctermbg = nil }
--- hi.gitcommitSelected                  = { guifg = M.colors.base03, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm03, ctermbg = nil }
--- hi.gitcommitHeader                    = { guifg = M.colors.base0E, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = nil }
--- hi.gitcommitSelectedType              = { guifg = M.colors.base0D, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.gitcommitUnmergedType              = { guifg = M.colors.base0D, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.gitcommitDiscardedType             = { guifg = M.colors.base0D, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.gitcommitBranch                    = { guifg = M.colors.base09, guibg = nil, gui = 'bold', guisp = nil, ctermfg = M.colors.cterm09, ctermbg = nil }
--- hi.gitcommitUntrackedFile             = { guifg = M.colors.base0A, guibg = nil, gui = nil, guisp = nil, ctermfg = M.colors.cterm0A, ctermbg = nil }
--- hi.gitcommitUnmergedFile              = { guifg = M.colors.base08, guibg = nil, gui = 'bold', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.gitcommitDiscardedFile             = { guifg = M.colors.base08, guibg = nil, gui = 'bold', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.gitcommitSelectedFile              = { guifg = M.colors.base0B, guibg = nil, gui = 'bold', guisp = nil, ctermfg = M.colors.cterm0B, ctermbg = nil }
---
--- -- Spelling highlighting
--- hi.SpellBad                           = { guifg = nil, guibg = nil, gui = 'undercurl', guisp = M.colors.base08, ctermfg = nil, ctermbg = nil }
--- hi.SpellLocal                         = { guifg = nil, guibg = nil, gui = 'undercurl', guisp = M.colors.base0C, ctermfg = nil, ctermbg = nil }
--- hi.SpellCap                           = { guifg = nil, guibg = nil, gui = 'undercurl', guisp = M.colors.base0D, ctermfg = nil, ctermbg = nil }
--- hi.SpellRare                          = { guifg = nil, guibg = nil, gui = 'undercurl', guisp = M.colors.base0E, ctermfg = nil, ctermbg = nil }
---
--- hi.DiagnosticError                    = { guifg = M.colors.base08, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.DiagnosticWarn                     = { guifg = M.colors.base0E, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = nil }
--- hi.DiagnosticInfo                     = { guifg = M.colors.base0D, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.DiagnosticHint                     = { guifg = M.colors.base0C, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0C, ctermbg = nil }
--- hi.DiagnosticUnderlineError           = { guifg = nil, guibg = nil, gui = 'undercurl', guisp = M.colors.base08, ctermfg = nil, ctermbg = nil }
--- hi.DiagnosticUnderlineWarning         = { guifg = nil, guibg = nil, gui = 'undercurl', guisp = M.colors.base0E, ctermfg = nil, ctermbg = nil }
--- hi.DiagnosticUnderlineWarn            = { guifg = nil, guibg = nil, gui = 'undercurl', guisp = M.colors.base0E, ctermfg = nil, ctermbg = nil }
--- hi.DiagnosticUnderlineInformation     = { guifg = nil, guibg = nil, gui = 'undercurl', guisp = M.colors.base0F, ctermfg = nil, ctermbg = nil }
--- hi.DiagnosticUnderlineHint            = { guifg = nil, guibg = nil, gui = 'undercurl', guisp = M.colors.base0C, ctermfg = nil, ctermbg = nil }
---
--- hi.LspReferenceText                   = { guifg = nil, guibg = nil, gui = 'underline', guisp = M.colors.base04, ctermfg = nil, ctermbg = nil }
--- hi.LspReferenceRead                   = { guifg = nil, guibg = nil, gui = 'underline', guisp = M.colors.base04, ctermfg = nil, ctermbg = nil }
--- hi.LspReferenceWrite                  = { guifg = nil, guibg = nil, gui = 'underline', guisp = M.colors.base04, ctermfg = nil, ctermbg = nil }
--- hi.LspDiagnosticsDefaultError         = 'DiagnosticError'
--- hi.LspDiagnosticsDefaultWarning       = 'DiagnosticWarn'
--- hi.LspDiagnosticsDefaultInformation   = 'DiagnosticInfo'
--- hi.LspDiagnosticsDefaultHint          = 'DiagnosticHint'
--- hi.LspDiagnosticsUnderlineError       = 'DiagnosticUnderlineError'
--- hi.LspDiagnosticsUnderlineWarning     = 'DiagnosticUnderlineWarning'
--- hi.LspDiagnosticsUnderlineInformation = 'DiagnosticUnderlineInformation'
--- hi.LspDiagnosticsUnderlineHint        = 'DiagnosticUnderlineHint'
---
--- hi.TSAnnotation                       = { guifg = M.colors.base0F, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0F, ctermbg = nil }
--- hi.TSAttribute                        = { guifg = M.colors.base0A, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0A, ctermbg = nil }
--- hi.TSBoolean                          = { guifg = M.colors.base09, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm09, ctermbg = nil }
--- hi.TSCharacter                        = { guifg = M.colors.base08, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.TSComment                          = { guifg = M.colors.base03, guibg = nil, gui = 'italic', guisp = nil, ctermfg = M.colors.cterm03, ctermbg = nil }
--- hi.TSConstructor                      = { guifg = M.colors.base0D, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.TSConditional                      = { guifg = M.colors.base0E, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = nil }
--- hi.TSConstant                         = { guifg = M.colors.base09, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm09, ctermbg = nil }
--- hi.TSConstBuiltin                     = { guifg = M.colors.base09, guibg = nil, gui = 'italic', guisp = nil, ctermfg = M.colors.cterm09, ctermbg = nil }
--- hi.TSConstMacro                       = { guifg = M.colors.base08, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.TSError                            = { guifg = M.colors.base08, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.TSException                        = { guifg = M.colors.base08, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.TSField                            = { guifg = M.colors.base05, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = nil }
--- hi.TSFloat                            = { guifg = M.colors.base09, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm09, ctermbg = nil }
--- hi.TSFunction                         = { guifg = M.colors.base0D, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.TSFuncBuiltin                      = { guifg = M.colors.base0D, guibg = nil, gui = 'italic', guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.TSFuncMacro                        = { guifg = M.colors.base08, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.TSInclude                          = { guifg = M.colors.base0D, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.TSKeyword                          = { guifg = M.colors.base0E, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = nil }
--- hi.TSKeywordFunction                  = { guifg = M.colors.base0E, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = nil }
--- hi.TSKeywordOperator                  = { guifg = M.colors.base0E, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = nil }
--- hi.TSLabel                            = { guifg = M.colors.base0A, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0A, ctermbg = nil }
--- hi.TSMethod                           = { guifg = M.colors.base0D, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.TSNamespace                        = { guifg = M.colors.base08, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.TSNone                             = { guifg = M.colors.base05, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = nil }
--- hi.TSNumber                           = { guifg = M.colors.base09, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm09, ctermbg = nil }
--- hi.TSOperator                         = { guifg = M.colors.base05, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = nil }
--- hi.TSParameter                        = { guifg = M.colors.base05, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = nil }
--- hi.TSParameterReference               = { guifg = M.colors.base05, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = nil }
--- hi.TSProperty                         = { guifg = M.colors.base05, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = nil }
--- hi.TSPunctDelimiter                   = { guifg = M.colors.base0F, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0F, ctermbg = nil }
--- hi.TSPunctBracket                     = { guifg = M.colors.base05, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = nil }
--- hi.TSPunctSpecial                     = { guifg = M.colors.base0F, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0F, ctermbg = nil }
--- hi.TSRepeat                           = { guifg = M.colors.base0E, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = nil }
--- hi.TSString                           = { guifg = M.colors.base0B, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0B, ctermbg = nil }
--- hi.TSStringRegex                      = { guifg = M.colors.base0C, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0C, ctermbg = nil }
--- hi.TSStringEscape                     = { guifg = M.colors.base0C, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0C, ctermbg = nil }
--- hi.TSSymbol                           = { guifg = M.colors.base0B, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0B, ctermbg = nil }
--- hi.TSTag                              = { guifg = M.colors.base08, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.TSTagDelimiter                     = { guifg = M.colors.base0F, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0F, ctermbg = nil }
--- hi.TSText                             = { guifg = M.colors.base05, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = nil }
--- hi.TSStrong                           = { guifg = nil, guibg = nil, gui = 'bold', guisp = nil, ctermfg = nil, ctermbg = nil }
--- hi.TSEmphasis                         = { guifg = M.colors.base09, guibg = nil, gui = 'italic', guisp = nil, ctermfg = M.colors.cterm09, ctermbg = nil }
--- hi.TSUnderline                        = { guifg = M.colors.base00, guibg = nil, gui = 'underline', guisp = nil, ctermfg = M.colors.cterm00, ctermbg = nil }
--- hi.TSStrike                           = { guifg = M.colors.base00, guibg = nil, gui = 'strikethrough', guisp = nil, ctermfg = M.colors.cterm00, ctermbg = nil }
--- hi.TSTitle                            = { guifg = M.colors.base0D, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0D, ctermbg = nil }
--- hi.TSLiteral                          = { guifg = M.colors.base09, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm09, ctermbg = nil }
--- hi.TSURI                              = { guifg = M.colors.base09, guibg = nil, gui = 'underline', guisp = nil, ctermfg = M.colors.cterm09, ctermbg = nil }
--- hi.TSType                             = { guifg = M.colors.base0A, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0A, ctermbg = nil }
--- hi.TSTypeBuiltin                      = { guifg = M.colors.base0A, guibg = nil, gui = 'italic', guisp = nil, ctermfg = M.colors.cterm0A, ctermbg = nil }
--- hi.TSVariable                         = { guifg = M.colors.base08, guibg = nil, gui = 'none', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
--- hi.TSVariableBuiltin                  = { guifg = M.colors.base08, guibg = nil, gui = 'italic', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = nil }
---
--- hi.TSDefinition                       = { guifg = nil, guibg = nil, gui = 'underline', guisp = M.colors.base04, ctermfg = nil, ctermbg = nil }
--- hi.TSDefinitionUsage                  = { guifg = nil, guibg = nil, gui = 'underline', guisp = M.colors.base04, ctermfg = nil, ctermbg = nil }
--- hi.TSCurrentScope                     = { guifg = nil, guibg = nil, gui = 'bold', guisp = nil, ctermfg = nil, ctermbg = nil }
---
--- hi.LspInlayHint                       = { guifg = M.colors.base03, guibg = nil, gui = 'italic', guisp = nil, ctermfg = M.colors.cterm03, ctermbg = nil }
---
+
 -- if vim.fn.has('nvim-0.8.0') then
 --     hi['@comment']                  = 'TSComment'
 --     hi['@error']                    = 'TSError'
@@ -277,7 +263,6 @@ vim.api.nvim_set_hl(0,    'CursorLineNr',  { fg = '#{{base04-hex}}', bold = true
 --     hi['@tag']                      = 'TSTag'
 --     hi['@tag.attribute']            = 'TSAttribute'
 --     hi['@tag.delimiter']            = 'TSTagDelimiter'
---
 --     hi['@function.method']          = '@method'
 --     hi['@function.method.call']     = '@method.call'
 --     hi['@comment.error']            = '@text.danger'
@@ -314,38 +299,6 @@ vim.api.nvim_set_hl(0,    'CursorLineNr',  { fg = '#{{base04-hex}}', bold = true
 --     hi['@markup.link.label']        = '@string.special'
 --     hi['@markup.list']              = '@punctuation.special'
 -- end
---
--- if M.config.ts_rainbow then
---     hi.rainbowcol1 = { guifg = M.colors.base06, ctermfg = M.colors.cterm06 }
---     hi.rainbowcol2 = { guifg = M.colors.base09, ctermfg = M.colors.cterm09  }
---     hi.rainbowcol3 = { guifg = M.colors.base0A, ctermfg = M.colors.cterm0A }
---     hi.rainbowcol4 = { guifg = M.colors.base07, ctermfg = M.colors.cterm07  }
---     hi.rainbowcol5 = { guifg = M.colors.base0C, ctermfg = M.colors.cterm0C  }
---     hi.rainbowcol6 = { guifg = M.colors.base0D, ctermfg = M.colors.cterm0D  }
---     hi.rainbowcol7 = { guifg = M.colors.base0E, ctermfg = M.colors.cterm0E  }
--- end
---
--- hi.NvimInternalError = { guifg = M.colors.base00, guibg = M.colors.base08, gui = 'none', guisp = nil, ctermfg = M.colors.cterm00, ctermbg = M.colors.cterm08 }
---
--- hi.NormalFloat       = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm05, ctermbg = M.colors.cterm00 }
--- hi.FloatBorder       = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm05, ctermbg = M.colors.cterm00 }
--- hi.NormalNC          = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil, ctermfg = M.colors.cterm05, ctermbg = M.colors.cterm00 }
--- hi.TermCursor        = { guifg = M.colors.base00, guibg = M.colors.base05, gui = 'none', guisp = nil, ctermfg = M.colors.cterm00, ctermbg = M.colors.cterm05 }
--- hi.TermCursorNC      = { guifg = M.colors.base00, guibg = M.colors.base05, gui = nil, guisp = nil, ctermfg = M.colors.cterm00, ctermbg = M.colors.cterm05 }
---
--- hi.User1             = { guifg = M.colors.base08, guibg = M.colors.base02, gui = 'none', guisp = nil, ctermfg = M.colors.cterm08, ctermbg = M.colors.cterm02 }
--- hi.User2             = { guifg = M.colors.base0E, guibg = M.colors.base02, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0E, ctermbg = M.colors.cterm02 }
--- hi.User3             = { guifg = M.colors.base05, guibg = M.colors.base02, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = M.colors.cterm02 }
--- hi.User4             = { guifg = M.colors.base0C, guibg = M.colors.base02, gui = 'none', guisp = nil, ctermfg = M.colors.cterm0C, ctermbg = M.colors.cterm02 }
--- hi.User5             = { guifg = M.colors.base05, guibg = M.colors.base02, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = M.colors.cterm02 }
--- hi.User6             = { guifg = M.colors.base05, guibg = M.colors.base01, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = M.colors.cterm01 }
--- hi.User7             = { guifg = M.colors.base05, guibg = M.colors.base02, gui = 'none', guisp = nil, ctermfg = M.colors.cterm05, ctermbg = M.colors.cterm02 }
--- hi.User8             = { guifg = M.colors.base00, guibg = M.colors.base02, gui = 'none', guisp = nil, ctermfg = M.colors.cterm00, ctermbg = M.colors.cterm02 }
--- hi.User9             = { guifg = M.colors.base00, guibg = M.colors.base02, gui = 'none', guisp = nil, ctermfg = M.colors.cterm00, ctermbg = M.colors.cterm02 }
---
--- hi.TreesitterContext = { guifg = nil, guibg = M.colors.base01, gui = 'italic', guisp = nil, ctermfg = nil, ctermbg = M.colors.cterm01 }
---
---
 -- if M.config.lsp_semantic then
 --     hi['@class'] = 'TSType'
 --     hi['@struct'] = 'TSType'
@@ -373,41 +326,3 @@ vim.api.nvim_set_hl(0,    'CursorLineNr',  { fg = '#{{base04-hex}}', bold = true
 --     hi['@lsp.type.macro'] = '@function.macro'
 --     hi['@lsp.type.decorator'] = '@function'
 -- end
---
---   hi.MiniCompletionActiveParameter = 'CursorLine'
---
---
---
--- vim.g.terminal_color_0  = M.colors.base00
--- vim.g.terminal_color_1  = M.colors.base08
--- vim.g.terminal_color_2  = M.colors.base0B
--- vim.g.terminal_color_3  = M.colors.base0A
--- vim.g.terminal_color_4  = M.colors.base0D
--- vim.g.terminal_color_5  = M.colors.base0E
--- vim.g.terminal_color_6  = M.colors.base0C
--- vim.g.terminal_color_7  = M.colors.base05
--- vim.g.terminal_color_8  = M.colors.base03
--- vim.g.terminal_color_9  = M.colors.base08
--- vim.g.terminal_color_10 = M.colors.base0B
--- vim.g.terminal_color_11 = M.colors.base0A
--- vim.g.terminal_color_12 = M.colors.base0D
--- vim.g.terminal_color_13 = M.colors.base0E
--- vim.g.terminal_color_14 = M.colors.base0C
--- vim.g.terminal_color_15 = M.colors.base07
---
--- vim.g.base16_gui00      = M.colors.base00
--- vim.g.base16_gui01      = M.colors.base01
--- vim.g.base16_gui02      = M.colors.base02
--- vim.g.base16_gui03      = M.colors.base03
--- vim.g.base16_gui04      = M.colors.base04
--- vim.g.base16_gui05      = M.colors.base05
--- vim.g.base16_gui06      = M.colors.base06
--- vim.g.base16_gui07      = M.colors.base07
--- vim.g.base16_gui08      = M.colors.base08
--- vim.g.base16_gui09      = M.colors.base09
--- vim.g.base16_gui0A      = M.colors.base0A
--- vim.g.base16_gui0B      = M.colors.base0B
--- vim.g.base16_gui0C      = M.colors.base0C
--- vim.g.base16_gui0D      = M.colors.base0D
--- vim.g.base16_gui0E      = M.colors.base0E
--- vim.g.base16_gui0F      = M.colors.base0F

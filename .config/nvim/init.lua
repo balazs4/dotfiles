@@ -32,7 +32,7 @@ vim.keymap.set('n', '<leader>g', function()
 end, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC | normal `.') end)
-vim.keymap.set('n', '<C-k>', function() print(vim.inspect(vim.treesitter.get_captures_at_cursor(0))) end)
+vim.keymap.set('n', '<C-k>', function() vim.cmd('Inspect') end)
 
 vim.diagnostic.config({
   signs = false,
