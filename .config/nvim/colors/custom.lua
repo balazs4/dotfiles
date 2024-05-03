@@ -1,5 +1,5 @@
 vim.cmd("hi clear|syntax reset")
-vim.g.colors_name = "base16-nvim"
+vim.g.colors_name = "custom"
 
 ---@format disable
 vim.api.nvim_set_hl(0,    'Comment',       { fg = '#{{base03-hex}}', bold = true })

@@ -188,6 +188,7 @@ function nvimplug(){
   pushd $HOME/.local/share/nvim/site/pack/_/start/
     grep '^\s*-- https://git' $HOME/.config/nvim/init.lua | sed 's/^[[:space:]]*-- //g' | xargs -t -L1 git clone --depth=1
   popd
+  nvim -c ':TSInstall lua typescript javascript go rust'
 }
 
 alias so='vim $HOME/.zshenv; source $HOME/.zshenv'

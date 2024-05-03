@@ -45,5 +45,5 @@ do
     > $HOME/$dotfile
 done
 
-echo "$HOME/.files/ >> ${hostname}($HOME/.zshenv) >> $HOME/"
+echo "$HOME/.files/ >> ${hostname} ($HOME/.zshenv) >> $HOME/"
 
