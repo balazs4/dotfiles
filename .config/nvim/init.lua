@@ -1,4 +1,4 @@
-vim.cmd('colorscheme custom') -- $HOME/.files/.config/nvim/colors/
+vim.cmd('colorscheme base16') -- $HOME/.files/.config/nvim/colors/
 vim.api.nvim_command("hi Normal guibg=none ctermbg=none")
 vim.api.nvim_command("hi NonText guibg=none ctermbg=none")
 vim.opt.shiftwidth = 2

@@ -842,14 +842,17 @@ alias stars="xdg-open 'https://github.com/balazs4?tab=stars'"
 
 #carbon alias xb='xbacklight -set'
 
-function base16(){
+function base(){
   local schemes_folder=$HOME/.cache/schemes
-  git clone https://github.com/tinted-theming/schemes $schemes_folder --depth=1 2>/dev/null || git -C $schemes_folder pull
+  git clone git@github.com:balazs4/schemes.git $schemes_folder --depth=1 2>/dev/null || {
+    git -C $schemes_folder commit -am "`date +%s`" 2>/dev/null && git -C $schemes_folder push 2>/dev/null
+    git -C $schemes_folder pull
+  }
 
-  local base16_theme=$schemes_folder/base16/`git -C $schemes_folder/base16 ls-files | fzf --height='40%' --reverse --preview "cat $schemes_folder/base16/{}" -q"${*} " -1`
+  local base_theme=$schemes_folder/`git -C $schemes_folder ls-files | fzf --height='40%' --reverse -q"${*} " -1`
 
   sed '/FOE/,/EOF/{//!d}' $HOME/.files/.zprofile \
-    | awk "/FOE/ {print; system(\"cat ${base16_theme}\"); print\"\"; next} 1" \
+    | awk "/FOE/ {print; system(\"cat ${base_theme}\"); print\"\"; next} 1" \
     | sponge $HOME/.files/.zprofile
 
   TMUX= source $HOME/.files/.zprofile
@@ -859,12 +862,12 @@ function base16(){
 
 function dark(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" > /dev/null
-  base16 \!light ${*}
+  base 16 \!light ${*}
 }
 
 function light(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" > /dev/null
-  base16 \'light ${*}
+  base 16 \'light ${*}
 }
 
 function parrot(){
