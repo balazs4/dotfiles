@@ -849,7 +849,9 @@ function color(){
     git -C $schemes_folder pull
   }
 
-  local base_theme=$schemes_folder/`git -C $schemes_folder ls-files | fzf --height='40%' --reverse -q"${*} " -1`
+  touchd $HOME/.cache/previews/base16.html 2>/dev/null
+
+  local base_theme=$schemes_folder/`git -C $schemes_folder ls-files | fzf --height='40%' --reverse -q"'yaml ${*} " -1 --preview "cat $schemes_folder/{} | base16-preview | tee $HOME/.cache/previews/base16.html"`
 
   sed '/FOE/,/EOF/{//!d}' $HOME/.files/.zprofile \
     | awk "/FOE/ {print; system(\"cat ${base_theme}\"); print\"\"; next} 1" \
