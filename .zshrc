@@ -842,7 +842,7 @@ alias stars="xdg-open 'https://github.com/balazs4?tab=stars'"
 
 #carbon alias xb='xbacklight -set'
 
-function base(){
+function color(){
   local schemes_folder=$HOME/.cache/schemes
   git clone git@github.com:balazs4/schemes.git $schemes_folder --depth=1 2>/dev/null || {
     git -C $schemes_folder commit -am "`date +%s`" 2>/dev/null && git -C $schemes_folder push 2>/dev/null
@@ -862,13 +862,14 @@ function base(){
 
 function dark(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" > /dev/null
-  base 16 \!light ${*}
+  color 16 \!light ${*}
 }
 
 function light(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" > /dev/null
-  base 16 \'light ${*}
+  color 16 \'light ${*}
 }
+alias base16="color \'16"
 
 function parrot(){
   curl --max-time ${1:-3} parrot.live 2>/dev/null
