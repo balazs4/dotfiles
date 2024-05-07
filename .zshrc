@@ -940,5 +940,9 @@ function DS(){
    > .DS_Store printf ""
   >> .DS_Store printf ".PHONY: eslint-fix\n"
   >> .DS_Store printf "eslint-fix:\n"
-  >> .DS_Store printf "\t@npm run --silent eslint-fix -- --format=unix | awk '/^\// {print \$0}'"
+  >> .DS_Store printf "\t@npm run --silent eslint-fix -- --format=unix | awk '/^\// {print \$0}'\n"
+  >> .DS_Store printf "\n"
+  >> .DS_Store printf ".PHONY: typecheck\n"
+  >> .DS_Store printf "typecheck:\n"
+  >> .DS_Store printf "\t@npm run --silent typecheck\n"
 }
