@@ -1,4 +1,5 @@
 test $TMUX && return
+test $SSH_TTY && return
 test NO_DIFF || PAGER= git -C $HOME/.files diff -p
 
 local hostname=`hostname -s`
