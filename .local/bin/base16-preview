@@ -1,6 +1,6 @@
-#! /bin/zsh
+#! /usr/bin/zsh
 
-local colors=`cat - \
+colors=`cat - \
   | awk -F: '/^  base.*/ {print $1 $2}' \
   | awk -F" " '{ print "s/{{" $1 "-hex}}/" tolower($2) "/g"}' \
   | tr -d '"' \
