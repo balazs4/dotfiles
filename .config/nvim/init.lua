@@ -120,7 +120,7 @@ lsp({ 'templ' }, { ['go.mod'] = { cmd = { 'templ', 'lsp' } } })
 
 lsp({ 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' }, {
   ['tsconfig.json'] = { cmd = { 'typescript-language-server', '--stdio' } },
-  ['jsconfig.json'] = { cmd = { 'typescript-language-server', '--stdio' } },
+--carbon  ['jsconfig.json'] = { cmd = { 'typescript-language-server', '--stdio' } },
   ['deno.json'] = { cmd = { 'deno', 'lsp' } },
 })
 
