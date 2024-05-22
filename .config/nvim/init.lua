@@ -51,12 +51,13 @@ local function lsp(pattern, project_to_lsp)
       local cmd
       local root_dir
       local settings
-      for project, lsp in pairs(project_to_lsp) do
+      for project, lsp_config in pairs(project_to_lsp) do
+        print(vim.inspect(project))
         local f = vim.fs.find(project) or vim.fs.find(project, { upward = true })
         if f[1] then
           root_dir = vim.fs.dirname(f[1])
-          cmd = lsp.cmd
-          settings = lsp.settings
+          cmd = lsp_config.cmd
+          settings = lsp_config.settings
           break
         end
       end
@@ -119,9 +120,9 @@ lsp({ 'go' }, { ['go.mod'] = { cmd = { 'gopls' } } })
 lsp({ 'templ' }, { ['go.mod'] = { cmd = { 'templ', 'lsp' } } })
 
 lsp({ 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' }, {
-  ['tsconfig.json'] = { cmd = { 'typescript-language-server', '--stdio' } },
+--mcbpro  ['tsconfig.json'] = { cmd = { 'typescript-language-server', '--stdio' } },
 --carbon  ['jsconfig.json'] = { cmd = { 'typescript-language-server', '--stdio' } },
-  ['deno.json'] = { cmd = { 'deno', 'lsp' } },
+--carbon ['deno.json'] = { cmd = { 'deno', 'lsp' } },
 })
 
 lsp({ 'rust' }, { ['Cargo.toml'] = { cmd = { 'rust-analyzer' } } })
