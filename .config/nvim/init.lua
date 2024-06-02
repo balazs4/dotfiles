@@ -53,7 +53,7 @@ local function lsp(pattern, project_to_lsp)
       local settings
       for project, lsp_config in pairs(project_to_lsp) do
         print(vim.inspect(project))
-        local f = vim.fs.find(project) or vim.fs.find(project, { upward = true })
+        local f = vim.fs.find(project, { type = 'file', stop }) or vim.fs.find(project, { type = 'file', upward = true })
         if f[1] then
           root_dir = vim.fs.dirname(f[1])
           cmd = lsp_config.cmd
