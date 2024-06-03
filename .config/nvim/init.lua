@@ -154,8 +154,13 @@ vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_workspace_diagnostics, {
 vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols, { noremap = true, silent = true })
 
 -- https://github.com/nvim-treesitter/nvim-treesitter
--- require('nvim-treesitter.configs').setup({})
--- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+require('nvim-treesitter.configs').setup({
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false
+  }
+})
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
 -- https://github.com/mattn/emmet-vim
 vim.g.user_emmet_leader_key = '<C-Z>'
