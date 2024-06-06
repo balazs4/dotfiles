@@ -57,7 +57,7 @@ local function lsp(pattern, project_to_lsp)
           root_dir = vim.fs.dirname(f[1])
           cmd = lsp_config.cmd
           settings = lsp_config.settings
-          print(vim.inspect(project) .. " [lsp] " .. vim.inspect(cmd))
+          print(project .. " >> [lsp] >> " .. table.concat(cmd))
           break
         end
       end
