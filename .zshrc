@@ -265,8 +265,8 @@ function srv(){
   '
 }
 
-function sirdrop(){
-  deno run --allow-net --allow-sys --allow-write https://gitlab.com/balazs4/sirdrop/-/raw/main/main.js
+function srdrop(){
+  deno run --allow-net --allow-sys --allow-write https://gitlab.com/balazs4/srdrop/-/raw/main/main.js
 }
 
 function cheat(){
