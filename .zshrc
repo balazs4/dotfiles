@@ -75,7 +75,8 @@ function zz() {
   local to=`{
     echo $HOME/.files;
     find $HOME/src -maxdepth 1 -type d;
-#mcbpro    find $HOME/src/api/services -maxdepth 1 -type d;
+#mcbpro    find $HOME/src/api -maxdepth 2 -type d;
+#mcbpro    find $HOME/src/front/apps -maxdepth 1 -type d;
   } | fzf --layout=reverse --height '40%' -q "${*:-$PWD} " -1 --preview 'ls {}'`
 
   [[ $TMUX ]] \
