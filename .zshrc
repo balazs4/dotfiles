@@ -266,7 +266,7 @@ function srv(){
 }
 
 function srdrop(){
-  deno run --allow-net --allow-sys --allow-write https://gitlab.com/balazs4/srdrop/-/raw/main/main.js
+  deno run --allow-net --allow-sys --allow-write --allow-read https://gitlab.com/balazs4/srdrop/-/raw/main/main.js
 }
 
 function cheat(){

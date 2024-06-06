@@ -52,12 +52,12 @@ local function lsp(pattern, project_to_lsp)
       local root_dir
       local settings
       for project, lsp_config in pairs(project_to_lsp) do
-        print(vim.inspect(project))
-        local f = vim.fs.find(project, { type = 'file', stop }) or vim.fs.find(project, { type = 'file', upward = true })
+        local f = vim.fs.find(project, { type = 'file' }) or vim.fs.find(project, { type = 'file', upward = true })
         if f[1] then
           root_dir = vim.fs.dirname(f[1])
           cmd = lsp_config.cmd
           settings = lsp_config.settings
+          print(vim.inspect(project) .. " [lsp] " .. vim.inspect(cmd))
           break
         end
       end
@@ -101,20 +101,7 @@ local function lsp(pattern, project_to_lsp)
 end
 
 vim.api.nvim_create_user_command("LspInfo", function() vim.cmd(":lua= vim.lsp.get_active_clients()") end, {})
-
-lsp({ 'lua' }, {
-  ['.luarc.json'] = {
-    cmd = { 'lua-language-server' },
-    settings = {
-      Lua = {
-        runtime = { version = "LuaJIT", },
-        diagnostics = { globals = { "vim" }, },
-        workspace = { library = vim.api.nvim_get_runtime_file("", true), checkThirdParty = false },
-        telemetry = { enable = false, },
-      }
-    }
-  }
-})
+vim.api.nvim_create_user_command("LspStop", function() vim.cmd(":lua= vim.lsp.stop_client(vim.lsp.get_clients(), { force = true})") end, {})
 
 lsp({ 'go' }, { ['go.mod'] = { cmd = { 'gopls' } } })
 lsp({ 'templ' }, { ['go.mod'] = { cmd = { 'templ', 'lsp' } } })
