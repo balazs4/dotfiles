@@ -41,20 +41,20 @@ vim.diagnostic.config({
   virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4 }
 })
 
+-- TODO: split up lsp into FileType and UserCommand
 --- lsp function
 --- @param pattern table filetypes
 --- @param project_to_lsp table lsp setup
 local function lsp(pattern, project_to_lsp)
+  -- TODO: fallback pwd
+  local root_dir = vim.fn.system("git rev-parse --show-toplevel"):gsub('[\n\r]+', '')
   vim.api.nvim_create_autocmd('FileType', {
     pattern = pattern,
     callback = function()
       local cmd
-      local root_dir
       local settings
       for project, lsp_config in pairs(project_to_lsp) do
-        local f = vim.fs.find(project, { type = 'file' }) or vim.fs.find(project, { type = 'file', upward = true })
-        if f[1] then
-          root_dir = vim.fs.dirname(f[1])
+        if os.execute('test -e ' .. root_dir  .. '/' .. project) == 0 then
           cmd = lsp_config.cmd
           settings = lsp_config.settings
           break
@@ -107,8 +107,8 @@ lsp({ 'templ' }, { ['go.mod'] = { cmd = { 'templ', 'lsp' } } })
 
 lsp({ 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' }, {
 --mcbpro  ['tsconfig.json'] = { cmd = { 'typescript-language-server', '--stdio' } },
---carbon  ['jsconfig.json'] = { cmd = { 'typescript-language-server', '--stdio' } },
---carbon ['deno.json'] = { cmd = { 'deno', 'lsp' } },
+--carbon  ['deno.json']     = { cmd = { 'deno', 'lsp' } },
+--carbon  ['node_modules/.bin/tsserver'] = { cmd = { 'typescript-language-server', '--stdio' } },
 })
 
 lsp({ 'rust' }, { ['Cargo.toml'] = { cmd = { 'rust-analyzer' } } })
