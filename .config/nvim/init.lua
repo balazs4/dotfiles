@@ -47,16 +47,25 @@ vim.diagnostic.config({
 --- @param project_to_lsp table lsp setup
 local function lsp(pattern, project_to_lsp)
   -- TODO: fallback pwd
-  local root_dir = vim.fn.system("git rev-parse --show-toplevel"):gsub('[\n\r]+', '')
+  local git_root_dir = vim.fn.system("git rev-parse --show-toplevel"):gsub('[\n\r]+', '')
   vim.api.nvim_create_autocmd('FileType', {
     pattern = pattern,
     callback = function()
       local cmd
       local settings
+      local root_dir
       for project, lsp_config in pairs(project_to_lsp) do
-        if os.execute('test -e ' .. root_dir  .. '/' .. project) == 0 then
+       if os.execute('test -e ' .. project) == 0 then
           cmd = lsp_config.cmd
           settings = lsp_config.settings
+          root_dir = vim.fn.getcwd()
+          break
+        end
+
+       if os.execute('test -e ' .. git_root_dir  .. '/' .. project) == 0 then
+          cmd = lsp_config.cmd
+          settings = lsp_config.settings
+          root_dir = git_root_dir
           break
         end
       end
