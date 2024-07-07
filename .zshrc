@@ -947,3 +947,30 @@ function DS(){
   >> .DS_Store printf "typecheck:\n"
   >> .DS_Store printf "\t@npm run --silent typecheck\n"
 }
+
+
+function eth0() {
+  case ${1:-help} in
+
+    "up")
+      sudo ip link set wlan0 down
+      sleep 1
+      sudo ip link set enp0s31f6 up
+      sleep 1
+      sudo systemctl start dhcpcd.service
+      ;;
+
+    "down")
+      sudo systemctl stop dhcpcd.service
+      sleep 1
+      sudo ip link set enp0s31f6 down
+      sleep 1
+      sudo ip link set wlan0 up
+      ;;
+
+    *)
+      printf "eth0 up | down\n"
+      ;;
+  esac
+}
+
