@@ -845,14 +845,11 @@ alias stars="xdg-open 'https://github.com/balazs4?tab=stars'"
 
 function color(){
   local schemes_folder=$HOME/.cache/schemes
-  git clone git@github.com:balazs4/schemes.git $schemes_folder --depth=1 2>/dev/null || {
-    git -C $schemes_folder commit -am "`date +%s`" 2>/dev/null && git -C $schemes_folder push 2>/dev/null
+  git clone git@github.com:tinted-theming/schemes.git $schemes_folder --depth=1 2>/dev/null || {
     git -C $schemes_folder pull
   }
 
-  touchd $HOME/.cache/previews/base16.html 2>/dev/null
-
-  local base_theme=$schemes_folder/`git -C $schemes_folder ls-files | fzf --height='40%' --reverse -q"'yaml ${*} " -1 --preview "cat $schemes_folder/{} | base16-preview | tee $HOME/.cache/previews/base16.html"`
+  local base_theme=$schemes_folder/`git -C $schemes_folder ls-files | fzf --height='40%' --reverse -q"'yaml ${*} " -1 --preview "cat $schemes_folder/{}"`
 
   sed '/FOE/,/EOF/{//!d}' $HOME/.files/.zprofile \
     | awk "/FOE/ {print; system(\"cat ${base_theme}\"); print\"\"; next} 1" \
