@@ -974,3 +974,10 @@ function eth0() {
   esac
 }
 
+function mask(){
+  #https://unix.stackexchange.com/a/734842
+  for F in $(awk '$4=="unmasked" && $1>1000{print FILENAME}' /sys/firmware/acpi/interrupts/*)
+  do
+    sudo tee $F <<<mask;
+  done
+}
