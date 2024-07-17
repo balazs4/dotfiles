@@ -115,9 +115,8 @@ lsp({ 'go' }, { ['go.mod'] = { cmd = { 'gopls' } } })
 lsp({ 'templ' }, { ['go.mod'] = { cmd = { 'templ', 'lsp' } } })
 
 lsp({ 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' }, {
---mcbpro  ['tsconfig.json'] = { cmd = { 'typescript-language-server', '--stdio' } },
---carbon  ['deno.json']     = { cmd = { 'deno', 'lsp' } },
---carbon  ['node_modules/.bin/tsserver'] = { cmd = { 'typescript-language-server', '--stdio' } },
+ ['deno.json']     = { cmd = { 'deno', 'lsp' } },
+ ['node_modules/.bin/tsserver'] = { cmd = { 'typescript-language-server', '--stdio' } },
 })
 
 lsp({ 'rust' }, { ['Cargo.toml'] = { cmd = { 'rust-analyzer' } } })
