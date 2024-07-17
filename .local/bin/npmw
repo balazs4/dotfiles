@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env zsh
 
 script="${1:-test}"
 file=${2:-$PWD}
