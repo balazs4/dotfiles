@@ -1,0 +1,22 @@
+#! /usr/bin/env zsh
+
+local script="${1:-test}"
+local file=${2:-$PWD}
+
+shift
+local git_root=`git rev-parse --show-toplevel`
+local real_path=`realpath $file`
+local dir=`dirname $real_path`
+test -d $realpath && dir=$real_path
+while true
+do
+  test -f "$dir/package.json" && break;
+  test "$dir" = "$git_root" && break;
+  dir=`dirname $dir`
+done
+
+if test "${script}" = 'test'; then script="${script} -- ${file} --verbose"; fi
+
+pushd $dir
+  watchexec -v -c --print-events --project-origin $PWD --restart --stop-timeout 0 -- npm run "${script} ${*}"
+popd
