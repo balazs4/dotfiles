@@ -1,12 +1,12 @@
-#! /usr/bin/env zsh
+#! /bin/bash
 
-local script="${1:-test}"
-local file=${2:-$PWD}
+script="${1:-test}"
+file=${2:-$PWD}
 
 shift
-local git_root=`git rev-parse --show-toplevel`
-local real_path=`realpath $file`
-local dir=`dirname $real_path`
+git_root=`git rev-parse --show-toplevel`
+real_path=`realpath $file`
+dir=`dirname $real_path`
 test -d $realpath && dir=$real_path
 while true
 do
