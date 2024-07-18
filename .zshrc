@@ -978,3 +978,11 @@ function mask(){
     sudo tee $F <<<mask;
   done
 }
+
+function npmu(){
+  find $N_PREFIX/lib/node_modules -maxdepth 2 -type f -name package.json \
+    | xargs -I{} fx {} .name \
+    | awk '{print $0"@latest"}' \
+    | xargs \
+    | xargs -t npm install -g
+}
