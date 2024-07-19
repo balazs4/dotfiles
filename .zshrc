@@ -980,9 +980,9 @@ function mask(){
 }
 
 function npmu(){
-  find $N_PREFIX/lib/node_modules -maxdepth 2 -type f -name package.json \
-    | xargs -I{} fx {} .name \
-    | awk '{print $0"@latest"}' \
-    | xargs \
-    | xargs -t npm install -g
+  pushd $N_PREFIX/lib/node_modules
+    find . -maxdepth 2 -type f -name package.json \
+      | xargs -I{} fx {} .name \
+      | xargs -I{} -t npm install -g {}@latest
+  popd
 }
