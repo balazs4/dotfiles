@@ -40,7 +40,7 @@ for dotfile in $(git -C $HOME/.files ls-files)
 do
   mkdir -p `dirname $HOME/$dotfile`
   cat $HOME/.files/$dotfile \
-    | sed -r "s/^[--;#\/\"\!]+${hostname} //g" \
+    | sed -r "s/^[--;#\/\"\!]+${hostname} //g; /^#(carbon|mcbpro)/d" \
     | sed "${colors}" \
     | sed "s/^opacity = .*/opacity = ${ALACRITTY_OPACITY:-1.0}/" \
     > $HOME/$dotfile
