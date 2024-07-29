@@ -53,19 +53,16 @@ local function lsp(pattern, project_to_lsp)
     pattern = pattern,
     callback = function()
       local cmd
-      local settings
       local root_dir
       for project, lsp_config in pairs(project_to_lsp) do
        if os.execute('test -e ' .. project) == 0 then
           cmd = lsp_config.cmd
-          settings = lsp_config.settings
           root_dir = vim.fn.getcwd()
           break
         end
 
        if os.execute('test -e ' .. git_root_dir  .. '/' .. project) == 0 then
           cmd = lsp_config.cmd
-          settings = lsp_config.settings
           root_dir = git_root_dir
           break
         end
@@ -75,7 +72,6 @@ local function lsp(pattern, project_to_lsp)
       if vim.fn.executable(cmd[1]) == 0 then return end
 
       local client = vim.lsp.start({ name = project_file, cmd = cmd, root_dir = root_dir, settings = settings })
-      vim.lsp.buf_attach_client(0, client)
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true })
       ---@format disable-next
