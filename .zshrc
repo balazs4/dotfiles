@@ -845,15 +845,22 @@ alias stars="xdg-open 'https://github.com/balazs4?tab=stars'"
 
 function color(){
   local schemes_folder=$HOME/.cache/schemes
-  git clone git@github.com:tinted-theming/schemes.git $schemes_folder --depth=1 2>/dev/null || {
-    git -C $schemes_folder pull
-  }
+  git clone git@github.com:tinted-theming/schemes.git $schemes_folder --depth=1 2>/dev/null || git -C $schemes_folder pull
 
   local base_theme=$schemes_folder/`git -C $schemes_folder ls-files | fzf --height='40%' --reverse -q"'yaml ${*} " -1 --preview "cat $schemes_folder/{}"`
 
   sed '/FOE/,/EOF/{//!d}' $HOME/.files/.zprofile \
     | awk "/FOE/ {print; system(\"cat ${base_theme}\"); print\"\"; next} 1" \
     | sponge $HOME/.files/.zprofile
+
+
+  case "$base_theme" in
+    *light*)
+      sed "s/vim.opt.background = 'dark'/vim.opt.background = 'light'/g" -i "$HOME/.files/.config/nvim/init.lua"
+      ;;
+    *)
+      sed "s/vim.opt.background = 'light'/vim.opt.background = 'dark'/g" -i "$HOME/.files/.config/nvim/init.lua"
+  esac
 
   TMUX= source $HOME/.files/.zprofile
   source $HOME/.zshrc
