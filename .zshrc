@@ -267,7 +267,17 @@ function srv(){
 }
 
 function srdrop(){
+  if test "${1:-nothing}" = "reload"
+  then
+    deno cache --reload https://gitlab.com/balazs4/srdrop/-/raw/main/main.js
+  fi
   deno run --allow-net --allow-sys --allow-write --allow-read https://gitlab.com/balazs4/srdrop/-/raw/main/main.js
+}
+
+function heic(){
+  filename=`cat -`
+  magick convert "${filename}" -resize 50% "${filename}.jpg"
+  printf "$filename\n$filename.jpg\n"
 }
 
 function cheat(){
