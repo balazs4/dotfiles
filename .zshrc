@@ -235,7 +235,7 @@ alias cal='LC_ALL=de_DE.utf8 cal'
 alias less='less -r'
 
 function srv(){
-  PORT=8000 node -e '
+  PORT=${PORT:-8000} node -e '
   require("node:http").createServer(async (req, res) => {
     process.stdout.write("\n");
     process.stdout.write(req.method + " " + req.url);
