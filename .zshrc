@@ -943,9 +943,6 @@ function mvr(){ #vidir
   rm -rf /tmp/mvr.in /tmp/mvr.out
 }
 
-#mcbpro alias dpl="sbq dpl"
-
-
 function notify(){
 #mcbpro  osascript -e "display notification \"${@:2}\" with title \"${1}\""
 }
