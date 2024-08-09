@@ -25,3 +25,29 @@ global.matrix = function (...params) {
     return json.map((x) => params.map((xx) => x[xx]).join('\t')).join('\n');
   };
 };
+
+global.flat = function (json) {
+  const nskv = {};
+  let pad = 0;
+
+  function namespace(prefix, obj) {
+    Object.entries(obj).map((item) => {
+      const [key, value] = item;
+      const nskey = [prefix, key].filter(Boolean).join('.');
+      if (typeof value === typeof {} && value) {
+        namespace(nskey, value);
+        return;
+      }
+      if (nskey.length > pad) {
+        pad = nskey.length;
+      }
+      nskv[nskey] = value;
+    });
+  }
+
+  namespace(undefined, json);
+
+  return Object.entries(nskv)
+    .map((kv) => [kv[0].padEnd(pad), kv[1]].join('\t'))
+    .join('\n');
+};
