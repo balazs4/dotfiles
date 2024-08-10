@@ -1,0 +1,7 @@
+#! /usr/bin/gawk -f
+
+BEGIN {std="/dev/stderr"}
+/^\s*$/ {std="/dev/stdout"; next}
+1 { print $0 > std; }
+END {}
+
