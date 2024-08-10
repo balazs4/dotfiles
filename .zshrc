@@ -688,7 +688,6 @@ function tv(){
     | sed 's/amp;//g'  \
     | xargs -I{} curl -Ls https://onlinestream.live{} \
     | xurls \
-    | fzf -1 -q "https://streaming.mytvback.com/stream" \
     | xargs mpv
 }
 
