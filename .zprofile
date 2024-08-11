@@ -35,7 +35,7 @@ local colors=$(cat $HOME/.colors \
   | tr "\n" ";"
 )
 
-alacritty_opacity=$HOME/.alacritty.toml 2>/dev/null | awk '/^opacity/ {print $NF}'
+alacritty_opacity=`$HOME/.alacritty.toml 2>/dev/null | awk '/^opacity/ {print $NF}'`
 
 local hostname=$(hostname -s)
 for dotfile in $(git -C $HOME/.files ls-files)
