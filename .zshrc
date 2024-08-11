@@ -853,24 +853,12 @@ alias stars="xdg-open 'https://github.com/balazs4?tab=stars'"
 #carbon alias xb='xbacklight -set'
 
 function color(){
-  local schemes_folder=$HOME/.cache/schemes
-  git clone git@github.com:tinted-theming/schemes.git $schemes_folder --depth=1 2>/dev/null || git -C $schemes_folder pull
-
-  local base_theme=$schemes_folder/`git -C $schemes_folder ls-files | fzf --height='40%' --reverse -q"'yaml ${*} " -1 --preview "cat $schemes_folder/{}"`
-
-  sed '/FOE/,/EOF/{//!d}' $HOME/.files/.zprofile \
-    | awk "/FOE/ {print; system(\"cat ${base_theme}\"); print\"\"; next} 1" \
-    | sponge $HOME/.files/.zprofile
-
-
-  case "$base_theme" in
-    *light*)
-      sed "s/vim.opt.background = 'dark'/vim.opt.background = 'light'/g" -i "$HOME/.files/.config/nvim/init.lua"
-      ;;
-    *)
-      sed "s/vim.opt.background = 'light'/vim.opt.background = 'dark'/g" -i "$HOME/.files/.config/nvim/init.lua"
-  esac
-
+  if test ! -d $HOME/.cache/schemes
+  then
+    git clone git@github.com:tinted-theming/schemes.git $HOME/.cache/schemes --depth=1
+  fi
+  colors=$(git -C $HOME/.cache/schemes ls-files | fzf --height='20%' --reverse -q"'yaml ${*} " -1)
+  cp $HOME/.cache/schemes/$colors $HOME/.colors
   TMUX= source $HOME/.files/.zprofile
   source $HOME/.zshrc
   kill -USR1 `pgrep zsh` 2>/dev/null
@@ -885,7 +873,6 @@ function light(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" > /dev/null
   color 16 \'light ${*}
 }
-alias base16="color \'16"
 
 function parrot(){
   curl --max-time ${1:-3} parrot.live 2>/dev/null
@@ -895,8 +882,7 @@ alias kw='gdate +"current calendar week: %U"'
 
 function a(){
 #carbon  (pidof picom || picom  & ) > /dev/null
- sed "s/ALACRITTY_OPACITY=.*/ALACRITTY_OPACITY=0.${1:-99}/g" -i $HOME/.zshenv
- dot source
+ sed "s/^opacity = .*/opacity = 0.${1:-99}/" -i "$HOME/.alacritty.toml"
 }
 
 #carbon function nyc(){

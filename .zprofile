@@ -2,14 +2,8 @@ test $TMUX && return
 test $SSH_TTY && return
 test NO_DIFF || PAGER= git -C $HOME/.files diff -p
 
-local hostname=`hostname -s`
-
-local colors=`cat <<EOF \
-  | awk -F: '/base.*/ {print $1 $2}' \
-  | awk -F" " '{ print "s/{{" $1 "-hex}}/" tolower($2) "/g"}' \
-  | tr -d '"' \
-  | tr "\n" ";"
-FOE
+if test ! -e $HOME/.colors; then
+cat <<EOF > $HOME/.colors
 system: "base16"
 name: "Ayu Dark"
 author: "Khue Nguyen <Z5483Y@gmail.com>"
@@ -31,20 +25,31 @@ palette:
   base0D: "59C2FF"
   base0E: "D2A6FF"
   base0F: "E6B673"
-
 EOF
-`
-source $HOME/.zshenv
+fi
 
+local colors=$(cat $HOME/.colors \
+  | awk -F: '/base.*/ {print $1 $2}' \
+  | awk -F" " '{ print "s/{{" $1 "-hex}}/" tolower($2) "/g"}' \
+  | tr -d '"' \
+  | tr "\n" ";"
+)
+
+alacritty_opacity=$HOME/.alacritty.toml 2>/dev/null | awk '/^opacity/ {print $NF}'
+
+local hostname=$(hostname -s)
 for dotfile in $(git -C $HOME/.files ls-files)
 do
   mkdir -p `dirname $HOME/$dotfile`
   cat $HOME/.files/$dotfile \
     | sed -r "s/^[--;#\/\"\!]+${hostname} //g; /^#(carbon|mcbpro)/d" \
     | sed "${colors}" \
-    | sed "s/^opacity = .*/opacity = ${ALACRITTY_OPACITY:-1.0}/" \
     > $HOME/$dotfile
 done
 
-echo "$HOME/.files/ >> ${hostname} ($HOME/.zshenv) >> $HOME/"
+sed "s/^opacity = .*/opacity = ${alacritty_opacity:-1.0}/" -i "$HOME/.alacritty.toml"
 
+color_variant=$(cat $HOME/.colors | awk '/variant/ {print $2}' |  tr -d '"')
+sed "s/^vim.opt.background = .*/vim.opt.background = '$color_variant'/g" -i "$HOME/.config/nvim/init.lua"
+
+echo "$HOME/.files/ >> ${hostname} ($HOME/.zshenv) >> $HOME/"
