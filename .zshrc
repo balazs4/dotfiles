@@ -260,8 +260,11 @@ function srv(){
     }
 
     process.stdout.write("\n");
+
+    const {arch, release, versions} = process;
+    const resp = {arch, release, versions}
     res.writeHead(200, { "content-type": "text/plain" });
-    res.end();
+    res.end(JSON.stringify(resp));
   }).listen(process.env.PORT, () => console.log("http://localhost:" + process.env.PORT));
   '
 }
