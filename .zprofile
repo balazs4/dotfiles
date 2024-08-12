@@ -52,4 +52,4 @@ gsed "s/^opacity = .*/opacity = ${alacritty_opacity:-1.0}/" -i "$HOME/.alacritty
 color_variant=$(cat $HOME/.colors | awk '/variant/ {print $2}' |  tr -d '"')
 gsed "s/^vim.opt.background = .*/vim.opt.background = '$color_variant'/g" -i "$HOME/.config/nvim/init.lua"
 
-echo "$HOME/.files/ >> ${hostname} ($HOME/.zshenv) >> $HOME/"
+echo "$HOME/.files/ >> ${hostname} >> $HOME/"
