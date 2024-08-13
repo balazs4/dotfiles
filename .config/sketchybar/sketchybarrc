@@ -30,7 +30,7 @@ done
 
 sketchybar --add item clock right --set clock \
     update_freq=5 \
-    label="$(date '+%Y-%m-%d %T')" \
+    script='sketchybar --set clock label="$(date +%Y-%m-%d__%T)"' \
     label.padding_left=0 \
     label.padding_right=0
 
