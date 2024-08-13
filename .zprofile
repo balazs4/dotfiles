@@ -47,6 +47,7 @@ do
     > $HOME/$dotfile
 done
 
+#mcbpro alias sed='/opt/homebrew/bin/gsed'
 gsed "s/^opacity = .*/opacity = ${alacritty_opacity:-1.0}/" -i "$HOME/.alacritty.toml"
 
 color_variant=$(cat $HOME/.colors | awk '/variant/ {print $2}' |  tr -d '"')
