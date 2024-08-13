@@ -1,0 +1,53 @@
+sketchybar --bar \
+  position=top \
+  height=40 \
+  blur_radius=30 \
+  color=0x00000000
+
+sketchybar --default \
+  label.font="Geist Mono:Bold:14.0" \
+  label.color=0xffffffff \
+  padding_left=5 \
+  padding_right=5 \
+  label.padding_left=4 \
+  label.padding_right=4
+
+sketchybar --add event aerospace_workspace_change
+for sid in $(aerospace list-workspaces --all)
+do
+  sketchybar --add item space.$sid left \
+    --subscribe space.$sid aerospace_workspace_change \
+    --set space.$sid \
+    background.color=0x44ffffff \
+    background.corner_radius=5 \
+    background.height=20 \
+    background.drawing=off \
+    label="$sid" \
+    click_script="aerospace workspace $sid" \
+    script="$CONFIG_DIR/aerospace $sid"
+done
+
+sketchybar --add item clock right --set clock \
+    update_freq=5 \
+    label="$(date '+%Y-%m-%d %T')" \
+    label.padding_left=0 \
+    label.padding_right=0
+
+sketchybar --add alias "Control Centre,Sound" right \
+  --set "Control Centre,Sound" alias.scale=1.0 padding_left=0 padding_right=0
+
+# sketchybar \
+#   --add item volume right \
+#   --subscribe volume volume_change \
+#   --set volume \
+#   script='sketchybar --set volume label="`osascript -e "get volume settings"`"'
+
+sketchybar \
+  --add item battery right \
+  --set battery \
+  update_freq=10 \
+  label="$(pmset -g batt | awk '/charging/ { print $3 "("$5")"}')"
+
+
+##### Force all scripts to run the first time (never do this in a script) #####
+sketchybar --update
