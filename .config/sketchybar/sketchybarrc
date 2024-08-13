@@ -35,10 +35,11 @@ sketchybar --add item clock right --set clock \
     label.padding_right=0
 
 sketchybar --add alias "Control Centre,Battery" right \
-  --set "Control Centre,Battery" alias.scale=1.0 padding_left=0 padding_right=0
+  --set "Control Centre,Battery" alias.scale=1.1 padding_left=0 padding_right=0 label.padding_left=0 label.padding_right=0
 
 sketchybar --add alias "Control Centre,Sound" right \
-  --set "Control Centre,Sound" alias.scale=1.0 padding_left=0 padding_right=0
+  --set "Control Centre,Sound" alias.scale=1.1 padding_left=0 padding_right=0 label.padding_left=0 label.padding_right=0
+
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
