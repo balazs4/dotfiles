@@ -48,9 +48,9 @@ do
 done
 
 #mcbpro alias sed='/opt/homebrew/bin/gsed'
-gsed "s/^opacity = .*/opacity = ${alacritty_opacity:-1.0}/" -i "$HOME/.alacritty.toml"
+sed "s/^opacity = .*/opacity = ${alacritty_opacity:-1.0}/" -i "$HOME/.alacritty.toml"
 
 color_variant=$(cat $HOME/.colors | awk '/variant/ {print $2}' |  tr -d '"')
-gsed "s/^vim.opt.background = .*/vim.opt.background = '$color_variant'/g" -i "$HOME/.config/nvim/init.lua"
+sed "s/^vim.opt.background = .*/vim.opt.background = '$color_variant'/g" -i "$HOME/.config/nvim/init.lua"
 
 echo "$HOME/.files/ >> ${hostname} >> $HOME/"
