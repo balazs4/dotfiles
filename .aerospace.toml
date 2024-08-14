@@ -86,11 +86,6 @@ right = 'resize width +50'
 enter = 'mode main'
 esc = 'mode main'
 
-
-[[on-window-detected]]
-if.app-id = 'org.alacritty'
-run = 'move-node-to-workspace 1'
-
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
 run = 'move-node-to-workspace 2'
