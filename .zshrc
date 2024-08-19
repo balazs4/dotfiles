@@ -113,8 +113,7 @@ export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 export PATH=$HOME/.local/bin:${PATH}
 
 #nodejs
-#carbon export NPM_CONFIG_LOGLEVEL=http
-#mcbpro export NPM_CONFIG_LOGLEVEL=error
+export NPM_CONFIG_LOGLEVEL=http
 export DOTENV_CONFIG_DEBUG=true
 export N_PREFIX=$HOME/.n/prefix # https://github.com/tj/n
 export N_PRESERVE_NPM=1
@@ -246,24 +245,21 @@ function srv(){
     });
 
     if (req.method.toUpperCase() !== "GET"){
-      process.stdout.write("\n");
+      process.stdout.write("body");
       await require("node:stream/promises")
         .pipeline(
           req,
           async function*(source) {
             for await (const chunk of source){
-              process.stdout.write(chunk);
+              process.stderr.write(chunk);
+              process.stdout.write(".");
             }
           }
         ).catch();
-      process.stdout.write("\n");
+      process.stdout.write("DONE\n");
     }
-
-    process.stdout.write("\n");
-
-    const {arch, release, versions} = process;
-    const resp = {arch, release, versions}
-    res.writeHead(200, { "content-type": "text/plain" });
+    const resp = {}
+    res.writeHead(200, { "content-type": "application/json" });
     res.end(JSON.stringify(resp));
   }).listen(process.env.PORT, () => console.log("http://localhost:" + process.env.PORT));
   '
