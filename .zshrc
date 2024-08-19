@@ -236,31 +236,28 @@ alias less='less -r'
 function srv(){
   PORT=${PORT:-8000} node -e '
   require("node:http").createServer(async (req, res) => {
-    process.stdout.write("\n");
-    process.stdout.write(req.method + " " + req.url);
-    process.stdout.write("\n");
+    process.stderr.write("\n");
+    process.stderr.write(req.method + " " + req.url);
+    process.stderr.write("\n");
     Object.entries(req.headers).forEach(([key, value]) => {
-      process.stdout.write(key + ": " + value);
-      process.stdout.write("\n");
+      process.stderr.write(key + ": " + value);
+      process.stderr.write("\n");
     });
 
     if (req.method.toUpperCase() !== "GET"){
-      process.stdout.write("body");
       await require("node:stream/promises")
         .pipeline(
           req,
           async function*(source) {
             for await (const chunk of source){
-              process.stderr.write(chunk);
-              process.stdout.write(".");
+              process.stdout.write(chunk);
+              process.stderr.write(".");
             }
           }
         ).catch();
-      process.stdout.write("DONE\n");
     }
-    const resp = {}
-    res.writeHead(200, { "content-type": "application/json" });
-    res.end(JSON.stringify(resp));
+    res.writeHead(200, { "content-type": "text/plain" });
+    res.end("ok");
   }).listen(process.env.PORT, () => console.log("http://localhost:" + process.env.PORT));
   '
 }
