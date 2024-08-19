@@ -41,7 +41,8 @@ global.flat = function (json) {
       if (nskey.length > pad) {
         pad = nskey.length;
       }
-      nskv[nskey] = value;
+      nskv[nskey] =
+        typeof value === 'string' ? value.replace(/\n/g, '\\n') : value;
     });
   }
 
