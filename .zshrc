@@ -430,10 +430,12 @@ function aws-off(){
 }
 
 function yt(){
-  test $TMUX && {
+  if test $TMUX
+  then
     local target=`tmux display-message -p '#I'`
     tmux rename-window -t:$target youtube
-  }
+  fi
+
   echo $* \
     | tr ' ' '+' \
     | xargs -t -I{} curl -Lfs -H "accept-language: ${LNG:-en}" https://www.youtube.com/results\?search_query={} \
@@ -446,30 +448,28 @@ function yt(){
           lines.push(line);
         }
         const yt = JSON.parse(lines.join("\n"));
-        const result = yt
-          .contents
-          .twoColumnSearchResultsRenderer
-          .primaryContents
-          .sectionListRenderer
-          .contents[0]
-          .itemSectionRenderer
-          .contents
-          .filter(x => x?.videoRenderer)
-          .map(x =>
-          [
-            x.videoRenderer.videoId,
-            x.videoRenderer.lengthText?.simpleText?.padStart(8),
-            x.videoRenderer.viewCountText?.simpleText?.padStart(16),
-            x.videoRenderer.title?.runs[0].text,
-            x.videoRenderer.thumbnail?.thumbnails[0]?.url
-          ].join("\t")
-        ).join("\n");
 
-        console.log(result);
-      })();
-      ' \
+        for (const x of yt.contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents) {
+          if (!x) continue;
+          if (!x.itemSectionRenderer) continue;
+          if (!x.itemSectionRenderer.contents) continue;
+
+          for (const xx of x.itemSectionRenderer.contents){
+            if (!xx) continue;
+            if (!xx.videoRenderer) continue;
+            const video = [
+              xx.videoRenderer.videoId,
+              xx.videoRenderer.lengthText.simpleText.padStart(8),
+              xx.videoRenderer.viewCountText.simpleText.padStart(16),
+              xx.videoRenderer.title.runs[0].text,
+              xx.videoRenderer.thumbnail.thumbnails[0].url
+            ].join("\t")
+            require("node:process").stdout.write(video + "\n")
+          }
+        }
+      })();' \
     | sort -k3 -rh \
-    | fzf --sync --reverse \
+    | fzf \
     | cut -f1 \
     | xargs -t -Iwatch mpv ${MPV:---ytdl-format='[height=1080]/best'} https://youtu.be/watch
 }
