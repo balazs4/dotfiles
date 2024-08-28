@@ -469,7 +469,7 @@ function yt(){
         }
       })();' \
     | sort -k3 -rh \
-    | fzf \
+    | fzf --height=25% \
     | cut -f1 \
     | xargs -t -Iwatch mpv ${MPV:---ytdl-format='[height=1080]/best'} https://youtu.be/watch
 }
@@ -980,4 +980,8 @@ function npmu(){
       | xargs -I{} fx {} .name \
       | xargs -I{} -t npm install -g {}@latest
   popd
+}
+
+function focus(){
+  mpv --no-video https://youtu.be/GUu8GW6H5Dw
 }
