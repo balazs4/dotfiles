@@ -647,9 +647,16 @@ function src() {
 #carbon }
 
 function fmt(){
-    xargs -t bun x prettier --ignore-unknown --write
-    #xargs bunx @biomejs/biome format --write --quote-style=single --indent-style=space
+  case "$PWD" in
+    *front*)
+      xargs bunx @biomejs/biome format --write --quote-style=single --indent-style=space
+      ;;
+    *)
+      xargs -t bun x prettier --ignore-unknown --write
+      ;;
+  esac
 }
+
 alias gfmt='git ls-files --modified | fmt'
 alias fmtg='git ls-files --modified | fmt'
 

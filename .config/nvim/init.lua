@@ -167,27 +167,3 @@ require('mini.surround').setup()
 
 -- https://github.com/echasnovski/mini.comment
 require('mini.comment').setup()
-
--- https://github.com/nvim-tree/nvim-tree.lua
-require('nvim-tree').setup({
-  renderer = {
-    icons = {
-      show = {
-        file = false,
-        folder = true,
-        folder_arrow = false,
-        git = false,
-        modified = false,
-        diagnostics = false,
-        bookmarks = false,
-      }
-    }
-  },
-  on_attach = function (bufnr)
-    require('nvim-tree.api').config.mappings.default_on_attach(bufnr)
-    vim.keymap.set("n", "l", require('nvim-tree.api').node.open.edit,    { desc = 'nvim-tree:open', buffer = bufnr, noremap = true, silent = true, nowait = true })
-    vim.keymap.set("n", "h", require('nvim-tree.api').node.open.edit,    { desc = 'nvim-tree:open', buffer = bufnr, noremap = true, silent = true, nowait = true })
-  end
-})
-vim.api.nvim_set_keymap("n", "<C-f>", ":NvimTreeToggle<cr>", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("n", "ff",    ":NvimTreeFindFile<cr>",  {silent = true, noremap = true})
