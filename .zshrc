@@ -148,10 +148,11 @@ function dot(){
 
     "file")
       shift
-      [[ -e "$HOME/$1" ]] || {
+      if test ! -e "$HOME/$1"
+      then
         >&2 echo "$HOME/$1 does not exist; filepath must be relative to $HOME"
         return;
-      }
+      fi
       dir=`dirname "$HOME/.files/$1"`
       mkdir -p $dir
       cp -v "$HOME/$1" "$HOME/.files/$1"
@@ -167,12 +168,21 @@ function dot(){
       printf "\n"
       ;;
 
+    "tmp")
+      shift
+      git -C "$HOME/.files/" status --porcelain
+      file=`git -C "$HOME/.files/" ls-files | fzf --height '25%' --reverse -1 -q"'${1}"`
+      nvim "$HOME/$file"
+      git diff "$HOME/$file" "$HOME/.files/$file"
+      ;;
+
     *)
       pushd $HOME/.files > /dev/null
         nvim `git ls-files | fzf --height '25%' --sync --reverse -1 -q"'${1}"`
       popd > /dev/null
       dot "source"
       ;;
+
   esac
 }
 
