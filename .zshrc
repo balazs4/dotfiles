@@ -452,7 +452,7 @@ function yt(){
         }
       })();' \
     | sort -k3 -rh \
-    | fzf --height=25% \
+    | fzf --height=25% --sync \
     | cut -f1 \
     | xargs -t -Iwatch mpv ${MPV:---ytdl-format='[height=1080]/best'} https://youtu.be/watch
 }
