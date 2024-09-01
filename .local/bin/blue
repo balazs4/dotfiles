@@ -1,0 +1,20 @@
+#! /usr/bin/env bash
+
+set -e
+
+if test "${1:-nothing}" == 'off'
+then
+  bluetoothctl power off
+  sudo systemctl stop bluetooth.service
+  pkill -SIGRTMIN+1 i3blocks
+  exit 0
+fi
+
+sudo systemctl start bluetooth.service
+sleep 2s
+bluetoothctl power on
+sleep 2s
+bluetoothctl devices \
+  | fzf -1 -q ${1:-""} \
+  | awk '{print $2}' \
+  | xargs -t bluetoothctl connect
