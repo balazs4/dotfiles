@@ -86,6 +86,7 @@ function zz() {
 }
 
 alias z='TMUX=fake zz'
+alias x='tmux new-session -A -s $HOME -c $HOME'
 
 function zzz() {
   mkdir -p $HOME/src/$1
@@ -615,41 +616,6 @@ function fmt(){
 }
 
 alias gfmt='git ls-files --modified | fmt'
-alias fmtg='git ls-files --modified | fmt'
-
-function meme(){
-  local auth=`pass imgflip.com | grep username`
-  local meme=`curl -Lisk https://api.imgflip.com/get_memes | alola 'status should be 200' 'body.success should be true' 2>/dev/null | fx 'x => x.body.data.memes.map(xx => [xx.id.padEnd(8), xx.url.padEnd(32), xx.box_count, xx.name].join("\t")).join("\n")' | fzf -1 --query "'$1" | cut -f1`
-
-  shift;
-  local text=`node -p 'new URLSearchParams(process.argv.slice(1).map((x,i)=> (["text"+i,x]))).toString()' $*`
-
-  curl -Lisk https://api.imgflip.com/caption_image -d "$auth&template_id=$meme&$text" \
-    | alola \
-      'status should be 200' \
-      'body.success should be true' 2>/dev/null\
-    | fx 'x => x.body.data.url' \
-    | xargs -I{} curl -Lsk {} --output - \
-    | xclip -selection clipboard -t 'image/png'
-}
-
-alias cmm='meme 129242436'
-
-function s3fzf(){
-  aws s3 ls ${1} --recursive \
-    | fzf --preview "aws s3 cp ${1}{4} -" \
-    | awk '{print $NF}' \
-    | xargs -I{} aws s3 cp ${1}{} -
-}
-
-function tv(){
-  curl -Ls "https://onlinestream.live/?search=$1" \
-    | pup 'a[href^="/play.m3u8"] attr{href}' \
-    | sed 's/amp;//g'  \
-    | xargs -I{} curl -Ls https://onlinestream.live{} \
-    | xurls \
-    | xargs mpv
-}
 
 function jwt(){
   node -e "
@@ -667,58 +633,11 @@ function jwt(){
 #mcbpro   dig $1 | awk "/^$1/ {print \$NF}"
 #mcbpro }
 
-function contrib(){
-  {
-    gh api --paginate "/search/issues?per_page=100&q=org:$GITHUB_ORG+sort:created+created:>$GITHUB_START+author:${GITHUB_USER:-@me}+is:pr";
-  } \
-    | fx 'x => x.items.map(xx => [xx.created_at, xx.html_url.padEnd(64), "+" + xx.reactions["heart"], xx.assignee?.login || xx.user.login, "»»" , xx.title].join("\t")).join("\n")' \
-    | sort -h \
-    | uniq
-}
 
 function countby(){
    awk '{a[$1]++;} END{for(i in a) print i"  "a[i]}' | sort -k2 -r -h
 }
 
-function brag(){
-  z `echo $GITHUB_GIST_BRAG | awk -F/ '{print $NF}'`
-
-  local url=$1
-  shift
-
-  node -e "
-  const brag = require('./brag.json');
-  brag.items.push({ created_at: new Date().toJSON(), html_url: '$url', title: '$*', reactions: { 'heart': '1' }, user: { login: '$USER' } });
-  require('fs').writeFileSync('./brag.json', JSON.stringify(brag));
-  "
-  npx prettier --write ./brag.json \
-    && PAGER= git diff \
-    && git commit -am "date +%s" \
-    && git push \
-    && cd -
-}
-
-alias carbonyl='docker run --rm -it -v carbonyl:/carbonyl/data fathyb/carbonyl'
-
-function x(){
-  tmux new-session -A -s $HOME -c $HOME
-}
-
-function redis(){
-  docker run --rm -d --name redis-server -p 6379:6379 redis
-  docker ps
-}
-
-function redis-cli(){
-  local id=`docker run --rm -d redis:alpine`
-  docker exec -it ${id} redis-cli
-  docker rm -f $id
-}
-
-function dynamo(){
-  docker run --rm -d --name dynamodb-local -p 4133:8000 amazon/dynamodb-local
-  docker ps
-}
 
 function closest_packagejson(){
   local git_root=`git rev-parse --show-toplevel`
