@@ -1,0 +1,25 @@
+#! /usr/bin/env node
+
+require('node:http')
+  .createServer(async (req, res) => {
+    process.stderr.write(`\n${req.method} ${req.url}\n`);
+    Object.entries(req.headers).forEach(([key, value]) => {
+      process.stderr.write(`${key}: ${value}\n`);
+    });
+
+    if (req.method.toUpperCase() !== 'GET') {
+      await require('node:stream/promises')
+        .pipeline(req, async function* (source) {
+          for await (const chunk of source) {
+            process.stdout.write(chunk);
+            process.stderr.write('.');
+          }
+        })
+        .catch();
+    }
+    res.writeHead(200, { 'content-type': 'text/plain' });
+    res.end('ok');
+  })
+  .listen(process.env.PORT, () =>
+    process.stderr.writr(`http://localhost:${process.env.PORT}\n`),
+  );
