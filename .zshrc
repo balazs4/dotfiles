@@ -236,34 +236,6 @@ alias cal='LC_ALL=de_DE.utf8 cal'
 #mcbpro alias xargs='gxargs'
 alias less='less -r'
 
-function srv(){
-  PORT=${PORT:-8000} node -e '
-  require("node:http").createServer(async (req, res) => {
-    process.stderr.write("\n");
-    process.stderr.write(req.method + " " + req.url);
-    process.stderr.write("\n");
-    Object.entries(req.headers).forEach(([key, value]) => {
-      process.stderr.write(key + ": " + value);
-      process.stderr.write("\n");
-    });
-
-    if (req.method.toUpperCase() !== "GET"){
-      await require("node:stream/promises")
-        .pipeline(
-          req,
-          async function*(source) {
-            for await (const chunk of source){
-              process.stdout.write(chunk);
-              process.stderr.write(".");
-            }
-          }
-        ).catch();
-    }
-    res.writeHead(200, { "content-type": "text/plain" });
-    res.end("ok");
-  }).listen(process.env.PORT, () => console.log("http://localhost:" + process.env.PORT));
-  '
-}
 
 function srdrop(){
   if test "${1:-nothing}" = "reload"
@@ -314,14 +286,6 @@ function wiki(){
   reader -o "$url" | glow -p -
   >&2 echo $url
 }
-
-#carbon function emojis(){
-#carbon   emojify --list \
-#carbon     | sed '0,/Supported emojis/d' \
-#carbon     | sort \
-#carbon     | fzf --reverse \
-#carbon     | awk '{print $1 | "xclip -rmlastnl -selection primary" }; {print $2 | "xclip -rmlastnl -selection clipboard" }'
-#carbon }
 
 function track(){
   test -e $HOME/.cache/spotify || {
