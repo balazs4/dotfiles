@@ -475,22 +475,6 @@ function yt(){
 }
 alias yta="MPV='--no-video' yt"
 
-function blue() {
-  if [[ "$1" == "off" ]]
-  then
-    bluetoothctl power off
-    sudo systemctl stop bluetooth.service
-  else
-    sudo systemctl start bluetooth.service
-    sleep 2s
-    bluetoothctl power on
-    sleep 2s
-    device=`bluetoothctl devices | fzf -1 -q ${1:-""} | cut -d" " -f2`
-    bluetoothctl connect $device
-  fi
-  pkill -SIGRTMIN+1 i3blocks
-}
-
 #carbon alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
 #carbon alias telegram='google-chrome-stable --user-data-dir=$HOME/.config/webapp/telegram --app=https://web.telegram.org'
 #carbon alias outlook='google-chrome-stable --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
