@@ -120,6 +120,13 @@ export N_PRESERVE_NPM=1
 export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
 #mcbpro export PNPM_HOME=$HOME/.pnpm-global
 #mcbpro export PATH=$PNPM_HOME:${PATH}
+function npmu(){
+  pushd $N_PREFIX/lib/node_modules
+    find . -maxdepth 2 -type f -name package.json \
+      | xargs -I{} fx {} .name \
+      | xargs -I{} -t npm install -g {}@latest
+  popd
+}
 
 #go
 export GOROOT=$HOME/.g # https://github.com/stefanmaric/g
@@ -170,10 +177,9 @@ function dot(){
 
     "tmp")
       shift
-      git -C "$HOME/.files/" status --porcelain
       file=`git -C "$HOME/.files/" ls-files | fzf --height '25%' --reverse -1 -q"'${1}"`
       nvim "$HOME/$file"
-      git diff "$HOME/$file" "$HOME/.files/$file"
+      >&2 printf "changes are only in $HOME, and not in $HOME/.files; be careful if you dot source"
       ;;
 
     *)
@@ -873,63 +879,43 @@ function mvr(){ #vidir
   rm -rf /tmp/mvr.in /tmp/mvr.out
 }
 
-function notify(){
-#mcbpro  osascript -e "display notification \"${@:2}\" with title \"${1}\""
-}
+#mcbpro function notify(){
+#mcbpro   osascript -e "display notification \"${@:2}\" with title \"${1}\""
+#mcbpro }
 
 
-function DS(){
-   > .DS_Store printf ""
-  >> .DS_Store printf ".PHONY: eslint-fix\n"
-  >> .DS_Store printf "eslint-fix:\n"
-  >> .DS_Store printf "\t@npm run --silent eslint-fix -- --format=unix | awk '/^\// {print \$0}'\n"
-  >> .DS_Store printf "\n"
-  >> .DS_Store printf ".PHONY: typecheck\n"
-  >> .DS_Store printf "typecheck:\n"
-  >> .DS_Store printf "\t@npm run --silent typecheck\n"
-}
+#carbon function eth0() {
+#carbon   case ${1:-help} in
+#carbon 
+#carbon     "up")
+#carbon       sudo ip link set wlan0 down
+#carbon       sleep 1
+#carbon       sudo ip link set enp0s31f6 up
+#carbon       sleep 1
+#carbon       sudo systemctl start dhcpcd.service
+#carbon       ;;
+#carbon 
+#carbon     "down")
+#carbon       sudo systemctl stop dhcpcd.service
+#carbon       sleep 1
+#carbon       sudo ip link set enp0s31f6 down
+#carbon       sleep 1
+#carbon       sudo ip link set wlan0 up
+#carbon       ;;
+#carbon 
+#carbon     *)
+#carbon       printf "eth0 up | down\n"
+#carbon       ;;
+#carbon   esac
+#carbon }
 
-
-function eth0() {
-  case ${1:-help} in
-
-    "up")
-      sudo ip link set wlan0 down
-      sleep 1
-      sudo ip link set enp0s31f6 up
-      sleep 1
-      sudo systemctl start dhcpcd.service
-      ;;
-
-    "down")
-      sudo systemctl stop dhcpcd.service
-      sleep 1
-      sudo ip link set enp0s31f6 down
-      sleep 1
-      sudo ip link set wlan0 up
-      ;;
-
-    *)
-      printf "eth0 up | down\n"
-      ;;
-  esac
-}
-
-function mask(){
-  #https://unix.stackexchange.com/a/734842
-  for F in $(awk '$4=="unmasked" && $1>1000{print FILENAME}' /sys/firmware/acpi/interrupts/*)
-  do
-    sudo tee $F <<<mask;
-  done
-}
-
-function npmu(){
-  pushd $N_PREFIX/lib/node_modules
-    find . -maxdepth 2 -type f -name package.json \
-      | xargs -I{} fx {} .name \
-      | xargs -I{} -t npm install -g {}@latest
-  popd
-}
+#carbon function mask(){
+#carbon   #https://unix.stackexchange.com/a/734842
+#carbon   for F in $(awk '$4=="unmasked" && $1>1000{print FILENAME}' /sys/firmware/acpi/interrupts/*)
+#carbon   do
+#carbon     sudo tee $F <<<mask;
+#carbon   done
+#carbon }
 
 function focus(){
   mpv --no-video https://youtu.be/GUu8GW6H5Dw

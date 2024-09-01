@@ -1,5 +1,7 @@
 #! /usr/bin/env node
 
+process.env.PORT = process.env.PORT || 8000;
+
 require('node:http')
   .createServer(async (req, res) => {
     process.stderr.write(`\n${req.method} ${req.url}\n`);
