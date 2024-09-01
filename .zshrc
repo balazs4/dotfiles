@@ -900,25 +900,6 @@ function a(){
 
 export BUILDKIT_PROGRESS=plain
 
-function bs(){
-  # (n)vim integration: $HOME/.local/bin/bs (or something on path)
-  # #! /usr/bin/zsh
-  # source $HOME/.zshrc; bs ${*}
-
-  test -z $OPENAI_API_KEY && export OPENAI_API_KEY=`pass openai`
-
-  node -e '
-  (async function() {
-    const lines = [];
-    for await (const line of require("node:readline").createInterface(process.stdin)){ lines.push(line); }
-    const prompt = { model: "gpt-3.5-turbo-0125",  messages: [ { role: "user", content: "rephrase text as " + process.argv.slice(1).join(" ")  + ". text:" + lines.join("\n") } ] };
-    console.log(JSON.stringify(prompt));
-  })();
-  ' ${*} \
-    | curl -s https://api.openai.com/v1/chat/completions  -H "Content-Type: application/json" -H "Authorization: Bearer $OPENAI_API_KEY" -d @- \
-    | fx 'x => x.choices[0].message.content'
-}
-
 function mvr(){ #vidir
   local cnt=0
   while IFS= read -r line; do cnt=$((cnt+1)); printf "%04d\t%s\n" $cnt $line; done | tee /tmp/mvr.in > /tmp/mvr.out
