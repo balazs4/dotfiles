@@ -57,12 +57,14 @@ color_variant=$(cat $HOME/.colors | awk '/variant/ {print $2}' |  tr -d '"')
 case "$color_variant" in
   "dark")
     echo "--force-dark-mode --enable-features=WebUIDarkMode" > $HOME/.config/chromium-flags.conf
+    echo "--force-dark-mode --enable-features=WebUIDarkMode" > $HOME/.config/brave-flags.conf
     sed "s/^vim.opt.background = .*/vim.opt.background = 'dark'/g" -i "$HOME/.config/nvim/init.lua"
     sed "s/^set background=.*/set background=dark/g" -i "$HOME/.vimrc"
     ;;
 
   "light")
     echo "" > $HOME/.config/chromium-flags.conf
+    echo "" > $HOME/.config/brave-flags.conf
     sed "s/^vim.opt.background = .*/vim.opt.background = 'light'/g" -i "$HOME/.config/nvim/init.lua"
     sed "s/^set background=.*/set background=light/g" -i "$HOME/.vimrc"
     ;;
