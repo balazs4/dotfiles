@@ -148,7 +148,10 @@ function dot(){
 
     "file")
       shift
-      [[ -e "$HOME/$1" ]] || return
+      [[ -e "$HOME/$1" ]] || {
+        >&2 echo "$HOME/$1 does not exist; filepath must be relative to $HOME"
+        return;
+      }
       dir=`dirname "$HOME/.files/$1"`
       mkdir -p $dir
       cp -v "$HOME/$1" "$HOME/.files/$1"
