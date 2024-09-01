@@ -396,14 +396,6 @@ function wall(){
   i3-msg restart
 }
 
-function ghcrio-on() {
-  echo "{ \"auths\":{ \"ghcr.io\":{ \"auth\":\"`echo "$USER:$GITHUB_TOKEN" | base64`\"  }}}" > ${DOCKER_CONFIG:-$HOME/.docker/config.json}
-}
-
-function ghcrio-off() {
-  rm -v ${DOCKER_CONFIG:-$HOME/.docker/config.json}
-}
-
 function aws-on(){
   export `pass ${PASSKEY:-aws/balazs4} | awk '/^AWS_/ {print $0}'`
 }
@@ -459,7 +451,6 @@ function yt(){
 alias yta="MPV='--no-video' yt"
 
 #carbon alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
-#carbon alias telegram='google-chrome-stable --user-data-dir=$HOME/.config/webapp/telegram --app=https://web.telegram.org'
 #carbon alias outlook='google-chrome-stable --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
 #carbon alias spotify='google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify --app=https://open.spotify.com/'
 #carbon alias shop='google-chrome-stable --user-data-dir=$HOME/.config/webapp/shop'
@@ -467,8 +458,7 @@ alias yta="MPV='--no-video' yt"
 #carbon alias google='google-chrome-stable --user-data-dir=$HOME/.config/webapp/google'
 
 function pihole(){
-  curl -Lis http://192.168.178.42/admin/api.php \
-    | npx alola 'status should be 200' 'headers.x-pi-hole should be The Pi-hole Web interface is working!' 1>/dev/null
+  curl -Lis http://192.168.178.42/admin/api.php
 }
 
 
