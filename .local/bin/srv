@@ -5,19 +5,20 @@ process.env.PORT = process.env.PORT || 8000;
 require('node:http')
   .createServer(async (req, res) => {
     process.stderr.write(`\n${req.method} ${req.url}\n`);
-    Object.entries(req.headers).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(req.headers)) {
       process.stderr.write(`${key}: ${value}\n`);
-    });
+    }
 
     if (req.method.toUpperCase() !== 'GET') {
       await require('node:stream/promises')
         .pipeline(req, async function* (source) {
           for await (const chunk of source) {
-            process.stdout.write(chunk);
-            process.stderr.write('.');
+            process.stdout.isTTY === true
+              ? process.stdout.write(chunk)
+              : process.stderr.write('.');
           }
         })
-        .catch(err => {
+        .catch((err) => {
           process.stderr.write(err.toString());
         });
     }
