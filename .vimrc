@@ -1,5 +1,6 @@
 set termguicolors
 syntax on
+set background=dark
 
 filetype plugin indent on
 set wrap
