@@ -24,6 +24,7 @@ require('node:http')
     }
     res.writeHead(200, { 'content-type': 'text/plain' });
     res.end('ok');
+    process.stderr.write('\n');
   })
   .listen(process.env.PORT, () =>
     process.stderr.write(`http://localhost:${process.env.PORT}\n`),
