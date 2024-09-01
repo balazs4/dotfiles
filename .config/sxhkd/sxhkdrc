@@ -10,7 +10,7 @@ super + grave
     ;pkill -SIGRTMIN+2 i3blocks
 
 super + c
-  test `xbacklight -get | cut -d"." -f1` -gt 70 && chromium || chromium --force-dark-mode  --enable-features=WebUIDarkMode
+  chromium
 
 super + Return
   $TERMINAL

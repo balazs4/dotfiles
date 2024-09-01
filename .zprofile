@@ -35,6 +35,7 @@ local colors=$(cat $HOME/.colors \
   | tr "\n" ";"
 )
 
+# store current value
 alacritty_opacity=`awk '/^opacity/ {print $NF}' $HOME/.alacritty.toml 2>/dev/null`
 
 local hostname=$(hostname -s)
@@ -48,10 +49,25 @@ do
 done
 
 #mcbpro alias sed='/opt/homebrew/bin/gsed'
+# restore above stored value
 sed "s/^opacity = .*/opacity = ${alacritty_opacity:-1.0}/" -i "$HOME/.alacritty.toml"
 
 color_variant=$(cat $HOME/.colors | awk '/variant/ {print $2}' |  tr -d '"')
-sed "s/^vim.opt.background = .*/vim.opt.background = '$color_variant'/g" -i "$HOME/.config/nvim/init.lua"
-sed "s/^set background=.*/set background=$color_variant/g" -i "$HOME/.vimrc"
+
+case "$color_variant" in
+  "dark")
+    echo "--force-dark-mode --enable-features=WebUIDarkMode" > $HOME/.config/chromium-flags.conf
+    sed "s/^vim.opt.background = .*/vim.opt.background = 'dark'/g" -i "$HOME/.config/nvim/init.lua"
+    sed "s/^set background=.*/set background=dark/g" -i "$HOME/.vimrc"
+    ;;
+
+  "light")
+    echo "" > $HOME/.config/chromium-flags.conf
+    sed "s/^vim.opt.background = .*/vim.opt.background = 'light'/g" -i "$HOME/.config/nvim/init.lua"
+    sed "s/^set background=.*/set background=light/g" -i "$HOME/.vimrc"
+    ;;
+esac
+
+
 
 echo "$HOME/.files/ >> ${hostname} >> $HOME/"

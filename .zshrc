@@ -751,6 +751,7 @@ function dark(){
 function light(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" > /dev/null
   color 16 \'light ${*}
+  a 99
 }
 
 function parrot(){
