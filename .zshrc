@@ -485,36 +485,6 @@ function qrdecode {
 #carbon   dunstify -I /tmp/$searchterm.png "$title" "$artist"
 #carbon }
 
-function news(){
-  tmux new-session -s 'news' -d
-
-  tmux rename-window -t "news.1" "wttr"
-  tmux send-keys -t "news:wttr.1" "curl -s v2.wttr.in/91085" Enter
-
-  tmux new-window -t "news" -n "hackernews"
-  tmux send-keys -t "news:hackernews.1" "hackernews 10" Enter
-
-  for subreddit in `echo commandline javascript | xargs`
-  do
-    tmux new-window -t "news" -n "r/$subreddit"
-    tmux send-keys -t "news:r/$subreddit.1" "reddit $subreddit" Enter
-  done
-
-#carbon  tmux new-window -t "news" -n "archnews"
-#carbon  tmux send-keys -t "news:archnews.1" "archnews" Enter
-
-  tmux attach-session -t 'news'
-}
-
-function hackernews(){
-  curl -Lis https://hacker-news.firebaseio.com/v0/topstories.json \
-    | alola 'status should be 200' 2>/dev/null \
-    | fx "x=> x.body.slice(0,${1:-10}).join(\"\n\")" \
-    | xargs -I{} curl -s https://hacker-news.firebaseio.com/v0/item/{}.json \
-    | fx 'x => [x.url, x.title].join("\t")' \
-    | fzf --with-nth="2.." --preview 'echo {} | xurls | xargs reader -i none -o'
-}
-
 function reddit(){
   curl -H 'cache-control: no-cache' -Ls --user-agent "$RANDOM" "https://www.reddit.com/r/${1:-all}/hot.json"\
     | fx 'x => x.data.children.slice(10).map(xx => [`\x1b[2m${xx.data.url}\x1b[0m`, `\x1b[1m${xx.data.title}\x1b[0m (${xx.data.subreddit_name_prefixed})`, " "].join("\n")).join("\n")' \
