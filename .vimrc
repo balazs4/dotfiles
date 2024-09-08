@@ -1,6 +1,9 @@
 set termguicolors
 syntax on
+colorscheme quiet
 set background={{variant}}
+hi Normal guibg=none ctermbg=none
+hi NonText guibg=none ctermbg=none
 
 filetype plugin indent on
 set wrap
@@ -38,4 +41,3 @@ nnoremap <C-k> :m .-2<CR>==
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
-colorscheme quiet
