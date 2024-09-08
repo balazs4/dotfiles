@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+#carbon xclip -rmlastnl -selection clipboard
+#mcbpro pbcopy
