@@ -30,27 +30,25 @@ EOF
 fi
 
 local colors=$(cat $HOME/.colors \
-  | awk -F: '/base0.?/ {print $1 $2} /varian/ {print $1 $2}' \
+  | awk -F: '/base0.?/ {print $1 $2} /variant/ {print $1 $2}' \
   | tr -d '"' \
   | awk -F" " '{ print "s/{{" $1 "}}/" tolower($2) "/g"}' \
   | sed -E 's/(base0.?)/\1-hex/g' \
   | tr "\n" ";"
 )
 
-# foo
-alacritty_opacity=`awk '/^opacity/ {print $NF}' $HOME/.alacritty.toml 2>/dev/null`
+local opacity=`awk '/^opacity/ {print $NF}' $HOME/.alacritty.toml 2>/dev/null`
 
 local hostname=$(hostname -s)
+
 for dotfile in $(git -C $HOME/.files ls-files)
 do
   mkdir -p `dirname $HOME/$dotfile`
   cat $HOME/.files/$dotfile \
     | sed -r "s/^[--;#\/\"\!]+${hostname} //g; /^#(carbon|mcbpro)/d" \
     | sed "${colors}" \
+    | sed "s/{{opacity}}/${opacity}/g" \
     > $HOME/$dotfile
 done
-
-# bar
-sed "s/^opacity = .*/opacity = ${alacritty_opacity:-1.0}/" -i "$HOME/.alacritty.toml"
 
 echo "$HOME/.files/ >> ${hostname} >> $HOME/"
