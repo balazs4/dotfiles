@@ -1,6 +1,6 @@
 set termguicolors
 syntax on
-set background=dark
+set background={{variant}}
 
 filetype plugin indent on
 set wrap

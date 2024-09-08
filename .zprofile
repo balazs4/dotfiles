@@ -1,3 +1,4 @@
+#mcbpro alias sed='/opt/homebrew/bin/gsed'
 test $TMUX && return
 test $SSH_TTY && return
 test NO_DIFF || PAGER= git -C $HOME/.files diff -p
@@ -29,13 +30,14 @@ EOF
 fi
 
 local colors=$(cat $HOME/.colors \
-  | awk -F: '/base.*/ {print $1 $2}' \
-  | awk -F" " '{ print "s/{{" $1 "-hex}}/" tolower($2) "/g"}' \
+  | awk -F: '/base0.?/ {print $1 $2} /varian/ {print $1 $2}' \
   | tr -d '"' \
+  | awk -F" " '{ print "s/{{" $1 "}}/" tolower($2) "/g"}' \
+  | sed -E 's/(base0.?)/\1-hex/g' \
   | tr "\n" ";"
 )
 
-# store current value
+# foo
 alacritty_opacity=`awk '/^opacity/ {print $NF}' $HOME/.alacritty.toml 2>/dev/null`
 
 local hostname=$(hostname -s)
@@ -48,28 +50,7 @@ do
     > $HOME/$dotfile
 done
 
-#mcbpro alias sed='/opt/homebrew/bin/gsed'
-# restore above stored value
+# bar
 sed "s/^opacity = .*/opacity = ${alacritty_opacity:-1.0}/" -i "$HOME/.alacritty.toml"
-
-color_variant=$(cat $HOME/.colors | awk '/variant/ {print $2}' |  tr -d '"')
-
-case "$color_variant" in
-  "dark")
-    echo "--force-dark-mode --enable-features=WebUIDarkMode" > $HOME/.config/chromium-flags.conf
-    echo "--force-dark-mode --enable-features=WebUIDarkMode" > $HOME/.config/brave-flags.conf
-    sed "s/^vim.opt.background = .*/vim.opt.background = 'dark'/g" -i "$HOME/.config/nvim/init.lua"
-    sed "s/^set background=.*/set background=dark/g" -i "$HOME/.vimrc"
-    ;;
-
-  "light")
-    echo "" > $HOME/.config/chromium-flags.conf
-    echo "" > $HOME/.config/brave-flags.conf
-    sed "s/^vim.opt.background = .*/vim.opt.background = 'light'/g" -i "$HOME/.config/nvim/init.lua"
-    sed "s/^set background=.*/set background=light/g" -i "$HOME/.vimrc"
-    ;;
-esac
-
-
 
 echo "$HOME/.files/ >> ${hostname} >> $HOME/"

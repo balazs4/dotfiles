@@ -1,5 +1,5 @@
 vim.cmd('colorscheme base16') -- $HOME/.files/.config/nvim/colors/
-vim.opt.background = 'light'
+vim.opt.background = '{{variant}}'
 vim.api.nvim_command("hi Normal guibg=none ctermbg=none")
 vim.api.nvim_command("hi NonText guibg=none ctermbg=none")
 vim.opt.shiftwidth = 2
@@ -109,8 +109,7 @@ end
 vim.api.nvim_create_user_command("LspInfo", function() vim.cmd(":lua= vim.lsp.get_active_clients()") end, {})
 vim.api.nvim_create_user_command("LspStop", function() vim.cmd(":lua= vim.lsp.stop_client(vim.lsp.get_clients(), { force = true})") end, {})
 
-lsp({ 'go' }, { ['go.mod'] = { cmd = { 'gopls' } } })
-lsp({ 'templ' }, { ['go.mod'] = { cmd = { 'templ', 'lsp' } } })
+lsp({ 'go' }, { ['go.mod'] = { cmd = { 'gopls' } }, ['go.work'] = { cmd = { 'gopls' } }  })
 
 lsp({ 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' }, {
  ['deno.json']     = { cmd = { 'deno', 'lsp' } },
