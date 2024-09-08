@@ -218,8 +218,6 @@ alias zshrc='dot .zshrc'
 alias nvimrc='dot .config/nvim/init.lua'
 #carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
-#carbon alias xx='xclip -rmlastnl -selection clipboard'
-#mcbpro alias xx='pbcopy'
 alias ls='ls --color=auto'
 alias grep='grep --color'
 alias :q='exit'
