@@ -2,8 +2,8 @@ set termguicolors
 syntax on
 colorscheme quiet
 set background={{variant}}
-hi Normal guibg=none ctermbg=none
-hi NonText guibg=none ctermbg=none
+hi Normal guibg=NONE ctermbg=NONE
+hi NonText guibg=NONE ctermbg=NONE
 
 filetype plugin indent on
 set wrap
