@@ -4,4 +4,6 @@ curl -Ls "https://hacker-news.firebaseio.com/v0/topstories.json" \
   | fx 'x => x.map(xx => `https://hacker-news.firebaseio.com/v0/item/${xx}.json`).join("\n")' \
   | head -${1:-4} \
   | xargs -I{} curl -Ls {} \
-  | fx 'x => [new Date(1000 * x.time).toJSON(), x.title.padEnd(64), x.url].join("\t")'
+  | fx 'x => [new Date(1000 * x.time).toJSON(), x.title.padEnd(64), x.url].join("\t")' \
+  | fzf --sync \
+  | xurls
