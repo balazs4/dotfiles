@@ -94,6 +94,7 @@ local function lsp(pattern, project_to_lsp)
         vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end, { noremap = true })
         ---@format disable-next
         vim.keymap.set('n', '<leader>r', function() vim.cmd('! tmux split-window -h "npmw test ' .. filename(true) .. '"') end, { noremap = true })
+        vim.keymap.set('n', '<leader>B', function() vim.cmd('! tmux split-window -h "git blame % | vipe -"') end, { noremap = true })
         ---@format disable-next
         vim.api.nvim_create_user_command("Eslint", function() vim.cmd(":silent make -f .DS_Store eslint-fix | copen") end, {})
       end
