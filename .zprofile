@@ -38,7 +38,6 @@ local colors=$(cat $HOME/.colors \
 )
 
 local opacity=`awk '/^opacity/ {print $NF}' $HOME/.alacritty.toml 2>/dev/null`
->&2 printf "debug: '%s' found in %s\n" "${opacity}" "${HOME}/.alacritty.toml"
 
 local hostname=$(hostname -s)
 
