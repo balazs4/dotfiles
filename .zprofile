@@ -37,9 +37,8 @@ local colors=$(cat $HOME/.colors \
   | tr "\n" ";"
 )
 
-local current_opacity=`awk '/^opacity/ {print $NF}' "$HOME/.alacritty.toml" 2>/dev/null`
+local current_opacity=$(awk '/^opacity/ {print $NF}' "$HOME/.alacritty.toml" 2>/dev/null)
 local opacity=$(printf "s/{{%s}}/%s/g;s/{{%s}}/1.00/g" "opacity" "$current_opacity" "opacity")
->&2 printf "debug: %s\n" "${opacity}"
 
 local hostname=$(hostname -s)
 
