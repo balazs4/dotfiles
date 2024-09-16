@@ -572,18 +572,18 @@ function src() {
 #carbon   echo level ${1:-7} | sudo tee /proc/acpi/ibm/fan
 #carbon }
 
-function fmt(){
+function gfmt(){
   case "$PWD" in
     *front*)
-      xargs bunx @biomejs/biome format --write --quote-style=single --indent-style=space
+      pushd $(git rev-parse --show-toplevel)
+        $PWD/node_modules/.bin/biome format --write $(git ls-files --modified)
+      popd
       ;;
     *)
-      xargs -t bun x prettier --ignore-unknown --write
+      bun x prettier --ignore-unknown --write $(git ls-files --modified)
       ;;
   esac
 }
-
-alias gfmt='git ls-files --modified | fmt'
 
 function jwt(){
   node -e "
