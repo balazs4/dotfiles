@@ -38,6 +38,7 @@ local colors=$(cat $HOME/.colors \
 )
 
 local opacity=`awk '/^opacity/ {print $NF}' $HOME/.alacritty.toml 2>/dev/null`
+>&2 printf "debug: '%s' found in %s\n" "${opacity}" "${HOME}/.alacritty.toml"
 
 local hostname=$(hostname -s)
 
@@ -47,7 +48,7 @@ do
   cat $HOME/.files/$dotfile \
     | sed -r "s/^[--;#\/\"\!]+${hostname} //g; /^#(carbon|mcbpro)/d" \
     | sed "${colors}" \
-    | sed "s/{{opacity}}/${opacity}/g" \
+    | sed "s/{{opacity}}/${opacity}/g;s/{{opacity}}/1.00/g" \
     > $HOME/$dotfile
 done
 
