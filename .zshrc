@@ -572,19 +572,6 @@ function src() {
 #carbon   echo level ${1:-7} | sudo tee /proc/acpi/ibm/fan
 #carbon }
 
-function gfmt(){
-  case "$PWD" in
-    *front*)
-      pushd $(git rev-parse --show-toplevel)
-        $PWD/node_modules/.bin/biome format --write $(git ls-files --modified)
-      popd
-      ;;
-    *)
-      bun x prettier --ignore-unknown --write $(git ls-files --modified)
-      ;;
-  esac
-}
-
 function jwt(){
   node -e "
   (async() => {
@@ -647,7 +634,7 @@ function gws() {
 #mcbpro function na(){
 #mcbpro   n auto
 #mcbpro   grep private $HOME/.npmrc > /dev/null || $HOME/.local/bin/npmrc
-#mcbpro   pnpm install --frozen-lockfile
+#mcbpro   pnpm install ${*:---frozen-lockfile}
 #mcbpro }
 
 function epoch(){

@@ -25,7 +25,7 @@ vim.keymap.set('n', '<cr><cr>', function() vim.cmd('<silent>! TMUX= NO_DIFF=1 so
 vim.keymap.set('n', '<leader>g', function()
   local filename = string.gsub(vim.fn.expand('%'), os.getenv('PWD') or "", "")
   local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
-  vim.cmd('! gh browse ' .. filename .. ':' .. row)
+  vim.cmd("! gh browse '" .. filename .. "':" .. row)
 end, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC | normal `.') end)
@@ -38,83 +38,76 @@ vim.diagnostic.config({
   virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4 }
 })
 
--- TODO: split up lsp into FileType and UserCommand
---- lsp function
---- @param pattern table filetypes
---- @param project_to_lsp table lsp setup
-local function lsp(pattern, project_to_lsp)
-  -- TODO: fallback pwd
-  local git_root_dir = vim.fn.system("git rev-parse --show-toplevel"):gsub('[\n\r]+', '')
-  vim.api.nvim_create_autocmd('FileType', {
-    pattern = pattern,
-    callback = function()
-      local cmd
-      local root_dir
-      for project, lsp_config in pairs(project_to_lsp) do
-       if os.execute('test -e ' .. project) == 0 then
-          cmd = lsp_config.cmd
-          root_dir = vim.fn.getcwd()
-          break
-        end
-
-       if os.execute('test -e ' .. git_root_dir  .. '/' .. project) == 0 then
-          cmd = lsp_config.cmd
-          root_dir = git_root_dir
-          break
-        end
-      end
-
-      if cmd == nil then return end
-      if vim.fn.executable(cmd[1]) == 0 then return end
-
-      local client = vim.lsp.start({ name = project_file, cmd = cmd, root_dir = root_dir, settings = settings })
-
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true })
-      ---@format disable-next
-      vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { noremap = true, silent = true })
-      vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { noremap = true, silent = true })
-      vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { noremap = true, silent = true })
-
-      if cmd[1] == 'typescript-language-server'
-      then
-        local function filename(test)
-          local buffer = vim.fn.expand('%')
-          if buffer:sub(-string.len('test.ts')) == 'test.ts' then
-            if test == true then
-              return buffer
-            else
-              return string.gsub(buffer, ".test.ts$", ".ts")
-            end
-          end
-          return string.gsub(buffer, ".ts$", ".test.ts")
-        end
-
-        pcall(vim.keymap.del, 'n', '<leader>p')
-        vim.keymap.set('n', '<leader>p', function() vim.cmd(':PrettierAsync') end, { noremap = true })
-        vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end, { noremap = true })
-        ---@format disable-next
-        vim.keymap.set('n', '<leader>r', function() vim.cmd('! tmux split-window -h "npmw test ' .. filename(true) .. '"') end, { noremap = true })
-        vim.keymap.set('n', '<leader>B', function() vim.cmd('! tmux split-window -h "git blame % | vipe -"') end, { noremap = true })
-        ---@format disable-next
-        vim.api.nvim_create_user_command("Eslint", function() vim.cmd(":silent make -f .DS_Store eslint-fix | copen") end, {})
-      end
-    end
-  })
-end
+vim.lsp.set_log_level("DEBUG")
 
 vim.api.nvim_create_user_command("LspInfo", function() vim.cmd(":lua= vim.lsp.get_active_clients()") end, {})
 vim.api.nvim_create_user_command("LspStop", function() vim.cmd(":lua= vim.lsp.stop_client(vim.lsp.get_clients(), { force = true})") end, {})
 
-lsp({ 'go' }, { ['go.mod'] = { cmd = { 'gopls' } }, ['go.work'] = { cmd = { 'gopls' } }  })
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { buffer = args.buf })
+    vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
 
-lsp({ 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' }, {
- ['deno.json']     = { cmd = { 'deno', 'lsp' } },
- ['node_modules/.bin/tsserver'] = { cmd = { 'typescript-language-server', '--stdio' } },
+    if client.config.cmd[1] == 'typescript-language-server'
+    then
+      local function filename(test)
+        local buffer = vim.fn.expand('%')
+        if buffer:sub(-string.len('test.ts')) == 'test.ts' then
+          if test == true then
+            return buffer
+          else
+            return string.gsub(buffer, ".test.ts$", ".ts")
+          end
+        end
+        return string.gsub(buffer, ".ts$", ".test.ts")
+      end
+
+      pcall(vim.keymap.del, 'n', '<leader>p')
+      vim.keymap.set('n', '<leader>p', function() vim.cmd('! gfmt') end, { buffer = args.buf })
+      vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end, { buffer = args.buf })
+      vim.keymap.set('n', '<leader>r', function() vim.cmd('! tmux split-window -h "npmw test ' .. filename(true) .. '"') end, { buffer = args.buf })
+      vim.keymap.set('n', '<leader>B', function() vim.cmd('! tmux split-window -h "git blame % | vipe -"') end, { buffer = args.buf })
+    end
+
+  end,
 })
 
-lsp({ 'rust' }, { ['Cargo.toml'] = { cmd = { 'rust-analyzer' } } })
-lsp({ 'terraform' }, { ['.terrform.lock.hcl'] = { cmd = { 'terraform-ls', 'serve' } } })
-lsp({ 'gleam' }, { ['gleam.toml'] = { cmd = { 'gleam', 'lsp' } } })
+
+local function root_dir(file)
+  if os.execute('test -e ' .. file) == 0
+  then
+    return vim.fn.getcwd()
+  end
+
+  local git_root_dir = vim.fn.system("git rev-parse --show-toplevel"):gsub('[\n\r]+', '')
+  if os.execute('test -e ' .. git_root_dir ..  '/' .. file) == 0
+  then
+    return git_root_dir
+  end
+
+  return nil
+end
+
+local function vim_lsp_start(file, cmd, settings)
+  local root_dir = root_dir(file)
+  if root_dir == nil then return end
+
+  vim.lsp.start({
+    cmd = cmd,
+    settings = settings,
+    name = cmd[1],
+    root_dir = root_dir,
+  })
+end
+
+vim.api.nvim_create_autocmd('FileType', { pattern = {'go'},                            callback = function() vim_lsp_start('go.mod',             {'gpls'}) end })
+vim.api.nvim_create_autocmd('FileType', { pattern = {'terraform'},                     callback = function() vim_lsp_start('.terrform.lock.hcl', {'terraform-ls', 'serve'}) end })
+vim.api.nvim_create_autocmd('FileType', { pattern = {'rust'},                          callback = function() vim_lsp_start('Cargo.toml',         {'rust-analyzer'}) end })
+vim.api.nvim_create_autocmd('FileType', { pattern = {'gleam'},                         callback = function() vim_lsp_start('gleam.toml',         {'gleam', 'lsp'}) end })
+vim.api.nvim_create_autocmd('FileType', { pattern = {'typescript', 'typescriptreact'}, callback = function() vim_lsp_start('node_modules/.bin/tsserver', {'typescript-language-server', '--stdio'}) vim_lsp_start('deno.json', {'deno', 'lsp'}) end})
 
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup({
