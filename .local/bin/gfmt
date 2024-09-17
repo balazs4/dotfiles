@@ -1,0 +1,17 @@
+#! /usr/bin/env bash
+
+pushd $(git rev-parse --show-toplevel)
+  if test -e $PWD/node_modules/.bin/biome
+  then
+    >&2 printf "gfmt: %s\n" $PWD/node_modules/.bin/biome
+    $PWD/node_modules/.bin/biome format --write $(git ls-files --modified)
+    exit $?
+  fi
+
+  if test -e $PWD/node_modules/.bin/prettier
+  then
+    >&2 printf "gfmt: %s\n" $PWD/node_modules/.bin/prettier
+    $PWD/node_modules/.bin/prettier --ignore-unknown --write $(git ls-files --modified)
+    exit $?
+  fi
+popd
