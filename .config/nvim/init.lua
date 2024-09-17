@@ -41,7 +41,7 @@ vim.diagnostic.config({
 vim.lsp.set_log_level("DEBUG")
 
 vim.api.nvim_create_user_command("LspInfo", function() vim.cmd(":lua= vim.lsp.get_active_clients()") end, {})
-vim.api.nvim_create_user_command("LspStop", function() vim.cmd(":lua= vim.lsp.stop_client(vim.lsp.get_clients(), { force = true})") end, {})
+vim.api.nvim_create_user_command("LspStop", function() vim.lsp.stop_client(vim.lsp.get_clients(), { force = true}) end, {})
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
@@ -105,11 +105,12 @@ end
 
 vim.api.nvim_create_autocmd('FileType', { pattern = {'go'},                            callback = function() vim_lsp_start('go.mod',             {'gpls'}) end })
 vim.api.nvim_create_autocmd('FileType', { pattern = {'terraform'},                     callback = function() vim_lsp_start('.terrform.lock.hcl', {'terraform-ls', 'serve'}) end })
-vim.api.nvim_create_autocmd('FileType', { pattern = {'rust'},                          callback = function() vim_lsp_start('Cargo.toml',         {'rust-analyzer'}) end })
-vim.api.nvim_create_autocmd('FileType', { pattern = {'gleam'},                         callback = function() vim_lsp_start('gleam.toml',         {'gleam', 'lsp'}) end })
 vim.api.nvim_create_autocmd('FileType', { pattern = {'typescript', 'typescriptreact', 'javascript', 'javascriptreact'}, 
-  callback = function() vim_lsp_start('node_modules/.bin/tsserver', {'typescript-language-server', '--stdio'}) vim_lsp_start('deno.json', {'deno', 'lsp'}) end}
-)
+  callback = function() 
+    vim_lsp_start('deno.json', {'deno', 'lsp'}) 
+    vim_lsp_start('node_modules/.bin/tsserver', {'typescript-language-server', '--stdio'})
+  end
+})
 
 -- https://github.com/ibhagwan/fzf-lua
 require('fzf-lua').setup({
@@ -147,8 +148,6 @@ vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
 -- https://github.com/mattn/emmet-vim
 vim.g.user_emmet_leader_key = '<C-Z>'
-
--- https://github.com/prettier/vim-prettier
 
 -- https://github.com/echasnovski/mini.completion
 require('mini.completion').setup()
