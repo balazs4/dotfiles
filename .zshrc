@@ -479,28 +479,9 @@ function pihole(){
 
 
 function qrdecode {
-  shotgun `hacksaw -f "-i %i -g %g"` - | zbarimg -q --raw -
+  geom=$(hacksaw -f "-i %i -g %g")
+  shotgun ${geom} - | zbarimg -q --raw -
 }
-
-#carbon function now(){
-#carbon   local artUrl="`mpris-ctl info '%art_url'`"
-#carbon   local title="`mpris-ctl info '%track_name'`"
-#carbon   local artist="`mpris-ctl info '%artist_name'`"
-#carbon   local searchterm=`node -p "encodeURIComponent('$artist $title'.trim())"`
-#carbon
-#carbon   [[ $artUrl ]] && curl -s $artUrl -o /tmp/$searchterm.png
-#carbon
-#carbon   if [[ ! -f /tmp/$searchterm.png ]]
-#carbon   then
-#carbon     curl -Lisk "https://api.deezer.com/search?strict=on&q=$searchterm" \
-#carbon       | alola 'status should be 200' \
-#carbon       | fx 'x => x.body.data.map(xx => xx.album.cover_medium).join("\n")' \
-#carbon       | head -1 \
-#carbon       | xargs -I{} curl -s {} -o /tmp/$searchterm.png
-#carbon   fi
-#carbon
-#carbon   dunstify -I /tmp/$searchterm.png "$title" "$artist"
-#carbon }
 
 function reddit(){
   curl -H 'cache-control: no-cache' -Ls --user-agent "$RANDOM" "https://www.reddit.com/r/${1:-all}/hot.json"\
@@ -624,29 +605,6 @@ function closest_packagejson(){
     dir=`dirname $dir`
   done
 }
-
-function npmw(){
-  local script="${1:-test}"
-  local file=${2:-$PWD}
-  shift
-  local dir=`closest_packagejson $file`
-  if test "${script}" = 'test'
-  then
-    script="${script} -- ${file}"
-  fi
-  pushd $dir
-    watchexec -v -c --print-events --project-origin $PWD --restart --stop-timeout 0 -- npm run "${script} ${*}"
-  popd
-}
-
-function gw() {
-  while inotifywait -q -e 'modify' `git ls-files`; do clear; ${*}; done
-}
-
-function gws() {
-  watchexec -v -c --print-events --project-origin $PWD --restart --stop-timeout 0 -- "${*}"
-}
-
 
 #mcbpro function na(){
 #mcbpro   n auto
