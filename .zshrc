@@ -520,12 +520,12 @@ function archnews(){
     | fx 'x => x.rss.channel.item.map(xx => [`\x1b[2m${xx.link}\x1b[0m`, new Date(xx.pubDate).toJSON() + ` >> \x1b[1m${xx.title}\x1b[0m`, " "].join("\n")).join("\n")'
 }
 
-#carbon function dp2(){
+#carbon function dp1(){
 #carbon   xrandr \
 #carbon     --dpi 136 \
 #carbon     --output eDP1 --primary --mode 1920x1080 --pos 800x2160 --rotate normal --scale 1.4 \
-#carbon     --output DP1 --off \
-#carbon     --output DP2 --mode 3840x2160 --pos 0x0 --rotate normal \
+#carbon     --output DP2 --off \
+#carbon     --output DP1 --mode 3840x2160 --pos 0x0 --rotate normal \
 #carbon     --output HDMI1 --off
 #carbon
 #carbon    echo "Xft.dpi: 136" | xrdb -merge
