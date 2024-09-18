@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+
+
+case "${1:-help}" in
+  "print")
+    geom=$(hacksaw -f "-i %i -g %g")
+    shotgun ${geom} - | xclip -t 'image/png' -selection clipboard && dunstify -t 2000 "shotgun" "copied to clipboard"
+    ;;
+
+  "help")
+    *)
+    printf "xbind %s\n" "print"
+    ;;
+esac
