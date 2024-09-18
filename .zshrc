@@ -273,6 +273,8 @@ alias cal='LC_ALL=de_DE.utf8 cal'
 #mcbpro alias sed='gsed'
 #mcbpro alias xargs='gxargs'
 alias less='less -r'
+#carbon alias xx='xclip -rmlastnl -selection clipboard'
+#mcbpro alias xx='pbcopy'
 
 
 function srdrop(){
