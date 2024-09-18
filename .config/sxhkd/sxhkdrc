@@ -1,53 +1,5 @@
-super + Escape
-	sleep 0.5
-	pkill -USR1 -x sxhkd
-
-super + Print
-  shotgun `hacksaw -f "-i %i -g %g"` - | xclip -t 'image/png' -selection clipboard && dunstify "shotgun" "copied to clipboard"
-
-super + grave
-  [ "us" = `setxkbmap -query | grep layout | cut -d" " -f6` ] && setxkbmap de || setxkbmap us \
-    ;pkill -SIGRTMIN+2 i3blocks
-
-super + c
-  chromium
-
-super + Return
-  $TERMINAL
-
-super + d
-  dmenu_run -i -sb "#{{base0D-hex}}" -fn 'GeistMono-12'
-
 super + shift + d 
   zsh -i -c `cat ~/.zshrc | grep -e ^alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#{{base09-hex}}" -fn 'GeistMono-12'`
 
-super + x
-  alacritty --class=temp_terminal --command zsh -i -c "emojis" 
-
-super + {Next,Prior,Control_R}
-  playerctl {next,previous,play-pause}
-
 super + backslash
   zsh -i -c 'source ~/.zshrc; now'
-
-super + space
-  i3-msg "[con_id=\"`i3-msg -t get_tree | fx i3windows | dmenu -i -l 24 | cut -f1 -d' '`\"] focus" 
-
-super + l
-  slock
-
-XF86Audio{RaiseVolume,LowerVolume}
-  pulsemixer --change-volume {+5,-5} \
-    ;pkill -SIGRTMIN+1 i3blocks
-
-XF86AudioMute
-  pulsemixer --toggle-mute \
-    ;pkill -SIGRTMIN+1 i3blocks
-
-XF86MonBrightness{Up,Down}
-  xbacklight {+25,-25}
-
-XF86AudioMicMute
-  pulsemixer --toggle-mute --id source-7 \
-    ;pkill -SIGRTMIN+1 i3blocks
-

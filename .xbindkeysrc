@@ -34,6 +34,10 @@
     m:0x40 + c:40
     Mod4 + d
 
+"$HOME/.local/bin/xbind webapp"
+    m:0x41 + c:40
+    Shift+Mod4 + d
+
 "slock"
     m:0x40 + c:46
     Mod4 + l
@@ -45,6 +49,10 @@
 "$HOME/.local/bin/xbind setxkbmap"
     m:0x0 + c:224
     XF86Messenger
+
+"$HOME/.local/bin/xbind focus"
+    m:0x40 + c:65
+    Mod4 + space
 
 "playerctl play-pause"
     m:0x40 + c:105
@@ -59,22 +67,19 @@
     Mod4 + Next
 
 #"(Scheme function)"
-#    m:0x41 + c:40
-#    Shift+Mod4 + d
-
-#"(Scheme function)"
-#    m:0x0 + c:226
-#    XF86Go
-
-#"(Scheme function)"
-#    m:0x0 + c:231
-#    Cancel
-
-#"(Scheme function)"
-#    m:0x0 + c:164
-#    XF86Favorites
-
-#"(Scheme function)"
 #    m:0x40 + c:51
 #    Mod4 + backslash
+
+"dunstify -t 1000 XF86Go"
+    m:0x0 + c:226
+    XF86Go
+
+"dunstify -t 1000 Cancel"
+    m:0x0 + c:231
+    Cancel
+
+"dunstify -t 1000 XF86Favorites"
+    m:0x0 + c:164
+    XF86Favorites
+
 

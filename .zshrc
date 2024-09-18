@@ -472,12 +472,6 @@ function yt(){
 }
 alias yta="MPV='--no-video' yt"
 
-#carbon alias whatsapp='google-chrome-stable --user-data-dir=$HOME/.config/webapp/whatsapp --app=https://web.whatsapp.com'
-#carbon alias outlook='google-chrome-stable --user-data-dir=$HOME/.config/webapp/microsoft --app=https://outlook.com'
-#carbon alias spotify='google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify --app=https://open.spotify.com/'
-#carbon alias shop='google-chrome-stable --user-data-dir=$HOME/.config/webapp/shop'
-#carbon alias bank='google-chrome-stable --user-data-dir=$HOME/.config/webapp/bank'
-#carbon alias google='google-chrome-stable --user-data-dir=$HOME/.config/webapp/google'
 
 function pihole(){
   curl -Lis http://192.168.178.42/admin/api.php
