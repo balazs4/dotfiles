@@ -13,7 +13,7 @@ xrdb -merge $HOME/.Xresources
 xset r rate 250 100
 
 unclutter --timeout 2 --start-hidden --fork &
-(while true; do sxhkd; sleep 1; done )&
+sxhkd &
 dunst &
 picom &
 exec i3

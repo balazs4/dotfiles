@@ -56,7 +56,6 @@ function TRAPUSR1(){
   source $HOME/.zshrc
   source $HOME/.zshenv
   tmux source-file $HOME/.tmux.conf 2>/dev/null || true
-#carbon  killall -USR1 sxhkd
   echo "TRAPUSR1" >&2
 }
 
@@ -194,6 +193,29 @@ function dot(){
   esac
 }
 
+function localbin() {
+  if test -e $HOME/.local/bin/${1}
+  then
+    printf "%s already exists\n" $HOME/.local/bin/${1}
+    return 1
+  fi
+
+  printf "%s\n\n" '#! /usr/bin/env bash' > $HOME/.local/bin/${1}
+  chmod +x $HOME/.local/bin/${1} > /dev/null
+
+  nvim $HOME/.local/bin/${1}
+
+  printf "dot file %s? [y/n]" ".local/bin/${1}"
+  read ans
+  case "${ans:-n}" in
+    "y")
+      pushd $HOME
+        dot file .local/bin/${1}
+      popd
+      ;;
+  esac
+}
+
 function nvimplug(){
   if [[ ! -z "$1" ]]
   then
@@ -217,7 +239,7 @@ alias so='vim $HOME/.zshenv; source $HOME/.zshenv'
 alias tmuxrc='dot .tmux.conf'
 alias zshrc='dot .zshrc'
 alias nvimrc='dot .config/nvim/init.lua'
-#carbon alias sx="dot .config/sxhkd/sxhkdrc; killall -USR1 sxhkd"
+#carbon alias sx="dot .xbindkeysrc; pkill -SIGKILL xbindkeys; xbindkeys && dunstify -t 1500 xbindkeysrc"
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
 alias ls='ls --color=auto'
 alias grep='grep --color'

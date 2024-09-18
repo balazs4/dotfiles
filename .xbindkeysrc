@@ -1,3 +1,27 @@
+"pulsemixer --change-volume +5           && pkill -SIGRTMIN+1 i3blocks"
+    m:0x0 + c:123
+    XF86AudioRaiseVolume
+
+"pulsemixer --change-volume -5           && pkill -SIGRTMIN+1 i3blocks"
+    m:0x0 + c:122
+    XF86AudioLowerVolume
+
+"pulsemixer --toggle-mute                && pkill -SIGRTMIN+1 i3blocks"
+    m:0x0 + c:121
+    XF86AudioMute
+
+"pulsemixer --toggle-mute --id source-7  && pkill -SIGRTMIN+1 i3blocks"
+    m:0x0 + c:198
+    XF86AudioMicMute
+
+"xbacklight -25"
+    m:0x0 + c:232
+    XF86MonBrightnessDown
+
+"xbacklight +25"
+    m:0x0 + c:233
+    XF86MonBrightnessUp
+
 "alacritty"
     m:0x40 + c:36
     Mod4 + Return
@@ -5,4 +29,57 @@
 "chromium"
     m:0x40 + c:54
     Mod4 + c
+
+"dmenu_run -i -sb '#{{base0D-hex}}' -fn 'GeistMono-12'"
+    m:0x40 + c:40
+    Mod4 + d
+
+"slock"
+    m:0x40 + c:46
+    Mod4 + l
+
+"$HOME/.local/bin/xbind print"
+    m:0x40 + c:107
+    Mod4 + Print
+
+#"(Scheme function)"
+#    m:0x0 + c:224
+#    XF86Messenger
+#
+#"(Scheme function)"
+#    m:0x0 + c:226
+#    XF86Go
+#
+#"(Scheme function)"
+#    m:0x0 + c:231
+#    Cancel
+#
+#"(Scheme function)"
+#    m:0x0 + c:164
+#    XF86Favorites
+#
+#"(Scheme function)"
+#    m:0x40 + c:51
+#    Mod4 + backslash
+#
+#"(Scheme function)"
+#    m:0x40 + c:133
+#    Mod4 + Super_L
+#
+#"(Scheme function)"
+#    m:0x44 + c:105
+#    Control+Mod4 + Control_R
+#
+#"(Scheme function)"
+#    m:0x40 + c:112
+#    Mod4 + Prior
+#
+#"(Scheme function)"
+#    m:0x40 + c:117
+#    Mod4 + Next
+#
+#"(Scheme function)"
+#    m:0x41 + c:40
+#    Shift+Mod4 + d
+#
 

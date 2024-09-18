@@ -8,7 +8,6 @@ case "${1:-help}" in
     ;;
 
   "help")
-    *)
     printf "xbind %s\n" "print"
     ;;
 esac
