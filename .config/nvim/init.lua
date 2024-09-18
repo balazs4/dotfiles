@@ -105,6 +105,7 @@ end
 
 vim.api.nvim_create_autocmd('FileType', { pattern = {'go'},                            callback = function() vim_lsp_start('go.mod',             {'gpls'}) end })
 vim.api.nvim_create_autocmd('FileType', { pattern = {'terraform'},                     callback = function() vim_lsp_start('.terrform.lock.hcl', {'terraform-ls', 'serve'}) end })
+vim.api.nvim_create_autocmd('FileType', { pattern = {'rust'},                          callback = function() vim_lsp_start('Cargo.toml',         {'rust-analyzer'}) end })
 vim.api.nvim_create_autocmd('FileType', { pattern = {'typescript', 'typescriptreact', 'javascript', 'javascriptreact'}, 
   callback = function() 
     vim_lsp_start('deno.json', {'deno', 'lsp'}) 
@@ -122,13 +123,15 @@ require('fzf-lua').setup({
 })
 
 vim.keymap.set('n', '<leader>-', require('fzf-lua').builtin, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader><leader>', function() require('fzf-lua').files({resume=true}) end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader><leader>', function() require('fzf-lua').files({resume=false}) end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>[', function() require('fzf-lua').files({resume=true}) end, { noremap = true, silent = true })
 vim.keymap.set('n', '``', require('fzf-lua').buffers, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>=', require('fzf-lua').grep_project, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>w', require('fzf-lua').grep_cword, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>W', require('fzf-lua').grep_cWORD, { noremap = true, silent = true })
 vim.keymap.set('v', '<leader>w', require('fzf-lua').grep_visual, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>/', require('fzf-lua').blines, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>0', require('fzf-lua').resume, { noremap = true, silent = true })
 
 vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { noremap = true, silent = true })
 vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, { noremap = true, silent = true })
