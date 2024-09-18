@@ -1,0 +1,3 @@
+#! /usr/bin/env bash
+
+node -p "new Date(${1:-`cat`}).toJSON()"
