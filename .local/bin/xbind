@@ -1,13 +1,23 @@
 #! /usr/bin/env bash
 
-
 case "${1:-help}" in
-  "print")
+  "shotgun")
     geom=$(hacksaw -f "-i %i -g %g")
-    shotgun ${geom} - | xclip -t 'image/png' -selection clipboard && dunstify -t 2000 "shotgun" "copied to clipboard"
+    shotgun ${geom} - | xclip -t 'image/png' -selection clipboard
+    dunstify -t 2000 "shotgun" "copied to clipboard"
+    ;;
+
+  "setxkbmap")
+    xkbmap=$(setxkbmap -query | awk '/layout/ {print $NF}')
+    case "${xkbmap:-us}" in
+      "us") setxkbmap de ;;
+         *) setxkbmap us ;;
+    esac
+    pkill -SIGRTMIN+2 i3blocks
+    dunstify -t 2000 "setxkbmap -query" "$(setxkbmap -query)"
     ;;
 
   "help")
-    printf "xbind %s\n" "print"
+    printf "xbind %s\n" "shotgun|setxkbmap"
     ;;
 esac

@@ -38,48 +38,43 @@
     m:0x40 + c:46
     Mod4 + l
 
-"$HOME/.local/bin/xbind print"
+"$HOME/.local/bin/xbind shotgun"
     m:0x40 + c:107
     Mod4 + Print
 
-#"(Scheme function)"
-#    m:0x0 + c:224
-#    XF86Messenger
-#
-#"(Scheme function)"
-#    m:0x0 + c:226
-#    XF86Go
-#
-#"(Scheme function)"
-#    m:0x0 + c:231
-#    Cancel
-#
-#"(Scheme function)"
-#    m:0x0 + c:164
-#    XF86Favorites
-#
-#"(Scheme function)"
-#    m:0x40 + c:51
-#    Mod4 + backslash
-#
-#"(Scheme function)"
-#    m:0x40 + c:133
-#    Mod4 + Super_L
-#
-#"(Scheme function)"
-#    m:0x44 + c:105
-#    Control+Mod4 + Control_R
-#
-#"(Scheme function)"
-#    m:0x40 + c:112
-#    Mod4 + Prior
-#
-#"(Scheme function)"
-#    m:0x40 + c:117
-#    Mod4 + Next
-#
+"$HOME/.local/bin/xbind setxkbmap"
+    m:0x0 + c:224
+    XF86Messenger
+
+"playerctl play-pause"
+    m:0x40 + c:105
+    Mod4 + Control_R
+
+"playerctl previous"
+    m:0x40 + c:112
+    Mod4 + Prior
+
+"playerctl next"
+    m:0x40 + c:117
+    Mod4 + Next
+
 #"(Scheme function)"
 #    m:0x41 + c:40
 #    Shift+Mod4 + d
-#
+
+#"(Scheme function)"
+#    m:0x0 + c:226
+#    XF86Go
+
+#"(Scheme function)"
+#    m:0x0 + c:231
+#    Cancel
+
+#"(Scheme function)"
+#    m:0x0 + c:164
+#    XF86Favorites
+
+#"(Scheme function)"
+#    m:0x40 + c:51
+#    Mod4 + backslash
 

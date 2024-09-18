@@ -4,7 +4,7 @@
     width = 512
     height = 256
     offset = 0x32
-    font = Roboto Mono 9
+    font = Geist Mono 9
     indicate_hidden = yes
     shrink = no
     transparency = 0
@@ -29,7 +29,7 @@
     show_indicators = no
     icon_position = left
     max_icon_size = 96
-    icon_path = /usr/share/icons/Adwaita/96x96/status/:/usr/share/icons/Adwaita/96x96/devices/:/usr/share/icons/Adwaita/96x96/apps/
+    icon_path = /usr/share/icons/Adwaita/scalable/status/:/usr/share/icons/Adwaita/scalable/devices/:/usr/share/icons/Adwaita/scalable/apps/
     sticky_history = yes
     history_length = 20
     dmenu = /usr/bin/dmenu -p dunst:
