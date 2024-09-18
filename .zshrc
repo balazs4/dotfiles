@@ -169,10 +169,9 @@ function dot(){
 
     "source")
       TMUX= source $HOME/.files/.zprofile
-      source $HOME/.zshrc && printf ".zshrc sourced\t"
-      test $TMUX && {tmux source-file $HOME/.tmux.conf 2>/dev/null && printf ".tmux.conf sourced\t"} || true
-#mcbpro      aerospace reload-config --no-gui && printf ".aerospace.toml config reloaded"
-      printf "\n"
+      source $HOME/.zshrc || true
+      test $TMUX && tmux source-file $HOME/.tmux.conf 2>/dev/null || true
+#mcbpro      aerospace reload-config --no-gui || true
       ;;
 
     "tmp")
