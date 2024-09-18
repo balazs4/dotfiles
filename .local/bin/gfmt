@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-pushd $(git rev-parse --show-toplevel)
+pushd $(git rev-parse --show-toplevel) >/dev/null
   if test -e $PWD/node_modules/.bin/biome
   then
     >&2 printf "gfmt: %s\n" $PWD/node_modules/.bin/biome
@@ -14,4 +14,4 @@ pushd $(git rev-parse --show-toplevel)
     $PWD/node_modules/.bin/prettier --ignore-unknown --write $(git ls-files --modified)
     exit $?
   fi
-popd
+popd >/dev/null
