@@ -714,3 +714,8 @@ function mvr(){ #vidir
 function focus(){
   mpv --no-video https://youtu.be/GUu8GW6H5Dw
 }
+
+function colima_start(){
+  # TODO: $HOME/.colima/default/colima.yaml
+  colima start --cpu 10 --memory 8 --disk 128 --arch aarch64 --vm-type=vz --vz-rosetta  --network-address
+}
