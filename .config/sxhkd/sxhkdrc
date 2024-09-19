@@ -1,5 +1,0 @@
-super + shift + d 
-  zsh -i -c `cat ~/.zshrc | grep -e ^alias | grep webapp | sed -e 's/alias //g'  | cut -d"=" -f1 | sort | dmenu -i -p webapp -sb "#{{base09-hex}}" -fn 'GeistMono-12'`
-
-super + backslash
-  zsh -i -c 'source ~/.zshrc; now'

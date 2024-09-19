@@ -32,8 +32,35 @@ case "${1:-help}" in
       "microsoft") google-chrome-stable --user-data-dir=$HOME/.config/webapp/microsoft  --app=https://outlook.com ;;
       "spotify")   chromium --app=https://open.spotify.com ;;
       "whatsapp")  chromium --app=https://web.whatsapp.com ;;
-      *) dunstify -t 5000 "${webapp}" "unknown webapp" ;;
     esac
+    ;;
+
+
+  "now")
+    line_index=0
+    while IFS= read -r line
+    do
+      case $line_index in
+        0) track_name=$line ;;
+        1) artist_name=$line ;;
+        2) art_url=$line ;;
+      esac
+      (( line_index++ ))
+    done <<< $(mpris-ctl info '%track_name\n%artist_name\n%art_url')
+
+    searchterm=$(node -p "encodeURIComponent('$artist_name $track_name'.trim())")
+    [[ $art_url ]] && curl -s $art_url -o /tmp/$searchterm.png
+
+    if [[ ! -f /tmp/$searchterm.png ]]
+    then
+      curl -Lisk "https://api.deezer.com/search?strict=on&q=$searchterm" \
+        | stdsplit \
+        | fx 'x => x.data.map(xx => xx.album.cover_medium).join("\n")' \
+        | head -1 \
+        | xargs -I{} curl -s {} -o /tmp/$searchterm.png
+    fi
+
+    dunstify -I /tmp/$searchterm.png "$track_name" "$artist_name"
     ;;
 
 
