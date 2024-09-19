@@ -1,4 +1,4 @@
-#! /usr/bin/env gawk -f
+#! /usr/bin/env -S gawk -f
 
 BEGIN {std="/dev/stderr"}
 /^\s*$/ {print $0 > std; std="/dev/stdout"; next}
