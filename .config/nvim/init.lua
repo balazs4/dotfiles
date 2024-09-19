@@ -103,7 +103,7 @@ local function vim_lsp_start(file, cmd, settings)
   })
 end
 
-vim.api.nvim_create_autocmd('FileType', { pattern = {'go'},                            callback = function() vim_lsp_start('go.mod',             {'gpls'}) end })
+vim.api.nvim_create_autocmd('FileType', { pattern = {'go'},                            callback = function() vim_lsp_start('go.mod',             {'gopls'}) end })
 vim.api.nvim_create_autocmd('FileType', { pattern = {'terraform'},                     callback = function() vim_lsp_start('.terrform.lock.hcl', {'terraform-ls', 'serve'}) end })
 vim.api.nvim_create_autocmd('FileType', { pattern = {'rust'},                          callback = function() vim_lsp_start('Cargo.toml',         {'rust-analyzer'}) end })
 vim.api.nvim_create_autocmd('FileType', { pattern = {'typescript', 'typescriptreact', 'javascript', 'javascriptreact'}, 
