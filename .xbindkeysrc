@@ -58,15 +58,15 @@
     m:0x40 + c:51
     Mod4 + backslash
 
-"playerctl play-pause"
+"mpris-ctl --player active --player inactive pp"
     m:0x40 + c:105
     Mod4 + Control_R
 
-"playerctl previous"
+"mpris-ctl --player active previous"
     m:0x40 + c:112
     Mod4 + Prior
 
-"playerctl next"
+"mpris-ctl --player active next"
     m:0x40 + c:117
     Mod4 + Next
 
