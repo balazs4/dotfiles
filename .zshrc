@@ -474,7 +474,7 @@ alias yta="MPV='--no-video' yt"
 
 
 function pihole(){
-  curl -Lis http://192.168.178.42/admin/api.php
+  curl -Lis http://192.168.178.42/admin/api.php | $HOME/.local/bin/stdsplit
 }
 
 
