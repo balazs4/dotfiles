@@ -17,6 +17,8 @@ start-at-login = true
 alt-shift-q = 'close --quit-if-last-window'
 alt-shift-e = 'enable toggle'
 alt-enter = 'exec-and-forget /Applications/Alacritty.app/Contents/MacOS/alacritty'
+alt-c = 'exec-and-forget /Applications/Chromium.app/Contents/MacOS/chromium'
+
 # Disable annoying and useless "hide application" shortcur
 # -- https://nikitabobko.github.io/AeroSpace/goodness#disable-hide-app
 cmd-h = [] # Disable "hide application"

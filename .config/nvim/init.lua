@@ -31,20 +31,20 @@ end, { noremap = true, silent = true })
 vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC | normal `.') end)
 vim.keymap.set('n', '<C-k>', function() vim.cmd('Inspect') end)
 
-vim.diagnostic.config({
-  signs = false,
-  update_in_insert = false,
-  underline = true,
-  virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4 }
-})
-
-vim.lsp.set_log_level("DEBUG")
 
 vim.api.nvim_create_user_command("LspInfo", function() vim.cmd(":lua= vim.lsp.get_active_clients()") end, {})
 vim.api.nvim_create_user_command("LspStop", function() vim.lsp.stop_client(vim.lsp.get_clients(), { force = true}) end, {})
 
+vim.diagnostic.config({
+  update_in_insert = false,
+  signs = false,
+  underline = true,
+  virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4 }
+})
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
+    vim.lsp.set_log_level("DEBUG")
+
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
     vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { buffer = args.buf })
@@ -72,6 +72,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.keymap.set('n', '<leader>B', function() vim.cmd('! tmux split-window -h "git blame % | vipe -"') end, { buffer = args.buf })
     end
 
+    -- vim.bo[args.buf].omnifunc = vim.lsp.omnifunc
+    print('[LspAttach]:' .. vim.inspect(client.config.cmd))
   end,
 })
 
@@ -152,21 +154,14 @@ vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 -- https://github.com/mattn/emmet-vim
 vim.g.user_emmet_leader_key = '<C-Z>'
 
--- https://github.com/echasnovski/mini.completion
-require('mini.completion').setup({
-  delay = { completion = 100, info = 100, signature = 50 },
-  lsp_completion = { auto_setup = false },
-  mappings = { force_twostep = '<C-Space>', force_fallback = '<A-Space>' },
-})
-
 -- https://github.com/echasnovski/mini.comment
 require('mini.comment').setup()
 
 -- https://github.com/tjdevries/colorbuddy.nvim
 -- https://github.com/jesseleite/nvim-noirbuddy
-require('noirbuddy').setup({
-  colors = {
-   primary = '#{{base05-hex}}',
-   secondary = '#{{base04-hex}}',
-  },
-})
+-- require('noirbuddy').setup({
+--   colors = {
+--    primary = '#{{base05-hex}}',
+--    secondary = '#{{base04-hex}}',
+--   },
+-- })
