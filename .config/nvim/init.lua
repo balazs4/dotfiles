@@ -153,7 +153,11 @@ vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.g.user_emmet_leader_key = '<C-Z>'
 
 -- https://github.com/echasnovski/mini.completion
-require('mini.completion').setup()
+require('mini.completion').setup({
+  delay = { completion = 100, info = 100, signature = 50 },
+  lsp_completion = { auto_setup = false },
+  mappings = { force_twostep = '<C-Space>', force_fallback = '<A-Space>' },
+})
 
 -- https://github.com/echasnovski/mini.comment
 require('mini.comment').setup()
