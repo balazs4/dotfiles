@@ -157,3 +157,12 @@ require('mini.completion').setup()
 
 -- https://github.com/echasnovski/mini.comment
 require('mini.comment').setup()
+
+-- https://github.com/tjdevries/colorbuddy.nvim
+-- https://github.com/jesseleite/nvim-noirbuddy
+require('noirbuddy').setup({
+  colors = {
+   primary = '#{{base05-hex}}',
+   secondary = '#{{base04-hex}}',
+  },
+})
