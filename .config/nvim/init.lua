@@ -72,8 +72,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.keymap.set('n', '<leader>B', function() vim.cmd('! tmux split-window -h "git blame % | vipe -"') end, { buffer = args.buf })
     end
 
-    -- vim.bo[args.buf].omnifunc = vim.lsp.omnifunc
-    print('[LspAttach]:' .. vim.inspect(client.config.cmd))
+    -- TODO: omnifunc lsp complete
+    -- if client.supports_method('textDocument/completion') then
+    --   vim.lsp.completion.enable(true, client.id, args.buf, {autotrigger = true})
+    -- end
+
+    print('[LspAttach]:' .. vim.inspect(client.config.cmd) .. vim.inspect(args.buf))
   end,
 })
 
