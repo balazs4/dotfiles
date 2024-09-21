@@ -1,0 +1,11 @@
+#! /usr/bin/env bash
+
+node -e "
+  const [header, payload, signature] = '${1:-`cat`}'.split('.').map(x => Buffer.from(x, 'base64').toString());
+  const jwt = {header:JSON.parse(header), payload: JSON.parse(payload)};
+  process.stdout.write(require('node:util').inspect(jwt));
+  process.stdout.write('\n');
+
+  process.stderr.write(new Date(payload.exp).toJSON());
+  process.stderr.write('\n');
+"
