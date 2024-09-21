@@ -479,8 +479,7 @@ function pihole(){
 
 
 function qrdecode {
-  geom=$(hacksaw -f "-i %i -g %g")
-  shotgun "${geom}" - | zbarimg -q --raw -
+  shotgun `hacksaw -f '-i %i -g %g'` - | zbarimg -q --raw -
 }
 
 function reddit(){
