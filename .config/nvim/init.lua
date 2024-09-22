@@ -38,10 +38,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.api.nvim_command('syntax on')
     end
 
-    vim.api.nvim_command('colorscheme retrobox')
-    vim.api.nvim_command("hi Normal guibg=none ctermbg=none")
-    vim.api.nvim_command("hi NonText guibg=none ctermbg=none")
-
     vim.lsp.set_log_level("DEBUG")
     vim.diagnostic.config({
       update_in_insert = false,

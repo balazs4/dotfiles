@@ -3,20 +3,38 @@
 script="${1:-test}"
 file=${2:-$PWD}
 
-shift
-git_root=`git rev-parse --show-toplevel`
-real_path=`realpath $file`
-dir=`dirname $real_path`
+shift; shift;
+git_root=$(git rev-parse --show-toplevel)
+real_path=$(realpath $file)
+dir=$(dirname $real_path)
 test -d $realpath && dir=$real_path
 while true
 do
   test -f "$dir/package.json" && break;
   test "$dir" = "$git_root" && break;
-  dir=`dirname $dir`
+  dir=$(dirname $dir)
 done
 
-if test "${script}" = 'test'; then script="${script} -- ${file} --verbose"; fi
+case $script in
+  "test")
+    if test -f "${file}"
+    then
+      script="${script} -- ${file} ${*}"
+    else
+      script="${script} -- ${*}"
+    fi
+    ;;
 
+  *)
+    script="${script} -- ${*}"
+    ;;
+esac
+
+# go install github.com/balazs4/changing@latest
 pushd $dir
-  watchexec -v -c --print-events --project-origin $PWD --restart --stop-timeout 0 -- npm run "${script} ${*}"
+  while true
+  do
+    npm run ${script}
+    changing $(git ls-files) && clear || break
+  done
 popd
