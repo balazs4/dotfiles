@@ -20,6 +20,7 @@ vim.opt.undofile = false
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
+vim.opt.syntax = 'off'
 
 vim.keymap.set('n', '<cr><cr>', function() vim.cmd('<silent>! TMUX= NO_DIFF=1 source $HOME/.files/.zprofile') end, { noremap = true })
 vim.keymap.set('n', '<leader>g', function()
@@ -109,14 +110,30 @@ local function vim_lsp_start(file, cmd, settings)
   })
 end
 
-vim.api.nvim_create_autocmd('FileType', { pattern = {'go'},                            callback = function() vim_lsp_start('go.mod',             {'gopls'}) end })
-vim.api.nvim_create_autocmd('FileType', { pattern = {'terraform'},                     callback = function() vim_lsp_start('.terrform.lock.hcl', {'terraform-ls', 'serve'}) end })
-vim.api.nvim_create_autocmd('FileType', { pattern = {'rust'},                          callback = function() vim_lsp_start('Cargo.toml',         {'rust-analyzer'}) end })
 vim.api.nvim_create_autocmd('FileType', { pattern = {'typescript', 'typescriptreact', 'javascript', 'javascriptreact'}, 
   callback = function() 
     vim_lsp_start('deno.json', {'deno', 'lsp'}) 
     vim_lsp_start('node_modules/.bin/tsserver', {'typescript-language-server', '--stdio'})
   end
+})
+
+vim.api.nvim_create_autocmd('FileType', { pattern = {'go'},
+  callback = function() 
+    vim_lsp_start('go.mod',{'gopls'}) 
+    vim_lsp_start('go.work',{'gopls'}) 
+  end 
+})
+
+vim.api.nvim_create_autocmd('FileType', { pattern = {'terraform'},
+  callback = function() 
+    vim_lsp_start('.terrform.lock.hcl', {'terraform-ls', 'serve'}) 
+  end 
+})
+
+vim.api.nvim_create_autocmd('FileType', { pattern = {'rust'},
+  callback = function()
+    vim_lsp_start('Cargo.toml', {'rust-analyzer'})
+  end 
 })
 
 -- https://github.com/ibhagwan/fzf-lua
@@ -145,15 +162,6 @@ vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_workspace_diagnostics, {
 vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>Y', require('fzf-lua').lsp_workspace_symbols, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>`', require('fzf-lua').lsp_finder, { noremap = true, silent = true })
-
--- https://github.com/nvim-treesitter/nvim-treesitter
-require('nvim-treesitter.configs').setup({
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false
-  }
-})
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
 -- https://github.com/mattn/emmet-vim
 vim.g.user_emmet_leader_key = '<C-Z>'
