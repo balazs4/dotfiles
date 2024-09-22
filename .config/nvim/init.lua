@@ -1,7 +1,8 @@
-vim.cmd('colorscheme quiet') -- $HOME/.files/.config/nvim/colors/
-vim.opt.background = '{{variant}}'
+vim.api.nvim_command('syntax off')
+vim.api.nvim_command('colorscheme quiet')
 vim.api.nvim_command("hi Normal guibg=none ctermbg=none")
 vim.api.nvim_command("hi NonText guibg=none ctermbg=none")
+vim.opt.background = '{{variant}}'
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -20,7 +21,6 @@ vim.opt.undofile = false
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
-vim.opt.syntax = 'on'
 
 vim.keymap.set('n', '<cr><cr>', function() vim.cmd('<silent>! TMUX= NO_DIFF=1 source $HOME/.files/.zprofile') end, { noremap = true })
 vim.keymap.set('n', '<leader>g', function()
@@ -30,23 +30,25 @@ vim.keymap.set('n', '<leader>g', function()
 end, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC | normal `.') end)
-vim.keymap.set('n', '<C-k>', function() vim.cmd('Inspect') end)
 
-
-vim.api.nvim_create_user_command("LspInfo", function() vim.cmd(":lua= vim.lsp.get_active_clients()") end, {})
-vim.api.nvim_create_user_command("LspStop", function() vim.lsp.stop_client(vim.lsp.get_clients(), { force = true}) end, {})
-
-vim.diagnostic.config({
-  update_in_insert = false,
-  signs = false,
-  underline = true,
-  virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4 }
-})
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
+    pcall(vim.treesitter.start, args.buf)
     vim.lsp.set_log_level("DEBUG")
+    vim.diagnostic.config({
+      update_in_insert = false,
+      signs = false,
+      underline = true,
+      virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4 },
+      severity_sort = true,
+    })
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client == nil then return end
+
+    vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(client)) end, {})
+    vim.api.nvim_create_user_command("LspStop", function() client.stop() end, {})
+
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
     vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { buffer = args.buf })
     vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { buffer = args.buf })
@@ -83,7 +85,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 
-local function root_dir(file)
+local function get_root_dir(file)
   if os.execute('test -e ' .. file) == 0
   then
     return vim.fn.getcwd()
@@ -99,7 +101,7 @@ local function root_dir(file)
 end
 
 local function vim_lsp_start(file, cmd, settings)
-  local root_dir = root_dir(file)
+  local root_dir = get_root_dir(file)
   if root_dir == nil then return end
 
   vim.lsp.start({
@@ -110,30 +112,57 @@ local function vim_lsp_start(file, cmd, settings)
   })
 end
 
-vim.api.nvim_create_autocmd('FileType', { pattern = {'typescript', 'typescriptreact', 'javascript', 'javascriptreact'}, 
-  callback = function() 
-    vim_lsp_start('deno.json', {'deno', 'lsp'}) 
+vim.api.nvim_create_autocmd('FileType', { pattern = {'typescript', 'typescriptreact', 'javascript', 'javascriptreact'},
+  callback = function()
+    vim_lsp_start('deno.json', {'deno', 'lsp'})
     vim_lsp_start('node_modules/.bin/tsserver', {'typescript-language-server', '--stdio'})
   end
 })
 
 vim.api.nvim_create_autocmd('FileType', { pattern = {'go'},
-  callback = function() 
-    vim_lsp_start('go.mod',{'gopls'}) 
-    vim_lsp_start('go.work',{'gopls'}) 
-  end 
+  callback = function()
+    vim_lsp_start('go.mod',{'gopls'})
+    vim_lsp_start('go.work',{'gopls'})
+  end
 })
 
 vim.api.nvim_create_autocmd('FileType', { pattern = {'terraform'},
-  callback = function() 
-    vim_lsp_start('.terrform.lock.hcl', {'terraform-ls', 'serve'}) 
-  end 
+  callback = function()
+    vim_lsp_start('.terrform.lock.hcl', {'terraform-ls', 'serve'})
+  end
 })
 
 vim.api.nvim_create_autocmd('FileType', { pattern = {'rust'},
   callback = function()
     vim_lsp_start('Cargo.toml', {'rust-analyzer'})
-  end 
+  end
+})
+
+vim.api.nvim_create_autocmd('FileType', { pattern = {'lua'},
+  callback = function()
+    local cmd = {'lua-language-server'}
+    vim.lsp.start({
+      cmd = cmd,
+      name = cmd[1],
+      root_dir = vim.fn.getcwd(),
+      settings = {
+        Lua = {
+          runtime = {
+            version = 'LuaJIT'
+          },
+          diagnostics = {
+            globals = { 'vim' }
+          },
+          workspace = {
+            library = {
+              vim.env.VIMRUNTIME
+            },
+            checkThirdParty = false
+          }
+        }
+      }
+    })
+  end
 })
 
 -- https://github.com/ibhagwan/fzf-lua
