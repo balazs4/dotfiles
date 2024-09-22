@@ -1,4 +1,4 @@
-vim.cmd('colorscheme base16') -- $HOME/.files/.config/nvim/colors/
+vim.cmd('colorscheme quiet') -- $HOME/.files/.config/nvim/colors/
 vim.opt.background = '{{variant}}'
 vim.api.nvim_command("hi Normal guibg=none ctermbg=none")
 vim.api.nvim_command("hi NonText guibg=none ctermbg=none")
@@ -20,7 +20,7 @@ vim.opt.undofile = false
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
-vim.opt.syntax = 'off'
+vim.opt.syntax = 'on'
 
 vim.keymap.set('n', '<cr><cr>', function() vim.cmd('<silent>! TMUX= NO_DIFF=1 source $HOME/.files/.zprofile') end, { noremap = true })
 vim.keymap.set('n', '<leader>g', function()
@@ -78,7 +78,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     --   vim.lsp.completion.enable(true, client.id, args.buf, {autotrigger = true})
     -- end
 
-    print('[LspAttach]:' .. vim.inspect(client.config.cmd) .. vim.inspect(args.buf))
+    print('[LspAttach]:' .. vim.inspect(client.config.cmd))
   end,
 })
 
@@ -167,13 +167,8 @@ vim.keymap.set('n', '<leader>`', require('fzf-lua').lsp_finder, { noremap = true
 vim.g.user_emmet_leader_key = '<C-Z>'
 
 -- https://github.com/echasnovski/mini.comment
-require('mini.comment').setup()
-
--- https://github.com/tjdevries/colorbuddy.nvim
--- https://github.com/jesseleite/nvim-noirbuddy
--- require('noirbuddy').setup({
---   colors = {
---    primary = '#{{base05-hex}}',
---    secondary = '#{{base04-hex}}',
---   },
--- })
+require('mini.comment').setup({
+  options = {
+    ignore_blank_line = true
+  }
+})
