@@ -70,11 +70,11 @@
     m:0x40 + c:117
     Mod4 + Next
 
-"dunstify -t 1000 XF86Go"
+"printf 'level %s' 7    | sudo tee /proc/acpi/ibm/fan | xargs dunstify"
     m:0x0 + c:226
     XF86Go
 
-"dunstify -t 1000 Cancel"
+"printf 'level %s' auto | sudo tee /proc/acpi/ibm/fan | xargs dunstify"
     m:0x0 + c:231
     Cancel
 
