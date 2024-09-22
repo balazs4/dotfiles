@@ -121,21 +121,15 @@ export N_PRESERVE_NPM=1
 export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
 #mcbpro export PNPM_HOME=$HOME/.pnpm-global
 #mcbpro export PATH=$PNPM_HOME:${PATH}
-function npmu(){
-  pushd $N_PREFIX/lib/node_modules
-    find . -maxdepth 2 -type f -name package.json \
-      | xargs -I{} fx {} .name \
-      | xargs -I{} -t npm install -g {}@latest
-  popd
-}
 
 #go
 export GOROOT=$HOME/.g # https://github.com/stefanmaric/g
 export GOPATH=$HOME/.go
 export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 
-#rust
-export PATH=$HOME/.cargo/bin:$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/:${PATH}
+#lua
+#curl https://github.com/LuaLS/lua-language-server/releases/download/3.10.6/lua-language-server-3.10.6-linux-x64.tar.gz -L | tar xvz -C $HOME/.lua/
+export PATH=$HOME/.lua/bin:${PATH}
 
 #bun
 export DO_NOT_TRACK=1
