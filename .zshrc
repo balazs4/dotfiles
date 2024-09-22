@@ -216,12 +216,12 @@ function nvimplug(){
     local name=`echo $1 | awk -F/ '{print $NF}'`
     echo "require('$name').setup()" >> $HOME/.files/.config/nvim/init.lua
     TMUX= source $HOME/.files/.zprofile
-    git -C $HOME/.local/share/nvim/site/pack/_/opt/ clone --depth=1 $1
+    git -C $HOME/.local/share/nvim/site/pack/_/start/ clone --depth=1 $1
     return
   fi
 
-  rm -rf $HOME/.local/share/nvim/site/pack/_/opt/* 2>/dev/null
-  mkdir -p $HOME/.local/share/nvim/site/pack/_/opt/ 2>/dev/null
+  rm -rf $HOME/.local/share/nvim/site/pack/_/start/* 2>/dev/null
+  mkdir -p $HOME/.local/share/nvim/site/pack/_/start/ 2>/dev/null
 
   pushd $HOME/.local/share/nvim/site/pack/_/start/
     grep '^\s*-- https://git' $HOME/.config/nvim/init.lua | sed 's/^[[:space:]]*-- //g' | xargs -t -L1 git clone --depth=1
