@@ -33,10 +33,10 @@ vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $M
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
-    local ok = pcall(vim.treesitter.start, args.buf)
-    if not ok then
-      vim.api.nvim_command('syntax on')
-    end
+    pcall(vim.treesitter.start, args.buf)
+    vim.api.nvim_command('colorscheme retrobox')
+    vim.api.nvim_command("hi Normal guibg=none ctermbg=none")
+    vim.api.nvim_command("hi NonText guibg=none ctermbg=none")
 
     vim.lsp.set_log_level("DEBUG")
     vim.diagnostic.config({
@@ -75,7 +75,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       pcall(vim.keymap.del, 'n', '<leader>p')
       vim.keymap.set('n', '<leader>p', function() vim.cmd('! gfmt') end, { buffer = args.buf })
       vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end, { buffer = args.buf })
-      vim.keymap.set('n', '<leader>r', function() vim.cmd('! tmux split-window -h "npmw test ' .. filename(true) .. '"') end, { buffer = args.buf })
+      vim.keymap.set('n', '<leader>r', function() vim.cmd('! tmux split-window -h "npmw test ' .. filename(true) .. ' --verbose "') end, { buffer = args.buf })
       vim.keymap.set('n', '<leader>B', function() vim.cmd('! tmux split-window -h "git blame % | vipe -"') end, { buffer = args.buf })
     end
 
