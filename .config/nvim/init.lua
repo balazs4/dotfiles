@@ -72,6 +72,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
         return string.gsub(buffer, ".ts$", ".test.ts")
       end
 
+      -- vim.api.nvim_create_user_command("Lint",
+      -- function()
+      --   local makefile=[[
+      --   .PHONY: eslint
+      --   eslint:
+      --     @npm run --silent eslint-fix -- --format=unix | awk '/^\// {print $0}'
+      --   ]]
+      --   -- TODO: write into .DS_Store or use `echo $makefile | make -f -`
+      --   vim.api.nvim_command(":silent make -f .DS_Store eslint-fix | copen")
+      -- end, {})
+
       pcall(vim.keymap.del, 'n', '<leader>p')
       vim.keymap.set('n', '<leader>p', function() vim.cmd('! gfmt') end, { buffer = args.buf })
       vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end, { buffer = args.buf })
