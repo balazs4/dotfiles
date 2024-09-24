@@ -1,3 +1,4 @@
+-- TODO: omnifunc from opened buffers
 vim.api.nvim_command('syntax off')
 vim.api.nvim_command('colorscheme quiet')
 vim.api.nvim_command("hi Normal guibg=none ctermbg=none")
@@ -33,12 +34,11 @@ vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $M
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
-    pcall(vim.treesitter.start, args.buf)
+    -- pcall(vim.treesitter.start, args.buf)
     vim.api.nvim_command('colorscheme retrobox')
     vim.api.nvim_command("hi Normal guibg=none ctermbg=none")
     vim.api.nvim_command("hi NonText guibg=none ctermbg=none")
 
-    vim.lsp.set_log_level("DEBUG")
     vim.diagnostic.config({
       update_in_insert = false,
       signs = false,
@@ -60,6 +60,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     if client.config.cmd[1] == 'typescript-language-server'
     then
+      vim.lsp.set_log_level("DEBUG")
       local function filename(test)
         local buffer = vim.fn.expand('%')
         if buffer:sub(-string.len('test.ts')) == 'test.ts' then
@@ -216,3 +217,6 @@ require('mini.comment').setup({
     ignore_blank_line = true
   }
 })
+
+-- https://github.com/norcalli/nvim-colorizer.lua
+require('colorizer').setup()
