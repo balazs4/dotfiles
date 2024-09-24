@@ -45,6 +45,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       underline = true,
       virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4 },
       severity_sort = true,
+      source = true
     })
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)
