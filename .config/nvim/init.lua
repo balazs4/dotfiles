@@ -97,7 +97,24 @@ vim.api.nvim_create_autocmd('LspAttach', {
     --   vim.lsp.completion.enable(true, client.id, args.buf, {autotrigger = true})
     -- end
 
-    print('[LspAttach]:' .. vim.inspect(client.config.cmd))
+    vim.lsp.handlers['$/progress'] = function(err, progress, ctx)
+      if err then return end
+      local cmd
+      if progress.value.kind == 'begin' then
+	      cmd = string.format('redraw | echo "[Lsp:%s] kind=%s"', client.name, progress.value.kind)
+      end
+
+      if progress.value.kind == 'report' then
+	      cmd = string.format('redraw | echo "[Lsp:%s] kind=%s\tpercentage=%d%%"', client.name, progress.value.kind, progress.value.percentage)
+      end
+
+      if progress.value.kind == 'end' then
+	      cmd = string.format('redraw | echo "[Lsp:%s] kind=%s"', client.name, progress.value.kind)
+      end
+
+      if not cmd then return end
+      vim.api.nvim_command(cmd)
+    end
   end,
 })
 
