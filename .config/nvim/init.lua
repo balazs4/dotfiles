@@ -97,24 +97,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
     --   vim.lsp.completion.enable(true, client.id, args.buf, {autotrigger = true})
     -- end
 
-    vim.lsp.handlers['$/progress'] = function(err, progress, ctx)
-      if err then return end
-      local cmd
-      if progress.value.kind == 'begin' then
-	      cmd = string.format('redraw | echo "[Lsp:%s] kind=%s"', client.name, progress.value.kind)
-      end
+  end,
+})
 
-      if progress.value.kind == 'report' then
-	      cmd = string.format('redraw | echo "[Lsp:%s] kind=%s\tpercentage=%d%%"', client.name, progress.value.kind, progress.value.percentage)
-      end
+vim.api.nvim_create_autocmd('LspProgress', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client == nil then return end
 
-      if progress.value.kind == 'end' then
-	      cmd = string.format('redraw | echo "[Lsp:%s] kind=%s"', client.name, progress.value.kind)
-      end
+    local msg = string.format("[Lsp:%s] title=%s\tkind=%s",  client.name, args.data.params.value.title, args.data.params.value.kind)
 
-      if not cmd then return end
-      vim.api.nvim_command(cmd)
+    if args.data.params.value.kind == 'report' then
+      msg = string.format('%s\tmessage=%s\tpercentage=%s', msg, args.data.params.value.message, args.data.params.value.percentage)
     end
+
+    if not msg then return end
+    vim.api.nvim_command(string.format('redraw | echo "%s"', msg))
   end,
 })
 
