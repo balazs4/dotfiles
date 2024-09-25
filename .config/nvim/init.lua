@@ -33,6 +33,16 @@ end, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC | normal `.') end)
 
+vim.api.nvim_create_autocmd('LspRequest', {
+  callback = function(args)
+  end
+})
+
+vim.api.nvim_create_autocmd('LspProgress', {
+  callback = function(args)
+  end
+})
+
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     vim.opt.cmdheight = 2
