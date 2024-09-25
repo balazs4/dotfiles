@@ -34,6 +34,7 @@ vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $M
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
+    vim.opt.cmdheight = 2
     -- pcall(vim.treesitter.start, args.buf)
     vim.api.nvim_command('colorscheme retrobox')
     vim.api.nvim_command("hi Normal guibg=none ctermbg=none")
@@ -104,14 +105,25 @@ vim.api.nvim_create_autocmd('LspProgress', {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
-
-    local msg = string.format("[Lsp:%s] title=%s\tkind=%s",  client.name, args.data.params.value.title, args.data.params.value.kind)
-
+    local msg = string.format("[Lsp:%s] event=LspProgress\ttitle=%s\tkind=%s",  client.name, args.data.params.value.title, args.data.params.value.kind)
     if args.data.params.value.kind == 'report' then
       msg = string.format('%s\tmessage=%s\tpercentage=%s', msg, args.data.params.value.message, args.data.params.value.percentage)
     end
 
-    if not msg then return end
+    if args.data.params.value.kind == 'end' then
+    end
+
+
+    vim.api.nvim_command(string.format('redraw | echo "%s"', msg))
+  end,
+})
+
+vim.api.nvim_create_autocmd('LspRequest', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client == nil then return end
+
+    local msg = string.format("[Lsp:%s] event=LspRequest\ttype=%s\tmethod=%s",  client.name, args.data.request.type, args.data.request.method)
     vim.api.nvim_command(string.format('redraw | echo "%s"', msg))
   end,
 })
