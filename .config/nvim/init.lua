@@ -1,8 +1,8 @@
 -- TODO: omnifunc from opened buffers
-vim.api.nvim_command('syntax off')
-vim.api.nvim_command('colorscheme quiet')
-vim.api.nvim_command("hi Normal guibg=none ctermbg=none")
-vim.api.nvim_command("hi NonText guibg=none ctermbg=none")
+vim.cmd('syntax off')
+vim.cmd('colorscheme quiet')
+vim.cmd("hi Normal guibg=none ctermbg=none")
+vim.cmd("hi NonText guibg=none ctermbg=none")
 vim.opt.background = '{{variant}}'
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
@@ -23,7 +23,8 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
 
-vim.keymap.set('n', '<cr><cr>', function() vim.cmd('<silent>! TMUX= NO_DIFF=1 source $HOME/.files/.zprofile') end, { noremap = true })
+vim.keymap.set('n', '<cr><cr>', function() vim.cmd('<silent>! TMUX= NO_DIFF=1 source $HOME/.files/.zprofile') end,
+  { noremap = true })
 vim.keymap.set('n', '<leader>g', function()
   local filename = string.gsub(vim.fn.expand('%'), os.getenv('PWD') or "", "")
   local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
@@ -36,9 +37,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     vim.opt.cmdheight = 2
     -- pcall(vim.treesitter.start, args.buf)
-    vim.api.nvim_command('colorscheme retrobox')
-    vim.api.nvim_command("hi Normal guibg=none ctermbg=none")
-    vim.api.nvim_command("hi NonText guibg=none ctermbg=none")
+    vim.cmd('colorscheme retrobox')
+    vim.cmd("hi Normal guibg=none ctermbg=none")
+    vim.cmd("hi NonText guibg=none ctermbg=none")
 
     vim.diagnostic.config({
       update_in_insert = false,
@@ -60,44 +61,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { buffer = args.buf })
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
 
-    if client.config.cmd[1] == 'typescript-language-server'
-    then
-      vim.lsp.set_log_level("DEBUG")
-      local function filename(test)
-        local buffer = vim.fn.expand('%')
-        if buffer:sub(-string.len('test.ts')) == 'test.ts' then
-          if test == true then
-            return buffer
-          else
-            return string.gsub(buffer, ".test.ts$", ".ts")
-          end
-        end
-        return string.gsub(buffer, ".ts$", ".test.ts")
-      end
-
-      -- vim.api.nvim_create_user_command("Lint",
-      -- function()
-      --   local makefile=[[
-      --   .PHONY: eslint
-      --   eslint:
-      --     @npm run --silent eslint-fix -- --format=unix | awk '/^\// {print $0}'
-      --   ]]
-      --   -- TODO: write into .DS_Store or use `echo $makefile | make -f -`
-      --   vim.api.nvim_command(":silent make -f .DS_Store eslint-fix | copen")
-      -- end, {})
-
-      pcall(vim.keymap.del, 'n', '<leader>p')
-      vim.keymap.set('n', '<leader>p', function() vim.cmd('! gfmt') end, { buffer = args.buf })
-      vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename(false)) end, { buffer = args.buf })
-      vim.keymap.set('n', '<leader>r', function() vim.cmd('! tmux split-window -h "npmw test ' .. filename(true) .. ' --verbose "') end, { buffer = args.buf })
-      vim.keymap.set('n', '<leader>B', function() vim.cmd('! tmux split-window -h "git blame % | vipe -"') end, { buffer = args.buf })
-    end
-
     -- TODO: omnifunc lsp complete
     -- if client.supports_method('textDocument/completion') then
     --   vim.lsp.completion.enable(true, client.id, args.buf, {autotrigger = true})
     -- end
-
   end,
 })
 
@@ -105,16 +72,14 @@ vim.api.nvim_create_autocmd('LspProgress', {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
-    local msg = string.format("[Lsp:%s] event=LspProgress\ttitle=%s\tkind=%s",  client.name, args.data.params.value.title, args.data.params.value.kind)
+    local msg = string.format("[Lsp:%s] event=LspProgress\ttitle=%s\tkind=%s", client.name, args.data.params.value.title,
+      args.data.params.value.kind)
     if args.data.params.value.kind == 'report' then
-      msg = string.format('%s\tmessage=%s\tpercentage=%s', msg, args.data.params.value.message, args.data.params.value.percentage)
+      msg = string.format('%s\tmessage=%s\tpercentage=%s', msg, args.data.params.value.message,
+        args.data.params.value.percentage)
     end
 
-    if args.data.params.value.kind == 'end' then
-    end
-
-
-    vim.api.nvim_command(string.format('redraw | echo "%s"', msg))
+    vim.cmd(string.format('redraw | echo "%s"', msg))
   end,
 })
 
@@ -123,8 +88,9 @@ vim.api.nvim_create_autocmd('LspRequest', {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
 
-    local msg = string.format("[Lsp:%s] event=LspRequest\ttype=%s\tmethod=%s",  client.name, args.data.request.type, args.data.request.method)
-    vim.api.nvim_command(string.format('redraw | echo "%s"', msg))
+    local msg = string.format("[Lsp:%s] event=LspRequest\ttype=%s\tmethod=%s", client.name, args.data.request.type,
+      args.data.request.method)
+    vim.cmd(string.format('redraw | echo "%s"', msg))
   end,
 })
 
@@ -136,7 +102,7 @@ local function get_root_dir(file)
   end
 
   local git_root_dir = vim.fn.system("git rev-parse --show-toplevel"):gsub('[\n\r]+', '')
-  if os.execute('test -e ' .. git_root_dir ..  '/' .. file) == 0
+  if os.execute('test -e ' .. git_root_dir .. '/' .. file) == 0
   then
     return git_root_dir
   end
@@ -144,6 +110,7 @@ local function get_root_dir(file)
   return nil
 end
 
+-- @deprecated use `configure` instead
 local function vim_lsp_start(file, cmd, settings)
   local root_dir = get_root_dir(file)
   if root_dir == nil then return end
@@ -152,59 +119,95 @@ local function vim_lsp_start(file, cmd, settings)
     cmd = cmd,
     settings = settings,
     name = cmd[1],
-    root_dir = root_dir,
+    root_dir = root_dir
   })
 end
 
-vim.api.nvim_create_autocmd('FileType', { pattern = {'typescript', 'typescriptreact', 'javascript', 'javascriptreact'},
+local function configure(file, cmd)
+  local root_dir = get_root_dir(file)
+  if root_dir == nil then return end
+  return { cmd = cmd, name = cmd[1], root_dir = root_dir }
+end
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   callback = function()
-    vim_lsp_start('deno.json', {'deno', 'lsp'})
-    vim_lsp_start('node_modules/.bin/tsserver', {'typescript-language-server', '--stdio'})
+    local config = nil
+    config = configure('node_modules/.bin/tsserver', { 'typescript-language-server', '--stdio' })
+    if config ~= nil then
+      local function filename(mode)
+        local buffer = vim.fn.expand('%')
+        if buffer:sub(-string.len('test.ts')) == 'test.ts' then
+          if mode == 'ensure_test_ts' then
+            return buffer
+          else
+            return string.gsub(buffer, ".test.ts$", ".ts")
+          end
+        end
+        return string.gsub(buffer, ".ts$", ".test.ts")
+      end
+
+      vim.lsp.start({
+        cmd = config.cmd,
+        name = config.name,
+        root_dir = config.root_dir,
+        on_attach = function(client, bufnr)
+          pcall(vim.keymap.del, 'n', '<leader>p')
+          vim.keymap.set('n', '<leader>p', function() vim.cmd('! gfmt') end, { buffer = bufnr })
+          vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename('toggle')) end, { buffer = bufnr })
+          vim.keymap.set('n', '<leader>r',
+            function() vim.cmd('! tmux split-window -h "npmw test ' .. filename('ensure_test_ts') .. ' --verbose "') end,
+            { buffer = bufnr })
+          vim.keymap.set('n', '<leader>B', function() vim.cmd('! tmux split-window -h "git blame % | vipe -"') end,
+            { buffer = bufnr })
+        end
+      })
+      return
+    end
+
+    config = configure('deno.lock', { 'deno', 'lsp' })
+    if config ~= nil then
+      vim.lsp.start({
+        cmd = config.cmd,
+        name = config.name,
+        root_dir = config.root_dir
+      })
+      return
+    end
   end
 })
 
-vim.api.nvim_create_autocmd('FileType', { pattern = {'go'},
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'go' },
   callback = function()
-    vim_lsp_start('go.mod',{'gopls'})
-    vim_lsp_start('go.work',{'gopls'})
+    vim_lsp_start('go.mod', { 'gopls' })
+    vim_lsp_start('go.work', { 'gopls' })
   end
 })
 
-vim.api.nvim_create_autocmd('FileType', { pattern = {'terraform'},
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'terraform' },
   callback = function()
-    vim_lsp_start('.terrform.lock.hcl', {'terraform-ls', 'serve'})
+    vim_lsp_start('.terrform.lock.hcl', { 'terraform-ls', 'serve' })
   end
 })
 
-vim.api.nvim_create_autocmd('FileType', { pattern = {'rust'},
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'rust' },
   callback = function()
-    vim_lsp_start('Cargo.toml', {'rust-analyzer'})
+    vim_lsp_start('Cargo.toml', { 'rust-analyzer' })
   end
 })
 
-vim.api.nvim_create_autocmd('FileType', { pattern = {'lua'},
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'lua' },
   callback = function()
-    local cmd = {'lua-language-server'}
+    local cmd = { 'lua-language-server' }
     vim.lsp.start({
       cmd = cmd,
       name = cmd[1],
       root_dir = vim.fn.getcwd(),
-      settings = {
-        Lua = {
-          runtime = {
-            version = 'LuaJIT'
-          },
-          diagnostics = {
-            globals = { 'vim' }
-          },
-          workspace = {
-            library = {
-              vim.env.VIMRUNTIME
-            },
-            checkThirdParty = false
-          }
-        }
-      }
+      settings = { Lua = { runtime = { version = 'LuaJIT' }, diagnostics = { globals = { 'vim' } }, workspace = { library = { vim.env.VIMRUNTIME }, checkThirdParty = false } } }
     })
   end
 })
@@ -219,8 +222,10 @@ require('fzf-lua').setup({
 })
 
 vim.keymap.set('n', '<leader>-', require('fzf-lua').builtin, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader><leader>', function() require('fzf-lua').files({resume=false}) end, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>[', function() require('fzf-lua').files({resume=true}) end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader><leader>', function() require('fzf-lua').files({ resume = false }) end,
+  { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>[', function() require('fzf-lua').files({ resume = true }) end,
+  { noremap = true, silent = true })
 vim.keymap.set('n', '``', require('fzf-lua').buffers, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>=', require('fzf-lua').grep_project, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>w', require('fzf-lua').grep_cword, { noremap = true, silent = true })
