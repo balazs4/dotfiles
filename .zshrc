@@ -134,6 +134,9 @@ export PATH=$HOME/.lua/bin:${PATH}
 #bun
 export DO_NOT_TRACK=1
 
+#deno
+export PATH="$HOME/.deno/bin:${PATH}"
+
 function dot(){
   case "$1" in
     "git")

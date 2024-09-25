@@ -36,7 +36,6 @@ vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $M
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     vim.opt.cmdheight = 2
-    -- pcall(vim.treesitter.start, args.buf)
     vim.cmd('colorscheme retrobox')
     vim.cmd("hi Normal guibg=none ctermbg=none")
     vim.cmd("hi NonText guibg=none ctermbg=none")
@@ -151,7 +150,7 @@ vim.api.nvim_create_autocmd('FileType', {
         cmd = config.cmd,
         name = config.name,
         root_dir = config.root_dir,
-        on_attach = function(client, bufnr)
+        on_attach = function(_, bufnr)
           pcall(vim.keymap.del, 'n', '<leader>p')
           vim.keymap.set('n', '<leader>p', function() vim.cmd('! gfmt') end, { buffer = bufnr })
           vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename('toggle')) end, { buffer = bufnr })
