@@ -21,7 +21,6 @@ setopt share_history
 #mcbpro export PATH="$HOME/.luarocks/bin:${PATH}"
 #mcbpro export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 #mcbpro export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
-#mcbpro export PATH="$HOME/.local/nvim-macos-arm64/bin:$PATH"
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
@@ -95,10 +94,13 @@ function zzz() {
   zz $1
 }
 
-#carbon source /usr/share/fzf/completion.zsh
-#carbon source /usr/share/fzf/key-bindings.zsh
-#mcbpro source /opt/homebrew/opt/fzf/shell/completion.zsh
-#mcbpro source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+# fzf
+source $HOME/.go/pkg/mod/github.com/junegunn/fzf@v0.55.0/shell/completion.zsh
+source $HOME/.go/pkg/mod/github.com/junegunn/fzf@v0.55.0/shell/key-bindings.zsh
+export PATH="$HOME/.go/pkg/mod/github.com/junegunn/fzf@v0.55.0/bin/:$PATH"
+export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'"
 
 export LANG=en_US.UTF-8
 export TERMINAL=alacritty
@@ -106,9 +108,6 @@ export TERM=xterm-256color
 #mcbpro export BROWSER=open
 #carbon export BROWSER=chromium
 export EDITOR=nvim
-export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'"
 export GPG_TTY=`tty`
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 export PATH=$HOME/.local/bin:${PATH}
@@ -128,7 +127,7 @@ export GOPATH=$HOME/.go
 export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 
 #lua
-#curl https://github.com/LuaLS/lua-language-server/releases/download/3.10.6/lua-language-server-3.10.6-linux-x64.tar.gz -L | tar xvz -C $HOME/.lua/
+#curl https://github.com/LuaLS/lua-language-server/releases/download/3.10.6/lua-language-server-3.10.6-linux-x64.tar.gz -L | tar xvz - -C $HOME/.lua/
 export PATH=$HOME/.lua/bin:${PATH}
 
 #bun
@@ -136,6 +135,14 @@ export DO_NOT_TRACK=1
 
 #deno
 export PATH="$HOME/.deno/bin:${PATH}"
+
+#nvim
+#mcbpro export PATH="$HOME/.nvim/nvim-macos-arm64/bin:${PATH}"
+function nvim-update(){
+  mkdir -p $HOME/.nvim/ 2>/dev/null
+  rm -rf $HOME/.nvim/* 2>/dev/null
+#mcbpro  curl https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz -L | tar xvz - -C $HOME/.nvim/
+}
 
 function dot(){
   case "$1" in

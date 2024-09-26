@@ -56,9 +56,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(client)) end, {})
     vim.api.nvim_create_user_command("LspStop", function() client.stop() end, {})
 
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
     vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { buffer = args.buf })
-    vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { buffer = args.buf })
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
 
     if tostring(vim.version()):match('0.11') and client.supports_method('textDocument/completion') then
