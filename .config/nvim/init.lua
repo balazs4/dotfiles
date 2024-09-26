@@ -33,16 +33,6 @@ end, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC | normal `.') end)
 
-vim.api.nvim_create_autocmd('LspRequest', {
-  callback = function(args)
-  end
-})
-
-vim.api.nvim_create_autocmd('LspProgress', {
-  callback = function(args)
-  end
-})
-
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     vim.opt.cmdheight = 2
@@ -162,7 +152,7 @@ vim.api.nvim_create_autocmd('FileType', {
         root_dir = config.root_dir,
         on_attach = function(_, bufnr)
           pcall(vim.keymap.del, 'n', '<leader>p')
-          vim.keymap.set('n', '<leader>p', function() vim.cmd('! gfmt') end, { buffer = bufnr })
+          vim.keymap.set('n', '<leader>p', function() vim.cmd('wa | !gfmt') end, { buffer = bufnr })
           vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename('toggle')) end, { buffer = bufnr })
           vim.keymap.set('n', '<leader>r',
             function() vim.cmd('! tmux split-window -h "npmw test ' .. filename('ensure_test_ts') .. ' --verbose "') end,
