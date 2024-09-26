@@ -40,6 +40,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.cmd("hi Normal guibg=none ctermbg=none")
     vim.cmd("hi NonText guibg=none ctermbg=none")
 
+
     vim.diagnostic.config({
       update_in_insert = false,
       signs = false,
@@ -71,14 +72,22 @@ vim.api.nvim_create_autocmd('LspProgress', {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
-    local msg = string.format("[Lsp:%s] event=LspProgress\ttitle=%s\tkind=%s", client.name, args.data.params.value.title,
-      args.data.params.value.kind)
+
+    local msg = string.format("[Lsp:%s]\tevent=LspProgress\tkind=%s\ttitle=%s",
+      client.name,
+      args.data.params.value.kind,
+      args.data.params.value.title
+    )
+
     if args.data.params.value.kind == 'report' then
-      msg = string.format('%s\tmessage=%s\tpercentage=%s', msg, args.data.params.value.message,
-        args.data.params.value.percentage)
+      msg = string.format('%s\tmessage=%s\tpercentage=%s',
+        msg,
+        args.data.params.value.message,
+        args.data.params.value.percentage
+      )
     end
 
-    vim.cmd(string.format('redraw | echo "%s"', msg))
+    vim.notify_once(msg, vim.log.levels.INFO)
   end,
 })
 
@@ -87,9 +96,13 @@ vim.api.nvim_create_autocmd('LspRequest', {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
 
-    local msg = string.format("[Lsp:%s] event=LspRequest\ttype=%s\tmethod=%s", client.name, args.data.request.type,
-      args.data.request.method)
-    vim.cmd(string.format('redraw | echo "%s"', msg))
+    local msg = string.format("[Lsp:%s]\tevent=LspRequest\tmethod=%s\ttype=%s",
+      client.name,
+      args.data.request.method,
+      args.data.request.type
+    )
+
+    vim.notify_once(msg, vim.log.levels.INFO)
   end,
 })
 

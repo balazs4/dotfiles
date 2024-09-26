@@ -235,7 +235,7 @@ alias so='vim $HOME/.zshenv; source $HOME/.zshenv'
 alias tmuxrc='dot .tmux.conf'
 alias zshrc='dot .zshrc'
 alias nvimrc='dot .config/nvim/init.lua'
-#carbon alias sx="dot .xbindkeysrc; pkill -SIGKILL xbindkeys; xbindkeys && dunstify -t 1500 xbindkeysrc"
+#carbon alias sx="dot .xbindkeysrc; pkill -SIGKILL xbindkeys; pushd $HOME; xbindkeys && dunstify -t 1500 xbindkeysrc; popd"
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
 alias ls='ls --color=auto'
 alias grep='grep --color'
