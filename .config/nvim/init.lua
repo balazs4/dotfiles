@@ -61,10 +61,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { buffer = args.buf })
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
 
-    -- TODO: omnifunc lsp complete
-    -- if client.supports_method('textDocument/completion') then
-    --   vim.lsp.completion.enable(true, client.id, args.buf, {autotrigger = true})
-    -- end
+    if tostring(vim.version()):match('0.11') and client.supports_method('textDocument/completion') then
+      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+    end
   end,
 })
 
@@ -105,6 +104,8 @@ vim.api.nvim_create_autocmd('LspRequest', {
     vim.notify_once(msg, vim.log.levels.INFO)
   end,
 })
+
+
 
 
 local function get_root_dir(file)
