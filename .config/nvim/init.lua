@@ -10,7 +10,7 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.guicursor = 'i:block'
 vim.opt.termguicolors = true
-vim.opt.completeopt = 'menu,menuone,noselect'
+vim.opt.completeopt = 'menuone,noselect,popup'
 vim.opt.cursorline = false
 vim.opt.nu = true
 vim.opt.rnu = false
@@ -39,7 +39,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.cmd('colorscheme retrobox')
     vim.cmd("hi Normal guibg=none ctermbg=none")
     vim.cmd("hi NonText guibg=none ctermbg=none")
-
 
     vim.diagnostic.config({
       update_in_insert = false,
@@ -218,7 +217,16 @@ vim.api.nvim_create_autocmd('FileType', {
       cmd = cmd,
       name = cmd[1],
       root_dir = vim.fn.getcwd(),
-      settings = { Lua = { runtime = { version = 'LuaJIT' }, diagnostics = { globals = { 'vim' } }, workspace = { library = { vim.env.VIMRUNTIME }, checkThirdParty = false } } }
+      settings = {
+        Lua = {
+          runtime = { version = 'LuaJIT' },
+          diagnostics = { globals = { 'vim' } },
+          workspace = {
+            library = vim.api.nvim_get_runtime_file("lua", true),
+            checkThirdParty = false
+          }
+        }
+      }
     })
   end
 })
@@ -229,6 +237,9 @@ require('fzf-lua').setup({
   winopts = {
     fullscreen = false,
     preview = { layout = 'vertical' }
+  },
+  grep = {
+    rg_opts = "--sort-files --hidden --column --line-number --no-heading --smart-case  -g '!{.git,node_modules}/*'",
   }
 })
 
@@ -244,6 +255,14 @@ vim.keymap.set('n', '<leader>W', require('fzf-lua').grep_cWORD, { noremap = true
 vim.keymap.set('v', '<leader>w', require('fzf-lua').grep_visual, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>/', require('fzf-lua').blines, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>0', require('fzf-lua').resume, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>]',
+  function()
+    local _file = vim.fn.expand('%')
+    local _cwd = vim.fs.dirname(_file)
+    local cwd = vim.fn.input("grep.cwd=", _cwd, "dir")
+    require('fzf-lua').grep_project({ cwd = cwd })
+  end,
+  { noremap = true, silent = true })
 
 vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { noremap = true, silent = true })
 vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, { noremap = true, silent = true })
