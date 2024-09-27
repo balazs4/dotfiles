@@ -138,10 +138,11 @@ export PATH="$HOME/.deno/bin:${PATH}"
 
 #nvim
 #mcbpro export PATH="$HOME/.nvim/nvim-macos-arm64/bin:${PATH}"
+#carbon export PATH="$HOME/.nvim/nvim-linux64/bin:${PATH}"
 function nvim-update(){
-  mkdir -p $HOME/.nvim/ 2>/dev/null
-  rm -rf $HOME/.nvim/* 2>/dev/null
-#mcbpro  curl https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz -L | tar xvz - -C $HOME/.nvim/
+  rm -rf $HOME/.nvim/* 2>/dev/null || mkdir -p $HOME/.nvim/ 2>/dev/null
+#mcbpro  curl https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz -L | tar xvz -C $HOME/.nvim/
+#carbon  curl https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz -L     | tar xvz -C $HOME/.nvim/
 }
 
 function dot(){
