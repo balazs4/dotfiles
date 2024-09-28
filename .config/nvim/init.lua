@@ -1,7 +1,5 @@
 vim.cmd('syntax off')
-vim.cmd('colorscheme quiet')
-vim.cmd('hi Normal guibg=none ctermbg=none')
-vim.cmd('hi NonText guibg=none ctermbg=none')
+vim.cmd('colorscheme zzz') -- $HOME/.files/.config/nvim/colors/zzz.lua
 vim.opt.background = '{{variant}}'
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
@@ -36,7 +34,6 @@ vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $M
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     vim.opt.cmdheight = 2
-    vim.cmd('colorscheme retrobox')
 
     vim.diagnostic.config({
       update_in_insert = false,
