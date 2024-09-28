@@ -1,8 +1,7 @@
--- TODO: omnifunc from opened buffers
 vim.cmd('syntax off')
 vim.cmd('colorscheme quiet')
-vim.cmd("hi Normal guibg=none ctermbg=none")
-vim.cmd("hi NonText guibg=none ctermbg=none")
+vim.cmd('hi Normal guibg=none ctermbg=none')
+vim.cmd('hi NonText guibg=none ctermbg=none')
 vim.opt.background = '{{variant}}'
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
@@ -23,6 +22,7 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
 
+
 vim.keymap.set('n', '<cr><cr>', function() vim.cmd('<silent>! TMUX= NO_DIFF=1 source $HOME/.files/.zprofile') end,
   { noremap = true })
 vim.keymap.set('n', '<leader>g', function()
@@ -37,8 +37,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     vim.opt.cmdheight = 2
     vim.cmd('colorscheme retrobox')
-    vim.cmd("hi Normal guibg=none ctermbg=none")
-    vim.cmd("hi NonText guibg=none ctermbg=none")
 
     vim.diagnostic.config({
       update_in_insert = false,
@@ -212,6 +210,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'lua' },
   callback = function()
+    vim.treesitter.stop()
     local cmd = { 'lua-language-server' }
     vim.lsp.start({
       cmd = cmd,
