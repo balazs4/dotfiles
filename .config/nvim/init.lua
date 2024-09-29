@@ -18,12 +18,18 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
 
-vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC | normal `.') end)
+vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC') end)
 
 vim.keymap.set('n', '<leader>g', function()
-  local filename = string.gsub(vim.fn.expand('%'), os.getenv('PWD') or "", "")
-  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
-  vim.cmd("! gh browse '" .. filename .. "':" .. row)
+  local git_root_dir = vim.fs.root(0, '.git')
+  if not git_root_dir then return end
+
+  local filename = string.gsub(vim.api.nvim_buf_get_name(0), git_root_dir, '')
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+
+  local cmd = string.format("!gh browse '%s':%d", filename, row)
+
+  vim.cmd(cmd)
 end)
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -45,10 +51,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(client)) end, {})
     vim.api.nvim_create_user_command("LspStop", function() client.stop() end, {})
 
-    vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { buffer = args.buf })
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>p', vim.lsp.buf.format, { buffer = args.buf })
 
-    if vim.fn.has("nvim-0.11") == 0 and client.supports_method('textDocument/completion') then
+
+    if tostring(vim.version()):match('0.11') and client.supports_method('textDocument/completion') then
       vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
     end
   end,
@@ -119,45 +126,57 @@ local function configure(files, cmd)
   return { cmd = cmd, name = cmd[1], root_dir = root_dir }
 end
 
+---toggle filename between .ts and test.ts
+---@param mode? string
+---@return string
+local function ts_test_ts(mode)
+  local buffer = vim.api.nvim_buf_get_name(0)
+  local is_test_ts = buffer:sub(- #'test.ts') == 'test.ts'
+
+  if is_test_ts and mode == 'ensure_test_ts' then
+    return buffer
+  end
+
+  if is_test_ts then
+    return string.gsub(buffer, ".test.ts$", ".ts")[1]
+  else
+    return string.gsub(buffer, ".ts$", ".test.ts")[1]
+  end
+end
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   callback = function()
     local config = nil
     config = configure({ 'node_modules/.bin/tsserver' }, { 'typescript-language-server', '--stdio' })
     if config ~= nil then
-      local function filename(mode)
-        local buffer = vim.fn.expand('%')
-        if buffer:sub(-string.len('test.ts')) == 'test.ts' then
-          if mode == 'ensure_test_ts' then
-            return buffer
-          else
-            return string.gsub(buffer, ".test.ts$", ".ts")
-          end
-        end
-        return string.gsub(buffer, ".ts$", ".test.ts")
+      config.on_attach = function(_, bufnr)
+        pcall(vim.keymap.del, 'n', '<leader>p')
+        vim.keymap.set('n', '<leader>p',
+          function()
+            vim.cmd('wa | !gfmt')
+          end, { buffer = bufnr })
+
+        vim.keymap.set('n', '<leader>t',
+          function()
+            local cmd = string.format('vsplit %s', ts_test_ts())
+            vim.cmd(cmd)
+          end, { buffer = bufnr })
+
+        vim.keymap.set('n', '<leader>r',
+          function()
+            local cmd = string.format('!tmux split-window -h "npmw test %s --verbose"', ts_test_ts('ensure_test_ts'))
+            vim.cmd(cmd)
+          end, { buffer = bufnr })
       end
 
-      vim.lsp.start({
-        cmd = config.cmd,
-        name = config.name,
-        root_dir = config.root_dir,
-        on_attach = function(_, bufnr)
-          pcall(vim.keymap.del, 'n', '<leader>p')
-          vim.keymap.set('n', '<leader>p', function() vim.cmd('wa | !gfmt') end, { buffer = bufnr })
-          vim.keymap.set('n', '<leader>t', function() vim.cmd('vsplit ' .. filename('toggle')) end, { buffer = bufnr })
-          vim.keymap.set('n', '<leader>r',
-            function() vim.cmd('! tmux split-window -h "npmw test ' .. filename('ensure_test_ts') .. ' --verbose "') end,
-            { buffer = bufnr })
-          vim.keymap.set('n', '<leader>B', function() vim.cmd('! tmux split-window -h "git blame % | vipe -"') end,
-            { buffer = bufnr })
-        end
-      })
+      vim.lsp.start(config)
       return
     end
 
     config = configure({ 'deno.lock', 'deno.json' }, { 'deno', 'lsp' })
     if config ~= nil then
-      vim.lsp.start({ cmd = config.cmd, name = config.name, root_dir = config.root_dir })
+      vim.lsp.start(config)
       return
     end
   end
