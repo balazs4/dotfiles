@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.diagnostic.config({
       update_in_insert = false,
       signs = false,
-      underline = true,
+      underline = { severity = vim.diagnostic.severity.ERROR },
       virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4 },
       severity_sort = true,
       source = true
@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { buffer = args.buf })
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
 
-    if tostring(vim.version()):match('0.11') and client.supports_method('textDocument/completion') then
+    if vim.fn.has("nvim-0.11") == 0 and client.supports_method('textDocument/completion') then
       vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
     end
   end,
