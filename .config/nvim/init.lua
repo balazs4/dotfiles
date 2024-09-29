@@ -1,6 +1,4 @@
-vim.cmd('syntax off')
 vim.cmd('colorscheme zzz') -- $HOME/.files/.config/nvim/colors/zzz.lua
-vim.opt.background = '{{variant}}'
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -20,16 +18,13 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
 
+vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC | normal `.') end)
 
-vim.keymap.set('n', '<cr><cr>', function() vim.cmd('<silent>! TMUX= NO_DIFF=1 source $HOME/.files/.zprofile') end,
-  { noremap = true })
 vim.keymap.set('n', '<leader>g', function()
   local filename = string.gsub(vim.fn.expand('%'), os.getenv('PWD') or "", "")
   local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
   vim.cmd("! gh browse '" .. filename .. "':" .. row)
-end, { noremap = true, silent = true })
-
-vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC | normal `.') end)
+end)
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
@@ -97,39 +92,29 @@ vim.api.nvim_create_autocmd('LspRequest', {
   end,
 })
 
+--- @param files table project markers
+--- @return string|nil
+local function get_root_dir(files)
+  local cwd = vim.fn.getcwd()
+  local git_root_dir = vim.fs.root(0, '.git')
 
-
-
-local function get_root_dir(file)
-  if os.execute('test -e ' .. file) == 0
-  then
-    return vim.fn.getcwd()
-  end
-
-  local git_root_dir = vim.fn.system("git rev-parse --show-toplevel"):gsub('[\n\r]+', '')
-  if os.execute('test -e ' .. git_root_dir .. '/' .. file) == 0
-  then
-    return git_root_dir
+  for _, file in ipairs(files) do
+    if vim.fs.root(cwd, file) then
+      return cwd
+    end
+    if git_root_dir and vim.fs.root(git_root_dir, file) then
+      return git_root_dir
+    end
   end
 
   return nil
 end
 
--- @deprecated use `configure` instead
-local function vim_lsp_start(file, cmd, settings)
-  local root_dir = get_root_dir(file)
-  if root_dir == nil then return end
-
-  vim.lsp.start({
-    cmd = cmd,
-    settings = settings,
-    name = cmd[1],
-    root_dir = root_dir
-  })
-end
-
-local function configure(file, cmd)
-  local root_dir = get_root_dir(file)
+--- @param files table project markers
+--- @param cmd table lsp server command
+--- @return vim.lsp.ClientConfig|nil
+local function configure(files, cmd)
+  local root_dir = get_root_dir(files)
   if root_dir == nil then return end
   return { cmd = cmd, name = cmd[1], root_dir = root_dir }
 end
@@ -138,7 +123,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   callback = function()
     local config = nil
-    config = configure('node_modules/.bin/tsserver', { 'typescript-language-server', '--stdio' })
+    config = configure({ 'node_modules/.bin/tsserver' }, { 'typescript-language-server', '--stdio' })
     if config ~= nil then
       local function filename(mode)
         local buffer = vim.fn.expand('%')
@@ -170,13 +155,9 @@ vim.api.nvim_create_autocmd('FileType', {
       return
     end
 
-    config = configure('deno.lock', { 'deno', 'lsp' })
+    config = configure({ 'deno.lock', 'deno.json' }, { 'deno', 'lsp' })
     if config ~= nil then
-      vim.lsp.start({
-        cmd = config.cmd,
-        name = config.name,
-        root_dir = config.root_dir
-      })
+      vim.lsp.start({ cmd = config.cmd, name = config.name, root_dir = config.root_dir })
       return
     end
   end
@@ -185,22 +166,30 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'go' },
   callback = function()
-    vim_lsp_start('go.mod', { 'gopls' })
-    vim_lsp_start('go.work', { 'gopls' })
+    local cfg = configure({ 'go.mod', 'go.work' }, { 'gopls' })
+    if cfg ~= nil then
+      vim.lsp.start({ cmd = cfg.cmd, name = cfg.name, root_dir = cfg.root_dir })
+    end
   end
 })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'terraform' },
   callback = function()
-    vim_lsp_start('.terrform.lock.hcl', { 'terraform-ls', 'serve' })
+    local cfg = configure({ '.terrform.lock.hcl' }, { 'terraform-ls', 'serve' })
+    if cfg ~= nil then
+      vim.lsp.start({ cmd = cfg.cmd, name = cfg.name, root_dir = cfg.root_dir })
+    end
   end
 })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'rust' },
   callback = function()
-    vim_lsp_start('Cargo.toml', { 'rust-analyzer' })
+    local cfg = configure({ 'Cargo.toml' }, { 'rust-analyzer' })
+    if cfg ~= nil then
+      vim.lsp.start({ cmd = cfg.cmd, name = cfg.name, root_dir = cfg.root_dir })
+    end
   end
 })
 
@@ -218,8 +207,8 @@ vim.api.nvim_create_autocmd('FileType', {
           runtime = { version = 'LuaJIT' },
           diagnostics = { globals = { 'vim' } },
           workspace = {
-            library = vim.api.nvim_get_runtime_file("lua", true),
-            checkThirdParty = false
+            checkThirdParty = false,
+            library = { vim.env.VIMRUNTIME }
           }
         }
       }
@@ -239,33 +228,30 @@ require('fzf-lua').setup({
   }
 })
 
-vim.keymap.set('n', '<leader>-', require('fzf-lua').builtin, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader><leader>', function() require('fzf-lua').files({ resume = false }) end,
-  { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>[', function() require('fzf-lua').files({ resume = true }) end,
-  { noremap = true, silent = true })
-vim.keymap.set('n', '``', require('fzf-lua').buffers, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>=', require('fzf-lua').grep_project, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>w', require('fzf-lua').grep_cword, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>W', require('fzf-lua').grep_cWORD, { noremap = true, silent = true })
-vim.keymap.set('v', '<leader>w', require('fzf-lua').grep_visual, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>/', require('fzf-lua').blines, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>0', require('fzf-lua').resume, { noremap = true, silent = true })
+vim.keymap.set('n', '``', require('fzf-lua').buffers)
+vim.keymap.set('n', '<leader>-', require('fzf-lua').builtin)
+vim.keymap.set('n', '<leader><leader>', function() require('fzf-lua').files({ resume = false }) end)
+vim.keymap.set('n', '<leader>[', function() require('fzf-lua').files({ resume = true }) end)
+vim.keymap.set('n', '<leader>=', require('fzf-lua').grep_project)
+vim.keymap.set('n', '<leader>w', require('fzf-lua').grep_cword)
+vim.keymap.set('n', '<leader>W', require('fzf-lua').grep_cWORD)
+vim.keymap.set('v', '<leader>w', require('fzf-lua').grep_visual)
+vim.keymap.set('n', '<leader>/', require('fzf-lua').blines)
+vim.keymap.set('n', '<leader>0', require('fzf-lua').resume)
 vim.keymap.set('n', '<leader>]',
   function()
     local _file = vim.fn.expand('%')
     local _cwd = vim.fs.dirname(_file)
     local cwd = vim.fn.input("grep.cwd=", _cwd, "dir")
     require('fzf-lua').grep_project({ cwd = cwd })
-  end,
-  { noremap = true, silent = true })
+  end)
 
-vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { noremap = true, silent = true })
-vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_workspace_diagnostics, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>Y', require('fzf-lua').lsp_workspace_symbols, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>`', require('fzf-lua').lsp_finder, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_workspace_diagnostics)
+vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols)
+vim.keymap.set('n', '<leader>Y', require('fzf-lua').lsp_workspace_symbols)
+vim.keymap.set('n', '<leader>`', require('fzf-lua').lsp_finder)
+vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references)
+vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions)
 
 -- https://github.com/mattn/emmet-vim
 vim.g.user_emmet_leader_key = '<C-Z>'
