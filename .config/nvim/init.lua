@@ -11,14 +11,15 @@ vim.opt.nu = true
 vim.opt.rnu = false
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
-vim.opt.cmdheight = 1
+vim.opt.cmdheight = 2
 vim.opt.cursorline = true
 vim.opt.undofile = false
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
 
-vim.keymap.set('n', '<cr><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC') end)
+vim.keymap.set('n', '``', function() vim.cmd('buffers') end)
+vim.keymap.set('n', '<leader><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC') end)
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
@@ -34,8 +35,6 @@ end)
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
-    vim.opt.cmdheight = 2
-
     vim.diagnostic.config({
       update_in_insert = false,
       signs = false,
@@ -53,6 +52,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
     vim.keymap.set('n', '<leader>p', vim.lsp.buf.format, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>b', vim.diagnostic.setqflist, { buffer = args.buf })
 
 
     if tostring(vim.version()):match('0.11') and client.supports_method('textDocument/completion') then
@@ -235,7 +235,6 @@ require('fzf-lua').setup({
   }
 })
 
-vim.keymap.set('n', '``', require('fzf-lua').buffers)
 vim.keymap.set('n', '<leader>-', require('fzf-lua').builtin)
 vim.keymap.set('n', '<leader><leader>', function() require('fzf-lua').files({ resume = false }) end)
 vim.keymap.set('n', '<leader>[', function() require('fzf-lua').files({ resume = true }) end)
@@ -253,12 +252,9 @@ vim.keymap.set('n', '<leader>]',
     require('fzf-lua').grep_project({ cwd = cwd })
   end)
 
-vim.keymap.set('n', '<leader>b', require('fzf-lua').lsp_workspace_diagnostics)
 vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols)
 vim.keymap.set('n', '<leader>Y', require('fzf-lua').lsp_workspace_symbols)
 vim.keymap.set('n', '<leader>`', require('fzf-lua').lsp_finder)
-vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references)
-vim.keymap.set('n', 'ga', require('fzf-lua').lsp_code_actions)
 
 -- https://github.com/mattn/emmet-vim
 vim.g.user_emmet_leader_key = '<C-Z>'
@@ -269,6 +265,3 @@ require('mini.comment').setup({
     ignore_blank_line = true
   }
 })
-
--- https://github.com/norcalli/nvim-colorizer.lua
-require('colorizer').setup()
