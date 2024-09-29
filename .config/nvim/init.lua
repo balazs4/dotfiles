@@ -95,7 +95,7 @@ vim.api.nvim_create_autocmd('LspRequest', {
 --- @param files table project markers
 --- @return string|nil
 local function get_root_dir(files)
-  local cwd = vim.fn.getcwd()
+  local cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
   local git_root_dir = vim.fs.root(0, '.git')
 
   for _, file in ipairs(files) do
@@ -197,22 +197,10 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'lua' },
   callback = function()
     vim.treesitter.stop()
-    local cmd = { 'lua-language-server' }
-    vim.lsp.start({
-      cmd = cmd,
-      name = cmd[1],
-      root_dir = vim.fn.getcwd(),
-      settings = {
-        Lua = {
-          runtime = { version = 'LuaJIT' },
-          diagnostics = { globals = { 'vim' } },
-          workspace = {
-            checkThirdParty = false,
-            library = { vim.env.VIMRUNTIME }
-          }
-        }
-      }
-    })
+    local cfg = configure({ '.luarc.json' }, { 'lua-language-server' })
+    if cfg ~= nil then
+      vim.lsp.start({ cmd = cfg.cmd, name = cfg.name, root_dir = cfg.root_dir })
+    end
   end
 })
 
