@@ -20,7 +20,7 @@ vim.opt.writebackup = false
 
 vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '``', '<C-^>')
-vim.keymap.set('n', '<leader><cr>',':wa | silent make | source $MYVIMRC<CR>')
+vim.keymap.set('n', '<leader><cr>', ':wa | silent make | source $MYVIMRC<CR>')
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
@@ -219,7 +219,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.treesitter.stop()
     local cfg = configure({ '.luarc.json' }, { 'lua-language-server' })
     if cfg ~= nil then
-      vim.lsp.start({ cmd = cfg.cmd, name = cfg.name, root_dir = cfg.root_dir })
+      vim.lsp.start({ cmd = cfg.cmd, name = cfg.name, root_dir = cfg.root_dir, settings = { Lua = { workspace = { library = { vim.env.VIMRUNTIME } } } } })
     end
   end
 })
