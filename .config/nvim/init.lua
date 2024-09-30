@@ -18,8 +18,9 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
 
-vim.keymap.set('n', '``', function() vim.cmd('buffers') end)
-vim.keymap.set('n', '<leader><cr>', function() vim.cmd('wa | silent make | source $MYVIMRC') end)
+vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
+vim.keymap.set('n', '``', '<C-^>')
+vim.keymap.set('n', '<leader><cr>',':wa | silent make | source $MYVIMRC<CR>')
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
@@ -254,7 +255,6 @@ vim.keymap.set('n', '<leader>]',
 
 vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols)
 vim.keymap.set('n', '<leader>Y', require('fzf-lua').lsp_workspace_symbols)
-vim.keymap.set('n', '<leader>`', require('fzf-lua').lsp_finder)
 
 -- https://github.com/mattn/emmet-vim
 vim.g.user_emmet_leader_key = '<C-Z>'
