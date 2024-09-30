@@ -107,11 +107,11 @@ local function get_root_dir(files)
   local git_root_dir = vim.fs.root(0, '.git')
 
   for _, file in ipairs(files) do
-    if vim.fs.root(cwd, file) then
-      return cwd
-    end
     if git_root_dir and vim.fs.root(git_root_dir, file) then
       return git_root_dir
+    end
+    if vim.fs.root(cwd, file) then
+      return cwd
     end
   end
 
@@ -138,11 +138,11 @@ local function ts_test_ts(mode)
     return buffer
   end
 
-  if is_test_ts then
-    return string.gsub(buffer, ".test.ts$", ".ts")[1]
-  else
-    return string.gsub(buffer, ".ts$", ".test.ts")[1]
-  end
+  local filename = is_test_ts
+      and string.gsub(buffer, ".test.ts$", ".ts")
+      or string.gsub(buffer, ".ts$", ".test.ts")
+
+  return filename
 end
 
 vim.api.nvim_create_autocmd('FileType', {

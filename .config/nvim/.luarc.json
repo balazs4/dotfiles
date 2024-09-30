@@ -1,6 +1,9 @@
 {
 	"$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
-	"workspace.library": ["/home/balazs4/.nvim/nvim-linux64/share/nvim/runtime"],
+  "workspace.library": [
+    "/home/balazs4/.nvim/nvim-linux64/share/nvim/runtime",
+    "/Users/balazs4/.nvim/nvim-macos-arm64/share/nvim/runtime"
+  ],
 	"workspace.checkThirdParty": false,
 	"diagnostics.globals": ["vim"],
 	"runtime.version": "LuaJIT",
