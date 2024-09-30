@@ -19,7 +19,7 @@ vim.opt.backup = false
 vim.opt.writebackup = false
 
 vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
-vim.keymap.set('n', '``', '<C-^>')
+vim.keymap.set('n', '`', '<C-^>')
 vim.keymap.set('n', '<leader><cr>', ':wa | silent make | source $MYVIMRC<CR>')
 
 vim.keymap.set('n', '<leader>g', function()
