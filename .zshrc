@@ -94,7 +94,13 @@ function zzz() {
   zz $1
 }
 
+#go
+export GOROOT=$HOME/.g # https://github.com/stefanmaric/g
+export GOPATH=$HOME/.go
+export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
+
 # fzf
+# TODO: review completion.zsh and key-bindings.zsh
 source $HOME/.go/pkg/mod/github.com/junegunn/fzf@v0.55.0/shell/completion.zsh
 source $HOME/.go/pkg/mod/github.com/junegunn/fzf@v0.55.0/shell/key-bindings.zsh
 export FZF_DEFAULT_COMMAND="find . -type f"
@@ -119,11 +125,6 @@ export N_PRESERVE_NPM=1
 export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
 #mcbpro export PNPM_HOME=$HOME/.pnpm-global
 #mcbpro export PATH=$PNPM_HOME:${PATH}
-
-#go
-export GOROOT=$HOME/.g # https://github.com/stefanmaric/g
-export GOPATH=$HOME/.go
-export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 
 #lua
 #curl https://github.com/LuaLS/lua-language-server/releases/download/3.10.6/lua-language-server-3.10.6-linux-x64.tar.gz -L | tar xvz -C $HOME/.lua/
@@ -536,16 +537,6 @@ function archnews(){
 #carbon alias yzf=yayfzf
 #carbon alias yayf=yayfzf
 
-function gitlab-pipeline(){
-  local project=`git config --get remote.origin.url | awk -F: '{ sub(/\.git$/,""); sub(/\//,"%2F");  print $2}'`
-  local sha=`git rev-parse HEAD`
-  local ref=`git rev-parse --abbrev-ref HEAD`
-
-  curl -Ls -H "private-token: $GITLAB_AUTH_TOKEN" "https://gitlab.com/api/v4/projects/$project/pipelines/?sha=$sha&ref=$ref" \
-    | xurls \
-    | xargs open
-}
-
 function gb(){
   git branch -a \
     | grep -v HEAD \
@@ -572,27 +563,13 @@ function src() {
 #carbon   echo level ${1:-7} | sudo tee /proc/acpi/ibm/fan
 #carbon }
 
-function jwt(){
-  node -e "
-  (async() => {
-    for await (const line of require('readline').createInterface(process.stdin)) {
-      const [header, payload, signature] = line.split('.').map(x => Buffer.from(x, 'base64').toString());
-      const jwt = {header:JSON.parse(header), payload: JSON.parse(payload)};
-      console.log(JSON.stringify(jwt, null,2));
-    }
-  })();
-  "
-}
-
 #mcbpro function ip() {
 #mcbpro   dig $1 | awk "/^$1/ {print \$NF}"
 #mcbpro }
 
-
 function countby(){
    awk '{a[$1]++;} END{for(i in a) print i"  "a[i]}' | sort -k2 -r -h
 }
-
 
 function closest_packagejson(){
   local git_root=`git rev-parse --show-toplevel`
@@ -662,23 +639,6 @@ function a(){
 #mcbpro }
 
 export BUILDKIT_PROGRESS=plain
-
-function mvr(){ #vidir
-  local cnt=0
-  while IFS= read -r line; do cnt=$((cnt+1)); printf "%04d\t%s\n" $cnt $line; done | tee /tmp/mvr.in > /tmp/mvr.out
-  nvim /tmp/mvr.out
-  join -a 1 /tmp/mvr.in /tmp/mvr.out | awk '{
-    if ($2==$3){next;}
-    if (!$3){print "rm -rf "$2; next;}
-    print "mv "$2" "$3;
-  }' | sh
-  rm -rf /tmp/mvr.in /tmp/mvr.out
-}
-
-#mcbpro function notify(){
-#mcbpro   osascript -e "display notification \"${@:2}\" with title \"${1}\""
-#mcbpro }
-
 
 #carbon function eth0() {
 #carbon   case ${1:-help} in
