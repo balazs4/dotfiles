@@ -26,6 +26,7 @@ vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '<leader><Tab>', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '`', '<C-^>')
 vim.keymap.set('n', '<leader><cr>', ':wa | silent make | source $MYVIMRC<CR>')
+vim.keymap.set('v', ',,', ':!emmet<CR>')
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
@@ -260,9 +261,6 @@ vim.keymap.set('n', '<leader>]',
 
 vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols)
 vim.keymap.set('n', '<leader>Y', require('fzf-lua').lsp_workspace_symbols)
-
--- https://github.com/mattn/emmet-vim
-vim.g.user_emmet_leader_key = '<C-Z>'
 
 -- https://github.com/echasnovski/mini.comment
 require('mini.comment').setup({

@@ -126,7 +126,7 @@ export GOPATH=$HOME/.go
 export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 
 #lua
-#curl https://github.com/LuaLS/lua-language-server/releases/download/3.10.6/lua-language-server-3.10.6-linux-x64.tar.gz -L | tar xvz - -C $HOME/.lua/
+#curl https://github.com/LuaLS/lua-language-server/releases/download/3.10.6/lua-language-server-3.10.6-linux-x64.tar.gz -L | tar xvz -C $HOME/.lua/
 export PATH=$HOME/.lua/bin:${PATH}
 
 #bun
@@ -143,6 +143,10 @@ function nvim-update(){
 #mcbpro  curl https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz -L | tar xvz -C $HOME/.nvim/
 #carbon  curl https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz -L     | tar xvz -C $HOME/.nvim/
 }
+
+#emmet
+#carbon #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-x86_64-linux.tar.gz -L   | tar xvz -C $HOME/.local/bin
+#mcbpro #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-aarch64-darwin.tar.gz -L | tar xvz -C $HOME/.local/bin
 
 function dot(){
   case "$1" in
