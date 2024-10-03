@@ -97,9 +97,8 @@ function zzz() {
 # fzf
 source $HOME/.go/pkg/mod/github.com/junegunn/fzf@v0.55.0/shell/completion.zsh
 source $HOME/.go/pkg/mod/github.com/junegunn/fzf@v0.55.0/shell/key-bindings.zsh
-export PATH="$HOME/.go/pkg/mod/github.com/junegunn/fzf@v0.55.0/bin/:$PATH"
-export FZF_DEFAULT_COMMAND="fd --hidden --type=f -E node_modules -E .git"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_COMMAND="find . -type f"
+export FZF_CTRL_T_COMMAND="git ls-files"
 export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'"
 
 export LANG=en_US.UTF-8

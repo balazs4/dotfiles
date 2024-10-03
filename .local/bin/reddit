@@ -1,26 +1,30 @@
 #! /usr/bin/env bash
 
-sub=${1:-all}
-
-if test $TMUX
+if test $# -eq 2
 then
-  tmux_target=$(tmux display-message -p '#I')
-  tmux rename-window -t:$tmux_target r/${sub}
+  # TODO: access_token/refresh_token 
+  dunstify $1 $2
+  exit 0
 fi
 
+sub=${1:-all}
 url="https://old.reddit.com/r/${sub}.json"
+
 >&2 printf "%s\n" $url
+
 curl "$url" -H 'cache-control: no-cache' -Ls --user-agent "$RANDOM"  \
   | fx 'x => x.data.children.map(xx => [
-    new Date(1000 * xx.data.created).toJSON().replace(".000Z", " [" + String(xx.data.ups).padStart(4, "0") + "]"),
+    new Date(1000 * xx.data.created).toJSON().replace(".000Z", " [" + String(xx.data.ups).padStart(4) + "]"),
+    xx.data.name,
     xx.data.title,
     "url=" + xx.data.url
   ].join("\t")).join("\n")' \
   | sort -r -h \
-  | fzf --prompt "r/$sub>" --reverse --sync --preview 'echo {} | xurls | xargs reader'
+  | fzf \
+    --prompt "r/$sub/" \
+    --reverse \
+    --sync \
+    --preview 'echo {} | xurls | xargs reader' \
+    --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)' \
+    --bind "ctrl-u:execute-silent(echo {} | awk '{print \$4}' | xargs reddit up)" \
 
-if test $TMUX
-then
-  tmux_target=$(tmux display-message -p '#I')
-  tmux rename-window -t:$tmux_target zsh
-fi
