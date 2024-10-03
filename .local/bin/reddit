@@ -1,0 +1,6 @@
+#! /usr/bin/env bash
+
+curl -H 'cache-control: no-cache' -Lis --user-agent "$RANDOM" "https://www.reddit.com/r/${1:-all}.json?limit=${2:-25}"\
+  | $HOME/.local/bin/stdsplit \
+  | fx 'x => x.data.children.map(xx => [xx.data.id, xx.data.ups, xx.data.downs, xx.data.title,].join("\t")).join("\n")' \
+  | sed 's/www.reddit.com/old.reddit.com/g'
