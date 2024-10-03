@@ -1,6 +1,26 @@
 #! /usr/bin/env bash
 
-curl -H 'cache-control: no-cache' -Lis --user-agent "$RANDOM" "https://www.reddit.com/r/${1:-all}.json?limit=${2:-25}"\
-  | $HOME/.local/bin/stdsplit \
-  | fx 'x => x.data.children.map(xx => [xx.data.id, xx.data.ups, xx.data.downs, xx.data.title,].join("\t")).join("\n")' \
-  | sed 's/www.reddit.com/old.reddit.com/g'
+sub=${1:-all}
+
+if test $TMUX
+then
+  tmux_target=$(tmux display-message -p '#I')
+  tmux rename-window -t:$tmux_target r/${sub}
+fi
+
+url="https://old.reddit.com/r/${sub}.json"
+>&2 printf "%s\n" $url
+curl "$url" -H 'cache-control: no-cache' -Ls --user-agent "$RANDOM"  \
+  | fx 'x => x.data.children.map(xx => [
+    new Date(1000 * xx.data.created).toJSON().replace(".000Z", " [" + String(xx.data.ups).padStart(4, "0") + "]"),
+    xx.data.title,
+    "url=" + xx.data.url
+  ].join("\t")).join("\n")' \
+  | sort -r -h \
+  | fzf --prompt "r/$sub>" --reverse --sync --preview 'echo {} | xurls | xargs reader'
+
+if test $TMUX
+then
+  tmux_target=$(tmux display-message -p '#I')
+  tmux rename-window -t:$tmux_target zsh
+fi
