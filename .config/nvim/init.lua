@@ -18,9 +18,9 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
 
-vim.g.netrw_banner=0
-vim.g.netrw_liststyle=3
-vim.g.netrw_altv=1
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
+vim.g.netrw_altv = 1
 
 vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '<leader><Tab>', ':buffers<CR>:buffer ')
@@ -223,7 +223,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'lua' },
   callback = function()
     vim.treesitter.stop()
-    local cfg = configure({ '.luarc.json' }, { 'lua-language-server' })
+    local cfg = configure({ '.luarc.json', '.git' }, { 'lua-language-server' })
     if cfg ~= nil then
       vim.lsp.start({ cmd = cfg.cmd, name = cfg.name, root_dir = cfg.root_dir, settings = { Lua = { workspace = { library = { vim.env.VIMRUNTIME } } } } })
     end
@@ -243,7 +243,6 @@ require('fzf-lua').setup({
 })
 
 vim.keymap.set('n', '<leader>-', require('fzf-lua').builtin)
-vim.keymap.set('n', '<leader><leader>', function() require('fzf-lua').files({ resume = false }) end)
 vim.keymap.set('n', '<leader>[', function() require('fzf-lua').files({ resume = true }) end)
 vim.keymap.set('n', '<leader>=', require('fzf-lua').grep_project)
 vim.keymap.set('n', '<leader>w', require('fzf-lua').grep_cword)
@@ -268,3 +267,12 @@ require('mini.comment').setup({
     ignore_blank_line = true
   }
 })
+
+-- https://github.com/vijaymarupudi/nvim-fzf
+vim.keymap.set('n', '<leader><leader>', function()
+  coroutine.wrap(function()
+    local result = require('fzf').fzf('git ls-files', '', { relative = 'editor' })
+    if not result then return end
+    vim.cmd(string.format('vnew %s', result[1]))
+  end)()
+end)

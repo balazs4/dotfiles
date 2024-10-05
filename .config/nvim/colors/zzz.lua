@@ -21,6 +21,7 @@ vim.cmd('runtime colors/quiet.vim')
 vim.opt.background = '{{variant}}'
 
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'MatchParen', { fg = '#{{base09-hex}}' })
 vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#{{base01-hex}}' })
