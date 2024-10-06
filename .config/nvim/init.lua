@@ -22,6 +22,8 @@ vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
 vim.g.netrw_altv = 1
 
+vim.opt.grepprg = 'rg --vimgrep --hidden'
+
 vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '<leader><Tab>', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '`', '<C-^>')
@@ -225,7 +227,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.treesitter.stop()
     local cfg = configure({ '.luarc.json', '.git' }, { 'lua-language-server' })
     if cfg ~= nil then
-      vim.lsp.start({ cmd = cfg.cmd, name = cfg.name, root_dir = cfg.root_dir, settings = { Lua = { workspace = { library = { vim.env.VIMRUNTIME } } } } })
+      vim.lsp.start({ cmd = cfg.cmd, name = cfg.name, root_dir = cfg.root_dir, settings = { Lua = { workspace = { library = vim.api.nvim_list_runtime_paths() } } } })
     end
   end
 })
@@ -269,6 +271,13 @@ require('mini.comment').setup({
 })
 
 -- https://github.com/vijaymarupudi/nvim-fzf
+require("fzf").default_options = {
+  relative = 'editor',
+  window_on_create = function()
+    vim.cmd("set winhl=Normal:Normal")
+  end
+}
+
 vim.keymap.set('n', '<leader><leader>', function()
   coroutine.wrap(function()
     local result = require('fzf').fzf('git ls-files', '', { relative = 'editor' })
@@ -276,3 +285,4 @@ vim.keymap.set('n', '<leader><leader>', function()
     vim.cmd(string.format('vnew %s', result[1]))
   end)()
 end)
+
