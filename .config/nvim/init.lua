@@ -29,6 +29,8 @@ vim.keymap.set('n', '<leader><Tab>', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '`', '<C-^>')
 vim.keymap.set('n', '<leader><cr>', ':wa | silent make | source $MYVIMRC<CR>')
 vim.keymap.set('v', ',,', ':!emmet<CR>')
+vim.keymap.set('n', '<C-j>', ':cnext<CR>');
+vim.keymap.set('n', '<C-k>', ':cprevious<CR>');
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
@@ -238,28 +240,9 @@ require('fzf-lua').setup({
   winopts = {
     fullscreen = false,
     preview = { layout = 'vertical' }
-  },
-  grep = {
-    rg_opts = "--sort-files --hidden --column --line-number --no-heading --smart-case  -g '!{.git,node_modules}/*'",
   }
 })
-
 vim.keymap.set('n', '<leader>-', require('fzf-lua').builtin)
-vim.keymap.set('n', '<leader>[', function() require('fzf-lua').files({ resume = true }) end)
-vim.keymap.set('n', '<leader>=', require('fzf-lua').grep_project)
-vim.keymap.set('n', '<leader>w', require('fzf-lua').grep_cword)
-vim.keymap.set('n', '<leader>W', require('fzf-lua').grep_cWORD)
-vim.keymap.set('v', '<leader>w', require('fzf-lua').grep_visual)
-vim.keymap.set('n', '<leader>/', require('fzf-lua').blines)
-vim.keymap.set('n', '<leader>0', require('fzf-lua').resume)
-vim.keymap.set('n', '<leader>]',
-  function()
-    local _file = vim.fn.expand('%')
-    local _cwd = vim.fs.dirname(_file)
-    local cwd = vim.fn.input("grep.cwd=", _cwd, "dir")
-    require('fzf-lua').grep_project({ cwd = cwd })
-  end)
-
 vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols)
 vim.keymap.set('n', '<leader>Y', require('fzf-lua').lsp_workspace_symbols)
 
