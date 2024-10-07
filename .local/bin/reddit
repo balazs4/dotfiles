@@ -24,7 +24,6 @@ curl "$url" -H 'cache-control: no-cache' -Ls --user-agent "$RANDOM"  \
     --prompt "r/$sub/" \
     --reverse \
     --sync \
-    --preview 'echo {} | xurls | xargs reader' \
     --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)' \
     --bind "ctrl-u:execute-silent(echo {} | awk '{print \$4}' | xargs reddit up)" \
 
