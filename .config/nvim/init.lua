@@ -1,4 +1,4 @@
-vim.cmd('colorscheme zzz') -- $HOME/.files/.config/nvim/colors/zzz.lua
+vim.cmd('colorscheme retrobox') -- $HOME/.files/.config/nvim/colors/zzz.lua
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -31,6 +31,8 @@ vim.keymap.set('n', '<leader><cr>', ':wa | silent make | source $MYVIMRC<CR>')
 vim.keymap.set('v', ',,', ':!emmet<CR>')
 vim.keymap.set('n', '<C-j>', ':cnext<CR>');
 vim.keymap.set('n', '<C-k>', ':cprevious<CR>');
+vim.keymap.set('n', '<leader>w', ':silent grep <cword> <CR>')
+vim.keymap.set('n', '<leader>W', ':silent grep <cWORD> <CR>')
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
@@ -265,7 +267,7 @@ vim.keymap.set('n', '<leader><leader>', function()
   coroutine.wrap(function()
     local result = require('fzf').fzf('git ls-files', '', { relative = 'editor' })
     if not result then return end
-    vim.cmd(string.format('vnew %s', result[1]))
+    vim.cmd(string.format('edit %s', result[1]))
   end)()
 end)
 
