@@ -33,6 +33,7 @@ vim.keymap.set('n', '<C-j>', ':cnext<CR>');
 vim.keymap.set('n', '<C-k>', ':cprevious<CR>');
 vim.keymap.set('n', '<leader>w', ':silent grep <cword> <CR>')
 vim.keymap.set('n', '<leader>W', ':silent grep <cWORD> <CR>')
+vim.keymap.set('n', '<leader>q', ':grep <cword> %:.:h')
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
