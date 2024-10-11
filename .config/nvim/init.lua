@@ -31,8 +31,8 @@ vim.keymap.set('n', '<leader><cr>', ':wa | silent make | source $MYVIMRC<CR>')
 vim.keymap.set('v', ',,', ':!emmet<CR>')
 vim.keymap.set('n', '<C-j>', ':cnext<CR>');
 vim.keymap.set('n', '<C-k>', ':cprevious<CR>');
-vim.keymap.set('n', '<leader>w', ':silent grep <cword> <CR>')
-vim.keymap.set('n', '<leader>W', ':silent grep <cWORD> <CR>')
+vim.keymap.set('n', '<leader>w', ':grep <cword>| copen <CR>')
+vim.keymap.set('n', '<leader>W', ':grep <cWORD> | copen <CR>')
 vim.keymap.set('n', '<leader>q', ':grep <cword> %:.:h')
 
 vim.keymap.set('n', '<leader>g', function()
@@ -266,9 +266,16 @@ require("fzf").default_options = {
 
 vim.keymap.set('n', '<leader><leader>', function()
   coroutine.wrap(function()
-    local result = require('fzf').fzf('git ls-files', '', { relative = 'editor' })
+    local result = require('fzf').fzf('git ls-files', '--ansi --expect=ctrl-v', { relative = 'editor' })
     if not result then return end
+
+    print(vim.inspect(result))
+    if result[1] == 'ctrl-v'
+    then
+      vim.cmd(string.format('vsplit %s', result[2]))
+      return
+    end
+
     vim.cmd(string.format('edit %s', result[1]))
   end)()
 end)
-
