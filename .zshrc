@@ -139,11 +139,6 @@ export PATH="$HOME/.deno/bin:${PATH}"
 #nvim
 #mcbpro export PATH="$HOME/.nvim/nvim-macos-arm64/bin:${PATH}"
 #carbon export PATH="$HOME/.nvim/nvim-linux64/bin:${PATH}"
-function nvim-update(){
-  rm -rf $HOME/.nvim/* 2>/dev/null || mkdir -p $HOME/.nvim/ 2>/dev/null
-#mcbpro  curl https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz -L | tar xvz -C $HOME/.nvim/
-#carbon  curl https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz -L     | tar xvz -C $HOME/.nvim/
-}
 
 #emmet
 #carbon #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-x86_64-linux.tar.gz -L   | tar xvz -C $HOME/.local/bin
@@ -222,25 +217,6 @@ function localbin() {
       popd
       ;;
   esac
-}
-
-function nvimplug(){
-  if [[ ! -z "$1" ]]
-  then
-    echo "\n-- $1" >> $HOME/.files/.config/nvim/init.lua
-    local name=`echo $1 | awk -F/ '{print $NF}'`
-    echo "require('$name').setup()" >> $HOME/.files/.config/nvim/init.lua
-    TMUX= source $HOME/.files/.zprofile
-    git -C $HOME/.local/share/nvim/site/pack/_/start/ clone --depth=1 $1
-    return
-  fi
-
-  rm -rf $HOME/.local/share/nvim/site/pack/_/start/* 2>/dev/null
-  mkdir -p $HOME/.local/share/nvim/site/pack/_/start/ 2>/dev/null
-
-  pushd $HOME/.local/share/nvim/site/pack/_/start/
-    grep '^\s*-- https://git' $HOME/.config/nvim/init.lua | sed 's/^[[:space:]]*-- //g' | xargs -t -L1 git clone --depth=1
-  popd
 }
 
 alias so='vim $HOME/.zshenv; source $HOME/.zshenv'

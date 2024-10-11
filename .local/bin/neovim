@@ -1,11 +1,11 @@
 #! /usr/bin/env bash
 
-case ${1?"update | plug"} in
+case ${1?"usage: neovim update | plug"} in
   "update")
      rm -rf $HOME/.nvim/* 2>/dev/null || mkdir -p $HOME/.nvim/ 2>/dev/null
 #mcbpro     curl https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz -L | tar xvz -C $HOME/.nvim/
 #carbon     curl https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz -L     | tar xvz -C $HOME/.nvim/
-    which -p nvim
+    which nvim
     ;;
 
   "plug")

@@ -269,13 +269,12 @@ vim.keymap.set('n', '<leader><leader>', function()
     local result = require('fzf').fzf('git ls-files', '--ansi --expect=ctrl-v', { relative = 'editor' })
     if not result then return end
 
-    print(vim.inspect(result))
     if result[1] == 'ctrl-v'
     then
       vim.cmd(string.format('vsplit %s', result[2]))
       return
     end
 
-    vim.cmd(string.format('edit %s', result[1]))
+    vim.cmd(string.format('edit %s', result[2]))
   end)()
 end)
