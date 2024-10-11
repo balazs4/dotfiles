@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-case ${1?"usage: neovim update | plug"} in
+case ${1?"usage: neovim update | pack"} in
   "update")
      rm -rf $HOME/.nvim/* 2>/dev/null || mkdir -p $HOME/.nvim/ 2>/dev/null
 #mcbpro     curl https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz -L | tar xvz -C $HOME/.nvim/
@@ -8,7 +8,7 @@ case ${1?"usage: neovim update | plug"} in
     which nvim
     ;;
 
-  "plug")
+  "pack")
     shift
     if [[ ! -z "$1" ]]
     then
