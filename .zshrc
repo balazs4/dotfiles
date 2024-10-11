@@ -599,7 +599,7 @@ function parrot(){
 }
 
 function a(){
-#carbon  (pidof picom || picom  & ) > /dev/null
+#carbon  picom --daemon --backend xrender 2> /dev/null
  opacity=$(bc <<< "scale=2; x=$1/100; if(x<1) print 0; x")
  sed "s/^opacity = .*/opacity = ${opacity}/" -i "$HOME/.alacritty.toml"
 }
