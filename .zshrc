@@ -77,7 +77,7 @@ function zz() {
     find $HOME/src/github.com/ -maxdepth 2 -type d;
 #mcbpro    find $HOME/src/api -maxdepth 2 -type d;
 #mcbpro    find $HOME/src/front/apps -maxdepth 1 -type d;
-  } | fzf --layout=reverse --height '40%' -q "${*:-$PWD} " -1 --preview 'ls {}'`
+  } | fzf --layout=reverse --height '40%' -q "${*:-$PWD} " -1`
 
   [[ $TMUX ]] \
     && cd ${to:-$PWD} \
@@ -86,13 +86,6 @@ function zz() {
 
 alias z='TMUX=fake zz'
 alias x='tmux new-session -A -s $HOME -c $HOME'
-
-function zzz() {
-  mkdir -p $HOME/src/$1
-  git init $HOME/src/$1
-  git -C $HOME/src/$1 commit -m batman --allow-empty
-  zz $1
-}
 
 #go
 export GOROOT=$HOME/.g # https://github.com/stefanmaric/g
@@ -110,8 +103,7 @@ export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | 
 export LANG=en_US.UTF-8
 export TERMINAL=alacritty
 export TERM=xterm-256color
-#mcbpro export BROWSER=open
-#carbon export BROWSER=chromium
+export BROWSER=xdg-open
 export EDITOR=nvim
 export GPG_TTY=`tty`
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
@@ -123,8 +115,7 @@ export DOTENV_CONFIG_DEBUG=true
 export N_PREFIX=$HOME/.n/prefix # https://github.com/tj/n
 export N_PRESERVE_NPM=1
 export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
-#mcbpro export PNPM_HOME=$HOME/.pnpm-global
-#mcbpro export PATH=$PNPM_HOME:${PATH}
+#mcbpro export PNPM_HOME=$HOME/.pnpm
 
 #lua
 #curl https://github.com/LuaLS/lua-language-server/releases/download/3.10.6/lua-language-server-3.10.6-linux-x64.tar.gz -L | tar xvz -C $HOME/.lua/
