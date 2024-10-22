@@ -93,9 +93,17 @@ export GOPATH=$HOME/.go
 export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 
 # fzf
-# TODO: review completion.zsh and key-bindings.zsh
-source $HOME/.go/pkg/mod/github.com/junegunn/fzf@v0.55.0/shell/completion.zsh
-source $HOME/.go/pkg/mod/github.com/junegunn/fzf@v0.55.0/shell/key-bindings.zsh
+function fzf-update() {
+  mkdir -p $HOME/.fzf/ 2>/dev/null
+#carbon  curl -LSs "https://github.com/junegunn/fzf/releases/download/v0.55.0/fzf-0.55.0-linux_amd64.tar.gz"  | tar xvz -C $HOME/.fzf/
+#mcbpro  curl -LSs "https://github.com/junegunn/fzf/releases/download/v0.55.0/fzf-0.55.0-darwin_arm64.tar.gz" | tar xvz -C $HOME/.fzf/
+  curl -LSs 'https://github.com/junegunn/fzf/blob/v0.55.0/shell/completion.zsh?raw=true' -o "$HOME/.fzf/completion.zsh"
+  curl -LSs 'https://github.com/junegunn/fzf/blob/v0.55.0/shell/key-bindings.zsh?raw=true' -o "$HOME/.fzf/key-bindings.zsh"
+}
+
+export PATH=$HOME/.fzf:${PATH}
+source $HOME/.fzf/completion.zsh
+source $HOME/.fzf/key-bindings.zsh
 export FZF_DEFAULT_COMMAND="find . -type f"
 export FZF_CTRL_T_COMMAND="git ls-files || find . -type f"
 export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'"
