@@ -97,7 +97,7 @@ export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 source $HOME/.go/pkg/mod/github.com/junegunn/fzf@v0.55.0/shell/completion.zsh
 source $HOME/.go/pkg/mod/github.com/junegunn/fzf@v0.55.0/shell/key-bindings.zsh
 export FZF_DEFAULT_COMMAND="find . -type f"
-export FZF_CTRL_T_COMMAND="git ls-files"
+export FZF_CTRL_T_COMMAND="git ls-files || find . -type f"
 export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'"
 
 export LANG=en_US.UTF-8
@@ -168,13 +168,6 @@ function dot(){
       source $HOME/.zshrc || true
       test $TMUX && tmux source-file $HOME/.tmux.conf 2>/dev/null || true
 #mcbpro      aerospace reload-config --no-gui || true
-      ;;
-
-    "tmp")
-      shift
-      file=`git -C "$HOME/.files/" ls-files | fzf --height '25%' --reverse -1 -q"'${1}"`
-      nvim "$HOME/$file"
-      >&2 printf "changes are only in $HOME, and not in $HOME/.files; be careful if you dot source"
       ;;
 
     *)
@@ -596,8 +589,9 @@ function a(){
 }
 
 #carbon function nyc(){
-#carbon   mpv "https://www.youtube.com/watch?v=Gx6NVCRyMzk&t=$(( ( RANDOM % 236 ) + 1 ))" --no-audio --frames=1 -o /tmp/nyc.png \
-#carbon     && feh --no-fehbg --bg-fill /tmp/nyc.png
+#carbon   if test ! -f "$HOME/.cache/macos_newyork.webm"; then yt-dlp "https://www.youtube.com/watch?v=Gx6NVCRyMzk" -o "$HOME/.cache/macos_newyork.webm"; fi
+#carbon   mpv "$HOME/.cache/macos_newyork.webm" --no-audio --frames=1 --start=+$(($RANDOM % 236)) -o "$HOME/.cache/macos_newyork.png" 
+#carbon   feh --no-fehbg --bg-fill "$HOME/.cache/macos_newyork.png"
 #carbon }
 
 #mcbpro function dog(){
@@ -636,6 +630,7 @@ export BUILDKIT_PROGRESS=plain
 #carbon   #https://unix.stackexchange.com/a/734842
 #carbon   for F in $(awk '$4=="unmasked" && $1>1000{print FILENAME}' /sys/firmware/acpi/interrupts/*)
 #carbon   do
+#carbon     echo $F >&2
 #carbon     sudo tee $F <<<mask;
 #carbon   done
 #carbon }
