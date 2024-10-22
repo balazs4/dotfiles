@@ -143,51 +143,6 @@ export PATH="$HOME/.deno/bin:${PATH}"
 #carbon #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-x86_64-linux.tar.gz -L   | tar xvz -C $HOME/.local/bin
 #mcbpro #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-aarch64-darwin.tar.gz -L | tar xvz -C $HOME/.local/bin
 
-function dot(){
-  case "$1" in
-    "git")
-      shift
-      git -C "$HOME/.files/" ${*}
-      ;;
-
-    "sync")
-      git -C "$HOME/.files/" commit -am "`date +%s`@`hostname -s`"
-      git -C "$HOME/.files/" pull
-      git -C "$HOME/.files/" push
-      dot "source"
-      ;;
-
-    "file")
-      shift
-      if test ! -e "$HOME/$1"
-      then
-        >&2 echo "$HOME/$1 does not exist; filepath must be relative to $HOME"
-        return;
-      fi
-      dir=`dirname "$HOME/.files/$1"`
-      mkdir -p $dir
-      cp -v "$HOME/$1" "$HOME/.files/$1"
-      git -C "$HOME/.files/" add "$1"
-      git -C "$HOME/.files/" commit -m "add: $1"
-      ;;
-
-    "source")
-      TMUX= source $HOME/.files/.zprofile
-      source $HOME/.zshrc || true
-      test $TMUX && tmux source-file $HOME/.tmux.conf 2>/dev/null || true
-#mcbpro      aerospace reload-config --no-gui || true
-      ;;
-
-    *)
-      pushd $HOME/.files > /dev/null
-        nvim `git ls-files | fzf --height '25%' --sync --reverse -1 -q"'${1}"`
-      popd > /dev/null
-      dot "source"
-      ;;
-
-  esac
-}
-
 function localbin() {
   if test -e $HOME/.local/bin/${1}
   then
