@@ -653,3 +653,7 @@ function colima_start(){
   # TODO: $HOME/.colima/default/colima.yaml
   colima start --cpu 10 --memory 8 --disk 128 --arch aarch64 --vm-type=vz --vz-rosetta  --network-address
 }
+
+function re(){
+  nvim $(gh pr diff --name-only)
+}

@@ -29,8 +29,8 @@ vim.keymap.set('n', '<leader><Tab>', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '`', '<C-^>')
 vim.keymap.set('n', '<leader><cr>', ':wa | silent make | source $MYVIMRC<CR>')
 vim.keymap.set('v', ',,', ':!emmet<CR>')
-vim.keymap.set('n', '<C-j>', ':cnext<CR>');
-vim.keymap.set('n', '<C-k>', ':cprevious<CR>');
+vim.keymap.set('n', '<C-j>', ':cnext<CR>zz');
+vim.keymap.set('n', '<C-k>', ':cprevious<CR>zz');
 vim.keymap.set('n', '<leader>w', ':grep <cword>| copen <CR>')
 vim.keymap.set('n', '<leader>W', ':grep <cWORD> | copen <CR>')
 vim.keymap.set('n', '<leader>q', ':grep <cword> %:.:h')
