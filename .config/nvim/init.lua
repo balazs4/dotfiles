@@ -28,6 +28,8 @@ vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '<leader><Tab>', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '`', '<C-^>')
 vim.keymap.set('n', '<leader><cr>', ':wa | silent make | source $MYVIMRC<CR>')
+vim.keymap.set('n', '<leader>y', function() vim.lsp.buf.document_symbol({}) end)
+vim.keymap.set('n', '<leader>Y', function() vim.lsp.buf.workspace_symbol('',{}) end )
 vim.keymap.set('v', ',,', ':!emmet<CR>')
 vim.keymap.set('n', '<C-j>', ':cnext<CR>zz');
 vim.keymap.set('n', '<C-k>', ':cprevious<CR>zz');
@@ -246,8 +248,6 @@ require('fzf-lua').setup({
   }
 })
 vim.keymap.set('n', '<leader>-', require('fzf-lua').builtin)
-vim.keymap.set('n', '<leader>y', require('fzf-lua').lsp_document_symbols)
-vim.keymap.set('n', '<leader>Y', require('fzf-lua').lsp_workspace_symbols)
 
 -- https://github.com/echasnovski/mini.comment
 require('mini.comment').setup({
