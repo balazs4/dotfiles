@@ -142,10 +142,11 @@ export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 # fzf
 function fzf-update() {
   mkdir -p $HOME/.fzf/ 2>/dev/null
-#carbon  curl -LSs "https://github.com/junegunn/fzf/releases/download/v0.55.0/fzf-0.55.0-linux_amd64.tar.gz"  | tar xvz -C $HOME/.fzf/
-#mcbpro  curl -LSs "https://github.com/junegunn/fzf/releases/download/v0.55.0/fzf-0.55.0-darwin_arm64.tar.gz" | tar xvz -C $HOME/.fzf/
-  curl -LSs 'https://github.com/junegunn/fzf/blob/v0.55.0/shell/completion.zsh?raw=true' -o "$HOME/.fzf/completion.zsh"
-  curl -LSs 'https://github.com/junegunn/fzf/blob/v0.55.0/shell/key-bindings.zsh?raw=true' -o "$HOME/.fzf/key-bindings.zsh"
+#carbon  curl -LSs "https://github.com/junegunn/fzf/releases/download/v0.56.0/fzf-0.56.0-linux_amd64.tar.gz"  | tar xvz -C $HOME/.fzf/
+#mcbpro  curl -LSs "https://github.com/junegunn/fzf/releases/download/v0.56.0/fzf-0.56.0-darwin_arm64.tar.gz" | tar xvz -C $HOME/.fzf/
+  curl -LSs 'https://github.com/junegunn/fzf/blob/v0.56.0/shell/completion.zsh?raw=true' -o "$HOME/.fzf/completion.zsh"
+  curl -LSs 'https://github.com/junegunn/fzf/blob/v0.56.0/shell/key-bindings.zsh?raw=true' -o "$HOME/.fzf/key-bindings.zsh"
+  fzf --version
 }
 
 export PATH=$HOME/.fzf:${PATH}
