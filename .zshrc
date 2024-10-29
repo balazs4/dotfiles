@@ -140,7 +140,7 @@ export GOPATH=$HOME/.go
 export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 
 # fzf
-function fzf-update() {
+function fzf_update() {
   mkdir -p $HOME/.fzf/ 2>/dev/null
   tag_name=$(gh release list --limit 1 --repo junegunn/fzf --json tagName --jq '.[].tagName')
   printf "tag_name=%s\n" $tag_name
