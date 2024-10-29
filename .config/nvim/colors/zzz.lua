@@ -1,20 +1,19 @@
---   base00: "#0c0d0e" #  ----
---   base01: "#2e2f30" #  ---
---   base02: "#515253" #  --
---   base03: "#737475" #  -
---   base04: "#959697" #  +
---   base05: "#b7b8b9" #  ++
---   base06: "#dadbdc" #  +++
---   base07: "#fcfdfe" #  ++++
-
---   base08: "#e31a1c" #	red
---   base09: "#e6550d" #	orange
---   base0A: "#dca060" #	yellow
---   base0B: "#31a354" #	green
---   base0C: "#80b1d3" #	aqua
---   base0D: "#3182bd" #	blue
---   base0E: "#756bb1" #	purple
---   base0F: "#b15928" #	brown
+-- base00-hex: ----
+-- base01-hex: ---
+-- base02-hex: --
+-- base03-hex: -
+-- base04-hex: +
+-- base05-hex: ++
+-- base06-hex: +++
+-- base07-hex: ++++
+-- base08-hex: red
+-- base09-hex: orange
+-- base0A-hex: yellow
+-- base0B-hex: green
+-- base0C-hex: aqua
+-- base0D-hex: blue
+-- base0E-hex: purple
+-- base0F-hex: brown
 
 vim.g.colors_name = 'zzz'
 vim.cmd('runtime colors/quiet.vim')

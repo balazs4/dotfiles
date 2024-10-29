@@ -239,16 +239,6 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
--- https://github.com/ibhagwan/fzf-lua
-require('fzf-lua').setup({
-  'default',
-  winopts = {
-    fullscreen = false,
-    preview = { layout = 'vertical' }
-  }
-})
-vim.keymap.set('n', '<leader>-', require('fzf-lua').builtin)
-
 -- https://github.com/echasnovski/mini.comment
 require('mini.comment').setup({
   options = {
