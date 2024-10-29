@@ -212,6 +212,8 @@ function localbin() {
     "y")
       pushd $HOME
         dot file .local/bin/${1}
+        git update-index --chmod=-x .local/bin/${1}
+        dot git add .local/bin/${1}
       popd
       ;;
   esac
