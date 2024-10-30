@@ -28,8 +28,6 @@ vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '<leader><Tab>', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '`', '<C-^>')
 vim.keymap.set('n', '<leader><cr>', ':wa | silent make | source $MYVIMRC<CR>')
-vim.keymap.set('n', '<leader>y', function() vim.lsp.buf.document_symbol({}) end)
-vim.keymap.set('n', '<leader>Y', function() vim.lsp.buf.workspace_symbol('',{}) end )
 vim.keymap.set('v', ',,', ':!emmet<CR>')
 vim.keymap.set('n', '<C-j>', ':cnext<CR>zz');
 vim.keymap.set('n', '<C-k>', ':cprevious<CR>zz');
@@ -69,6 +67,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
     vim.keymap.set('n', '<leader>p', vim.lsp.buf.format, { buffer = args.buf })
     vim.keymap.set('n', '<leader>b', vim.diagnostic.setqflist, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>y', function() vim.lsp.buf.document_symbol({}) end)
+    vim.keymap.set('n', '<leader>Y', function() vim.lsp.buf.workspace_symbol('',{}) end )
 
 
     if tostring(vim.version()):match('0.11') and client.supports_method('textDocument/completion') then
@@ -256,7 +256,9 @@ require("fzf").default_options = {
 
 vim.keymap.set('n', '<leader><leader>', function()
   coroutine.wrap(function()
-    local result = require('fzf').fzf('git ls-files', '--ansi --expect=ctrl-v', { relative = 'editor' })
+    local git_root_dir = vim.fs.root(0, '.git')
+    local cmd = git_root_dir and 'git ls-files' or 'find . -type f'
+    local result = require('fzf').fzf(cmd, '--ansi --expect=ctrl-v', { relative = 'editor' })
     if not result then return end
 
     if result[1] == 'ctrl-v'
