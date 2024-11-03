@@ -82,19 +82,13 @@ vim.api.nvim_create_autocmd('LspProgress', {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
 
+    if args.data.params.value.kind == 'report' then return end
+
     local msg = string.format("[Lsp:%s]\tevent=LspProgress\tkind=%s\ttitle=%s",
       client.name,
       args.data.params.value.kind,
       args.data.params.value.title
     )
-
-    if args.data.params.value.kind == 'report' then
-      msg = string.format('%s\tmessage=%s\tpercentage=%s',
-        msg,
-        args.data.params.value.message,
-        args.data.params.value.percentage
-      )
-    end
 
     vim.notify_once(msg, vim.log.levels.INFO)
   end,
