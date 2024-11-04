@@ -1,4 +1,4 @@
-vim.cmd('colorscheme zzz') -- $HOME/.files/.config/nvim/colors/zzz.lua
+vim.cmd('colorscheme retrobox')
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
