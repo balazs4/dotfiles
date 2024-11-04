@@ -251,7 +251,7 @@ require("fzf").default_options = {
 vim.keymap.set('n', '<leader><leader>', function()
   coroutine.wrap(function()
     local git_root_dir = vim.fs.root(0, '.git')
-    local cmd = git_root_dir and 'git ls-files' or 'find . -type f'
+    local cmd = git_root_dir and 'git ls-files' or 'find . -type f -maxdepth 4'
     local result = require('fzf').fzf(cmd, '--ansi --expect=ctrl-v', { relative = 'editor' })
     if not result then return end
 
