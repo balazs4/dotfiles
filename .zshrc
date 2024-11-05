@@ -664,3 +664,7 @@ function colima_start(){
 function re(){
   nvim $(gh pr diff --name-only)
 }
+
+function duration(){
+  datediff $(cat $1 | head -1 | awk '{print $1}') $(cat $1 | tail -1 | awk '{print $1}')
+}
