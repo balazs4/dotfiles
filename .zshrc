@@ -107,7 +107,7 @@ function TRAPUSR1(){
 
 
 function zle-line-init zle-keymap-select {
-  test $COLUMNS -lt 100 && NEWLINE=$'\n' || NEWLINE=''
+  test $COLUMNS -lt 180 && NEWLINE=$'\n' || NEWLINE=''
   PROMPT="%B%F{#{{base07-hex}}} %~%f%b$(zsh-git &) %B%F{#{{base07-hex}}}${NEWLINE}»%f%b "
   RPROMPT="%(?.%F{#{{base07-hex}}}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
   zle reset-prompt
@@ -586,12 +586,12 @@ function color(){
 
 function dark(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" > /dev/null
-  color 16 \!light ${*}
+  color 16 ${*}
 }
 
 function light(){
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" > /dev/null
-  color 16 \'light ${*}
+  color 16 ${*}
   a 99
 }
 
