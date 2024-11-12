@@ -233,13 +233,6 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
--- https://github.com/echasnovski/mini.comment
-require('mini.comment').setup({
-  options = {
-    ignore_blank_line = true
-  }
-})
-
 -- https://github.com/vijaymarupudi/nvim-fzf
 require("fzf").default_options = {
   relative = 'editor',

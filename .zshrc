@@ -158,9 +158,15 @@ export FZF_DEFAULT_COMMAND="find . -type f"
 export FZF_CTRL_T_COMMAND="git ls-files || find . -type f"
 export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'"
 
+if test $TMUX
+then
+  export TERM=tmux-256color
+else
+  export TERM=xterm-256color
+fi
+
 export LANG=en_US.UTF-8
 export TERMINAL=alacritty
-export TERM=xterm-256color
 #mcbpro export BROWSER=xdg-open
 #carbon export BROWSER=chromium
 export EDITOR=nvim
