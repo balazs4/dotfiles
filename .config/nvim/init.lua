@@ -34,6 +34,7 @@ vim.keymap.set('n', '<C-k>', ':cprevious<CR>zz');
 vim.keymap.set('n', '<leader>w', ':grep <cword>| copen <CR>')
 vim.keymap.set('n', '<leader>W', ':grep <cWORD> | copen <CR>')
 vim.keymap.set('n', '<leader>q', ':grep <cword> %:.:h')
+vim.keymap.set('n', 'gn', '"nyi\' :!xdg-open https://www.npmjs.com/package/<C-R>n <CR>')
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
