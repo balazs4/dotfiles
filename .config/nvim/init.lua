@@ -233,6 +233,9 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
+vim.opt.runtimepath:append("~/.fzf")
+vim.keymap.set('n', '<leader>e', '<cmd>FZF<cr>')
+
 -- https://github.com/vijaymarupudi/nvim-fzf
 require("fzf").default_options = {
   relative = 'editor',
