@@ -66,7 +66,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
     vim.keymap.set('n', '<leader>p', vim.lsp.buf.format, { buffer = args.buf })
-    vim.keymap.set('n', '<leader>b', vim.diagnostic.setqflist, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>b', function() vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR }) end, { buffer = args.buf })
     vim.keymap.set('n', '<leader>y', function() vim.lsp.buf.document_symbol({}) end)
     vim.keymap.set('n', '<leader>Y', function() vim.lsp.buf.workspace_symbol('',{}) end )
 
