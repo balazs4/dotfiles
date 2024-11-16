@@ -17,7 +17,10 @@ case ${1-"none"} in
     mkdir -p $HOME/.local/share/nvim/site/pack/_/start/  2>/dev/null
 
     pushd $HOME/.local/share/nvim/site/pack/_/start/
-      grep '^\s*-- https://git' $HOME/.config/nvim/init.lua | sed 's/^[[:space:]]*-- //g' | xargs -t -L1 git clone --depth=1
+      for repo in $(grep '^\s*-- https://git' $HOME/.config/nvim/init.lua | sed 's/^[[:space:]]*-- //g')
+      do
+        git clone --depth=1 $repo
+      done
     popd
     ;;
 

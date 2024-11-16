@@ -235,29 +235,4 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.opt.runtimepath:append("~/.fzf")
-vim.keymap.set('n', '<leader>e', '<cmd>FZF<cr>')
-
--- https://github.com/vijaymarupudi/nvim-fzf
-require("fzf").default_options = {
-  relative = 'editor',
-  window_on_create = function()
-    vim.cmd("set winhl=Normal:Normal")
-  end
-}
-
-vim.keymap.set('n', '<leader><leader>', function()
-  coroutine.wrap(function()
-    local git_root_dir = vim.fs.root(0, '.git')
-    local cmd = git_root_dir and 'git ls-files' or 'find . -type f -maxdepth 4'
-    local result = require('fzf').fzf(cmd, '--ansi --expect=ctrl-v', { relative = 'editor' })
-    if not result then return end
-
-    if result[1] == 'ctrl-v'
-    then
-      vim.cmd(string.format('vsplit %s', result[2]))
-      return
-    end
-
-    vim.cmd(string.format('edit %s', result[2]))
-  end)()
-end)
+vim.keymap.set('n', '<leader><leader>', '<cmd>FZF<cr>')
