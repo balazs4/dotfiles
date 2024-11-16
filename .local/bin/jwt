@@ -6,6 +6,9 @@ node -e "
   process.stdout.write(JSON.stringify(jwt,null,2));
   process.stdout.write('\n');
 
+  process.stderr.write('iat:');
+  process.stderr.write(new Date(1000 * jwt.payload.iat).toJSON());
+  process.stderr.write('\n');
   process.stderr.write('exp:');
   process.stderr.write(new Date(1000 * jwt.payload.exp).toJSON());
   process.stderr.write('\n');
