@@ -1,4 +1,4 @@
-vim.cmd('colorscheme retrobox')
+vim.cmd('colorscheme zzz')
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -197,9 +197,8 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'go' },
   callback = function()
     local cfg = configure({ 'go.mod', 'go.work' }, { 'gopls' })
-    if cfg ~= nil then
-      vim.lsp.start({ cmd = cfg.cmd, name = cfg.name, root_dir = cfg.root_dir })
-    end
+    if cfg == nil then return end
+    vim.lsp.start(cfg)
   end
 })
 
@@ -207,9 +206,8 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'terraform' },
   callback = function()
     local cfg = configure({ '.terrform.lock.hcl' }, { 'terraform-ls', 'serve' })
-    if cfg ~= nil then
-      vim.lsp.start({ cmd = cfg.cmd, name = cfg.name, root_dir = cfg.root_dir })
-    end
+    if cfg == nil then return end
+    vim.lsp.start(cfg)
   end
 })
 
@@ -217,9 +215,8 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'rust' },
   callback = function()
     local cfg = configure({ 'Cargo.toml' }, { 'rust-analyzer' })
-    if cfg ~= nil then
-      vim.lsp.start({ cmd = cfg.cmd, name = cfg.name, root_dir = cfg.root_dir })
-    end
+    if cfg == nil then return end
+    vim.lsp.start(cfg)
   end
 })
 
@@ -228,9 +225,9 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     vim.treesitter.stop()
     local cfg = configure({ '.luarc.json', '.git' }, { 'lua-language-server' })
-    if cfg ~= nil then
-      vim.lsp.start({ cmd = cfg.cmd, name = cfg.name, root_dir = cfg.root_dir, settings = { Lua = { workspace = { library = vim.api.nvim_list_runtime_paths() } } } })
-    end
+    if cfg == nil then return end
+    cfg.settings = { Lua = { workspace = { library = vim.api.nvim_list_runtime_paths() } } }
+    vim.lsp.start(cfg)
   end
 })
 
