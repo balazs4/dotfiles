@@ -93,6 +93,6 @@ smart_gaps on
 gaps inner 2
 gaps outer 2
 
-#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/O0R5XZfKUGQ/download?force=true&w=1920
+#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/f7PF7yGqpEM/download?force=true&w=1920
 
 for_window [instance="chromium"]  move workspace2
