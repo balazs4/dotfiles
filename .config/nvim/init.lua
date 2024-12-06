@@ -1,4 +1,4 @@
-vim.cmd('colorscheme zzz')
+--carbon vim.cmd('colorscheme zzz')
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
