@@ -47,8 +47,8 @@
     Mod4 + Print
 
 "$HOME/.local/bin/xbind setxkbmap"
-    m:0x0 + c:224
-    XF86Messenger
+    m:0x0 + c:164
+    XF86Favorites
 
 "$HOME/.local/bin/xbind focus"
     m:0x40 + c:65
@@ -69,16 +69,4 @@
 "mpris-ctl --player active next"
     m:0x40 + c:117
     Mod4 + Next
-
-"printf 'level %s' 7    | sudo tee /proc/acpi/ibm/fan | xargs dunstify"
-    m:0x0 + c:226
-    XF86Go
-
-"printf 'level %s' auto | sudo tee /proc/acpi/ibm/fan | xargs dunstify"
-    m:0x0 + c:231
-    Cancel
-
-"dunstify -t 1000 XF86Favorites"
-    m:0x0 + c:164
-    XF86Favorites
 

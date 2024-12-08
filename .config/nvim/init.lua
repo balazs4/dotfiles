@@ -24,6 +24,8 @@ vim.g.netrw_altv = 1
 
 vim.opt.grepprg = 'rg --vimgrep --hidden'
 
+vim.keymap.set('n', 'H', '^')
+vim.keymap.set('n', 'L', '$')
 vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '<leader><Tab>', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '`', '<C-^>')
