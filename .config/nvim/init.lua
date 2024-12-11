@@ -27,7 +27,6 @@ vim.opt.grepprg = 'rg --vimgrep --hidden'
 vim.keymap.set('n', 'H', '^')
 vim.keymap.set('n', 'L', '$')
 vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
-vim.keymap.set('n', '<leader><Tab>', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '`', '<C-^>')
 vim.keymap.set('n', '<leader><cr>', ':wa | silent make | source $MYVIMRC<CR>')
 vim.keymap.set('v', ',,', ':!emmet<CR>')
