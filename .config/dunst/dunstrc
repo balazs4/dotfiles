@@ -1,9 +1,9 @@
 [global]
     monitor = 0
     follow = mouse
-    width = 512
-    height = 256
-    offset = 0x32
+    width = (512,512)
+    height = (0,128)
+    offset = (0,32)
     font = Geist Mono 9
     indicate_hidden = yes
     shrink = no
