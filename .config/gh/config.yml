@@ -14,3 +14,30 @@ aliases:
         | fzf --reverse --preview-window=bottom --preview 'gh pr view {2}' \
         | xurls \
         | xargs -t -I{} gh pr ${*:-view} {}
+
+  get: >-
+    !
+    case "$1" in
+     fzf)
+      mkdir -p $HOME/.fzf/plugin 2>/dev/null
+      tag_name=$(gh release list --limit 1 --repo junegunn/fzf --json tagName --jq '.[].tagName')
+      printf "tag_name=%s\n" $tag_name
+#carbon      gh release download $tag_name --repo junegunn/fzf --pattern '*linux_amd64*'  --output - | tar xvz -C "$HOME/.fzf/"
+#mcbpro      gh release download $tag_name --repo junegunn/fzf --pattern '*darwin_arm64*' --output - | tar xvz -C "$HOME/.fzf/"
+      curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/shell/completion.zsh?raw=true"           --output "$HOME/.fzf/completion.zsh"
+      curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/shell/key-bindings.zsh?raw=true"         --output "$HOME/.fzf/key-bindings.zsh"
+      curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/plugin/fzf.vim?raw=true"                 --output "$HOME/.fzf/plugin/fzf.vim"
+      fzf --version
+     ;;
+
+     nvim)
+       rm -rf $HOME/.nvim/* 2>/dev/null || mkdir -p $HOME/.nvim/ 2>/dev/null
+#carbon       curl https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz -L     | tar xvz -C $HOME/.nvim/
+#mcbpro       curl https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz -L | tar xvz -C $HOME/.nvim/
+       nvim --version
+     ;;
+
+     *)
+       echo "unknown project: $1"
+     ;;
+    esac

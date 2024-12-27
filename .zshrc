@@ -139,19 +139,7 @@ export GOROOT=$HOME/.g # https://github.com/stefanmaric/g
 export GOPATH=$HOME/.go
 export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 
-# fzf
-function fzf_update() {
-  mkdir -p $HOME/.fzf/plugin 2>/dev/null
-  tag_name=$(gh release list --limit 1 --repo junegunn/fzf --json tagName --jq '.[].tagName')
-  printf "tag_name=%s\n" $tag_name
-#carbon  gh release download $tag_name --repo junegunn/fzf --pattern '*linux_amd64*'  --output - | tar xvz -C "$HOME/.fzf/"
-#mcbpro  gh release download $tag_name --repo junegunn/fzf --pattern '*darwin_arm64*' --output - | tar xvz -C "$HOME/.fzf/"
-  curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/shell/completion.zsh?raw=true"           --output "$HOME/.fzf/completion.zsh"
-  curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/shell/key-bindings.zsh?raw=true"         --output "$HOME/.fzf/key-bindings.zsh"
-  curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/plugin/fzf.vim?raw=true"                 --output "$HOME/.fzf/plugin/fzf.vim"
-  fzf --version
-}
-
+# gh get fzf
 export PATH=$HOME/.fzf:${PATH}
 source $HOME/.fzf/completion.zsh
 source $HOME/.fzf/key-bindings.zsh
