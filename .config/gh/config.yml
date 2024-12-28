@@ -37,6 +37,11 @@ aliases:
        nvim --version
      ;;
 
+#carbon     hcloud)
+#carbon        mkdir -p $HOME/.hcloud 2>/dev/null
+#carbon        gh release download --repo hetznercloud/cli --pattern '*linux-amd64*'  --output - | tar xvz -C "$HOME/.hcloud/"
+#carbon     ;;
+
      *)
        echo "unknown project: $1"
      ;;

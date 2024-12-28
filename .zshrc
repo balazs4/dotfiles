@@ -147,6 +147,10 @@ export FZF_DEFAULT_COMMAND="git ls-files || find . -type f -maxdepth 4"
 export FZF_CTRL_T_COMMAND="git ls-files || find . -type f -maxdepth 4"
 export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'"
 
+
+# gh get hcloud
+export PATH=$HOME/.hcloud:${PATH}
+
 if test $TMUX
 then
   export TERM=tmux-256color
@@ -181,7 +185,7 @@ export DO_NOT_TRACK=1
 #deno
 export PATH="$HOME/.deno/bin:${PATH}"
 
-#nvim
+# gh get nvim
 #mcbpro export PATH="$HOME/.nvim/nvim-macos-arm64/bin:${PATH}"
 #carbon export PATH="$HOME/.nvim/nvim-linux64/bin:${PATH}"
 
