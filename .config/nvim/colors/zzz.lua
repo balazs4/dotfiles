@@ -14,9 +14,11 @@
 -- base0D-hex: blue
 -- base0E-hex: purple
 -- base0F-hex: brown
+-- variant: light|dark
 
 vim.g.colors_name = 'zzz'
-vim.cmd('runtime colors/quiet.vim')
+--carbon vim.cmd('runtime colors/quiet.vim')
+--mcbpro vim.cmd('runtime colors/default.vim')
 vim.opt.background = '{{variant}}'
 
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
