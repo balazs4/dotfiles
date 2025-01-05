@@ -1,7 +1,12 @@
 git_protocol: ssh
 aliases:
   checks: >-
-    !gh pr checks --json 'name,link,state' | fx 'x => x.map(xx => [xx.state.padEnd(8), xx.link.padEnd(72), xx.name].join("\t")).join("\n")' | sort -r | awk '1 {print $0 > "/dev/stderr";} /^FAILURE/{print $2 > "/dev/stdout";}' | xurls | xargs xdg-open
+    !gh pr checks --json 'name,link,state' \
+      | fx 'x => x.map(xx => [xx.state.padEnd(8), xx.link.padEnd(72), xx.name].join("\t")).join("\n")' \
+      | sort -r \
+      | awk '1 {print $0 > "/dev/stderr";} /^FAILURE/{print $2 > "/dev/stdout";}' \
+      | xurls \
+      | xargs xdg-open
 
   prs: >-
     !gh api graphql -f query="
@@ -37,10 +42,10 @@ aliases:
        nvim --version
      ;;
 
-#carbon     hcloud)
-#carbon        mkdir -p $HOME/.hcloud 2>/dev/null
-#carbon        gh release download --repo hetznercloud/cli --pattern '*linux-amd64*'  --output - | tar xvz -C "$HOME/.hcloud/"
-#carbon     ;;
+     hcloud)
+        mkdir -p $HOME/.hcloud 2>/dev/null
+        gh release download --repo hetznercloud/cli --pattern '*linux-amd64*'  --output - | tar xvz -C "$HOME/.hcloud/"
+     ;;
 
      *)
        echo "unknown project: $1"
