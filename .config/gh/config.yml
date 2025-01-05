@@ -47,6 +47,16 @@ aliases:
         gh release download --repo hetznercloud/cli --pattern '*linux-amd64*'  --output - | tar xvz -C "$HOME/.hcloud/"
      ;;
 
+     bun)
+        repo="oven-sh/bun"
+        target="${2:-$HOME/.bun}"
+#carbon        pattern='bun-linux-x64'
+
+        mkdir -p $target 2>/dev/null
+        gh release --repo ${repo} download --pattern "${pattern}.zip" --output - | bsdtar xvz -C "$target"
+        chmod +x "$target/$pattern/bun"
+     ;;
+
      *)
        echo "unknown project: $1"
      ;;

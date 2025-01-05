@@ -134,8 +134,8 @@ function zz() {
 alias z='TMUX=fake zz'
 alias x='tmux new-session -A -s $HOME -c $HOME'
 
-#go
-export GOROOT=$HOME/.g # https://github.com/stefanmaric/g
+#golang - https://github.com/stefanmaric/g
+export GOROOT=$HOME/.g
 export GOPATH=$HOME/.go
 export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 
@@ -146,7 +146,6 @@ source $HOME/.fzf/key-bindings.zsh
 export FZF_DEFAULT_COMMAND="git ls-files || find . -type f -maxdepth 4"
 export FZF_CTRL_T_COMMAND="git ls-files || find . -type f -maxdepth 4"
 export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'"
-
 
 # gh get hcloud
 export PATH=$HOME/.hcloud:${PATH}
@@ -160,26 +159,27 @@ fi
 
 export LANG=en_US.UTF-8
 export TERMINAL=alacritty
-#mcbpro export BROWSER=xdg-open
-#carbon export BROWSER=chromium
+export BROWSER=xdg-open
 export EDITOR=nvim
 export GPG_TTY=`tty`
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 export PATH=$HOME/.local/bin:${PATH}
 
-#nodejs
-export NPM_CONFIG_LOGLEVEL=http
-export DOTENV_CONFIG_DEBUG=true
-export N_PREFIX=$HOME/.n/prefix # https://github.com/tj/n
+#node.js - https://github.com/tj/n
+export N_PREFIX=$HOME/.n/prefix
 export N_PRESERVE_NPM=1
 export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
+export NPM_CONFIG_LOGLEVEL=http
+export DOTENV_CONFIG_DEBUG=true
 #mcbpro export PNPM_HOME=$HOME/.pnpm
 
 #lua
 #curl https://github.com/LuaLS/lua-language-server/releases/download/3.10.6/lua-language-server-3.10.6-linux-x64.tar.gz -L | tar xvz -C $HOME/.lua/
 export PATH=$HOME/.lua/bin:${PATH}
 
-#bun
+#gh get bun $HOME/.bun
+#carbon export PATH="$HOME/.bun/bun-linux-x64:${PATH}"
+source $HOME/.bun/_bun
 export DO_NOT_TRACK=1
 
 #deno
