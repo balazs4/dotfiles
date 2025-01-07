@@ -43,8 +43,6 @@ function dot(){
 		esac
 }
 
-
-
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=10000
@@ -138,13 +136,34 @@ export GOROOT=$HOME/.g
 export GOPATH=$HOME/.go
 export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 
-# gh get fzf
+# fzf
 export PATH=$HOME/.fzf:${PATH}
 source $HOME/.fzf/completion.zsh
 source $HOME/.fzf/key-bindings.zsh
 export FZF_DEFAULT_COMMAND="git ls-files || find . -type f -maxdepth 4"
 export FZF_CTRL_T_COMMAND="git ls-files || find . -type f -maxdepth 4"
 export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'"
+
+function _fzf(){
+  rm -rf $HOME/.fzf/ 2>/dev/null
+  mkdir -p $HOME/.fzf/plugin 2>/dev/null
+
+  curl 'https://api.github.com/repos/junegunn/fzf/releases/latest?page=1&per_page=1' \
+    | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
+    | grep -v sha \
+    | vipe \
+    | xurls \
+    | xargs curl -Lo - \
+    | tar xzv -C $HOME/.fzf
+
+  tag_name="v$(fzf --version | awk '{print $1}')"
+
+  curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/shell/completion.zsh?raw=true"    --output "$HOME/.fzf/completion.zsh"
+  curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/shell/key-bindings.zsh?raw=true"  --output "$HOME/.fzf/key-bindings.zsh"
+  curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/plugin/fzf.vim?raw=true"          --output "$HOME/.fzf/plugin/fzf.vim"
+
+  fzf --version
+}
 
 # gh get hcloud
 export PATH=$HOME/.hcloud:${PATH}
@@ -172,8 +191,21 @@ export DOTENV_CONFIG_DEBUG=true
 #mcbpro export PNPM_HOME=$HOME/.pnpm
 
 #lua
-#curl https://github.com/LuaLS/lua-language-server/releases/download/3.10.6/lua-language-server-3.10.6-linux-x64.tar.gz -L | tar xvz -C $HOME/.lua/
 export PATH=$HOME/.lua/bin:${PATH}
+function _lua(){
+#mcbpro  os=macos
+  rm -rf $HOME/.lua/ 2>/dev/null
+  mkdir -p $HOME/.lua/ 2>/dev/null
+  curl -Lis 'https://api.github.com/repos/LuaLS/lua-language-server/releases/latest?page=1&per_page=1' \
+    | stdsplit \
+    | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
+    | grep -v sha \
+    | fzf -q "${os:-linux}" -1 \
+    | xurls \
+    | xargs curl -Lo - \
+    | tar xzv  -C $HOME/.lua
+  lua-language-server --version
+}
 
 #gh get bun $HOME/.bun
 #carbon export PATH="$HOME/.bun/bun-linux-x64:${PATH}"
@@ -183,9 +215,11 @@ export DO_NOT_TRACK=1
 export PATH="$HOME/.deno/bin:${PATH}"
 
 #neovim
-function _nvim(){
-  os="$(uname | tr '[:upper:]' '[:lower:]')"
+export PATH="$HOME/.nvim/bin:${PATH}"
+export EDITOR=nvim
 
+function _nvim(){
+#mcbpro  os=macos
   rm -rf $HOME/.nvim/ 2>/dev/null
   mkdir -p $HOME/.nvim/ 2>/dev/null
   curl 'https://api.github.com/repos/neovim/neovim/releases/tags/nightly?page=1&per_page=1' \
@@ -195,9 +229,8 @@ function _nvim(){
     | xurls \
     | xargs curl -Lo - \
     | tar xzv --strip-components=1 -C $HOME/.nvim
+  nvim --version
 }
-export PATH="$HOME/.nvim/bin:${PATH}"
-export EDITOR=nvim
 
 #carbon #curl https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz  | tar xv -J -C $HOME/.zig --strip-components=1
 #mcbpro #curl https://ziglang.org/download/0.13.0/zig-macos-aarch64-0.13.0.tar.xz | tar xv -J -C $HOME/.zig --strip-components=1
