@@ -1,4 +1,5 @@
 vim.cmd('colorscheme zzz') -- $HOME/.files/.config/nvim/colors/zzz
+vim.opt.background = 'dark'
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -36,6 +37,7 @@ vim.keymap.set('n', '<leader>w', ':grep <cword>| copen <CR>')
 vim.keymap.set('n', '<leader>W', ':grep <cWORD> | copen <CR>')
 vim.keymap.set('n', '<leader>q', ':grep <cword> %:.:h')
 vim.keymap.set('n', 'gn', '"nyi\' :!xdg-open https://www.npmjs.com/package/<C-R>n <CR>')
+vim.keymap.set('n', 'sw', 'cw""<ESC>P');
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')

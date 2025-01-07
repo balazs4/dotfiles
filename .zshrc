@@ -107,7 +107,7 @@ function TRAPUSR1(){
 
 
 function zle-line-init zle-keymap-select {
-  test $COLUMNS -lt 180 && NEWLINE=$'\n' || NEWLINE=''
+  test $COLUMNS -lt 120 && NEWLINE=$'\n' || NEWLINE=''
   PROMPT="%B%F{#{{base07-hex}}} %~%f%b$(zsh-git &) %B%F{#{{base07-hex}}}${NEWLINE}»%f%b "
   RPROMPT="%(?.%F{#{{base07-hex}}}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
   zle reset-prompt
@@ -121,7 +121,6 @@ function zz() {
   local to=`{
     echo $HOME/.files;
     find $HOME/src -maxdepth 1 -type d;
-    find $HOME/src/github.com/ -maxdepth 2 -type d;
 #mcbpro    find $HOME/src/api -maxdepth 2 -type d;
 #mcbpro    find $HOME/src/front/apps -maxdepth 1 -type d;
   } | fzf --layout=reverse --height '40%' -q "${*:-$PWD} " -1`
@@ -160,7 +159,6 @@ fi
 export LANG=en_US.UTF-8
 export TERMINAL=alacritty
 export BROWSER=xdg-open
-export EDITOR=nvim
 export GPG_TTY=`tty`
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 export PATH=$HOME/.local/bin:${PATH}
@@ -179,15 +177,31 @@ export PATH=$HOME/.lua/bin:${PATH}
 
 #gh get bun $HOME/.bun
 #carbon export PATH="$HOME/.bun/bun-linux-x64:${PATH}"
-source $HOME/.bun/_bun
 export DO_NOT_TRACK=1
 
 #deno
 export PATH="$HOME/.deno/bin:${PATH}"
 
-# gh get nvim
-#mcbpro export PATH="$HOME/.nvim/nvim-macos-arm64/bin:${PATH}"
-#carbon export PATH="$HOME/.nvim/nvim-linux64/bin:${PATH}"
+#neovim
+function _nvim(){
+  os="$(uname | tr '[:upper:]' '[:lower:]')"
+
+  rm -rf $HOME/.nvim/ 2>/dev/null
+  mkdir -p $HOME/.nvim/ 2>/dev/null
+  curl 'https://api.github.com/repos/neovim/neovim/releases/tags/nightly?page=1&per_page=1' \
+    | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
+    | grep -v sha \
+    | fzf -q "${os:-linux}" -1 \
+    | xurls \
+    | xargs curl -Lo - \
+    | tar xzv --strip-components=1 -C $HOME/.nvim
+}
+export PATH="$HOME/.nvim/bin:${PATH}"
+export EDITOR=nvim
+
+#carbon #curl https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz  | tar xv -J -C $HOME/.zig --strip-components=1
+#mcbpro #curl https://ziglang.org/download/0.13.0/zig-macos-aarch64-0.13.0.tar.xz | tar xv -J -C $HOME/.zig --strip-components=1
+export PATH="$HOME/.zig:${PATH}"
 
 #emmet
 #carbon #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-x86_64-linux.tar.gz -L   | tar xvz -C $HOME/.local/bin

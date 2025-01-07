@@ -35,13 +35,6 @@ aliases:
       fzf --version
      ;;
 
-     nvim)
-       rm -rf $HOME/.nvim/* 2>/dev/null || mkdir -p $HOME/.nvim/ 2>/dev/null
-#carbon       curl https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz -L     | tar xvz -C $HOME/.nvim/
-#mcbpro       curl https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz -L | tar xvz -C $HOME/.nvim/
-       nvim --version
-     ;;
-
      hcloud)
         mkdir -p $HOME/.hcloud 2>/dev/null
         gh release download --repo hetznercloud/cli --pattern '*linux-amd64*'  --output - | tar xvz -C "$HOME/.hcloud/"
