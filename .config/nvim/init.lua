@@ -37,7 +37,6 @@ vim.keymap.set('n', '<leader>w', ':grep <cword>| copen <CR>')
 vim.keymap.set('n', '<leader>W', ':grep <cWORD> | copen <CR>')
 vim.keymap.set('n', '<leader>q', ':grep <cword> %:.:h')
 vim.keymap.set('n', 'gn', '"nyi\' :!xdg-open https://www.npmjs.com/package/<C-R>n <CR>')
-vim.keymap.set('n', 'sw', 'cw""<ESC>P');
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
@@ -73,7 +72,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>b', function() vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR }) end, { buffer = args.buf })
     vim.keymap.set('n', '<leader>y', function() vim.lsp.buf.document_symbol({}) end)
     vim.keymap.set('n', '<leader>Y', function() vim.lsp.buf.workspace_symbol('',{}) end )
-
+    vim.keymap.set('n', '<leader>d', function() vim.cmd('vsplit') vim.lsp.buf.definition() end, { buffer = args.buf })
 
     if tostring(vim.version()):match('0.11') and client.supports_method('textDocument/completion') then
       vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
