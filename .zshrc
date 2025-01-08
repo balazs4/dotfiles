@@ -513,12 +513,11 @@ function yt(){
           }
         }
       })();' \
-    | sort -k3 -rh \
-    | fzf --height=25% --sync \
+    | fzf --height=50% \
     | cut -f1 \
-    | xargs -t -Iwatch mpv ${MPV:---ytdl-format='[height=1080]/best'} https://youtu.be/watch
+    | xargs -t -Iwatch mpv ${MPV:---ytdl-raw-options=format-sort='res:1080'} https://youtu.be/watch
 }
-alias yta="MPV='--no-video' yt"
+alias yta="MPV='--ytdl-raw-options=format=bestaudio' yt"
 
 
 function pihole(){
