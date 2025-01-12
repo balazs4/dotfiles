@@ -20,4 +20,3 @@ curl "$url" -H 'cache-control: no-cache' -Ls --user-agent "$RANDOM"  \
     --reverse \
     --sync \
     --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'
-

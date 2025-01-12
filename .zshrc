@@ -516,8 +516,8 @@ function yt(){
           }
         }
       })();' \
-    | fzf --height=30% --with-nth=2.. --delimiter="\t" \
-    | cut -f1 \
+    | fzf --height=50% --with-nth=2.. --delimiter="\t" --preview-window 'right,40%' --preview='wget {1} -O- 2>/dev/null | chafa --scale 2.0 -' \
+    | cut -f2 \
     | xargs -t -Iwatch mpv ${MPV:---ytdl-raw-options=format-sort='res:1080'} https://youtu.be/watch
 }
 alias yta="MPV='--ytdl-raw-options=format=bestaudio' yt"
