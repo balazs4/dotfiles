@@ -146,21 +146,26 @@ export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | 
 
 function _fzf(){
   rm -rf $HOME/.fzf/ 2>/dev/null
-  mkdir -p $HOME/.fzf/plugin 2>/dev/null
+  mkdir -p $HOME/.fzf/ 2>/dev/null
 
-  curl 'https://api.github.com/repos/junegunn/fzf/releases/latest?page=1&per_page=1' \
+  curl -LSs 'https://api.github.com/repos/junegunn/fzf/releases/latest?page=1&per_page=1' \
     | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
     | grep -v sha \
     | vipe \
     | xurls \
-    | xargs curl -Lo - \
+    | xargs curl -LSso - \
     | tar xzv -C $HOME/.fzf
 
   tag_name="v$(fzf --version | awk '{print $1}')"
 
   curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/shell/completion.zsh?raw=true"    --output "$HOME/.fzf/completion.zsh"
   curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/shell/key-bindings.zsh?raw=true"  --output "$HOME/.fzf/key-bindings.zsh"
+
+  mkdir -p $HOME/.fzf/plugin 2>/dev/null
   curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/plugin/fzf.vim?raw=true"          --output "$HOME/.fzf/plugin/fzf.vim"
+
+  mkdir -p $HOME/.fzf/man/man1/ 2>/dev/null
+  curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/man/man1/fzf.1?raw=true"          --output "$HOME/.fzf/man/man1/fzf.1"
 
   fzf --version
 }
