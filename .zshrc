@@ -506,17 +506,17 @@ function yt(){
             if (!xx) continue;
             if (!xx.videoRenderer) continue;
             const video = [
+              xx.videoRenderer.thumbnail.thumbnails[0].url,
               xx.videoRenderer.videoId,
               xx.videoRenderer.lengthText.simpleText.padStart(8),
               xx.videoRenderer.viewCountText.simpleText.padStart(16),
               xx.videoRenderer.title.runs[0].text,
-              xx.videoRenderer.thumbnail.thumbnails[0].url
             ].join("\t")
             require("node:process").stdout.write(video + "\n")
           }
         }
       })();' \
-    | fzf --height=50% \
+    | fzf --height=30% --with-nth=2.. --delimiter="\t" \
     | cut -f1 \
     | xargs -t -Iwatch mpv ${MPV:---ytdl-raw-options=format-sort='res:1080'} https://youtu.be/watch
 }
