@@ -1,12 +1,5 @@
 #! /usr/bin/env bash
 
-if test $# -eq 2
-then
-  # TODO: access_token/refresh_token 
-  dunstify $1 $2
-  exit 0
-fi
-
 sub=${1:-all}
 url="https://old.reddit.com/r/${sub}.json"
 
@@ -14,16 +7,17 @@ url="https://old.reddit.com/r/${sub}.json"
 
 curl "$url" -H 'cache-control: no-cache' -Ls --user-agent "$RANDOM"  \
   | fx 'x => x.data.children.map(xx => [
-    new Date(1000 * xx.data.created).toJSON().replace(".000Z", " [" + String(xx.data.ups).padStart(4) + "]"),
-    xx.data.name,
+    new Date(1000 * xx.data.created).toJSON().replace(".000Z", ""),
+    xx.data.url,
+    "[" + String(xx.data.ups).padStart(6) + "]",
     xx.data.title,
-    "url=" + xx.data.url
   ].join("\t")).join("\n")' \
   | sort -r -h \
   | fzf \
+    --delimiter="\t" \
+    --with-nth=1,3.. \
     --prompt "r/$sub/" \
     --reverse \
     --sync \
-    --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)' \
-    --bind "ctrl-u:execute-silent(echo {} | awk '{print \$4}' | xargs reddit up)" \
+    --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'
 
