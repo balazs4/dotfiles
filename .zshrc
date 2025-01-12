@@ -382,8 +382,7 @@ function wiki(){
 function track(){
   test -e $HOME/.cache/spotify || {
     local url="https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:8000/&scope=playlist-modify-public"
-#carbon    (google-chrome-stable --user-data-dir=$HOME/.config/webapp/spotify $url 1>/dev/null 2>/dev/null &)
-#mcbpro    open $url
+    xdg-open $url
     local spotify_code=`node -e "
     require('node:http').createServer((req, res) => {
       res.end('you can close this tab');
@@ -391,8 +390,6 @@ function track(){
       console.log(code);
       process.exit(0);
     }).listen(8000);"`
-
-#carbon    killall -9 chrome
 
     curl "https://accounts.spotify.com/api/token" \
       -XPOST \
