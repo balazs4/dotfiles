@@ -178,6 +178,7 @@ fi
 export LANG=en_US.UTF-8
 export TERMINAL=alacritty
 export BROWSER=xdg-open
+#carbon export BROWSER=chromium
 export GPG_TTY=`tty`
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 export PATH=$HOME/.local/bin:${PATH}
