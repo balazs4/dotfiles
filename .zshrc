@@ -489,6 +489,7 @@ function yt(){
     | xargs -t -I{} curl -Lfs -H "accept-language: ${LNG:-en}" https://www.youtube.com/results\?search_query={} \
     | pup 'script:contains("var ytInitialData") text{}' \
     | sed 's/var ytInitialData = //g; s/};/}/' \
+    | tee /tmp/yt \
     | node -e '
       (async() => {
         const lines = [];
@@ -510,6 +511,7 @@ function yt(){
               xx.videoRenderer.videoId,
               xx.videoRenderer.lengthText.simpleText.padStart(8),
               xx.videoRenderer.viewCountText.simpleText.padStart(16),
+              xx.videoRenderer.publishedTimeText.simpleText.padStart(24),
               xx.videoRenderer.title.runs[0].text,
             ].join("\t")
             require("node:process").stdout.write(video + "\n")
