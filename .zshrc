@@ -217,7 +217,7 @@ function _lua(){
 export PATH="$HOME/.bun:${PATH}"
 export DO_NOT_TRACK=1
 function _bun(){
-#mcbpro  os=macos
+#mcbpro  os=darwin
   rm -rf $HOME/.bun/ 2>/dev/null
   mkdir -p $HOME/.bun/ 2>/dev/null
   curl -Lis 'https://api.github.com/repos/oven-sh/bun/releases/latest?page=1&per_page=1' \
@@ -524,7 +524,7 @@ alias yta="MPV='--ytdl-raw-options=format=bestaudio' yt"
 
 
 function pihole(){
-  curl -Lis http://192.168.178.42/admin/api.php | $HOME/.local/bin/stdsplit
+  curl -Lis http://192.168.178.42:9000/admin/api.php | $HOME/.local/bin/stdsplit
 }
 
 
