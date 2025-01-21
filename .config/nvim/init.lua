@@ -161,7 +161,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   callback = function()
     local config = nil
-    config = configure({ 'node_modules/.bin/tsserver' }, { 'typescript-language-server', '--stdio' })
+    config = configure({ 'node_modules/.bin/tsserver' }, { 'vtsls',  '--stdio' })
     if config ~= nil then
       config.on_attach = function(_, bufnr)
         pcall(vim.keymap.del, 'n', '<leader>p')
