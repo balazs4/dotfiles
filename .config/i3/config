@@ -95,4 +95,4 @@ gaps outer 2
 
 #carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/dtEJ7ueDYFk/download?force=true&w=1920
 
-for_window [instance="chromium"]  move workspace2
+# for_window [instance="chromium"]  move workspace2
