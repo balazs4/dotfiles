@@ -30,13 +30,11 @@ vim.keymap.set('n', 'L', '$')
 vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '`', '<C-^>')
 vim.keymap.set('n', '<leader><cr>', ':wa | silent make | source $MYVIMRC<CR>')
-vim.keymap.set('v', ',,', ':!emmet<CR>')
 vim.keymap.set('n', '<C-j>', ':cnext<CR>zz');
 vim.keymap.set('n', '<C-k>', ':cprevious<CR>zz');
 vim.keymap.set('n', '<leader>w', ':grep <cword>| copen <CR>')
 vim.keymap.set('n', '<leader>W', ':grep <cWORD> | copen <CR>')
 vim.keymap.set('n', '<leader>q', ':grep <cword> %:.:h')
-vim.keymap.set('n', 'gn', '"nyi\' :!xdg-open https://www.npmjs.com/package/<C-R>n <CR>')
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
@@ -69,10 +67,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
     vim.keymap.set('n', '<leader>p', vim.lsp.buf.format, { buffer = args.buf })
-    vim.keymap.set('n', '<leader>b', function() vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR }) end, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>b',
+      function() vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR }) end, { buffer = args.buf })
     vim.keymap.set('n', '<leader>y', function() vim.lsp.buf.document_symbol({}) end)
-    vim.keymap.set('n', '<leader>Y', function() vim.lsp.buf.workspace_symbol('',{}) end )
-    vim.keymap.set('n', '<leader>d', function() vim.cmd('vsplit') vim.lsp.buf.definition() end, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>Y', function() vim.lsp.buf.workspace_symbol('', {}) end)
+    vim.keymap.set('n', '<leader>d', function()
+      vim.cmd('vsplit')
+      vim.lsp.buf.definition()
+    end, { buffer = args.buf })
 
     if tostring(vim.version()):match('0.11') and client.supports_method('textDocument/completion') then
       vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
@@ -134,6 +136,11 @@ end
 --- @param cmd table lsp server command
 --- @return vim.lsp.ClientConfig|nil
 local function configure(files, cmd)
+  local name = cmd[1]
+  if cmd[1] == 'bun' then name = cmd[#cmd - 1] end
+  if files == nil then
+    return { cmd = cmd, name = name, root_dir = vim.loop.cwd() }
+  end
   local root_dir = get_root_dir(files)
   if root_dir == nil then return end
   return { cmd = cmd, name = cmd[1], root_dir = root_dir }
@@ -161,7 +168,8 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   callback = function()
     local config = nil
-    config = configure({ 'node_modules/.bin/tsserver' }, { 'vtsls',  '--stdio' })
+    config = configure({ 'node_modules/.bin/tsserver' },
+      { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' })
     if config ~= nil then
       config.on_attach = function(_, bufnr)
         pcall(vim.keymap.del, 'n', '<leader>p')
@@ -214,10 +222,12 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'rust' },
+  pattern = { 'css' },
   callback = function()
-    local cfg = configure({ 'Cargo.toml' }, { 'rust-analyzer' })
+    local cfg = configure(nil,
+      { 'bun', 'x', '-p', 'vscode-langservers-extracted', 'vscode-css-language-server', '--stdio' })
     if cfg == nil then return end
+    vim.lsp.log_levels = "DEBUG"
     vim.lsp.start(cfg)
   end
 })

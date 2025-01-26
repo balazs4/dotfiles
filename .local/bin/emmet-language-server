@@ -1,3 +1,0 @@
-#! /usr/bin/env bash
-
-bun x -p @olrtg/emmet-language-server emmet-language-server ${*}

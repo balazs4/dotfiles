@@ -34,7 +34,7 @@ esac
 pushd $dir
   while true
   do
-    LOG_LEVEL=info npm run ${script}
-    changing $(git ls-files) && clear || break
+    LOG_LEVEL=info NPM_CONFIG_LOGLEVEL=error npm run ${script}
+    changing "$(git ls-files)" && clear || break
   done
 popd
