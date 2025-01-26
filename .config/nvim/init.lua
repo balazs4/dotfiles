@@ -168,7 +168,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   callback = function()
     local config = nil
-    config = configure({ 'node_modules/.bin/tsserver' },
+    config = configure({ 'node_modules/.bin/tsserver', 'tsconfig.json' },
       { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' })
     if config ~= nil then
       config.on_attach = function(_, bufnr)
