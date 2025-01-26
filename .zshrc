@@ -490,8 +490,7 @@ function yt(){
     | xargs -t -I{} curl -Lfs -H "accept-language: ${LNG:-en}" https://www.youtube.com/results\?search_query={} \
     | pup 'script:contains("var ytInitialData") text{}' \
     | sed 's/var ytInitialData = //g; s/};/}/' \
-    | tee /tmp/yt \
-    | node -e '
+    | bun -e '
       (async() => {
         const lines = [];
         for await (const line of require("node:readline").createInterface(process.stdin)) {
@@ -508,18 +507,18 @@ function yt(){
             if (!xx) continue;
             if (!xx.videoRenderer) continue;
             const video = [
-              xx.videoRenderer.thumbnail.thumbnails[0].url,
+              xx.videoRenderer.thumbnail?.thumbnails[0].url,
               xx.videoRenderer.videoId,
-              xx.videoRenderer.lengthText.simpleText.padStart(8),
-              xx.videoRenderer.viewCountText.simpleText.padStart(16),
-              xx.videoRenderer.publishedTimeText.simpleText.padStart(24),
+              xx.videoRenderer.lengthText?.simpleText.padStart(8),
+              (xx.videoRenderer.viewCountText?.simpleText || "premier at").padStart(16),
+              (xx.videoRenderer.publishedTimeText?.simpleText || new Date(1000 * parseInt(xx.videoRenderer.upcomingEventData?.startTime || "0")).toJSON() ).padStart(24),
               xx.videoRenderer.title.runs[0].text,
             ].join("\t")
             require("node:process").stdout.write(video + "\n")
           }
         }
       })();' \
-    | fzf --height=50% --with-nth=2.. --delimiter="\t" --preview-window 'right,40%' --preview='wget {1} -O- 2>/dev/null | chafa --scale 2.0 -' \
+    | fzf --sync --height=50% --with-nth=2.. --delimiter="\t" --preview-window 'right,40%' --preview='wget {1} -O- 2>/dev/null | chafa --scale 2.0 -' \
     | cut -f2 \
     | xargs -t -Iwatch mpv ${MPV:---ytdl-raw-options=format-sort='res:1080'} https://youtu.be/watch
 }
