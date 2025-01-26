@@ -110,7 +110,7 @@ function zle-line-init zle-keymap-select {
   PROMPT="%B%F{#{{base07-hex}}} %~%f%b$(zsh-git &) %B%F{#{{base07-hex}}}${NEWLINE}»%f%b "
   RPROMPT="%(?.%F{#{{base07-hex}}}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
   if test ${SSH_CLIENT}; then
-    RPROMPT="${RPROMPT} [%m]"
+    PROMPT="[%m] ${PROMPT}"
   fi
   zle reset-prompt
 }
