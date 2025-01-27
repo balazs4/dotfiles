@@ -87,27 +87,3 @@ up = 'resize height -50'
 right = 'resize width +50'
 enter = 'mode main'
 esc = 'mode main'
-
-[[on-window-detected]]
-if.app-id = 'com.google.Chrome'
-run = 'move-node-to-workspace 2'
-
-[[on-window-detected]]
-if.app-id = 'com.tinyspeck.slackmacgap'
-run = 'move-node-to-workspace 3'
-
-[[on-window-detected]]
-if.app-id = 'com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm' # Gmail
-run = 'move-node-to-workspace 3'
-
-[[on-window-detected]]
-if.app-id = 'com.google.Chrome.app.hnpfjngllnobngcgfapefoaidbinmjnm' # WhatsApp
-run = 'move-node-to-workspace 4'
-
-[[on-window-detected]]
-if.app-id = 'com.google.Chrome.app.pjibgclleladliembfgfagdaldikeohf' # Spotify
-run = 'move-node-to-workspace 10'
-
-[[on-window-detected]]
-if.app-id = 'com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml' # YouTube
-run = 'move-node-to-workspace 10'
