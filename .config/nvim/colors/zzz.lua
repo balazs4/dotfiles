@@ -17,8 +17,7 @@
 -- variant: light|dark
 
 vim.g.colors_name = 'zzz'
---carbon vim.cmd('runtime colors/quiet.vim')
---mcbpro vim.cmd('runtime colors/default.vim')
+vim.cmd('runtime colors/default.vim')
 vim.opt.background = '{{variant}}'
 
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
