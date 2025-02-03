@@ -143,7 +143,7 @@ local function configure(files, cmd)
   end
   local root_dir = get_root_dir(files)
   if root_dir == nil then return end
-  return { cmd = cmd, name = cmd[1], root_dir = root_dir }
+  return { cmd = cmd, name = name, root_dir = root_dir }
 end
 
 ---toggle filename between .ts and test.ts

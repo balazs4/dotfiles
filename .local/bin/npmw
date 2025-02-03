@@ -35,6 +35,6 @@ pushd $dir
   while true
   do
     LOG_LEVEL=info NPM_CONFIG_LOGLEVEL=error npm run ${script}
-    changing "$(git ls-files)" && clear || break
+    changing $(git ls-files) && clear || break
   done
 popd
