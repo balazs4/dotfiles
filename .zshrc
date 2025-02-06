@@ -737,3 +737,8 @@ function re(){
 function duration(){
   datediff $(cat $1 | head -1 | awk '{print $1}') $(cat $1 | tail -1 | awk '{print $1}')
 }
+
+#https://mac-key-repeat.zaymon.dev/
+#mcbpro defaults write -g InitialKeyRepeat -int 12
+#mcbpro defaults write -g KeyRepeat -int 2
+
