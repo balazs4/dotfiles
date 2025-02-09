@@ -244,13 +244,13 @@ export PATH="$HOME/.nvim/bin:${PATH}"
 export EDITOR=nvim
 
 function _nvim(){
-#mcbpro  os=macos
+#mcbpro  os="macos 'tar.gz 'arm64"
   rm -rf $HOME/.nvim/ 2>/dev/null
   mkdir -p $HOME/.nvim/ 2>/dev/null
   curl 'https://api.github.com/repos/neovim/neovim/releases/tags/nightly?page=1&per_page=1' \
     | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
     | grep -v sha \
-    | fzf -q "${os:-linux}" -1 \
+    | fzf -q "${os:-linux 'tar.gz 'x86_64}" -1 \
     | xurls \
     | xargs curl -Lo - \
     | tar xzv --strip-components=1 -C $HOME/.nvim
