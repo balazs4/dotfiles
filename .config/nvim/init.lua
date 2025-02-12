@@ -233,6 +233,17 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'yaml' },
+  callback = function()
+    local cfg = configure(nil,
+      { 'bun', 'x', '-p', 'yaml-language-server', 'yaml-language-server', '--stdio' })
+    if cfg == nil then return end
+    vim.lsp.log_levels = "DEBUG"
+    vim.lsp.start(cfg)
+  end
+})
+
+vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'lua' },
   callback = function()
     vim.treesitter.stop()
