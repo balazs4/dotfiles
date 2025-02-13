@@ -741,3 +741,11 @@ function duration(){
 #mcbpro defaults write -g InitialKeyRepeat -int 12
 #mcbpro defaults write -g KeyRepeat -int 2
 
+function rfc(){
+  test $TMUX && {
+    local target=`tmux display-message -p '#I'`
+    tmux rename-window -t:$target rfc-${1}
+  }
+  curl -s "https://www.rfc-editor.org/rfc/rfc${1}.txt" | less -R
+}
+
