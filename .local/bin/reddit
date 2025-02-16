@@ -1,6 +1,11 @@
 #! /usr/bin/env bash
 
 sub=${1:-all}
+
+test $TMUX && {
+  tmux rename-window "r/${sub}"
+}
+
 url="https://old.reddit.com/r/${sub}.json"
 
 >&2 printf "%s\n" $url
@@ -8,15 +13,21 @@ url="https://old.reddit.com/r/${sub}.json"
 curl "$url" -H 'cache-control: no-cache' -Ls --user-agent "$RANDOM"  \
   | fx 'x => x.data.children.map(xx => [
     new Date(1000 * xx.data.created).toJSON().replace(".000Z", ""),
-    xx.data.url,
     "[" + String(xx.data.ups).padStart(6) + "]",
     xx.data.title,
+    xx.data.url,
+    xx.data.selftext.replaceAll("\n", "<br/>"),
   ].join("\t")).join("\n")' \
   | sort -r -h \
   | fzf \
     --delimiter="\t" \
-    --with-nth=1,3.. \
+    --with-nth=1,2,3 \
     --prompt "r/$sub/" \
+    --preview 'echo "<title>{3}</title><main>{5}</main>" | reader -' \
     --reverse \
     --sync \
-    --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'
+    --bind 'ctrl-x:execute-silent(echo {4} | xurls | xargs xdg-open)'
+
+test $TMUX && {
+  tmux rename-window "reddit"
+}
