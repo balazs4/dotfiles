@@ -22,8 +22,8 @@ require('node:http')
           process.stderr.write(err.toString());
         });
     }
-    res.writeHead(404, { 'content-type': 'text/plain' });
-    res.end('NOT ok');
+    res.writeHead(200, { 'content-type': 'text/plain' });
+    res.end('ok');
     process.stderr.write('\n');
   })
   .listen(process.env.PORT, () =>

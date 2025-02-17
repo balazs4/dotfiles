@@ -66,6 +66,7 @@ setopt share_history
 #mcbpro export PATH="$HOME/.luarocks/bin:${PATH}"
 #mcbpro export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 #mcbpro export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+#mcbpro export PATH="/Applications/SnowSQL.app/Contents/MacOS:$PATH"
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
