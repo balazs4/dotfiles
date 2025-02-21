@@ -18,7 +18,8 @@
 
 vim.g.colors_name = 'zzz'
 vim.cmd('runtime colors/default.vim')
-vim.opt.background = '{{variant}}'
+vim.cmd('set background=dark')
+vim.cmd('set background={{variant}}')
 
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
