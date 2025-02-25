@@ -750,3 +750,12 @@ function rfc(){
   curl -s "https://www.rfc-editor.org/rfc/rfc${1}.txt" | less -R
 }
 
+
+function spp() {
+  spotify_player search "$*" \
+    | fx 'x => [...x.artists.map(xx => ["0000-00-00", xx.id, "artist".padEnd(8), xx.name].join("\t")),...x.playlists.map(xx => ["0000-00-00", xx.id, "playlist", xx.name].join("\t")), ...x.albums.map(xx => [xx.release_date, xx.id, "album".padEnd(8), xx.name].join("\t"))].join("\n")' \
+    | sort -r  \
+    | fzf \
+    | awk '{printf "playback start context %s --id=%s", $3, $2}' \
+    | xargs spotify_player
+}
