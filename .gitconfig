@@ -6,11 +6,19 @@
   format = ssh
 [commit]
   gpgSign = true
+  verbose = true
 [push]
   autoSetupRemote = true
 [fetch]
   prune = true
+  prunteTags = true
 [pull]
   rebase = true
 [init]
   defaultBranch = main
+[branch]
+  sort = -committerdate
+[tag]
+  sort = version:refname
+[merge]
+  conflictStyle = zdiff3
