@@ -151,9 +151,12 @@ export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | 
 function _fzf(){
   rm -rf $HOME/.fzf/ 2>/dev/null
   mkdir -p $HOME/.fzf/ 2>/dev/null
-
+#mcbpro  os="darwin"
+#mcbpro  arch="arm64"
   curl -LSs 'https://api.github.com/repos/junegunn/fzf/releases/latest?page=1&per_page=1' \
     | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
+    | grep "${os:-linux}" \
+    | grep "${arch:-amd64}" \
     | grep -v sha \
     | vipe \
     | xurls \
