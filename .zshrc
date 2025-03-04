@@ -759,3 +759,14 @@ function spp() {
     | awk '{printf "playback start context %s --id=%s", $3, $2}' \
     | xargs spotify_player
 }
+
+function s() {
+  input=${*:-`cat -`}
+  search_term=$(echo "${input}" | tr ' ' '+')
+  url="https://lite.duckduckgo.com/lite/?q=${search_term}"
+  curl -A "uil4pi8Ailequei0Eighiej2" -D /dev/stderr -Ls "${url}" \
+    | sed "s|\(<span class='link-text'>\)|\1https://|g" \
+    | pup 'table' \
+    | w3m -dump -T text/html
+  >&2 printf "\n%s\n" $url
+}
