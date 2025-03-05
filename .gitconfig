@@ -1,6 +1,8 @@
 [user]
   name  = balazs4
   email = balazs4@users.noreply.github.com
+	; email = balazs4@noreply.codeberg.org
+	; email = 959395-balazs4@users.noreply.gitlab.com
   signingkey = ~/.ssh/id_ed25519.pub
 [gpg]
   format = ssh
