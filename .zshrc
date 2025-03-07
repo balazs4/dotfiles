@@ -770,6 +770,8 @@ function s() {
   curl -A "uil4pi8Ailequei0Eighiej2" -D /dev/stderr -Ls "${url}" \
     | sed "s|\(<span class='link-text'>\)|\1https://|g" \
     | pup 'table' \
-    | w3m -dump -T text/html
+    | w3m -dump -T text/html -cols $COLUMNS
   >&2 printf "\n%s\n" $url
 }
+
+#mbcpro alias linear='make -f $HOME/src/linear/makefile'
