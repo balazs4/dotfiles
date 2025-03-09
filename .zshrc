@@ -728,18 +728,18 @@ function focus(){
   mpv --no-video https://youtu.be/GUu8GW6H5Dw
 }
 
-function colima_start(){
-  # TODO: $HOME/.colima/default/colima.yaml
-  colima start --cpu 10 --memory 8 --disk 128 --arch aarch64 --vm-type=vz --vz-rosetta  --network-address
-}
+#mcbpro function colima_start(){
+#mcbpro   # TODO: $HOME/.colima/default/colima.yaml
+#mcbpro   colima start --cpu 10 --memory 8 --disk 128 --arch aarch64 --vm-type=vz --vz-rosetta  --network-address
+#mcbpro }
 
 function re(){
   nvim $(gh pr diff --name-only)
 }
 
-function duration(){
-  datediff $(cat $1 | head -1 | awk '{print $1}') $(cat $1 | tail -1 | awk '{print $1}')
-}
+#mcbpro function duration(){
+#mcbpro   datediff $(cat $1 | head -1 | awk '{print $1}') $(cat $1 | tail -1 | awk '{print $1}')
+#mcbpro }
 
 #https://mac-key-repeat.zaymon.dev/
 #mcbpro defaults write -g InitialKeyRepeat -int 12
