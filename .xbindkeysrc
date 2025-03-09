@@ -22,6 +22,10 @@
     m:0x0 + c:233
     XF86MonBrightnessUp
 
+"xbacklight -set 100"
+    m:0x0 + c:235
+    XF86Display
+
 "alacritty"
     m:0x40 + c:36
     Mod4 + Return
@@ -70,7 +74,4 @@
     m:0x40 + c:117
     Mod4 + Next
 
-"dunstify $(xbacklight) xbacklight"
-    m:0x0 + c:235
-    XF86Display
 
