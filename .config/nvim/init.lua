@@ -167,7 +167,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   callback = function()
     local config = nil
-    config = configure({ 'node_modules/.bin/tsserver', 'tsconfig.json' },
+    config = configure({ 'node_modules/.bin/tsserver', 'tsconfig.json', 'jsconfig.json' },
       { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' })
       -- { 'tsgo', 'lsp', '--stdio' })
     if config ~= nil then
@@ -227,7 +227,16 @@ vim.api.nvim_create_autocmd('FileType', {
     local cfg = configure(nil,
       { 'bun', 'x', '-p', 'vscode-langservers-extracted', 'vscode-css-language-server', '--stdio' })
     if cfg == nil then return end
-    vim.lsp.log_levels = "DEBUG"
+    vim.lsp.start(cfg)
+  end
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'svelte' },
+  callback = function()
+    local cfg = configure({ 'svelte.config.js' },
+      { 'bun', 'x', '-p', 'svelte-language-server', 'svelteserver', '--stdio' })
+    if cfg == nil then return end
     vim.lsp.start(cfg)
   end
 })

@@ -767,11 +767,11 @@ function s() {
   input=${*:-`cat -`}
   search_term=$(echo "${input}" | tr ' ' '+')
   url="https://lite.duckduckgo.com/lite/?q=${search_term}"
-  curl -A "uil4pi8Ailequei0Eighiej2" -D /dev/stderr -Ls "${url}" \
+  curl -A "uil4pi8Ailequei0Eighiej2" -D /dev/null -Ls "${url}" \
     | sed "s|\(<span class='link-text'>\)|\1https://|g" \
     | pup 'table' \
     | w3m -dump -T text/html -cols $COLUMNS
-  >&2 printf "\n%s\n" $url
+  >&2 printf "%s\n" $url "https://start.duckduckgo.com/?q=${search_term}"
 }
 
 #mcbpro alias linear='make -f $HOME/src/linear/makefile'
