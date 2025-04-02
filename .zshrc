@@ -597,10 +597,11 @@ alias gbb='gb $USER'
 
 alias .env='set -o allexport; source .env; set +o allexport'
 
-function src() {
+function nr() {
   fx package.json 'x => Object.entries(x.scripts).map(xx => [xx[0].padEnd(16), xx[1]].join("\t")).join("\n")' \
     | fzf --height 10% --reverse -q"'${*}" -1 \
-    | awk '{print $1}'
+    | awk '{print $1}' \
+    | xargs -I{} -t npm run {}
 }
 
 #mcbpro export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
