@@ -192,7 +192,7 @@ fun <sid>hi(group, guifg, guibg, ctermfg, ctermbg, attr, guisp)
 endfun
 
 " Vim editor colors
-call <sid>hi("Normal",        s:gui05, s:guibg, s:cterm05, s:ctermbg, "", "")
+call <sid>hi("Normal",        s:gui05, "none", s:cterm05, "none", "", "")
 call <sid>hi("Bold",          "", "", "", "", "bold", "")
 call <sid>hi("Debug",         s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("Directory",     s:gui0D, "", s:cterm0D, "", "", "")
@@ -220,7 +220,7 @@ call <sid>hi("WildMenu",      s:guibg, s:gui05, s:ctermbg, s:cterm05, "", "")
 call <sid>hi("Title",         s:gui0D, "", s:cterm0D, "", "none", "")
 call <sid>hi("Conceal",       s:gui0D, s:guibg, s:cterm0D, s:ctermbg, "", "")
 call <sid>hi("Cursor",        s:gui05, s:guibg, "", "", "inverse", "")
-call <sid>hi("NonText",       s:gui03, "", s:cterm03, "", "", "")
+call <sid>hi("NonText",       s:gui03, "none", s:cterm03, "", "none", "")
 call <sid>hi("Whitespace",    s:gui03, "", s:cterm03, "", "", "")
 call <sid>hi("LineNr",        s:gui03, s:guibg, s:cterm03, s:ctermbg, "", "")
 call <sid>hi("SignColumn",    s:gui03, s:guibg, s:cterm03, s:ctermbg, "", "")
