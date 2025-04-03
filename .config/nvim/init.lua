@@ -1,4 +1,4 @@
-vim.cmd('colorscheme zzz') -- $HOME/.files/.config/nvim/colors/zzz
+vim.cmd('colorscheme base16')
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
