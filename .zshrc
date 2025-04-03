@@ -67,6 +67,7 @@ setopt share_history
 #mcbpro export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 #mcbpro export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 #mcbpro export PATH="/Applications/SnowSQL.app/Contents/MacOS:$PATH"
+#mcbpro export DOCKER_HOST=unix://${HOME}/.colima/default/docker.sock
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
