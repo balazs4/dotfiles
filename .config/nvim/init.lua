@@ -75,9 +75,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.lsp.buf.definition()
     end, { buffer = args.buf })
 
-    if client.supports_method('textDocument/completion') then
-      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-    end
+    vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
   end,
 })
 
@@ -86,8 +84,6 @@ vim.api.nvim_create_autocmd('LspProgress', {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
 
-    if args.data.params.value.kind == 'report' then return end
-
     local msg = string.format("[Lsp:%s]\tevent=LspProgress\tkind=%s\ttitle=%s",
       client.name,
       args.data.params.value.kind,
@@ -95,6 +91,7 @@ vim.api.nvim_create_autocmd('LspProgress', {
     )
 
     vim.notify_once(msg, vim.log.levels.INFO)
+    -- TODO: add permanent lsp marker to cmd
   end,
 })
 
@@ -113,153 +110,99 @@ vim.api.nvim_create_autocmd('LspRequest', {
   end,
 })
 
---- @param files table project markers
---- @return string|nil
-local function get_root_dir(files)
-  local cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
-  local git_root_dir = vim.fs.root(0, '.git')
+vim.lsp.config('*', { root_markers = { '.git' } })
 
-  for _, file in ipairs(files) do
-    if git_root_dir and vim.fs.root(git_root_dir, file) then
-      return git_root_dir
-    end
-    if vim.fs.root(cwd, file) then
-      return cwd
-    end
-  end
 
-  return nil
-end
+vim.lsp.enable('gopls')
+vim.lsp.config('gopls', {
+  cmd = { 'gopls' },
+  filetypes = { 'go' },
+  root_markers = { 'go.mod', 'go.work' },
+})
 
---- @param files table project markers
---- @param cmd table lsp server command
---- @return vim.lsp.ClientConfig|nil
-local function configure(files, cmd)
-  local name = cmd[1]
-  if cmd[1] == 'bun' then name = cmd[#cmd - 1] end
-  if files == nil then
-    return { cmd = cmd, name = name, root_dir = vim.loop.cwd() }
-  end
-  local root_dir = get_root_dir(files)
-  if root_dir == nil then return end
-  return { cmd = cmd, name = name, root_dir = root_dir }
-end
+vim.lsp.enable('terraform-ls')
+vim.lsp.config('terraform-ls', {
+  cmd = { 'terraform-ls', 'serve' },
+  filetypes = { 'terraform' },
+  root_markers = { '.terrform.lock.hcl' }
+})
 
----toggle filename between .ts and test.ts
----@param mode? string
----@return string
-local function ts_test_ts(mode)
-  local buffer = vim.api.nvim_buf_get_name(0)
-  local is_test_ts = buffer:sub(- #'test.ts') == 'test.ts'
+vim.lsp.enable('vscode-css-language-server');
+vim.lsp.config('vscode-css-language-server', {
+  cmd = { 'bun', 'x', '-p', 'vscode-langservers-extracted', 'vscode-css-language-server', '--stdio' },
+  filetypes = { 'css' },
+})
 
-  if is_test_ts and mode == 'ensure_test_ts' then
-    return buffer
-  end
+vim.lsp.enable('svelteserver')
+vim.lsp.config('svelteserver', {
+  cmd = { 'bun', 'x', '-p', 'svelte-language-server', 'svelteserver', '--stdio' },
+  filetypes = { 'svelte' },
+  root_markers = { 'svelte.config.js' },
+})
 
-  local filename = is_test_ts
-      and string.gsub(buffer, ".test.ts$", ".ts")
-      or string.gsub(buffer, ".ts$", ".test.ts")
+vim.lsp.enable('yaml-language-server');
+vim.lsp.config('yaml-language-server', {
+  cmd = { 'bun', 'x', 'yaml-language-server', '--stdio' },
+  filetypes = { 'yaml' },
+})
 
-  return filename
-end
+vim.lsp.enable('lua-language-server')
+vim.lsp.config('lua-language-server', {
+  cmd = { 'lua-language-server' },
+  filetypes = { 'lua' },
+  root_markers = { '.luarc.json' },
+  settings = { Lua = { workspace = { library = vim.api.nvim_list_runtime_paths() } } }
+})
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
-  callback = function()
-    local config = nil
-    config = configure({ 'node_modules/.bin/tsserver', 'tsconfig.json', 'jsconfig.json' },
-      { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' })
-      -- { 'tsgo', 'lsp', '--stdio' })
-    if config ~= nil then
-      config.on_attach = function(_, bufnr)
-        pcall(vim.keymap.del, 'n', '<leader>p')
-        vim.keymap.set('n', '<leader>p',
-          function()
-            vim.cmd('wa | !gfmt')
-          end, { buffer = bufnr })
+--carbon vim.lsp.enable('deno')
+vim.lsp.config('deno', {
+  filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+  cmd = { 'deno', 'lsp' },
+  root_markers = { 'deno.lock', 'deno.json' }
+})
 
-        vim.keymap.set('n', '<leader>t',
-          function()
-            local cmd = string.format('vsplit %s', ts_test_ts())
-            vim.cmd(cmd)
-          end, { buffer = bufnr })
+--mcbpro vim.lsp.enable('vstls')
+vim.lsp.config('vstls', {
+  filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+  cmd = { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
+  root_markers = { 'node_modules/.bin/tsserver', 'tsconfig.json', 'jsconfig.json' },
+  on_attach = function(_, bufnr)
 
-        vim.keymap.set('n', '<leader>r',
-          function()
-            local cmd = string.format('!tmux split-window -h "npmw test %s --verbose"', ts_test_ts('ensure_test_ts'))
-            vim.cmd(cmd)
-          end, { buffer = bufnr })
+    ---toggle filename between .ts and test.ts
+    ---@param mode? string
+    ---@return string
+    local function ts_test_ts(mode)
+      local buffer = vim.api.nvim_buf_get_name(0)
+      local is_test_ts = buffer:sub(- #'test.ts') == 'test.ts'
+
+      if is_test_ts and mode == 'ensure_test_ts' then
+        return buffer
       end
 
-      vim.lsp.start(config)
-      return
+      local filename = is_test_ts
+          and string.gsub(buffer, ".test.ts$", ".ts")
+          or string.gsub(buffer, ".ts$", ".test.ts")
+
+      return filename
     end
 
-    config = configure({ 'deno.lock', 'deno.json' }, { 'deno', 'lsp' })
-    if config ~= nil then
-      vim.lsp.start(config)
-      return
-    end
-  end
-})
+    pcall(vim.keymap.del, 'n', '<leader>p')
+    vim.keymap.set('n', '<leader>p',
+      function()
+        vim.cmd('wa | !gfmt')
+      end, { buffer = bufnr })
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'go' },
-  callback = function()
-    local cfg = configure({ 'go.mod', 'go.work' }, { 'gopls' })
-    if cfg == nil then return end
-    vim.lsp.start(cfg)
-  end
-})
+    vim.keymap.set('n', '<leader>t',
+      function()
+        local cmd = string.format('vsplit %s', ts_test_ts())
+        vim.cmd(cmd)
+      end, { buffer = bufnr })
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'terraform' },
-  callback = function()
-    local cfg = configure({ '.terrform.lock.hcl' }, { 'terraform-ls', 'serve' })
-    if cfg == nil then return end
-    vim.lsp.start(cfg)
-  end
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'css' },
-  callback = function()
-    local cfg = configure(nil,
-      { 'bun', 'x', '-p', 'vscode-langservers-extracted', 'vscode-css-language-server', '--stdio' })
-    if cfg == nil then return end
-    vim.lsp.start(cfg)
-  end
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'svelte' },
-  callback = function()
-    local cfg = configure({ 'svelte.config.js' },
-      { 'bun', 'x', '-p', 'svelte-language-server', 'svelteserver', '--stdio' })
-    if cfg == nil then return end
-    vim.lsp.start(cfg)
-  end
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'yaml' },
-  callback = function()
-    local cfg = configure(nil,
-      { 'bun', 'x', '-p', 'yaml-language-server', 'yaml-language-server', '--stdio' })
-    if cfg == nil then return end
-    vim.lsp.log_levels = "DEBUG"
-    vim.lsp.start(cfg)
-  end
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'lua' },
-  callback = function()
-    vim.treesitter.stop()
-    local cfg = configure({ '.luarc.json', '.git' }, { 'lua-language-server' })
-    if cfg == nil then return end
-    cfg.settings = { Lua = { workspace = { library = vim.api.nvim_list_runtime_paths() } } }
-    vim.lsp.start(cfg)
+    vim.keymap.set('n', '<leader>r',
+      function()
+        local cmd = string.format('!tmux split-window -h "npmw test %s --verbose"', ts_test_ts('ensure_test_ts'))
+        vim.cmd(cmd)
+      end, { buffer = bufnr })
   end
 })
 
