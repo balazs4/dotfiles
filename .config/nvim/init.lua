@@ -8,7 +8,7 @@ vim.opt.termguicolors = true
 vim.opt.completeopt = 'menuone,noselect,popup'
 vim.opt.cursorline = false
 vim.opt.nu = true
-vim.opt.rnu = false
+vim.opt.rnu = true
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
 vim.opt.cmdheight = 2
@@ -62,7 +62,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client == nil then return end
 
     vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(client)) end, {})
-    vim.api.nvim_create_user_command("LspStop", function() client.stop() end, {})
+    vim.api.nvim_create_user_command("LspStop", function() client:stop() end, {})
 
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
     vim.keymap.set('n', '<leader>p', vim.lsp.buf.format, { buffer = args.buf })
@@ -167,7 +167,6 @@ vim.lsp.config('vstls', {
   cmd = { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
   root_markers = { 'node_modules/.bin/tsserver', 'tsconfig.json', 'jsconfig.json' },
   on_attach = function(_, bufnr)
-
     ---toggle filename between .ts and test.ts
     ---@param mode? string
     ---@return string
