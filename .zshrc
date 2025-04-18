@@ -229,21 +229,6 @@ function _lua(){
 #bun
 export PATH="$HOME/.bun:${PATH}"
 export DO_NOT_TRACK=1
-function _bun(){
-#mcbpro  os=darwin
-  rm -rf $HOME/.bun/ 2>/dev/null
-  mkdir -p $HOME/.bun/ 2>/dev/null
-  curl -Lis 'https://api.github.com/repos/oven-sh/bun/releases/latest?page=1&per_page=1' \
-    | stdsplit \
-    | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
-    | grep -v sha \
-    | fzf -q "${os:-linux}" -1 \
-    | xurls \
-    | xargs curl -Lo - \
-    | bsdtar xzv --strip-components=1 -C $HOME/.bun
-  chmod +x $HOME/.bun/bun
-  bun --version
-}
 
 #deno
 export PATH="$HOME/.deno/bin:${PATH}"
@@ -251,6 +236,7 @@ export PATH="$HOME/.deno/bin:${PATH}"
 #neovim
 export PATH="$HOME/.nvim/bin:${PATH}"
 export EDITOR=nvim
+export MANPAGER='nvim +Man!' #https://www.visualmode.dev/a-better-man-page-viewer
 
 function _nvim(){
 #mcbpro  os="macos 'tar.gz 'arm64"

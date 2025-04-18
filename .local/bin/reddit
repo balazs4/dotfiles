@@ -10,7 +10,7 @@ url="https://old.reddit.com/r/${sub}.json"
 
 >&2 printf "%s\n" $url
 
-curl "$url" -H 'cache-control: no-cache' -Ls --user-agent "$RANDOM"  \
+curl "$url" -H 'cache-control: no-cache' -Ls --user-agent "$(pwgen 8 1)"  \
   | fx 'x => x.data.children.map(xx => [
     new Date(1000 * xx.data.created).toJSON().replace(".000Z", ""),
     "[" + String(xx.data.ups).padStart(6) + "]",
@@ -23,7 +23,6 @@ curl "$url" -H 'cache-control: no-cache' -Ls --user-agent "$RANDOM"  \
     --delimiter="\t" \
     --with-nth=1,2,3 \
     --prompt "r/$sub/" \
-    --preview 'echo "<title>{3}</title><main>{5}</main>" | reader -' \
     --reverse \
     --sync \
     --bind 'ctrl-x:execute-silent(echo {4} | xurls | xargs xdg-open)'
