@@ -38,7 +38,7 @@
     m:0x40 + c:36
     Mod4 + Return
 
-"librewolf"
+"qutebrowser"
     m:0x40 + c:54
     Mod4 + c
 
