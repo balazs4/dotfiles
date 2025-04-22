@@ -120,7 +120,7 @@ vim.lsp.config('gopls', {
   root_markers = { 'go.mod', 'go.work' },
 })
 
-vim.lsp.enable('terraform-ls')
+--mcbpro vim.lsp.enable('terraform-ls')
 vim.lsp.config('terraform-ls', {
   cmd = { 'terraform-ls', 'serve' },
   filetypes = { 'terraform' },

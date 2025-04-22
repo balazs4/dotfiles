@@ -11,4 +11,4 @@ c.url.searchengines = {
     '!yt':      'https://www.youtube.com/results?search_query={}'
 }
 
-config.bind('<Ctrl+/>', 'hint links spawn --detach mpv {hint-url}')
+config.bind(',M', 'hint links spawn --detach mpv {hint-url}')
