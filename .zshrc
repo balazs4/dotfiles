@@ -630,7 +630,6 @@ function closest_packagejson(){
 #mcbpro   n auto
 #mcbpro   grep private $HOME/.npmrc > /dev/null || $HOME/.local/bin/npmrc
 #mcbpro   pnpm install ${*:---frozen-lockfile}
-#mcbpro   git checkout -- packages/microfrontends/package.json 2>/dev/null || true
 #mcbpro }
 
 alias stars="xdg-open 'https://github.com/balazs4?tab=stars'"
