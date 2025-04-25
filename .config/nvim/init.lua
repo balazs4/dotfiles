@@ -110,8 +110,17 @@ vim.api.nvim_create_autocmd('LspRequest', {
   end,
 })
 
-vim.lsp.config('*', { root_markers = { '.git' } })
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client:supports_method('textDocument/documentColor')
+    then
+      vim.lsp.document_color.enable(true, args.buf)
+    end
+  end
+})
 
+vim.lsp.config('*', { root_markers = { '.git' } })
 
 vim.lsp.enable('gopls')
 vim.lsp.config('gopls', {
