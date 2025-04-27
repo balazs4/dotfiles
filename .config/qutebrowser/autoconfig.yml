@@ -20,6 +20,6 @@ settings:
     - tabs
     - progress
   url.default_page:
-    global: https://start.duckduckgo.com/lite
+    global: about:blank
   url.start_pages:
-    global: https://start.duckduckgo.com/lite
+    global: about:blank
