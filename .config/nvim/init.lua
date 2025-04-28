@@ -133,7 +133,8 @@ vim.lsp.config('gopls', {
 vim.lsp.config('terraform-ls', {
   cmd = { 'terraform-ls', 'serve' },
   filetypes = { 'terraform' },
-  root_markers = { '.terrform.lock.hcl' }
+  root_markers = { '.terrform.lock.hcl' },
+  workspace_required = true
 })
 
 vim.lsp.enable('vscode-css-language-server');
@@ -147,6 +148,7 @@ vim.lsp.config('svelteserver', {
   cmd = { 'bun', 'x', '-p', 'svelte-language-server', 'svelteserver', '--stdio' },
   filetypes = { 'svelte' },
   root_markers = { 'svelte.config.js' },
+  workspace_required = true
 })
 
 vim.lsp.enable('yaml-language-server');
@@ -160,14 +162,16 @@ vim.lsp.config('lua-language-server', {
   cmd = { 'lua-language-server' },
   filetypes = { 'lua' },
   root_markers = { '.luarc.json' },
-  settings = { Lua = { workspace = { library = vim.api.nvim_list_runtime_paths() } } }
+  settings = { Lua = { workspace = { library = vim.api.nvim_list_runtime_paths() } } },
+  workspace_required = true
 })
 
 --carbon vim.lsp.enable('deno')
 vim.lsp.config('deno', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   cmd = { 'deno', 'lsp' },
-  root_markers = { 'deno.lock', 'deno.json' }
+  root_markers = { 'deno.lock', 'deno.json' },
+  workspace_required = true
 })
 
 --mcbpro vim.lsp.enable('vstls')
@@ -175,6 +179,7 @@ vim.lsp.config('vstls', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   cmd = { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
   root_markers = { 'node_modules/.bin/tsserver', 'tsconfig.json', 'jsconfig.json' },
+  workspace_required = true,
   on_attach = function(_, bufnr)
     ---toggle filename between .ts and test.ts
     ---@param mode? string
