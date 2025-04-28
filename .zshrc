@@ -183,9 +183,6 @@ function _fzf(){
   fzf --version
 }
 
-# gh get hcloud
-export PATH=$HOME/.hcloud:${PATH}
-
 if test $TMUX
 then
   export TERM=tmux-256color
@@ -232,6 +229,9 @@ export DO_NOT_TRACK=1
 
 #deno
 export PATH="$HOME/.deno/bin:${PATH}"
+
+#rust
+#mcbpro export PATH="$HOME/.cargo/bin:${PATH}"
 
 #neovim
 export PATH="$HOME/.nvim/bin:${PATH}"

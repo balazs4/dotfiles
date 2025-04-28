@@ -163,10 +163,9 @@ vim.lsp.config('lua-language-server', {
   filetypes = { 'lua' },
   root_markers = { '.luarc.json' },
   settings = { Lua = { workspace = { library = vim.api.nvim_list_runtime_paths() } } },
-  workspace_required = true
 })
 
---carbon vim.lsp.enable('deno')
+vim.lsp.enable('deno')
 vim.lsp.config('deno', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   cmd = { 'deno', 'lsp' },
@@ -174,7 +173,15 @@ vim.lsp.config('deno', {
   workspace_required = true
 })
 
---mcbpro vim.lsp.enable('vstls')
+vim.lsp.enable('tsgo')
+vim.lsp.config('tsgo', {
+  filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+  cmd = { 'tsgo', 'lsp', '--stdio' },
+  root_markers = { 'tsconfig.json', 'jsconfig.json' },
+  workspace_required = true
+})
+
+vim.lsp.enable('vstls')
 vim.lsp.config('vstls', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   cmd = { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
@@ -218,6 +225,7 @@ vim.lsp.config('vstls', {
       end, { buffer = bufnr })
   end
 })
+
 
 vim.opt.runtimepath:append("~/.fzf")
 vim.keymap.set('n', '<leader><leader>', '<cmd>FZF<cr>')
