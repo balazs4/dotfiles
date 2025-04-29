@@ -1,4 +1,7 @@
-config.load_autoconfig();
+c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.preferred_color_scheme: 'dark';
+c.url.default_page: 'about:blank'
+c.url.start_pages: 'qute://version'
 
 c.url.searchengines = {
     'DEFAULT':  'https://start.duckduckgo.com/html/?q={}',
@@ -26,7 +29,7 @@ config.bind(',m', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=f
 #mcbpro c.fonts.statusbar = '15pt'
 #mcbpro c.fonts.tabs.selected = '15pt'
 #mcbpro c.fonts.tabs.unselected = '15pt'
-#mbcpro c.qt.highdpi = true
+#mcbpro c.qt.highdpi = true
 #mcbpro c.fonts.default_family = "GeistMono Nerd Font"
 
 # origin: https://github.com/theova/base16-qutebrowser
