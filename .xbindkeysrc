@@ -42,7 +42,7 @@
     m:0x40 + c:54
     Mod4 + c
 
-"dmenu_run -i -sb '{{base0D-hex}}' -fn 'GeistMono-12'"
+"dmenu_run -i -sb '#{{base0D-hex}}' -fn 'GeistMono-12'"
     m:0x40 + c:40
     Mod4 + d
 

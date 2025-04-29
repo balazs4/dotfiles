@@ -90,22 +90,22 @@ endif
 
 " Neovim terminal colours
 if has("nvim")
-  let g:terminal_color_0 =  "{{base00-hex}}"
-  let g:terminal_color_1 =  "{{base08-hex}}"
-  let g:terminal_color_2 =  "{{base0B-hex}}"
-  let g:terminal_color_3 =  "{{base0A-hex}}"
-  let g:terminal_color_4 =  "{{base0D-hex}}"
-  let g:terminal_color_5 =  "{{base0E-hex}}"
-  let g:terminal_color_6 =  "{{base0C-hex}}"
-  let g:terminal_color_7 =  "{{base05-hex}}"
-  let g:terminal_color_8 =  "{{base03-hex}}"
-  let g:terminal_color_9 =  "{{base08-hex}}"
-  let g:terminal_color_10 = "{{base0B-hex}}"
-  let g:terminal_color_11 = "{{base0A-hex}}"
-  let g:terminal_color_12 = "{{base0D-hex}}"
-  let g:terminal_color_13 = "{{base0E-hex}}"
-  let g:terminal_color_14 = "{{base0C-hex}}"
-  let g:terminal_color_15 = "{{base07-hex}}"
+  let g:terminal_color_0 =  "#{{base00-hex}}"
+  let g:terminal_color_1 =  "#{{base08-hex}}"
+  let g:terminal_color_2 =  "#{{base0B-hex}}"
+  let g:terminal_color_3 =  "#{{base0A-hex}}"
+  let g:terminal_color_4 =  "#{{base0D-hex}}"
+  let g:terminal_color_5 =  "#{{base0E-hex}}"
+  let g:terminal_color_6 =  "#{{base0C-hex}}"
+  let g:terminal_color_7 =  "#{{base05-hex}}"
+  let g:terminal_color_8 =  "#{{base03-hex}}"
+  let g:terminal_color_9 =  "#{{base08-hex}}"
+  let g:terminal_color_10 = "#{{base0B-hex}}"
+  let g:terminal_color_11 = "#{{base0A-hex}}"
+  let g:terminal_color_12 = "#{{base0D-hex}}"
+  let g:terminal_color_13 = "#{{base0E-hex}}"
+  let g:terminal_color_14 = "#{{base0C-hex}}"
+  let g:terminal_color_15 = "#{{base07-hex}}"
   let g:terminal_color_background = g:terminal_color_0
   let g:terminal_color_foreground = g:terminal_color_5
   if &background == "light"
@@ -114,22 +114,22 @@ if has("nvim")
   endif
 elseif has("terminal")
   let g:terminal_ansi_colors = [
-        \ "{{base00-hex}}",
-        \ "{{base08-hex}}",
-        \ "{{base0B-hex}}",
-        \ "{{base0A-hex}}",
-        \ "{{base0D-hex}}",
-        \ "{{base0E-hex}}",
-        \ "{{base0C-hex}}",
-        \ "{{base05-hex}}",
-        \ "{{base03-hex}}",
-        \ "{{base08-hex}}",
-        \ "{{base0B-hex}}",
-        \ "{{base0A-hex}}",
-        \ "{{base0D-hex}}",
-        \ "{{base0E-hex}}",
-        \ "{{base0C-hex}}",
-        \ "{{base07-hex}}",
+        \ "#{{base00-hex}}",
+        \ "#{{base08-hex}}",
+        \ "#{{base0B-hex}}",
+        \ "#{{base0A-hex}}",
+        \ "#{{base0D-hex}}",
+        \ "#{{base0E-hex}}",
+        \ "#{{base0C-hex}}",
+        \ "#{{base05-hex}}",
+        \ "#{{base03-hex}}",
+        \ "#{{base08-hex}}",
+        \ "#{{base0B-hex}}",
+        \ "#{{base0A-hex}}",
+        \ "#{{base0D-hex}}",
+        \ "#{{base0E-hex}}",
+        \ "#{{base0C-hex}}",
+        \ "#{{base07-hex}}",
         \ ]
 endif
 if exists("base16_background_transparent") && base16_background_transparent == "1"
