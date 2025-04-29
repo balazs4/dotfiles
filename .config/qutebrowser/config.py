@@ -18,22 +18,6 @@ c.url.searchengines = {
 
 config.bind(',m', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
 
-#mcbpro c.fonts.completion.category = '15pt'
-#mcbpro c.fonts.completion.entry = '15pt'
-#mcbpro c.fonts.debug_console = '15pt'
-#mcbpro c.fonts.downloads = '15pt'
-#mcbpro c.fonts.hints = '15pt'
-#mcbpro c.fonts.keyhint = '15pt'
-#mcbpro c.fonts.messages.error = '15pt'
-#mcbpro c.fonts.messages.info = '15pt'
-#mcbpro c.fonts.messages.warning = '15pt'
-#mcbpro c.fonts.prompts = '15pt'
-#mcbpro c.fonts.statusbar = '15pt'
-#mcbpro c.fonts.tabs.selected = '15pt'
-#mcbpro c.fonts.tabs.unselected = '15pt'
-#mcbpro c.qt.highdpi = True
-#mcbpro c.fonts.default_family = "GeistMono Nerd Font"
-
 # origin: https://github.com/theova/base16-qutebrowser
 c.colors.completion.fg = "#{{base05-hex}}"
 c.colors.completion.odd.bg = "#{{base01-hex}}"
@@ -73,3 +57,20 @@ c.colors.tabs.selected.odd.fg = "#{{base05-hex}}"
 c.colors.tabs.selected.odd.bg = "#{{base02-hex}}"
 c.colors.tabs.selected.even.fg = "#{{base05-hex}}"
 c.colors.tabs.selected.even.bg = "#{{base02-hex}}"
+
+#mcbpro c.window.hide_decoration = True
+#mcbpro c.fonts.completion.category = '15pt'
+#mcbpro c.fonts.completion.entry = '15pt'
+#mcbpro c.fonts.debug_console = '15pt'
+#mcbpro c.fonts.downloads = '15pt'
+#mcbpro c.fonts.hints = '15pt'
+#mcbpro c.fonts.keyhint = '15pt'
+#mcbpro c.fonts.messages.error = '15pt'
+#mcbpro c.fonts.messages.info = '15pt'
+#mcbpro c.fonts.messages.warning = '15pt'
+#mcbpro c.fonts.prompts = '15pt'
+#mcbpro c.fonts.statusbar = '15pt'
+#mcbpro c.fonts.tabs.selected = '15pt'
+#mcbpro c.fonts.tabs.unselected = '15pt'
+#mcbpro c.qt.highdpi = True
+#mcbpro c.fonts.default_family = "GeistMono Nerd Font"
