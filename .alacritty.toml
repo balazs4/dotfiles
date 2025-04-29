@@ -1,5 +1,5 @@
 [window]
-opacity = {{opacity}}
+opacity = 0.86
 decorations = "None"
 dynamic_title = true
 title = "alacritty"

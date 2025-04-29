@@ -36,7 +36,7 @@ function dot(){
 		*)
 			pushd $HOME/.files > /dev/null
 			dotfile=$(git ls-files | fzf --height '25%' --sync --reverse -1 -q"'${1}")
-			nvim $dotfile && dot source
+			nvim $dotfile && make -f $HOME/.files/makefile $dotfile
 			popd > /dev/null
 			;;
 
