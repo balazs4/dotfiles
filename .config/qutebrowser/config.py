@@ -1,16 +1,18 @@
+config.load_autoconfig(False); # ignore autoconfig because mbcpro
+
 c.colors.webpage.darkmode.enabled = True
-c.colors.webpage.preferred_color_scheme: 'dark';
-c.url.default_page: 'about:blank'
-c.url.start_pages: 'qute://version'
+c.colors.webpage.preferred_color_scheme = 'dark'
+c.url.default_page = 'about:blank'
+c.url.start_pages = 'qute://version'
 
 c.url.searchengines = {
-    'DEFAULT':  'https://start.duckduckgo.com/html/?q={}',
+    'DEFAULT':  'https://start.duckduckgo.com/lite/?q={}',
     '!d':       'https://start.duckduckgo.com/?q={}',
-    '!dw':      'https://thefreedictionary.com/{}',
+    '!dh':      'https://start.duckduckgo.com/html/?q={}',
+    '!dw':      'https://de.wiktionary.org/wiki/{}',
     '!gh':      'https://github.com/search?o=desc&q={}&s=stars',
     '!gist':    'https://gist.github.com/search?q={}',
     '!r':       'https://old.reddit.com/search?q={}',
-    '!w':       'https://en.wikipedia.org/wiki/{}',
     '!yt':      'https://www.youtube.com/results?search_query={}'
 }
 
@@ -29,7 +31,7 @@ config.bind(',m', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=f
 #mcbpro c.fonts.statusbar = '15pt'
 #mcbpro c.fonts.tabs.selected = '15pt'
 #mcbpro c.fonts.tabs.unselected = '15pt'
-#mcbpro c.qt.highdpi = true
+#mcbpro c.qt.highdpi = True
 #mcbpro c.fonts.default_family = "GeistMono Nerd Font"
 
 # origin: https://github.com/theova/base16-qutebrowser
