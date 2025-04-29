@@ -1,0 +1,12 @@
+[Default Applications]
+application/pdf=org.qutebrowser.qutebrowser.desktop
+image/png=org.qutebrowser.qutebrowser.desktop
+image/jpg=org.qutebrowser.qutebrowser.desktop
+text/html=org.qutebrowser.qutebrowser.desktop
+text/xml=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/ftp=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/mailto=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop
