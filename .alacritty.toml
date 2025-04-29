@@ -5,46 +5,68 @@ dynamic_title = true
 title = "alacritty"
 class = { general = "alacritty", instance = "alacritty" }
 
-[colors.primary]
-background = "0x{{base00-hex}}"
-foreground = "0x{{base05-hex}}"
-
-[colors.cursor]
-cursor = "0x{{base09-hex}}"
-text = "0x{{base00-hex}}"
-
-[colors.normal]
-black = "0x{{base00-hex}}"
-blue = "0x{{base0D-hex}}"
-cyan = "0x{{base0C-hex}}"
-green = "0x{{base0B-hex}}"
-magenta = "0x{{base0E-hex}}"
-red = "0x{{base08-hex}}"
-white = "0x{{base05-hex}}"
-yellow = "0x{{base0A-hex}}"
-
-[colors.bright]
-black = "0x{{base03-hex}}"
-blue = "0x{{base0D-hex}}"
-cyan = "0x{{base0C-hex}}"
-green = "0x{{base0B-hex}}"
-magenta = "0x{{base0E-hex}}"
-red = "0x{{base08-hex}}"
-white = "0x{{base07-hex}}"
-yellow = "0x{{base0A-hex}}"
-
-[colors]
-indexed_colors = [
-  { index = 16, color = "0x{{base09-hex}}" },
-  { index = 17, color = "0x{{base0F-hex}}" },
-  { index = 18, color = "0x{{base01-hex}}" },
-  { index = 19, color = "0x{{base02-hex}}" },
-  { index = 20, color = "0x{{base04-hex}}" },
-  { index = 21, color = "0x{{base06-hex}}" },
-]
-
 [font]
 #mcbpro normal = { family = "GeistMono Nerd Font", style = "Medium" }
 #mcbpro size = 14.0
 #carbon normal = { family = "Geist Mono", style = "Medium" }
 #carbon size = 11.0
+
+# https://github.com/tinted-theming/tinted-terminal/blob/main/templates/alacritty-base24.mustache
+# {{scheme-system}} {{scheme-name}} 256 - alacritty color config
+# {{scheme-author}}
+
+# Default colors
+[colors.primary]
+background = '{{base00-hex}}'
+foreground = '{{base05-hex}}'
+
+# Colors the cursor will use if `custom_cursor_colors` is true
+[colors.cursor]
+text = '{{base00-hex}}'
+cursor = '{{base09-hex}}'
+
+# Normal colors
+[colors.normal]
+black = '{{base01-hex}}'
+red = '{{base08-hex}}'
+green = '{{base0B-hex}}'
+yellow = '{{base0A-hex}}'
+blue = '{{base0D-hex}}'
+magenta = '{{base0E-hex}}'
+cyan = '{{base0C-hex}}'
+white = '{{base06-hex}}'
+
+# Bright colors
+[colors.bright]
+black = '{{base02-hex}}'
+red = '{{base12-hex}}'
+green = '{{base14-hex}}'
+yellow = '{{base13-hex}}'
+blue = '{{base16-hex}}'
+magenta = '{{base17-hex}}'
+cyan = '{{base15-hex}}'
+white = '{{base07-hex}}'
+
+[[colors.indexed_colors]]
+index = 16
+color = "{{base09-hex}}"
+
+[[colors.indexed_colors]]
+index = 17
+color = "{{base0F-hex}}"
+
+[[colors.indexed_colors]]
+index = 18
+color = "{{base01-hex}}"
+
+[[colors.indexed_colors]]
+index = 19
+color = "{{base02-hex}}"
+
+[[colors.indexed_colors]]
+index = 20
+color = "{{base04-hex}}"
+
+[[colors.indexed_colors]]
+index = 21
+color = "{{base06-hex}}"

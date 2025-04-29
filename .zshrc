@@ -97,7 +97,7 @@ function zsh-git() {
       /^ (M|T|A|D|R|C|U)/               {modified++}
       /^(M|T|A|D|R|C|U)(M|T|A|D|R|C|U)/ {staged++; modified++}
       /^\?\?/                           {untracked++}
-      END { if ($1 != "fatal:") print "%F{#{{base07-hex}}} [ %f" branch "«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b %F{#{{base07-hex}}}]%f" }' \
+      END { if ($1 != "fatal:") print "%F{{{base07-hex}}} [ %f" branch "«%B%F{green}" staged "%f%b«%B%F{red}" modified "%f%b«%B%F{red}" untracked "%f%b %F{{{base07-hex}}}]%f" }' \
     | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|\[different\]|%B%F{red}! %f%b|g'
 }
 
@@ -113,8 +113,8 @@ function TRAPUSR1(){
 
 function zle-line-init zle-keymap-select {
   test $COLUMNS -lt 80 && NEWLINE=$'\n' || NEWLINE=''
-  PROMPT="%B%F{#{{base07-hex}}} %~%f%b$(zsh-git &) %B%F{#{{base07-hex}}}${NEWLINE}»%f%b "
-  RPROMPT="%(?.%F{#{{base07-hex}}}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
+  PROMPT="%B%F{{{base07-hex}}} %~%f%b$(zsh-git &) %B%F{{{base07-hex}}}${NEWLINE}»%f%b "
+  RPROMPT="%(?.%F{{{base07-hex}}}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
   if test ${SSH_CLIENT}; then
     PROMPT="[%m] ${PROMPT}"
   fi
