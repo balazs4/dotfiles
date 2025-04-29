@@ -173,7 +173,7 @@ vim.lsp.config('deno', {
   workspace_required = true
 })
 
-vim.lsp.enable('tsgo')
+-- vim.lsp.enable('tsgo')
 vim.lsp.config('tsgo', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   cmd = { 'tsgo', 'lsp', '--stdio' },
