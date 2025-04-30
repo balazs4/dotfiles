@@ -1,5 +1,5 @@
 hostname=$(shell hostname -s)
-files=$(shell git ls-files)
+files=$(shell git ls-files | grep -v makefile | grep -v readme.md)
 
 default: $(files)
 
@@ -17,5 +17,8 @@ $(files):
 	@cat $(HOME)/.files/$(@) \
 		| sed -r "s/^[--;#\/\"\!]+$(hostname) //g; /^#(carbon|mcbpro)/d" \
 		| sed "$(colors)" > $(HOME)/$(@)
-	@printf ' [%s]\n' "updated"
-	@$(if $(filter $@, .zshrc), kill -USR1 `pgrep zsh` 2>/dev/null)
+	@printf ' [%s]' "update"
+	@$(if $(filter $@, .zshrc),          printf ' [%s]' "source"; kill -USR1 `pgrep -a zsh | xargs` 2>/dev/null)
+	@$(if $(filter $@, .tmux.conf),      printf ' [%s]' "source"; tmux source-file $(HOME)/.tmux.conf)
+	@$(if $(filter $@, .aerospace.toml), printf ' [%s]' "source"; aerospace reload-config)
+	@printf '\n'

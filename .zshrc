@@ -106,8 +106,6 @@ setopt PROMPT_SUBST
 function TRAPUSR1(){
   source $HOME/.zshrc
   source $HOME/.zshenv
-  tmux source-file $HOME/.tmux.conf 2>/dev/null || true
-  echo "TRAPUSR1" >&2
 }
 
 
