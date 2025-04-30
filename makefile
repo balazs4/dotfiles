@@ -18,7 +18,18 @@ $(files):
 		| sed -r "s/^[--;#\/\"\!]+$(hostname) //g; /^#(carbon|mcbpro)/d" \
 		| sed "$(colors)" > $(HOME)/$(@)
 	@printf ' [%s]' "update"
-	@$(if $(filter $@, .zshrc),          printf ' [%s]' "source"; kill -USR1 `pgrep -a zsh | xargs` 2>/dev/null)
-	@$(if $(filter $@, .tmux.conf),      printf ' [%s]' "source"; tmux source-file $(HOME)/.tmux.conf)
-	@$(if $(filter $@, .aerospace.toml), printf ' [%s]' "source"; aerospace reload-config)
+	@$(if $(filter $@, .zshrc),                         printf ' [%s]' "source"; kill -USR1 `pgrep -a zsh | xargs` 2>/dev/null)
+	@$(if $(filter $@, .tmux.conf),                     printf ' [%s]' "source"; tmux source-file $(HOME)/.tmux.conf)
+	@$(if $(filter $@, .aerospace.toml),                printf ' [%s]' "source"; aerospace reload-config) #TODO: mac
+	@$(if $(filter $@, .xbindkeysrc),                   printf ' [%s]' "source"; pkill -SIGKILL xbindkeys; pushd ${HOME}; xbindkeys && dunstify -t 1500 xbindkeysrc; popd) #TODO: linux
+	@$(if $(filter $@, .config/qutebrowser/config.py),  printf ' [%s]' "source"; qutebrowser ':config-source')
 	@printf '\n'
+
+sync:
+	git commit -am "`date +%s`@`hostname -s`"
+	git pull
+	git push
+
+edit:
+	nvim $(file)
+	make $(file)

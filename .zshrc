@@ -1,48 +1,3 @@
-function dot(){
-	case "$1" in
-		"git")
-			shift
-			git -C "$HOME/.files/" ${*}
-			;;
-
-		"sync")
-			git -C "$HOME/.files/" commit -am "`date +%s`@`hostname -s`"
-			git -C "$HOME/.files/" pull
-			git -C "$HOME/.files/" push
-			dot "source"
-			;;
-
-		"file")
-			shift
-			if test ! -e "$HOME/$1"
-			then
-				>&2 echo "$HOME/$1 does not exist; filepath must be relative to $HOME"
-				return;
-			fi
-			dir=`dirname "$HOME/.files/$1"`
-			mkdir -p $dir
-			cp -v "$HOME/$1" "$HOME/.files/$1"
-			git -C "$HOME/.files/" add "$1"
-			git -C "$HOME/.files/" commit -m "add: $1"
-			;;
-
-		"source")
-			TMUX= source $HOME/.files/.zprofile
-			source $HOME/.zshrc || true
-			test $TMUX && tmux source-file $HOME/.tmux.conf 2>/dev/null || true
-			#mcbpro      aerospace reload-config --no-gui || true
-			;;
-
-		*)
-			pushd $HOME/.files > /dev/null
-			dotfile=$(git ls-files | fzf --height '25%' --sync --reverse -1 -q"'${1}")
-			nvim $dotfile && make -f $HOME/.files/makefile $dotfile
-			popd > /dev/null
-			;;
-
-		esac
-}
-
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=10000
@@ -258,36 +213,13 @@ export PATH="$HOME/.zig:${PATH}"
 #carbon #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-x86_64-linux.tar.gz -L   | tar xvz -C $HOME/.local/bin
 #mcbpro #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-aarch64-darwin.tar.gz -L | tar xvz -C $HOME/.local/bin
 
-function localbin() {
-  if test -e $HOME/.local/bin/${1}
-  then
-    printf "%s already exists\n" $HOME/.local/bin/${1}
-    return 1
-  fi
-
-  printf "%s\n\n" '#! /usr/bin/env bash' > $HOME/.local/bin/${1}
-  chmod +x $HOME/.local/bin/${1} > /dev/null
-
-  nvim $HOME/.local/bin/${1}
-
-  printf "dot file %s? [y/n]" ".local/bin/${1}"
-  read ans
-  case "${ans:-n}" in
-    "y")
-      pushd $HOME
-        dot file .local/bin/${1}
-        git update-index --chmod=-x .local/bin/${1}
-        dot git add .local/bin/${1}
-      popd
-      ;;
-  esac
-}
-
+alias dot='make -C $HOME/.files'
+alias tmuxrc='dot edit file=.tmux.conf'
+alias zshrc='dot edit file=.zshrc'
+alias nvimrc='dot edit file=.config/nvim/init.lua'
+#carbon alias sx='dot edit file=.xbindkeysrc'
 alias so='vim $HOME/.zshenv; source $HOME/.zshenv'
-alias tmuxrc='dot .tmux.conf'
-alias zshrc='dot .zshrc'
-alias nvimrc='dot .config/nvim/init.lua'
-#carbon alias sx="dot .xbindkeysrc; pkill -SIGKILL xbindkeys; pushd $HOME; xbindkeys && dunstify -t 1500 xbindkeysrc; popd"
+
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
 alias ls='ls --color=auto'
 alias grep='grep --color'
@@ -462,7 +394,7 @@ function touchd(){
 function wall(){
   local unsplash_id=`echo $1 | awk -F- '{print $NF}'`
   sed -i "s|#`hostname` exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/\(.*\)/download?force=true|#`hostname` exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/$unsplash_id/download?force=true|g" $HOME/.files/.config/i3/config
-  dot source
+  pushd $HOME/.files; make .config/i3/config; popd #untested code
   i3-msg restart
 }
 
@@ -641,20 +573,17 @@ function color(){
   fi
   colors=$(git -C $HOME/.cache/schemes ls-files | fzf --height='20%' --reverse -q"'yaml ${*} " -1)
   cp $HOME/.cache/schemes/$colors $HOME/.colors
-  TMUX= source $HOME/.files/.zprofile
-  source $HOME/.zshrc
-  kill -USR1 `pgrep zsh` 2>/dev/null
+  dot #TODO: smart apply
 }
 
 function dark(){
-#mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" > /dev/null
   color 16 ${*}
+#mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" > /dev/null
 }
 
 function light(){
-#mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" > /dev/null
   color 16 ${*}
-  a 99
+#mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" > /dev/null
 }
 
 function parrot(){

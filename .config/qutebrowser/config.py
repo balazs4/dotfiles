@@ -1,8 +1,13 @@
-config.load_autoconfig(False); # ignore autoconfig because mbcpro
+config.load_autoconfig(False); # ignore autoconfig because mcbpro
 
-c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.darkmode.policy.images = 'never'
-c.colors.webpage.preferred_color_scheme = 'dark'
+c.colors.webpage.preferred_color_scheme = '{{variant}}'
+
+if c.colors.webpage.preferred_color_scheme == 'light':
+    c.colors.webpage.darkmode.enabled = False
+else:
+    c.colors.webpage.darkmode.enabled = True
+
 c.url.default_page = 'about:blank'
 c.url.start_pages = 'qute://version'
 
