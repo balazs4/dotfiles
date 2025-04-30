@@ -13,8 +13,9 @@ colors=$(shell cat $(HOME)/.colors \
 .PHONY: $(files)
 $(files):
 	@mkdir -p `dirname ${HOME}/$(@)`
+	@printf '%s' "$(HOME)/$(@)"
 	@cat $(HOME)/.files/$(@) \
 		| sed -r "s/^[--;#\/\"\!]+$(hostname) //g; /^#(carbon|mcbpro)/d" \
-		| sed "$(colors)" > $(HOME)/$(@) \
-	&& echo "$(HOME)/$(@)"
-
+		| sed "$(colors)" > $(HOME)/$(@)
+	@printf ' [%s]\n' "updated"
+	@$(if $(filter $@, .zshrc), kill -USR1 `pgrep zsh` 2>/dev/null)
