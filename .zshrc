@@ -213,11 +213,12 @@ export PATH="$HOME/.zig:${PATH}"
 #carbon #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-x86_64-linux.tar.gz -L   | tar xvz -C $HOME/.local/bin
 #mcbpro #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-aarch64-darwin.tar.gz -L | tar xvz -C $HOME/.local/bin
 
-alias dot='make -C $HOME/.files'
-alias tmuxrc='dot edit file=.tmux.conf'
-alias zshrc='dot edit file=.zshrc'
-alias nvimrc='dot edit file=.config/nvim/init.lua'
-#carbon alias sx='dot edit file=.xbindkeysrc'
+alias dot='make -C $HOME/.files --no-print-directory'
+function dote() { dot edit file=${1:-`git -C $HOME/.files ls-files | fzf`} }
+alias tmuxrc='dote .tmux.conf'
+alias zshrc='dote .zshrc'
+alias nvimrc='dote .config/nvim/init.lua'
+#carbon alias sx='dote .xbindkeysrc'
 alias so='vim $HOME/.zshenv; source $HOME/.zshenv'
 
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"

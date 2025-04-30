@@ -24,46 +24,6 @@ c.url.searchengines = {
 
 config.bind(',m', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
 
-# origin: https://github.com/theova/base16-qutebrowser
-c.colors.completion.fg = "#{{base05-hex}}"
-c.colors.completion.odd.bg = "#{{base01-hex}}"
-c.colors.completion.even.bg = "#{{base00-hex}}"
-c.colors.completion.category.fg = "#{{base0A-hex}}"
-c.colors.completion.category.bg = "#{{base00-hex}}"
-c.colors.completion.category.border.top = "#{{base00-hex}}"
-c.colors.completion.category.border.bottom = "#{{base00-hex}}"
-c.colors.completion.item.selected.fg = "#{{base05-hex}}"
-c.colors.completion.item.selected.bg = "#{{base02-hex}}"
-c.colors.completion.item.selected.border.top = "#{{base02-hex}}"
-c.colors.completion.item.selected.border.bottom = "#{{base02-hex}}"
-c.colors.completion.item.selected.match.fg = "#{{base0B-hex}}"
-c.colors.completion.match.fg = "#{{base0B-hex}}"
-c.colors.prompts.fg = "#{{base05-hex}}"
-c.colors.prompts.border = "#{{base00-hex}}"
-c.colors.prompts.bg = "#{{base00-hex}}"
-c.colors.prompts.selected.bg = "#{{base02-hex}}"
-c.colors.prompts.selected.fg = "#{{base05-hex}}"
-c.colors.tabs.bar.bg = "#{{base00-hex}}"
-c.colors.tabs.indicator.start = "#{{base0D-hex}}"
-c.colors.tabs.indicator.stop = "#{{base0C-hex}}"
-c.colors.tabs.indicator.error = "#{{base08-hex}}"
-c.colors.tabs.odd.fg = "#{{base05-hex}}"
-c.colors.tabs.odd.bg = "#{{base01-hex}}"
-c.colors.tabs.even.fg = "#{{base05-hex}}"
-c.colors.tabs.even.bg = "#{{base00-hex}}"
-c.colors.tabs.pinned.even.bg = "#{{base0C-hex}}"
-c.colors.tabs.pinned.even.fg = "#{{base07-hex}}"
-c.colors.tabs.pinned.odd.bg = "#{{base0B-hex}}"
-c.colors.tabs.pinned.odd.fg = "#{{base07-hex}}"
-c.colors.tabs.pinned.selected.even.bg = "#{{base02-hex}}"
-c.colors.tabs.pinned.selected.even.fg = "#{{base05-hex}}"
-c.colors.tabs.pinned.selected.odd.bg = "#{{base02-hex}}"
-c.colors.tabs.pinned.selected.odd.fg = "#{{base05-hex}}"
-c.colors.tabs.selected.odd.fg = "#{{base05-hex}}"
-c.colors.tabs.selected.odd.bg = "#{{base02-hex}}"
-c.colors.tabs.selected.even.fg = "#{{base05-hex}}"
-c.colors.tabs.selected.even.bg = "#{{base02-hex}}"
-
 #mcbpro c.window.hide_decoration = True
 #mcbpro c.fonts.completion.category = '15pt'
 #mcbpro c.fonts.completion.entry = '15pt'

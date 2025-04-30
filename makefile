@@ -13,16 +13,15 @@ colors=$(shell cat $(HOME)/.colors \
 .PHONY: $(files)
 $(files):
 	@mkdir -p `dirname ${HOME}/$(@)`
-	@printf '%s' "$(HOME)/$(@)"
+	@printf '[dot] %s' "$(HOME)/$(@)"
 	@cat $(HOME)/.files/$(@) \
 		| sed -r "s/^[--;#\/\"\!]+$(hostname) //g; /^#(carbon|mcbpro)/d" \
 		| sed "$(colors)" > $(HOME)/$(@)
-	@printf ' [%s]' "update"
-	@$(if $(filter $@, .zshrc),                         printf ' [%s]' "source"; kill -USR1 `pgrep -a zsh | xargs` 2>/dev/null || true)
-	@$(if $(filter $@, .tmux.conf),                     printf ' [%s]' "source"; tmux source-file $(HOME)/.tmux.conf 2>/dev/null || true)
-	@$(if $(filter $@, .aerospace.toml),                printf ' [%s]' "source"; aerospace reload-config 2>/dev/null || true)
-	@$(if $(filter $@, .xbindkeysrc),                   printf ' [%s]' "source"; pkill -SIGKILL xbindkeys; xbindkeys 2>/dev/null || true)
-	@$(if $(filter $@, .config/qutebrowser/config.py),  printf ' [%s]' "source"; qutebrowser ':config-source' 2>/dev/null || true)
+	@$(if $(filter $@, .zshrc),                        pgrep -a zsh         1>/dev/null 2>/dev/null && kill -USR1 `pgrep -a zsh | xargs`      || true)
+	@$(if $(filter $@, .tmux.conf),                    pgrep -a tmux        1>/dev/null 2>/dev/null && tmux source-file $(HOME)/.tmux.conf    || true)
+	@$(if $(filter $@, .aerospace.toml),               pgrep -a aerospace   1>/dev/null 2>/dev/null && aerospace reload-config                || true)
+	@$(if $(filter $@, .xbindkeysrc),                  pgrep -a xbindkeys   1>/dev/null 2>/dev/null && pkill -SIGKILL xbindkeys && xbindkeys  || true)
+	@$(if $(filter $@, .config/qutebrowser/config.py), pgrep -a qutebrowser 1>/dev/null 2>/dev/null && qutebrowser ':config-source'           || true)
 	@printf '\n'
 
 sync:
