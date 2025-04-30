@@ -24,19 +24,34 @@ c.url.searchengines = {
 
 config.bind(',m', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
 
-#mcbpro c.window.hide_decoration = True
-#mcbpro c.fonts.completion.category = '15pt'
-#mcbpro c.fonts.completion.entry = '15pt'
-#mcbpro c.fonts.debug_console = '15pt'
-#mcbpro c.fonts.downloads = '15pt'
-#mcbpro c.fonts.hints = '15pt'
-#mcbpro c.fonts.keyhint = '15pt'
-#mcbpro c.fonts.messages.error = '15pt'
-#mcbpro c.fonts.messages.info = '15pt'
-#mcbpro c.fonts.messages.warning = '15pt'
-#mcbpro c.fonts.prompts = '15pt'
-#mcbpro c.fonts.statusbar = '15pt'
-#mcbpro c.fonts.tabs.selected = '15pt'
-#mcbpro c.fonts.tabs.unselected = '15pt'
-#mcbpro c.qt.highdpi = True
+c.colors.completion.fg = "#{{base05-hex}}"
+c.colors.completion.odd.bg = "#{{base01-hex}}"
+c.colors.completion.even.bg = "#{{base00-hex}}"
+c.colors.completion.category.fg = "#{{base0A-hex}}"
+c.colors.completion.category.bg = "#{{base00-hex}}"
+c.colors.completion.category.border.top = "#{{base00-hex}}"
+c.colors.completion.category.border.bottom = "#{{base00-hex}}"
+c.colors.completion.item.selected.fg = "#{{base05-hex}}"
+c.colors.completion.item.selected.bg = "#{{base02-hex}}"
+c.colors.completion.item.selected.border.top = "#{{base02-hex}}"
+c.colors.completion.item.selected.border.bottom = "#{{base02-hex}}"
+c.colors.completion.item.selected.match.fg = "#{{base0B-hex}}"
+c.colors.completion.match.fg = "#{{base09-hex}}"
+c.colors.tabs.bar.bg = "#333333"
+c.colors.tabs.even.bg = "#333333"
+c.colors.tabs.odd.bg = "#333333"
+c.colors.tabs.selected.even.bg = "#000000"
+c.colors.tabs.selected.odd.bg = "#000000"
+
+c.colors.tabs.even.fg = "#999999"
+c.colors.tabs.odd.fg = "#999999"
+c.colors.tabs.selected.even.fg = "#ffffff"
+c.colors.tabs.selected.odd.fg = "#ffffff"
+
 #mcbpro c.fonts.default_family = "GeistMono Nerd Font"
+#mcbpro c.fonts.default_size = "15pt"
+c.window.hide_decoration = True
+
+c.fonts.tabs.selected = '900 default_size default_family'
+c.fonts.tabs.unselected = '500 default_size default_family'
+
