@@ -24,6 +24,7 @@ c.url.searchengines = {
 
 config.bind(',m', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
 
+
 c.colors.completion.fg = "#{{base05-hex}}"
 c.colors.completion.odd.bg = "#{{base01-hex}}"
 c.colors.completion.even.bg = "#{{base00-hex}}"
@@ -35,7 +36,7 @@ c.colors.completion.item.selected.fg = "#{{base05-hex}}"
 c.colors.completion.item.selected.bg = "#{{base02-hex}}"
 c.colors.completion.item.selected.border.top = "#{{base02-hex}}"
 c.colors.completion.item.selected.border.bottom = "#{{base02-hex}}"
-c.colors.completion.item.selected.match.fg = "#{{base0B-hex}}"
+c.colors.completion.item.selected.match.fg = "#{{base09-hex}}"
 c.colors.completion.match.fg = "#{{base09-hex}}"
 c.colors.tabs.bar.bg = "#333333"
 c.colors.tabs.even.bg = "#333333"
@@ -55,3 +56,4 @@ c.window.hide_decoration = True
 c.fonts.tabs.selected = '900 default_size default_family'
 c.fonts.tabs.unselected = '500 default_size default_family'
 
+c.tabs.favicons.show = 'never'
