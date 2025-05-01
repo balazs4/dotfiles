@@ -574,7 +574,17 @@ function color(){
   fi
   colors=$(git -C $HOME/.cache/schemes ls-files | fzf --height='20%' --reverse -q"'yaml ${*} " -1)
   cp $HOME/.cache/schemes/$colors $HOME/.colors
-  dot
+  dot \
+    .alacritty.toml \
+    .config/index.html \
+    .config/nvim/colors/base16.vim \
+    .config/nvim/colors/base24.vim \
+    .config/nvim/colors/zzz.lua \
+    .local/bin/xbind \
+    .tmux.conf \
+    .xbindkeysrc \
+    .zshrc \
+    .config/qutebrowser/config.py
 }
 
 function dark(){
