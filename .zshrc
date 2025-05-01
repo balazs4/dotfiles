@@ -574,16 +574,16 @@ function color(){
   fi
   colors=$(git -C $HOME/.cache/schemes ls-files | fzf --height='20%' --reverse -q"'yaml ${*} " -1)
   cp $HOME/.cache/schemes/$colors $HOME/.colors
-  dot #TODO: smart apply
+  dot
 }
 
 function dark(){
-  color 16 ${*}
+  color ${*}
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" > /dev/null
 }
 
 function light(){
-  color 16 ${*}
+  color ${*}
 #mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" > /dev/null
 }
 
