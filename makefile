@@ -5,7 +5,7 @@ default: $(files)
 
 colors=$(shell cat $(HOME)/.colors \
 			 | awk -F: '/base[0|1].?/ {print $$1 $$2} /variant/ {print $$1 $$2}' \
-			 | tr -d '"|#' \
+			 | tr -d '"|\#' \
 			 | awk -F" " '{ print "s/{{" $$1 "}}/" tolower($$2) "/g"}' \
 			 | sed -E 's/(base[0|1].?)/\1-hex/g' \
 			 | tr "\n" ";")
