@@ -29,9 +29,9 @@ $(files):
 	@printf '\n'
 
 sync:
-	git commit -am "`date +%s`@`hostname -s`"
-	git pull
-	git push
+	git commit -am "`date +%s`@`hostname -s`" || true
+	git pull || true
+	git push || true
 
 edit:
 	nvim $(file)
