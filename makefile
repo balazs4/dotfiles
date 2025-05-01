@@ -29,7 +29,7 @@ $(files):
 	@printf '\n'
 
 sync:
-	git commit -am "`date +%s`@`hostname -s`" || true
+	git commit -am "`date +%s`@$(hostname)" || true
 	git pull || true
 	git push || true
 
