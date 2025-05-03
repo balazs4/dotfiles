@@ -22,6 +22,9 @@ c.url.searchengines = {
     '!yt':      'https://www.youtube.com/results?search_query={}'
 }
 
+c.content.blocking.method = 'both'
+c.completion.open_categories = ["searchengines", "quickmarks", "bookmarks", "history", "filesystem"]
+
 config.bind(',m', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
 
 
