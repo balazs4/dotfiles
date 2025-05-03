@@ -1,3 +1,7 @@
+[general]
+#carbon working_directory = "/home/balazs4/"
+#mcbpro working_directory = "/Users/balazs4/"
+
 [window]
 opacity = 0.86
 decorations = "None"
