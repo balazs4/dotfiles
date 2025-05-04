@@ -1,6 +1,6 @@
 colors_file=$(HOME)/.colors
 colors=$(shell cat $(colors_file) \
-			 | awk -F: '/base[0|1].?/ {print $$1 $$2} /variant/ {print $$1 $$2} /name/ {print $$1 $$2}  /system {print $$1 $$2}/' \
+			 | awk -F: '/base[0|1].?/ {print $$1 $$2} /variant/ {print $$1 $$2} /name/ {print $$1 $$2}  /system/ {print $$1 $$2}' \
 			 | tr -d '"|\#' \
 			 | awk -F" " '{ print "s/{{" $$1 "}}/" tolower($$2) "/g"}' \
 			 | sed -E 's/(base[0|1].?)/\1-hex/g' \
