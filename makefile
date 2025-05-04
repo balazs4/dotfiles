@@ -1,8 +1,3 @@
-hostname=$(shell hostname -s)
-files=$(shell git ls-files | grep -v makefile | grep -v readme.md)
-
-default: $(files)
-
 colors=$(shell cat $(HOME)/.colors \
 			 | awk -F: '/base[0|1].?/ {print $$1 $$2} /variant/ {print $$1 $$2}' \
 			 | tr -d '"|\#' \
@@ -11,8 +6,12 @@ colors=$(shell cat $(HOME)/.colors \
 			 | tr "\n" ";")
 
 base_16_24=s/{{base10-hex}}/{{base00-hex}}/;s/{{base11-hex}}/{{base00-hex}}/;s/{{base12-hex}}/{{base08-hex}}/;s/{{base13-hex}}/{{base0A-hex}}/;s/{{base14-hex}}/{{base0B-hex}}/;s/{{base15-hex}}/{{base0C-hex}}/;s/{{base16-hex}}/{{base0D-hex}}/;s/{{base17-hex}}/{{base0E-hex}}/
-
 smart_colors=$(colors);$(base_16_24);$(colors)
+
+hostname=$(shell hostname -s)
+files=$(shell git ls-files | grep -v makefile | grep -v readme.md)
+
+default: $(files)
 
 .PHONY: $(files)
 $(files):
@@ -32,7 +31,3 @@ sync:
 	git commit -am "`date +%s`@$(hostname)" || true
 	git pull || true
 	git push || true
-
-edit:
-	nvim $(file)
-	make $(file)
