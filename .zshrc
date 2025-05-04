@@ -571,19 +571,9 @@ function color(){
   then
     git clone git@github.com:tinted-theming/schemes.git $HOME/.cache/schemes --depth=1
   fi
-  colors=$(git -C $HOME/.cache/schemes ls-files | fzf --height='20%' --reverse -q"'yaml ${*} " -1)
+  colors=$(git -C $HOME/.cache/schemes ls-files | fzf --height='20%' --reverse -q"'yaml ${*} " -1 --preview 'make -C $HOME/.files .config/index.html colors_file=$HOME/.cache/schemes/{}')
   cp $HOME/.cache/schemes/$colors $HOME/.colors
-  dot \
-    .alacritty.toml \
-    .config/index.html \
-    .config/nvim/colors/base16.vim \
-    .config/nvim/colors/base24.vim \
-    .config/nvim/colors/zzz.lua \
-    .local/bin/xbind \
-    .tmux.conf \
-    .xbindkeysrc \
-    .zshrc \
-    .config/qutebrowser/config.py
+  dot ${PREVIEW:-.alacritty.toml .config/index.html .config/nvim/colors/base16.vim .config/nvim/colors/zzz.lua .local/bin/xbind .tmux.conf .xbindkeysrc .zshrc .config/qutebrowser/config.py}
 }
 
 function dark(){
