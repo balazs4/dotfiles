@@ -28,6 +28,8 @@ c.completion.open_categories = ["searchengines", "quickmarks", "bookmarks", "his
 config.bind(',m', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
 config.bind(',d', 'set colors.webpage.darkmode.enabled true')
 config.bind(',l', 'set colors.webpage.darkmode.enabled false')
+config.bind(',L', 'set colors.webpage.preferred_color_scheme light')
+config.bind(',D', 'set colors.webpage.preferred_color_scheme dark')
 
 
 c.colors.completion.fg = "#{{base05-hex}}"
