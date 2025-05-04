@@ -132,7 +132,7 @@ else
 endif
 
 " Theme setup
-let g:colors_name = '{{ scheme-system }}-{{scheme-slug}}'
+let g:colors_name = 'base24'
 
 " Highlighting function
 " Optional variables are attributes and guisp
@@ -221,7 +221,7 @@ call <sid>hi('Cursor',        'bg', 'fg', '', '', '', '')
 hi! link lCursor Cursor
 hi! link CursorIM Cursor
 call <sid>hi('CursorColumn',  '', s:gui01, '', s:cterm01, 'none', '')
-call <sid>hi('CursorLine',    '', s:gui01, '', s:cterm01, 'none', '')
+call <sid>hi('CursorLine',    '', s:gui02, '', s:cterm02, 'none', '')
 call <sid>hi('Directory',     s:gui0D, '', s:cterm0D, '', '', '')
 
 " Diff
@@ -230,7 +230,8 @@ call <sid>hi('DiffChange',    '', s:gui01,  '', s:cterm01, '', '')
 call <sid>hi('DiffDelete',    s:gui03, s:guibg,  s:cterm03, s:ctermbg, '', '')
 call <sid>hi('DiffText',      '', s:gui02,  '', s:cterm02, '', '')
 
-call <sid>hi('EndOfBuffer',   s:guibg, s:guibg, s:ctermbg, s:ctermbg, '', '')
+"call <sid>hi('EndOfBuffer',   s:guibg, s:guibg, s:ctermbg, s:ctermbg, '', '')
+hi! link NonText EndOfBuffer
 call <sid>hi('ErrorMsg',      s:gui08, '', s:cterm08, '', '', '')
 if has('nvim')
   call <sid>hi('WinSeparator',  s:gui01, s:guibg, s:cterm01, s:ctermbg, '', '')
