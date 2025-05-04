@@ -26,6 +26,8 @@ c.content.blocking.method = 'both'
 c.completion.open_categories = ["searchengines", "quickmarks", "bookmarks", "history", "filesystem"]
 
 config.bind(',m', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
+config.bind(',d', 'set colors.webpage.darkmode.enabled true')
+config.bind(',l', 'set colors.webpage.darkmode.enabled false')
 
 
 c.colors.completion.fg = "#{{base05-hex}}"
