@@ -5,9 +5,6 @@ colors=$(shell cat $(HOME)/.colors \
 			 | sed -E 's/(base[0|1].?)/\1-hex/g' \
 			 | tr "\n" ";")
 
-base_16_24=s/{{base10-hex}}/{{base00-hex}}/;s/{{base11-hex}}/{{base00-hex}}/;s/{{base12-hex}}/{{base08-hex}}/;s/{{base13-hex}}/{{base0A-hex}}/;s/{{base14-hex}}/{{base0B-hex}}/;s/{{base15-hex}}/{{base0C-hex}}/;s/{{base16-hex}}/{{base0D-hex}}/;s/{{base17-hex}}/{{base0E-hex}}/
-smart_colors=$(colors);$(base_16_24);$(colors)
-
 hostname=$(shell hostname -s)
 files=$(shell git ls-files | grep -v makefile | grep -v readme.md)
 
@@ -19,7 +16,7 @@ $(files):
 	@printf '[dot] %s' "$(HOME)/$(@)"
 	@cat $(HOME)/.files/$(@) \
 		| sed -r "s/^[--;#\/\"\!]+$(hostname) //g; /^#(carbon|mcbpro)/d" \
-		| sed "$(smart_colors)" > $(HOME)/$(@)
+		| sed "$(colors)" > $(HOME)/$(@)
 	@$(if $(filter $@, .zshrc),                        pgrep -a zsh         1>/dev/null 2>/dev/null && kill -USR1 `pgrep -a zsh | awk '{print $$1}' | xargs`      || true)
 	@$(if $(filter $@, .tmux.conf),                    pgrep -a tmux        1>/dev/null 2>/dev/null && tmux source-file $(HOME)/.tmux.conf                        || true)
 	@$(if $(filter $@, .aerospace.toml),               pgrep -a aerospace   1>/dev/null 2>/dev/null && aerospace reload-config                                    || true)

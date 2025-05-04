@@ -1,6 +1,5 @@
-vim.cmd('colorscheme base24')
 -- vim.cmd('colorscheme base16')
--- vim.cmd('colorscheme zzz')
+vim.cmd('colorscheme zzz')
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.tabstop = 2

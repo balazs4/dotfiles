@@ -17,13 +17,14 @@
 -- variant: light|dark
 
 vim.g.colors_name = 'zzz'
-vim.cmd('runtime colors/default.vim')
+vim.cmd('runtime colors/quiet.vim')
 vim.cmd('set background=dark')
 vim.cmd('set background={{variant}}')
 
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'MatchParen', { fg = '#{{base09-hex}}' })
+vim.api.nvim_set_hl(0, 'Visual', { bg = '#{{base09-hex}}' })
 vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#{{base01-hex}}' })
 vim.api.nvim_set_hl(0, 'Statement', { fg = '#{{base07-hex}}', bold = true })
 vim.api.nvim_set_hl(0, 'Keyword', { fg = '#{{base05-hex}}', bold = true })
