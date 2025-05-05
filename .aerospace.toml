@@ -87,3 +87,6 @@ right = 'resize width +50'
 enter = 'mode main'
 esc = 'mode main'
 
+[gaps]
+inner.horizontal = 12
+inner.vertical =   12
