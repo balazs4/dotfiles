@@ -58,7 +58,7 @@ c.colors.tabs.selected.odd.fg = "#ffffff"
 
 #mcbpro c.fonts.default_family = "GeistMono Nerd Font"
 #mcbpro c.fonts.default_size = "15pt"
-c.window.hide_decoration = True
+c.window.hide_decoration = False  # macos think different; see .aerospace.toml
 
 c.fonts.tabs.selected = '900 default_size default_family'
 c.fonts.tabs.unselected = '500 default_size default_family'
