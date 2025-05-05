@@ -21,6 +21,7 @@ foreground = "0x{{base05-hex}}"
 
 [colors.cursor]
 cursor = "0x{{base09-hex}}"
+#cursor = "0x{{base0A-hex}}" # black-metal
 text = "0x{{base00-hex}}"
 
 [colors.normal]
