@@ -176,7 +176,7 @@ vim.lsp.config('deno', {
   workspace_required = true
 })
 
--- vim.lsp.enable('tsgo')
+vim.lsp.enable('tsgo')
 vim.lsp.config('tsgo', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   cmd = { 'tsgo', 'lsp', '--stdio' },
@@ -184,7 +184,7 @@ vim.lsp.config('tsgo', {
   workspace_required = true
 })
 
-vim.lsp.enable('vstls')
+-- vim.lsp.enable('vstls')
 vim.lsp.config('vstls', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   cmd = { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
