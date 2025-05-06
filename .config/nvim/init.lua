@@ -85,8 +85,9 @@ vim.api.nvim_create_autocmd('LspProgress', {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
 
-    local msg = string.format("[Lsp:%s]\tevent=LspProgress\tkind=%s\ttitle=%s",
+    local msg = string.format("[lsp:%s]\t%s\tevent=LspProgress\tkind=%s\ttitle=%s",
       client.name,
+      vim.fn.strftime("%Y-%m-%dT%T"),
       args.data.params.value.kind,
       args.data.params.value.title
     )
@@ -101,8 +102,9 @@ vim.api.nvim_create_autocmd('LspRequest', {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
 
-    local msg = string.format("[Lsp:%s]\tevent=LspRequest\tmethod=%s\ttype=%s",
+    local msg = string.format("[lsp:%s]\t%s\tevent=LspRequest\tmethod=%s\ttype=%s",
       client.name,
+      vim.fn.strftime("%Y-%m-%dT%T"),
       args.data.request.method,
       args.data.request.type
     )
