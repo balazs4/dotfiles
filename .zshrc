@@ -162,7 +162,7 @@ export DOTENV_CONFIG_DEBUG=true
 #lua
 export PATH=$HOME/.lua/bin:${PATH}
 function _lua(){
-#mcbpro  os=macos
+#mcbpro   os=darwin
   rm -rf $HOME/.lua/ 2>/dev/null
   mkdir -p $HOME/.lua/ 2>/dev/null
   curl -Lis 'https://api.github.com/repos/LuaLS/lua-language-server/releases/latest?page=1&per_page=1' \
