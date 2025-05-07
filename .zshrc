@@ -154,7 +154,7 @@ export PATH=$HOME/.local/bin:${PATH}
 #node.js - https://github.com/tj/n
 export N_PREFIX=$HOME/.n/prefix
 export N_PRESERVE_NPM=1
-export PATH=$HOME/.n/:$N_PREFIX/bin/:${PATH}
+export PATH=$HOME/.n:$N_PREFIX/bin:${PATH}
 export NPM_CONFIG_LOGLEVEL=http
 export DOTENV_CONFIG_DEBUG=true
 #mcbpro export PNPM_HOME=$HOME/.pnpm
@@ -177,7 +177,7 @@ function _lua(){
 }
 
 #bun
-export PATH="$HOME/.bun:${PATH}"
+export PATH="$HOME/.bun/bin:${PATH}"
 export DO_NOT_TRACK=1
 
 #deno
