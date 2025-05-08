@@ -223,7 +223,7 @@ vim.lsp.config('vstls', {
 
     vim.keymap.set('n', '<leader>r',
       function()
-        local cmd = string.format('!tmux split-window -h "npmw test %s --verbose"', ts_test_ts('ensure_test_ts'))
+        local cmd = string.format('!tmux split-window -h "npmw test %s --verbose --forceExit"', ts_test_ts('ensure_test_ts'))
         vim.cmd(cmd)
       end, { buffer = bufnr })
   end
