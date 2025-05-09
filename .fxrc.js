@@ -1,32 +1,32 @@
-//carbon global.i3windows = function (json) {
-//carbon   function select(item, parent_item) {
-//carbon     if (parent_item === null) return null;
-//carbon     if (item.window_type === 'normal' || item.window_type === 'unknown') {
-//carbon       return [
-//carbon         item.id,
-//carbon         (parent_item?.name || '??').padStart(2, ' '),
-//carbon         item.window_properties.instance.padEnd(16, ' '),
-//carbon         item.window_properties.title,
-//carbon       ].join('  ');
-//carbon     }
-//carbon   }
-//carbon   function traverse(item, parent_item = null) {
-//carbon     const children = item.nodes.map((child) => {
-//carbon       return traverse(child, item.type === 'workspace' ? item : parent_item);
-//carbon     });
-//carbon     return [select(item, parent_item), ...children.flat()];
-//carbon   }
-//carbon   return traverse(json).filter(Boolean).join('\n');
-//carbon };
+function i3windows(json) {
+  function select(item, parent_item) {
+    if (parent_item === null) return null;
+    if (item.window_type === 'normal' || item.window_type === 'unknown') {
+      return [
+        item.id,
+        (parent_item?.name || '??').padStart(2, ' '),
+        item.window_properties.instance.padEnd(16, ' '),
+        item.window_properties.title,
+      ].join('  ');
+    }
+  }
+  function traverse(item, parent_item = null) {
+    const children = item.nodes.map((child) => {
+      return traverse(child, item.type === 'workspace' ? item : parent_item);
+    });
+    return [select(item, parent_item), ...children.flat()];
+  }
+  return traverse(json).filter(Boolean).join('\n');
+};
 
 // example: | fx 'matrix("foo", "bar")'
-global.matrix = function (...params) {
+function matrix(...params) {
   return function (json) {
     return json.map((x) => params.map((xx) => x[xx]).join('\t')).join('\n');
   };
 };
 
-global.flat = function (json) {
+function flat(json) {
   const nskv = {};
   let pad = 0;
 

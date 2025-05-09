@@ -30,6 +30,7 @@ config.bind(',d', 'set colors.webpage.darkmode.enabled true')
 config.bind(',l', 'set colors.webpage.darkmode.enabled false')
 config.bind(',L', 'set colors.webpage.preferred_color_scheme light')
 config.bind(',D', 'set colors.webpage.preferred_color_scheme dark')
+config.bind('\\\\', 'cmd-set-text :open -t ')
 
 
 c.colors.completion.fg = "#{{base05-hex}}"
