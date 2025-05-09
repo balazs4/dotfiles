@@ -577,7 +577,7 @@ function color(){
   if test ! -d $HOME/.cache/schemes; then git clone git@github.com:tinted-theming/schemes.git $HOME/.cache/schemes --depth=1; fi
   colors=$(git -C $HOME/.cache/schemes ls-files | sort | fzf --no-sort --reverse -q"'yaml ${*} " -1 --preview 'make -C $HOME/.files .config/.colors/index.html colors_file=$HOME/.cache/schemes/{}; cat $HOME/.cache/schemes/{}')
   cp $HOME/.cache/schemes/$colors $HOME/.colors
-  dot ${PREVIEW}
+  make -C $HOME/.files ${PREVIEW}
   if test ${PREVIEW}
   then
     pgrep -a qutebrowser 1>/dev/null 2>/dev/null && qutebrowser ':set colors.webpage.darkmode.enabled false'
