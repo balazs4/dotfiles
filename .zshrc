@@ -702,3 +702,11 @@ function s() {
 }
 
 #mcbpro alias linear='make -f $HOME/src/linear/makefile'
+
+#mcbpro function dpl() {
+#mcbpro   printf "%s\n" \
+#mcbpro     "${VC_ADMIN_DPL}/${1}" \
+#mcbpro     "${VC_ADMIN_DPL}/dpl_${1}" \
+#mcbpro     | fzf -1 -q '!dpl_dpl_ dpl_' \
+#mcbpro     | xargs xdg-open
+#mcbpro }
