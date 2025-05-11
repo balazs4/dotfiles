@@ -56,14 +56,8 @@ function zsh-git() {
     | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|\[different\]|%B%F{red}! %f%b|g'
 }
 
+
 setopt PROMPT_SUBST
-
-function TRAPUSR1(){
-  source $HOME/.zshrc
-  source $HOME/.zshenv
-}
-
-
 function zle-line-init zle-keymap-select {
   test $COLUMNS -lt 80 && NEWLINE=$'\n' || NEWLINE=''
   PROMPT="%B%F{#{{base07-hex}}} %~%f%b$(zsh-git &) %B%F{#{{base07-hex}}}${NEWLINE}»%f%b "
@@ -77,6 +71,11 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
+
+function TRAPUSR1(){
+  source $HOME/.zshrc
+  source $HOME/.zshenv
+}
 
 function zz() {
   local to=`{
