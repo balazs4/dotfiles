@@ -9,10 +9,11 @@ colors=$(shell cat $(colors_file) \
 hostname=$(shell hostname -s)
 files=$(shell git ls-files | grep -v makefile | grep -v readme.md)
 
+.PHONY:
+
 default: $(files)
 
-.PHONY: $(files)
-$(files):
+$(files): .PHONY
 	@mkdir -p `dirname ${HOME}/$(@)`
 	@printf '[dot] %s' "$(HOME)/$(@)"
 	@cat $(HOME)/.files/$(@) \
@@ -29,7 +30,6 @@ sync:
 	git commit -am "`date +%s`@$(hostname)" || true
 	git pull || true
 	git push || true
-
 
 setup:
 	go install github.com/antonmedv/fx@latest
