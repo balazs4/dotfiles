@@ -703,7 +703,7 @@ function s() {
 #mcbpro alias linear='make -f $HOME/src/linear/makefile'
 
 #mcbpro function dpl() {
-#mcbpro   chunk=$(bun -p "new URL('${1}').pathname.split('/').filter((_,i,a) => i == a.length -1)[0]" 2>/dev/null)
+#mcbpro   chunk=$(bun -p "new URL('${1}').pathname.split('/').filter((_,i,a)=>i===a.length-1)[0]" 2>/dev/null)
 #mcbpro   if test -z "${chunk}"; then chunk=${1}; fi
 #mcbpro   printf "%s\n" \
 #mcbpro     "${VC_ADMIN_DPL}/${chunk}" \
