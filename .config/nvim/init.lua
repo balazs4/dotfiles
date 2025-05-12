@@ -130,6 +130,10 @@ vim.lsp.config('gopls', {
   cmd = { 'gopls' },
   filetypes = { 'go' },
   root_markers = { 'go.mod', 'go.work' },
+  settings = { completeUnimported = true },
+  on_attach = function(_, _)
+    vim.keymap.set('n', 'gxx', '"nyi\' :!xdg-open https://<C-R>n <CR>')
+  end
 })
 
 --mcbpro vim.lsp.enable('terraform-ls')
@@ -179,7 +183,7 @@ vim.lsp.config('deno', {
 -- vim.lsp.enable('tsgo')
 vim.lsp.config('tsgo', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
-  cmd = { 'tsgo', 'lsp', '--stdio' },
+  cmd = { vim.loop.os_homedir() .. '/src/typescript-go/built/local/tsgo', 'lsp', '--stdio' },
   root_markers = { 'tsconfig.json', 'jsconfig.json' },
   workspace_required = true
 })

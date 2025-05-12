@@ -29,9 +29,9 @@ case "${1:-help}" in
     case "${webapp}" in
       "bank")      google-chrome-stable --user-data-dir=$HOME/.config/webapp/bank ;;
       "google")    google-chrome-stable --user-data-dir=$HOME/.config/webapp/google ;;
-      "microsoft") google-chrome-stable --user-data-dir=$HOME/.config/webapp/microsoft  --app=https://outlook.com ;;
+      "microsoft") google-chrome-stable --user-data-dir=$HOME/.config/webapp/microsoft ;;
       "spotify")   chromium --app=https://open.spotify.com ;;
-      "whatsapp")  chromium --app=https://web.whatsapp.com ;;
+      "whatsapp")  qutebrowser ':quickmark-load whatsapp' ;;
     esac
     ;;
 
