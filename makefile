@@ -28,7 +28,7 @@ $(files): .PHONY
 	@$(if $(filter $@, .config/qutebrowser/config.py), pgrep -a qutebrowser 1>/dev/null 2>/dev/null && qutebrowser ':config-source'                               || true)
 	@printf '\n'
 
-sync:
+sync: .PHONY
 	git commit -am "`date +%s`@$(hostname)" || true
 	git pull || true
 	git push || true
