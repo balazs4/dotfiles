@@ -707,7 +707,7 @@ function s() {
 #mcbpro   if test -z "${chunk}"; then chunk=${1}; fi
 #mcbpro   printf "%s\n" \
 #mcbpro     "${VC_ADMIN_DPL}/${chunk}" \
-#mcbpro     "${VC_ADMIN_DPL}/dpl_${chunk}"
+#mcbpro     "${VC_ADMIN_DPL}/dpl_${chunk}" \
 #mcbpro     | fzf -1 -q '!dpl_dpl_ dpl_' \
 #mcbpro     | xargs xdg-open
 #mcbpro }
