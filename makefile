@@ -13,6 +13,8 @@ files=$(shell git ls-files | grep -v makefile | grep -v readme.md)
 
 default: $(files)
 
+all: $(files)
+
 $(files): .PHONY
 	@mkdir -p `dirname ${HOME}/$(@)`
 	@printf '[dot] %s' "$(HOME)/$(@)"
@@ -30,7 +32,3 @@ sync:
 	git commit -am "`date +%s`@$(hostname)" || true
 	git pull || true
 	git push || true
-
-setup:
-	go install github.com/antonmedv/fx@latest
-	go install mvdan.cc/xurls/v2/cmd/xurls@latest
