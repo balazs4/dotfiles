@@ -190,7 +190,7 @@ vim.lsp.config('tsgo', {
 
 vim.lsp.enable('vstls')
 vim.lsp.config('vstls', {
-  filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+  filetypes = { 'typescript', 'typescriptreact' },
   cmd = { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
   root_markers = { 'node_modules/.bin/tsserver', 'tsconfig.json', 'jsconfig.json' },
   workspace_required = true,
@@ -214,10 +214,10 @@ vim.lsp.config('vstls', {
     end
 
     pcall(vim.keymap.del, 'n', '<leader>p')
-    vim.keymap.set('n', '<leader>p',
-      function()
-        vim.cmd('wa | !gfmt')
-      end, { buffer = bufnr })
+    vim.keymap.set('n', '<leader>p', function()
+      -- TODO: restore cursor position
+      vim.cmd('%!bun x @biomejs/biome format --stdin-file-path=_.ts')
+    end, { buffer = bufnr })
 
     vim.keymap.set('n', '<leader>t',
       function()
@@ -227,7 +227,9 @@ vim.lsp.config('vstls', {
 
     vim.keymap.set('n', '<leader>r',
       function()
-        local cmd = string.format('!tmux split-window -h "npmw test %s --verbose --forceExit"', ts_test_ts('ensure_test_ts'))
+        local cmd = string.format(
+        '!tmux split-window -h "while changing $(git ls-files --modified); do npm run test -- --verbose --forceExit %s"',
+          ts_test_ts('ensure_test_ts'))
         vim.cmd(cmd)
       end, { buffer = bufnr })
   end
