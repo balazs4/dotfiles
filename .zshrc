@@ -216,7 +216,7 @@ function dotedit() {
   pushd $HOME/.files 1>/dev/null 2>/dev/null
   dot_file=${1:-`fzf`}
   if test "$EDITOR"; then $EDITOR ${dot_file}; fi
-  make --always-make ${dot_file} ${*}
+  make --always-make ${dot_file}
   popd 1>/dev/null 2>/dev/null
 }
 alias dot='EDITOR= dotedit'
