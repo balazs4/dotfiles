@@ -225,7 +225,7 @@ function dotedit() {
   popd 1>/dev/null 2>/dev/null
 }
 alias dot='EDITOR= dotedit'
-alias dotsync='EDITOR= dot sync'
+alias dotsync='EDITOR= dot sync all'
 alias tmuxrc='dotedit .tmux.conf'
 alias zshrc='dotedit .zshrc'
 alias nvimrc='dotedit .config/nvim/init.lua'
