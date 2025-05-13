@@ -718,3 +718,11 @@ function s() {
 #mcbpro     | fzf -1 -q '!dpl_dpl_ dpl_' \
 #mcbpro     | xargs xdg-open
 #mcbpro }
+
+
+#mcbpro function slack() {
+#mcbpro   # fu hdr!
+#mcbpro   killall -9 Slack;
+#mcbpro   sleep 2;
+#mcbpro   open /Applications/Slack.app/ --args --force-color-profile=srgb
+#mcbpro }
