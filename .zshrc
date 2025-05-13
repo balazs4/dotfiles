@@ -214,12 +214,18 @@ export PATH="$HOME/.zig:${PATH}"
 
 function dotedit() {
   pushd $HOME/.files 1>/dev/null 2>/dev/null
-  dot_file=${1:-`fzf`}
-  if test "$EDITOR"; then $EDITOR ${dot_file}; fi
-  make --always-make ${dot_file}
+  if test "$EDITOR"
+  then 
+    dot_file=$(fzf -1 -q "${*}")
+    $EDITOR ${dot_file}
+    make --always-make ${dot_file}
+  else
+    make --always-make ${*}
+  fi
   popd 1>/dev/null 2>/dev/null
 }
 alias dot='EDITOR= dotedit'
+alias dotsync='EDITOR= dot sync'
 alias tmuxrc='dotedit .tmux.conf'
 alias zshrc='dotedit .zshrc'
 alias nvimrc='dotedit .config/nvim/init.lua'
