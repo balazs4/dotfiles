@@ -704,7 +704,7 @@ function s() {
 
 #mcbpro function dpl() {
 #mcbpro   input=${1:-`cat -`}
-#mcbpro   chunk=$(bun -p "new URL('${input}').pathname.split('/').filter((_,i,a)=>i===a.length-1)[0]" 2>/dev/null)
+#mcbpro   chunk=$(printf '%s' $input | gawk -F/ '{print $NF}')
 #mcbpro   if test -z "${chunk}"; then chunk=${input}; fi
 #mcbpro   printf "%s\n" \
 #mcbpro     "${VC_ADMIN_DPL}/${chunk}" \
