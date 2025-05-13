@@ -45,9 +45,3 @@ function flat(json) {
     .map((kv) => [kv[0].padEnd(pad), kv[1]].join('\t'))
     .join('\n');
 };
-
-// fx@34.0.0 needs global
-// fx@36.0.0 does not need global, but it panic sometimes
-global.i3windows = i3windows;
-global.flat = flat;
-

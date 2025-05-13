@@ -101,6 +101,7 @@ vim.api.nvim_create_autocmd('LspRequest', {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
+    if "codeAction/resolve" ==  args.data.request.method then return end
 
     local msg = string.format("[lsp:%s]\t%s\tevent=LspRequest\tmethod=%s\ttype=%s",
       client.name,

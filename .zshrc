@@ -214,14 +214,12 @@ export PATH="$HOME/.zig:${PATH}"
 
 function dotedit() {
   pushd $HOME/.files 1>/dev/null 2>/dev/null
+  dot_file=$({git ls-files; printf '%s\n' 'all';} | fzf -1 -q "'${*}")
   if test "$EDITOR"
   then 
-    dot_file=$(fzf -1 -q "${*}")
     $EDITOR ${dot_file}
-    make --always-make ${dot_file}
-  else
-    make --always-make ${*}
   fi
+  make --always-make ${dot_file}
   popd 1>/dev/null 2>/dev/null
 }
 alias dot='EDITOR= dotedit'
