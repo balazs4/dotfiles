@@ -19,13 +19,6 @@ function i3windows(json) {
   return traverse(json).filter(Boolean).join('\n');
 };
 
-// example: | fx 'matrix("foo", "bar")'
-function matrix(...params) {
-  return function (json) {
-    return json.map((x) => params.map((xx) => x[xx]).join('\t')).join('\n');
-  };
-};
-
 function flat(json) {
   const nskv = {};
   let pad = 0;
@@ -52,3 +45,9 @@ function flat(json) {
     .map((kv) => [kv[0].padEnd(pad), kv[1]].join('\t'))
     .join('\n');
 };
+
+// fx@34.0.0 needs global
+// fx@36.0.0 does not need global, but it panic sometimes
+global.i3windows = i3windows;
+global.flat = flat;
+
