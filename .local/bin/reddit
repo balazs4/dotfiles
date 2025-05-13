@@ -11,6 +11,7 @@ url="https://old.reddit.com/r/${sub}.json"
 >&2 printf "%s\n" $url
 
 curl "$url" -H 'cache-control: no-cache' -Ls -D /dev/stderr  --user-agent "$(pwgen 8 1)"  \
+  | sed 's/\\ud/\\\\ud/g' \
   | fx 'x => x.data.children.map(xx => [
     new Date(1000 * xx.data.created).toJSON().replace(".000Z", ""),
     "[" + String(xx.data.ups).padStart(6) + "]",
