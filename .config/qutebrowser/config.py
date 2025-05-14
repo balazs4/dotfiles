@@ -68,6 +68,7 @@ c.fonts.tabs.unselected = '500 default_size default_family'
 
 c.tabs.favicons.show = 'never'
 
+config.set('input.mode_override', 'passthrough', 'https://web.whatsapp.com');
 
 #mcbpro c.window.hide_decoration = False
 #mcbpro def thinkdifferent():
