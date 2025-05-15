@@ -135,6 +135,10 @@ function _fzf(){
   fzf --version
 }
 
+function _fx(){
+  GOPROXY= go install github.com/antonmedv/fx@latest
+}
+
 if test $TMUX
 then
   export TERM=tmux-256color

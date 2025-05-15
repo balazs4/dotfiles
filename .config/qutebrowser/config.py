@@ -16,9 +16,10 @@ c.url.start_pages = 'qute://version'
 
 c.url.searchengines = {
     'DEFAULT':  'https://start.duckduckgo.com/lite/?q={}',
-    '!d':       'https://start.duckduckgo.com/?q={}',
-    '!dh':      'https://start.duckduckgo.com/html/?q={}',
-    '!g':       'https://google.com/?q={}',
+    '!d':       'https://start.duckduckgo.com/lite/?q={}',
+    '!dd':      'https://start.duckduckgo.com/html/?q={}',
+    '!ddg':     'https://start.duckduckgo.com/?q={}',
+    '!g':       'https://google.com/search?q={}',
     '!dw':      'https://de.wiktionary.org/wiki/{}',
     '!gh':      'https://github.com/search?o=desc&q={}&s=stars',
     '!r':       'https://old.reddit.com/search?q={}',
@@ -28,12 +29,11 @@ c.url.searchengines = {
 c.content.blocking.method = 'both'
 c.completion.open_categories = ["searchengines", "quickmarks"]
 
-config.bind(',m', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
-config.bind(',d', 'set colors.webpage.darkmode.enabled true')
-config.bind(',l', 'set colors.webpage.darkmode.enabled false')
-config.bind(',L', 'set colors.webpage.preferred_color_scheme light')
-config.bind(',D', 'set colors.webpage.preferred_color_scheme dark')
-config.bind('\\\\', 'cmd-set-text :open -t !')
+config.bind(',m', 'spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
+config.bind(',M', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
+config.bind(',,', 'set colors.webpage.darkmode.enabled false')
+config.bind(',.', 'set colors.webpage.darkmode.enabled true')
+config.bind('\\\\', 'cmd-set-text :open -t !d')
 
 
 c.colors.completion.fg = "#{{base05-hex}}"
