@@ -7,7 +7,7 @@ colors=$(shell cat $(colors_file) \
 			 | tr "\n" ";")
 
 hostname=$(shell hostname -s)
-files=$(shell git ls-files | grep -v makefile | grep -v readme.md)
+files=$(shell git ls-files | grep -v makefile | grep -v readme.md | grep -v same-today)
 
 .PHONY:
 
