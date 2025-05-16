@@ -21,11 +21,11 @@ $(files): .PHONY
 	@cat $(HOME)/.files/$(@) \
 		| sed -r "s/^[--;#\/\"\!]+$(hostname) //g; /^#(carbon|mcbpro)/d" \
 		| sed "$(colors)" > $(HOME)/$(@)
-	@$(if $(filter $@, .zshrc),                        >/dev/null pgrep -a zsh         && kill -USR1 `pgrep -a zsh | awk '{print $$1}' | xargs`      || true)
-	@$(if $(filter $@, .tmux.conf),                    >/dev/null pgrep -a tmux        && tmux source-file $(HOME)/.tmux.conf                        || true)
-	@$(if $(filter $@, .aerospace.toml),               >/dev/null which aerospace      && aerospace reload-config --no-gui                           || true)
-	@$(if $(filter $@, .xbindkeysrc),                  >/dev/null pgrep -a xbindkeys   && pkill -SIGKILL xbindkeys && xbindkeys                      || true)
-	@$(if $(filter $@, .config/qutebrowser/config.py), >/dev/null pgrep -a qutebrowser && qutebrowser ':config-source'                               || true)
+	@$(if $(filter $@, .zshrc),                        pgrep -a zsh         1>/dev/null 2>/dev/null && kill -USR1 `pgrep -a zsh | awk '{print $$1}' | xargs`      || true)
+	@$(if $(filter $@, .tmux.conf),                    pgrep -a tmux        1>/dev/null 2>/dev/null && tmux source-file $(HOME)/.tmux.conf                        || true)
+	@$(if $(filter $@, .aerospace.toml),               which aerospace      1>/dev/null 2>/dev/null && aerospace reload-config --no-gui                           || true)
+	@$(if $(filter $@, .xbindkeysrc),                  pgrep -a xbindkeys   1>/dev/null 2>/dev/null && pkill -SIGKILL xbindkeys && xbindkeys                      || true)
+	@$(if $(filter $@, .config/qutebrowser/config.py), pgrep -a qutebrowser 1>/dev/null 2>/dev/null && qutebrowser ':config-source'                               || true)
 	@printf '\n'
 
 sync: .PHONY
