@@ -461,7 +461,7 @@ function yt(){
       })();' \
     | fzf --sync --height=50% --with-nth=2.. --delimiter="\t" --preview-window 'right,40%' --preview='wget {1} -O- 2>/dev/null | chafa --scale 2.0 -' \
     | cut -f2 \
-    | xargs -t -Iwatch mpv ${MPV:---ytdl-raw-options=format-sort='res:1080'} --pause --cache-pause-initial=yes https://youtu.be/watch
+    | xargs -t -Iwatch mpv ${MPV:---ytdl-raw-options=format-sort='res:1080'} https://youtu.be/watch
 }
 alias yta="MPV='--ytdl-raw-options=format=bestaudio' yt"
 
@@ -700,7 +700,7 @@ function s() {
   input=${*:-`cat -`}
   search_term=$(echo "${input}" | tr ' ' '+')
   url="https://start.duckduckgo.com/lite/?q=${search_term}"
-  curl -A "uil4pi8Ailequei0Eighiej2" -D /dev/null -Ls "${url}" \
+  curl -A "aun3Modeitoa9eequ2quooph7yoh4ohn" -D /dev/stderr -Ls "${url}" \
     | sed "s|\(<span class='link-text'>\)|\1https://|g" \
     | pup 'table' \
     | w3m -dump -T text/html -cols $COLUMNS
