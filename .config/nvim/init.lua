@@ -18,6 +18,7 @@ vim.opt.undofile = false
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
+vim.opt.showcmd = false
 
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
@@ -101,7 +102,6 @@ vim.api.nvim_create_autocmd('LspRequest', {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
-    if "codeAction/resolve" ==  args.data.request.method then return end
 
     local msg = string.format("[lsp:%s]\t%s\tevent=LspRequest\tmethod=%s\ttype=%s",
       client.name,
