@@ -1,0 +1,9 @@
+git - le traqueur de contenu stupide
+
+Git est un système de gestion de révision rapide, extensible et distribué avec un ensemble de commandes inhabituellement riche qui fournit à la fois des opérations de haut niveau et un accès complet aux structures de bas niveau.
+
+Voir gittutorial[7] pour démarrer, puis voir giteveryday[7] pour un ensemble minimal utile de commandes. Le manuel utilisateur de Git contient une introduction plus approfondie.
+
+Aprs avoir maîtrisé les concepts de base, vous pouvez revenir à cette page pour apprendre les commandes que Git offre. Vous pouvez en apprendre plus sur chaque commande Git avec « git help command ». La page de manuel de gitcli[7] fournit un aperçu de la syntaxe de commande de la ligne de commande.
+
+Une copie formatée et hyperliée de la dernière documentation de Git peut être visualisée à https://git.github.io/htmldocs/git.html ou à https://git-scm.com/docs.
