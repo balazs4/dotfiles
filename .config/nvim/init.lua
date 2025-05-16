@@ -189,8 +189,8 @@ vim.lsp.config('tsgo', {
   workspace_required = true
 })
 
-vim.lsp.enable('vstls')
-vim.lsp.config('vstls', {
+vim.lsp.enable('vtsls')
+vim.lsp.config('vtsls', {
   filetypes = { 'typescript', 'typescriptreact' },
   cmd = { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
   root_markers = { 'node_modules/.bin/tsserver', 'tsconfig.json', 'jsconfig.json' },

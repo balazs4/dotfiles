@@ -727,3 +727,14 @@ function s() {
 #mcbpro   sleep 2;
 #mcbpro   open /Applications/Slack.app/ --args --force-color-profile=srgb
 #mcbpro }
+
+
+function sich() {
+  curl https://raw.githubusercontent.com/bezufache/Betonieren/refs/heads/master/README.md -s \
+    | grep '* Sich' \
+    | tr -d '*' \
+    | shuf \
+    | head -1 \
+    | tee /dev/stderr \
+    | say -v Anna -f -
+}
