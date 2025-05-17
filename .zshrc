@@ -218,16 +218,8 @@ export PATH="$HOME/.zig:${PATH}"
 
 function dotedit() {
   pushd $HOME/.files 1>/dev/null 2>/dev/null
-  if test "${1}" = "sync"
-  then
-    target="sync"
-  else
-    target=$({git ls-files; printf '%s\n' 'all';} | fzf -1 -q "'${*}")
-  fi
-  if test "$EDITOR"
-  then 
-    $EDITOR ${target}
-  fi
+  target=$({git ls-files; printf '%s\n' 'all' 'sync';} | fzf -1 -q "'${*}")
+  if test "$EDITOR"; then $EDITOR ${target}; fi
   make --always-make ${target}
   popd 1>/dev/null 2>/dev/null
 }
