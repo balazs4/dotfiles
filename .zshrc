@@ -686,18 +686,26 @@ function rfc(){
   curl -s "https://www.rfc-editor.org/rfc/rfc${1}.txt" | less -R
 }
 
-
-function spp() {
+alias sp='spotify_player'
+alias spp='spotify_player playback play-pause'
+alias spn='spotify_player playback next'
+alias spz='source <(spotify_player generate zsh)'
+function sps() {
   spotify_player search "$*" \
-    | fx 'x => [...x.artists.map(xx => ["0000-00-00", xx.id, "artist".padEnd(8), xx.name].join("\t")),...x.playlists.map(xx => ["0000-00-00", xx.id, "playlist", xx.name].join("\t")), ...x.albums.map(xx => [xx.release_date, xx.id, "album".padEnd(8), xx.name].join("\t"))].join("\n")' \
+    | fx 'x => [
+      ...x.artists.map(  xx => ["0000-00-00",    xx.id, "artist".padEnd(8), xx.name].join("\t")),
+      ...x.playlists.map(xx => ["0000-00-00",    xx.id, "playlist",         xx.name].join("\t")),
+      ...x.albums.map(   xx => [xx.release_date, xx.id, "album".padEnd(8),  xx.name].join("\t")),
+      ].join("\n")' \
     | sort -r  \
     | fzf --height=25% --reverse \
+    | tee /dev/stderr \
     | awk '{printf "playback start context %s --id=%s", $3, $2}' \
     | xargs spotify_player
 }
 
 function s() {
-  input=${*:-`cat -`}
+  input=${*:-$(cat -)}
   search_term=$(echo "${input}" | tr ' ' '+')
   url="https://start.duckduckgo.com/lite/?q=${search_term}"
   curl -A "aun3Modeitoa9eequ2quooph7yoh4ohn" -D /dev/stderr -Ls "${url}" \
