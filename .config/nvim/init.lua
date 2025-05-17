@@ -29,7 +29,7 @@ vim.opt.grepprg = 'rg --vimgrep --hidden'
 vim.keymap.set('n', 'H', '^')
 vim.keymap.set('n', 'L', '$')
 vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
-vim.keymap.set('n', '`', '<C-^>')
+vim.keymap.set('n', '`', ':bn<cr>')
 vim.keymap.set('n', '<leader><cr>', ':w | !make %<CR>') --TODO: set it only if $PWD === $HOME/.files and source $MYVIMRC only if % === .config/nvim/init.lua
 vim.keymap.set('n', '<C-j>', ':cnext<CR>zz');
 vim.keymap.set('n', '<C-k>', ':cprevious<CR>zz');
@@ -49,10 +49,9 @@ vim.keymap.set('n', '<leader>g', function()
   vim.cmd(cmd)
 end)
 
----@param filter? vim.lsp.get_clients.Filter
-local function update_statusline(filter)
+local function update_statusline()
   vim.opt.statusline = '%<%f %h%w%m%r%=%-14.(%l,%c%V%) %P' -- :help statusline
-  for _, client in ipairs(vim.lsp.get_clients(filter)) do
+  for _, client in ipairs(vim.lsp.get_clients({bufnr = 0})) do
     vim.opt.statusline:prepend(string.format('[lsp:%s] ', client.name));
   end
 end
