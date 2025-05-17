@@ -8,7 +8,7 @@ normal = { family = "Geist Mono", style = "Medium" }
 #carbon size = 11.0
 
 [window]
-opacity = 0.86
+opacity = 0.96
 decorations = "None"
 dynamic_title = true
 title = "alacritty"
