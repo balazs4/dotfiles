@@ -737,6 +737,10 @@ function s() {
 #mcbpro }
 
 
+#carbon function say() {
+#carbon   dunstify "$(cat -)"
+#carbon }
+
 function sich() {
   curl https://raw.githubusercontent.com/bezufache/Betonieren/refs/heads/master/README.md -s \
     | grep '* Sich' \
