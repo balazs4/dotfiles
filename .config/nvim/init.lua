@@ -49,22 +49,23 @@ vim.keymap.set('n', '<leader>g', function()
   vim.cmd(cmd)
 end)
 
+
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
-    vim.diagnostic.config({
-      update_in_insert = false,
-      signs = false,
-      underline = { severity = vim.diagnostic.severity.ERROR },
-      virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4 },
-      severity_sort = true,
-      source = true
-    })
+    vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(vim.lsp.get_clients())) end, {})
+    vim.api.nvim_create_user_command("LspStop", function() vim.lsp.stop_client(vim.lsp.get_clients(), true) end, {})
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
 
-    vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(client)) end, {})
-    vim.api.nvim_create_user_command("LspStop", function() client:stop() end, {})
+    vim.diagnostic.config({
+      update_in_insert = false,
+      signs = false,
+      underline = { severity = vim.diagnostic.severity.ERROR },
+      virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4, source = true },
+      severity_sort = true
+    })
+
 
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
     vim.keymap.set('n', '<leader>p', vim.lsp.buf.format, { buffer = args.buf })
@@ -102,14 +103,7 @@ vim.api.nvim_create_autocmd('LspRequest', {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
-
-    local msg = string.format("[lsp:%s]\t%s\tevent=LspRequest\tmethod=%s\ttype=%s",
-      client.name,
-      vim.fn.strftime("%Y-%m-%dT%T"),
-      args.data.request.method,
-      args.data.request.type
-    )
-
+    local msg = string.format("[lsp:%s]", client.name)
     vim.notify_once(msg, vim.log.levels.INFO)
   end,
 })
@@ -189,11 +183,18 @@ vim.lsp.config('tsgo', {
   workspace_required = true
 })
 
+vim.lsp.enable('biome')
+vim.lsp.config('biome', {
+  filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+  cmd = { 'bun', 'x', '--bun', '@biomejs/biome', 'lsp-proxy' },
+  root_markers = { 'biome.json' },
+})
+
 vim.lsp.enable('vtsls')
 vim.lsp.config('vtsls', {
-  filetypes = { 'typescript', 'typescriptreact' },
+  filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   cmd = { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
-  root_markers = { 'node_modules/.bin/tsserver', 'tsconfig.json', 'jsconfig.json' },
+  root_markers = { 'tsconfig.json', 'jsconfig.json' },
   workspace_required = true,
   on_attach = function(_, bufnr)
     ---toggle filename between .ts and test.ts
