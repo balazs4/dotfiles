@@ -12,7 +12,7 @@ vim.opt.nu = true
 vim.opt.rnu = true
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
-vim.opt.cmdheight = 2
+vim.opt.cmdheight = 1
 vim.opt.cursorline = true
 vim.opt.undofile = false
 vim.opt.swapfile = false
@@ -49,11 +49,20 @@ vim.keymap.set('n', '<leader>g', function()
   vim.cmd(cmd)
 end)
 
+---@param filter? vim.lsp.get_clients.Filter
+local function update_statusline(filter)
+  vim.opt.statusline = '%<%f %h%w%m%r%=%-14.(%l,%c%V%) %P' -- :help statusline
+  for _, client in ipairs(vim.lsp.get_clients(filter)) do
+    vim.opt.statusline:prepend(string.format('[lsp:%s] ', client.name));
+  end
+end
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
-    vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(vim.lsp.get_clients())) end, {})
-    vim.api.nvim_create_user_command("LspStop", function() vim.lsp.stop_client(vim.lsp.get_clients(), true) end, {})
+    update_statusline({ bufnr = args.buf })
+
+    vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(vim.lsp.get_clients())) end, { })
+    vim.api.nvim_create_user_command("LspStop", function() vim.lsp.stop_client(vim.lsp.get_clients(), true) update_statusline() end, {})
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
@@ -66,56 +75,26 @@ vim.api.nvim_create_autocmd('LspAttach', {
       severity_sort = true
     })
 
-
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
     vim.keymap.set('n', '<leader>p', vim.lsp.buf.format, { buffer = args.buf })
-    vim.keymap.set('n', '<leader>b',
-      function() vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR }) end, { buffer = args.buf })
-    vim.keymap.set('n', '<leader>y', function() vim.lsp.buf.document_symbol({}) end)
-    vim.keymap.set('n', '<leader>Y', function() vim.lsp.buf.workspace_symbol('', {}) end)
+    vim.keymap.set('n', '<leader>y', function() vim.lsp.buf.document_symbol({}) end, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>Y', function() vim.lsp.buf.workspace_symbol('', {}) end, { buffer = args.buf })
+
     vim.keymap.set('n', '<leader>d', function()
       vim.cmd('vsplit')
       vim.lsp.buf.definition()
     end, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>b', function()
+      vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
+    end, { buffer = args.buf })
 
     vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-  end,
-})
 
-vim.api.nvim_create_autocmd('LspProgress', {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client == nil then return end
-
-    local msg = string.format("[lsp:%s]\t%s\tevent=LspProgress\tkind=%s\ttitle=%s",
-      client.name,
-      vim.fn.strftime("%Y-%m-%dT%T"),
-      args.data.params.value.kind,
-      args.data.params.value.title
-    )
-
-    vim.notify_once(msg, vim.log.levels.INFO)
-    -- TODO: add permanent lsp marker to cmd
-  end,
-})
-
-vim.api.nvim_create_autocmd('LspRequest', {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client == nil then return end
-    local msg = string.format("[lsp:%s]", client.name)
-    vim.notify_once(msg, vim.log.levels.INFO)
-  end,
-})
-
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client:supports_method('textDocument/documentColor')
     then
       vim.lsp.document_color.enable(true, args.buf)
     end
-  end
+  end,
 })
 
 vim.lsp.config('*', { root_markers = { '.git' } })
@@ -230,7 +209,7 @@ vim.lsp.config('vtsls', {
     vim.keymap.set('n', '<leader>r',
       function()
         local cmd = string.format(
-        '!tmux split-window -h "while changing $(git ls-files --modified); do npm run test -- --verbose --forceExit %s"',
+          '!tmux split-window -h "while changing $(git ls-files --modified); do npm run test -- --verbose --forceExit %s"',
           ts_test_ts('ensure_test_ts'))
         vim.cmd(cmd)
       end, { buffer = bufnr })
