@@ -713,10 +713,12 @@ function s() {
     | awk '
   /    https:\/\// {print "\033[1m"$0"\033[0m\n"; next;} 
   /^[0-9]+\./ {print "\033[33;1m"$0"\033[0m";next;} 
-  1 {print $0}
+  /\[Next Page / {next;}
+  1 {print $0;}
   '
 
-  >&2 printf "%s\n" $url "https://start.duckduckgo.com/html/?q=${search_term}" "https://start.duckduckgo.com/?q=${search_term}"
+  printf "%s\t" $url "https://start.duckduckgo.com/html/?q=${search_term}" "https://start.duckduckgo.com/?q=${search_term}"
+  printf "\n"
 }
 
 #mcbpro alias linear='make -f $HOME/src/linear/makefile'
