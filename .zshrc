@@ -423,7 +423,7 @@ function yt(){
     tmux rename-window -t:$target youtube
   fi
 
-  echo $* \
+  echo ${*:-$(cat -)} \
     | tr ' ' '+' \
     | xargs -t -I{} curl -Lfs -H "accept-language: ${LNG:-en}" https://www.youtube.com/results\?search_query={} \
     | pup 'script:contains("var ytInitialData") text{}' \
