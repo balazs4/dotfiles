@@ -52,12 +52,12 @@ end)
 local function update_statusline(args)
   vim.opt.statusline = '%<%f %h%w%m%r%=%-14.(%l,%c%V%) %P' -- :help statusline
   for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
-    local request = "idle"
     if args and args.data.client_id == client.id and args.data.request.type
     then
-      request = args.data.request.type
+      vim.opt.statusline:prepend(string.format('[%s:%-8s] ', client.name, args.data.request.type));
+    else
+      vim.opt.statusline:prepend(string.format('[%s] ', client.name));
     end
-    vim.opt.statusline:prepend(string.format('[lsp:%s:%s] ', client.name, request));
   end
 end
 
