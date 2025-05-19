@@ -49,23 +49,25 @@ vim.keymap.set('n', '<leader>g', function()
   vim.cmd(cmd)
 end)
 
-local function update_statusline()
+local function update_statusline(args)
   vim.opt.statusline = '%<%f %h%w%m%r%=%-14.(%l,%c%V%) %P' -- :help statusline
   for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
-    vim.opt.statusline:prepend(string.format('[lsp:%s] ', client.name));
+    local request = "idle"
+    if args and args.data.client_id == client.id and args.data.request.type
+    then
+      request = args.data.request.type
+    end
+    vim.opt.statusline:prepend(string.format('[lsp:%s:%s] ', client.name, request));
   end
 end
 
+
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
-    update_statusline({ bufnr = args.buf })
+    update_statusline() -- see LspDetach
 
     vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(vim.lsp.get_clients())) end, {})
-    vim.api.nvim_create_user_command("LspStop",
-      function()
-        vim.lsp.stop_client(vim.lsp.get_clients(), true)
-        update_statusline()
-      end, {})
+    vim.api.nvim_create_user_command("LspStop", function() vim.lsp.stop_client(vim.lsp.get_clients(), true) end, {})
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
@@ -98,6 +100,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.lsp.document_color.enable(true, args.buf)
     end
   end,
+})
+
+
+vim.api.nvim_create_autocmd('LspDetach', {
+  callback = function(args)
+    update_statusline()
+  end
+})
+
+vim.api.nvim_create_autocmd('LspRequest', {
+  callback = function(args)
+    update_statusline(args)
+  end
 })
 
 vim.lsp.config('*', { root_markers = { '.git' } })
@@ -215,7 +230,7 @@ vim.lsp.config('vtsls', {
     pcall(vim.keymap.del, 'n', '<leader>p')
     vim.keymap.set('n', '<leader>p', function()
       local row = vim.api.nvim_win_get_cursor(0)[1]
-      vim.cmd(string.format('!./node_modules/.bin/biome format --write %s', vim.api.nvim_buf_get_name(0)), {silent = true})
+      vim.cmd(string.format('!bun x @biomejs/biome format --write %s', vim.api.nvim_buf_get_name(0)), { silent = true })
       vim.cmd(string.format('%d', row));
     end, { buffer = bufnr })
   end
