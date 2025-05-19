@@ -51,7 +51,7 @@ end)
 
 local function update_statusline()
   vim.opt.statusline = '%<%f %h%w%m%r%=%-14.(%l,%c%V%) %P' -- :help statusline
-  for _, client in ipairs(vim.lsp.get_clients({bufnr = 0})) do
+  for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
     vim.opt.statusline:prepend(string.format('[lsp:%s] ', client.name));
   end
 end
@@ -60,8 +60,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     update_statusline({ bufnr = args.buf })
 
-    vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(vim.lsp.get_clients())) end, { })
-    vim.api.nvim_create_user_command("LspStop", function() vim.lsp.stop_client(vim.lsp.get_clients(), true) update_statusline() end, {})
+    vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(vim.lsp.get_clients())) end, {})
+    vim.api.nvim_create_user_command("LspStop",
+      function()
+        vim.lsp.stop_client(vim.lsp.get_clients(), true)
+        update_statusline()
+      end, {})
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
@@ -153,13 +157,6 @@ vim.lsp.config('deno', {
   workspace_required = true
 })
 
--- vim.lsp.enable('tsgo')
-vim.lsp.config('tsgo', {
-  filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
-  cmd = { vim.loop.os_homedir() .. '/src/typescript-go/built/local/tsgo', 'lsp', '--stdio' },
-  root_markers = { 'tsconfig.json', 'jsconfig.json' },
-  workspace_required = true
-})
 
 vim.lsp.enable('biome')
 vim.lsp.config('biome', {
@@ -168,7 +165,16 @@ vim.lsp.config('biome', {
   root_markers = { 'biome.json' },
 })
 
-vim.lsp.enable('vtsls')
+local tsgo_enabled = false
+vim.lsp.enable('tsgo', tsgo_enabled)
+vim.lsp.config('tsgo', {
+  filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+  cmd = { vim.loop.os_homedir() .. '/src/typescript-go/built/local/tsgo', '--lsp', '--stdio' },
+  root_markers = { 'tsconfig.json', 'jsconfig.json' },
+  workspace_required = true
+})
+
+vim.lsp.enable('vtsls', not tsgo_enabled)
 vim.lsp.config('vtsls', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   cmd = { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
