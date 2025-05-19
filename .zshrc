@@ -706,9 +706,16 @@ function s() {
   search_term=$(echo "${input}" | tr ' ' '+')
   url="https://start.duckduckgo.com/lite/?q=${search_term}"
   curl -A "aun3Modeitoa9eequ2quooph7yoh4ohn" -D /dev/stderr -Ls "${url}" \
+    | tee /tmp/s.html \
     | sed "s|\(<span class='link-text'>\)|\1https://|g" \
     | pup 'table' \
-    | w3m -dump -T text/html -cols $COLUMNS
+    | w3m -dump -T text/html -cols $COLUMNS \
+    | awk '
+  /    https:\/\// {print "\033[1m"$0"\033[0m\n"; next;} 
+  /^[0-9]+\./ {print "\033[33;1m"$0"\033[0m";next;} 
+  1 {print $0}
+  '
+
   >&2 printf "%s\n" $url "https://start.duckduckgo.com/html/?q=${search_term}" "https://start.duckduckgo.com/?q=${search_term}"
 }
 
