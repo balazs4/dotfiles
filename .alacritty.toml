@@ -3,7 +3,7 @@
 #mcbpro working_directory = "/Users/balazs4/"
 
 [font]
-normal = { family = "Geist Mono", style = "Medium" }
+# normal = { family = "Geist Mono", style = "Medium" }
 #mcbpro size = 14.0
 #carbon size = 11.0
 
