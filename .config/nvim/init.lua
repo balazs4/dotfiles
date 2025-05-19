@@ -162,7 +162,8 @@ vim.lsp.enable('biome')
 vim.lsp.config('biome', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   cmd = { 'bun', 'x', '--bun', '@biomejs/biome', 'lsp-proxy' },
-  root_markers = { 'biome.json' },
+  root_markers = { 'biome.json', 'biome.jsonc' },
+  workspace_required = true
 })
 
 local tsgo_enabled = false
@@ -178,7 +179,7 @@ vim.lsp.enable('vtsls', not tsgo_enabled)
 vim.lsp.config('vtsls', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   cmd = { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
-  root_markers = { 'tsconfig.json', 'jsconfig.json' },
+  root_markers = { 'tsconfig.json', 'jsconfig.json' }, -- TODO: check '.git/../tsconfig.json'
   workspace_required = true,
   on_attach = function(_, bufnr)
     ---toggle filename between .ts and test.ts
@@ -199,17 +200,7 @@ vim.lsp.config('vtsls', {
       return filename
     end
 
-    pcall(vim.keymap.del, 'n', '<leader>p')
-    vim.keymap.set('n', '<leader>p', function()
-      -- TODO: restore cursor position
-      vim.cmd('%!bun x @biomejs/biome format --stdin-file-path=_.ts')
-    end, { buffer = bufnr })
-
-    vim.keymap.set('n', '<leader>t',
-      function()
-        local cmd = string.format('vsplit %s', ts_test_ts())
-        vim.cmd(cmd)
-      end, { buffer = bufnr })
+    vim.keymap.set('n', '<leader>t', function() vim.cmd(string.format('vsplit %s', ts_test_ts())) end, { buffer = bufnr })
 
     vim.keymap.set('n', '<leader>r',
       function()
@@ -218,6 +209,15 @@ vim.lsp.config('vtsls', {
           ts_test_ts('ensure_test_ts'))
         vim.cmd(cmd)
       end, { buffer = bufnr })
+
+
+    --- It should be set on biome.on_attach but currently only supports a single client. see vim.lsp.formatexpr
+    pcall(vim.keymap.del, 'n', '<leader>p')
+    vim.keymap.set('n', '<leader>p', function()
+      local row = vim.api.nvim_win_get_cursor(0)[1]
+      vim.cmd(string.format('!./node_modules/.bin/biome format --write %s', vim.api.nvim_buf_get_name(0)), {silent = true})
+      vim.cmd(string.format('%d', row));
+    end, { buffer = bufnr })
   end
 })
 
