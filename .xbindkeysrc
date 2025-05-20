@@ -18,7 +18,7 @@
     m:0x0 + c:232
     XF86MonBrightnessDown
 
-"xbacklight -dec 15"
+"xbacklight -dec 1"
     m:0x4 + c:116
     Control + Down
 
@@ -26,7 +26,7 @@
     m:0x0 + c:233
     XF86MonBrightnessUp
 
-"xbacklight -inc 15"
+"xbacklight -inc 1"
     m:0x4 + c:111
     Control + Up
 
