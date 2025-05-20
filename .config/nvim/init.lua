@@ -138,13 +138,13 @@ vim.lsp.config('terraform-ls', {
 
 vim.lsp.enable('vscode-css-language-server');
 vim.lsp.config('vscode-css-language-server', {
-  cmd = { 'bun', 'x', '-p', 'vscode-langservers-extracted', 'vscode-css-language-server', '--stdio' },
+  cmd = { 'bun', 'x', '--bun', '-p', 'vscode-langservers-extracted', 'vscode-css-language-server', '--stdio' },
   filetypes = { 'css' },
 })
 
 vim.lsp.enable('svelteserver')
 vim.lsp.config('svelteserver', {
-  cmd = { 'bun', 'x', '-p', 'svelte-language-server', 'svelteserver', '--stdio' },
+  cmd = { 'bun', 'x', '--bun', '-p', 'svelte-language-server', 'svelteserver', '--stdio' },
   filetypes = { 'svelte' },
   root_markers = { 'svelte.config.js' },
   workspace_required = true
@@ -152,7 +152,7 @@ vim.lsp.config('svelteserver', {
 
 vim.lsp.enable('yaml-language-server');
 vim.lsp.config('yaml-language-server', {
-  cmd = { 'bun', 'x', 'yaml-language-server', '--stdio' },
+  cmd = { 'bun', 'x', '--bun', 'yaml-language-server', '--stdio' },
   filetypes = { 'yaml' },
 })
 
@@ -193,7 +193,7 @@ vim.lsp.config('tsgo', {
 vim.lsp.enable('vtsls', not tsgo_enabled)
 vim.lsp.config('vtsls', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
-  cmd = { 'bun', 'x', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
+  cmd = { 'bun', 'x', '--bun', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
   root_markers = { 'tsconfig.json', 'jsconfig.json' }, -- TODO: check '.git/../tsconfig.json'
   workspace_required = true,
   on_attach = function(_, bufnr)
@@ -230,7 +230,8 @@ vim.lsp.config('vtsls', {
     pcall(vim.keymap.del, 'n', '<leader>p')
     vim.keymap.set('n', '<leader>p', function()
       local row = vim.api.nvim_win_get_cursor(0)[1]
-      vim.cmd(string.format('!bun x @biomejs/biome format --write %s', vim.api.nvim_buf_get_name(0)), { silent = true })
+      vim.cmd(string.format('!bun x --bun @biomejs/biome format --write %s', vim.api.nvim_buf_get_name(0)),
+        { silent = true })
       vim.cmd(string.format('%d', row));
     end, { buffer = bufnr })
   end
