@@ -664,7 +664,9 @@ function focus(){
 #mcbpro }
 
 function re(){
-  nvim $(gh pr diff --name-only)
+  pushd $(git rev-parse --show-toplevel)
+    nvim $(git ls-files --modified) $(gh pr diff --name-only)
+  popd
 }
 
 #mcbpro function duration(){
