@@ -713,10 +713,10 @@ function s() {
     | pup 'table' \
     | w3m -dump -T text/html -cols $COLUMNS \
     | awk '
-  /    https:\/\// {print "\033[1m"$0"\033[0m\n"; next;} 
-  /^[0-9]+\./ {print "\033[33;1m"$0"\033[0m";next;} 
-  /\[Next Page / {next;}
-  1 {print $0;}
+  /^[0-9]+\./      {print "\033[97;1m"$0"\033[0m";   next;}
+  /    https:\/\// {print "\033[93;1m"$0"\033[0m\n"; next;}
+  /\[Next Page /   {next;}
+  1                {print $0;}
   '
 
   printf "%s\t" $url "https://start.duckduckgo.com/html/?q=${search_term}" "https://start.duckduckgo.com/?q=${search_term}"
