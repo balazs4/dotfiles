@@ -707,6 +707,8 @@ function s() {
   input=${*:-$(cat -)}
   search_term=$(echo "${input}" | tr ' ' '+')
   url="https://start.duckduckgo.com/lite/?q=${search_term}"
+
+  printf "\\033[90m%s\\033[0m\n" $url "https://start.duckduckgo.com/html/?q=${search_term}" "https://start.duckduckgo.com/?q=${search_term}"
   curl -A "aun3Modeitoa9eequ2quooph7yoh4ohn" -D /dev/stderr -Ls "${url}" \
     | tee /tmp/s.html \
     | sed "s|\(<span class='link-text'>\)|\1https://|g" \
@@ -716,11 +718,9 @@ function s() {
   /^[0-9]+\./      {print "\033[97;1m"$0"\033[0m";   next;}
   /    https:\/\// {print "\033[93;1m"$0"\033[0m\n"; next;}
   /\[Next Page /   {next;}
+  /^$/             {print "space"; next;}
   1                {print $0;}
   '
-
-  printf "%s\t" $url "https://start.duckduckgo.com/html/?q=${search_term}" "https://start.duckduckgo.com/?q=${search_term}"
-  printf "\n"
 }
 
 #mcbpro alias linear='make -f $HOME/src/linear/makefile'

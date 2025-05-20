@@ -60,7 +60,6 @@ c.colors.tabs.odd.fg = "#999999"
 c.colors.tabs.selected.even.fg = "#ffffff"
 c.colors.tabs.selected.odd.fg = "#ffffff"
 
-#mcbpro c.fonts.default_family = "Geist Mono"
 #mcbpro c.fonts.default_size = "14pt"
 
 c.fonts.tabs.selected = '900 default_size default_family'
@@ -74,5 +73,5 @@ config.set('input.mode_override', 'passthrough', 'https://web.whatsapp.com');
 #mcbpro def thinkdifferent():
 #mcbpro     time.sleep(1)
 #mcbpro     c.window.hide_decoration = True
-#mcbpro 
+#mcbpro
 #mcbpro threading.Thread(target = thinkdifferent, args=[]).start()
