@@ -758,3 +758,11 @@ function sich() {
     | tee /dev/stderr \
     | say -v Anna -f -
 }
+
+function narancs() {
+  cat $HOME/.narancs \
+    | shuf \
+    | head -1 \
+    | tee /dev/stderr \
+    | say -v Tünde -r 180 -f -
+}
