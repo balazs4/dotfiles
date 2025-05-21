@@ -194,7 +194,7 @@ vim.lsp.enable('vtsls', not tsgo_enabled)
 vim.lsp.config('vtsls', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   cmd = { 'bun', 'x', '--bun', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
-  root_markers = { 'tsconfig.json', 'jsconfig.json' }, -- TODO: check '.git/../tsconfig.json'
+  root_markers = { 'tsconfig.json', 'jsconfig.json' },
   workspace_required = true,
   on_attach = function(_, bufnr)
     ---toggle filename between .ts and test.ts
