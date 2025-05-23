@@ -718,7 +718,7 @@ function s() {
   /^[0-9]+\./      {print "\033[97;1m"$0"\033[0m";   next;}
   /    https:\/\// {print "\033[93;1m"$0"\033[0m\n"; next;}
   /\[Next Page /   {next;}
-  /^$/             {print "space"; next;}
+  /^$/             {next;}
   1                {print $0;}
   '
 }

@@ -29,7 +29,7 @@ vim.opt.grepprg = 'rg --vimgrep --hidden'
 vim.keymap.set('n', 'H', '^')
 vim.keymap.set('n', 'L', '$')
 vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
-vim.keymap.set('n', '`', ':bn<cr>')
+vim.keymap.set('n', '`', ':bp<cr>')
 vim.keymap.set('n', '<leader><cr>', ':w | !make %<CR>') --TODO: set it only if $PWD === $HOME/.files and source $MYVIMRC only if % === .config/nvim/init.lua
 vim.keymap.set('n', '<C-j>', ':cnext<CR>zz');
 vim.keymap.set('n', '<C-k>', ':cprevious<CR>zz');
@@ -112,6 +112,12 @@ vim.api.nvim_create_autocmd('LspDetach', {
 vim.api.nvim_create_autocmd('LspRequest', {
   callback = function(args)
     update_statusline(args)
+  end
+})
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  callback = function(args)
+    update_statusline()
   end
 })
 
