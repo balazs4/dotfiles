@@ -66,6 +66,7 @@ c.fonts.tabs.selected = '900 default_size default_family'
 c.fonts.tabs.unselected = '500 default_size default_family'
 
 c.tabs.favicons.show = 'never'
+c.tabs.show = 'switching'
 
 config.set('input.mode_override', 'passthrough', 'https://web.whatsapp.com');
 
