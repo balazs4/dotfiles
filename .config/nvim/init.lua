@@ -19,6 +19,7 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.showcmd = false
+vim.opt.wrap = false
 
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
@@ -28,8 +29,8 @@ vim.opt.grepprg = 'rg --vimgrep --hidden'
 
 vim.keymap.set('n', 'H', '^')
 vim.keymap.set('n', 'L', '$')
-vim.keymap.set('n', '<leader>`', ':buffers<CR>:buffer ')
-vim.keymap.set('n', '`', ':bp<cr>')
+vim.keymap.set('n', '`', ':buffers<CR>:buffer ')
+vim.keymap.set('n', '<leader>`', ':bd<CR>')
 vim.keymap.set('n', '<leader><cr>', ':w | !make %<CR>') --TODO: set it only if $PWD === $HOME/.files and source $MYVIMRC only if % === .config/nvim/init.lua
 vim.keymap.set('n', '<C-j>', ':cnext<CR>zz');
 vim.keymap.set('n', '<C-k>', ':cprevious<CR>zz');
