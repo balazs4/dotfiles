@@ -1,4 +1,4 @@
-MAKEFLAGS:=--no-print-directory
+MAKEFLAGS:=--no-print-directory --jobs 16
 
 colors_file=$(HOME)/.colors
 colors=$(shell cat $(colors_file) \
@@ -19,7 +19,6 @@ all: $(files)
 
 $(files): .PHONY
 	@mkdir -p `dirname ${HOME}/$(@)`
-	@printf '[dot] %s' "$(HOME)/$(@)"
 	@cat $(HOME)/.files/$(@) \
 		| sed -r "s/^[--;#\/\"\!]+$(hostname) //g; /^#(carbon|mcbpro)/d; s/\{\{hostname\}\}/$(hostname)/g;" \
 		| sed "$(colors)" > $(HOME)/$(@)
@@ -28,8 +27,8 @@ $(files): .PHONY
 	@$(if $(filter $@, .tmux.conf),                    pgrep -a tmux        1>/dev/null 2>/dev/null && tmux source-file $(HOME)/.tmux.conf                        || true)
 	@$(if $(filter $@, .aerospace.toml),               which aerospace      1>/dev/null 2>/dev/null && aerospace reload-config --no-gui                           || true)
 	@$(if $(filter $@, .xbindkeysrc),                  pgrep -a xbindkeys   1>/dev/null 2>/dev/null && pkill -SIGKILL xbindkeys && xbindkeys                      || true)
-	@$(if $(filter $@, .config/qutebrowser/config.py), pgrep -a qutebrowser 1>/dev/null 2>/dev/null && qutebrowser ':config-source'                               || true)
-	@printf '\n'
+	@$(if $(filter $@, .config/qutebrowser/config.py), pgrep -a qutebrowser 1>/dev/null 2>/dev/null && qutebrowser ':config-source' 2>/dev/null                   || true)
+	@printf '\n[dot] %s' "$(HOME)/$(@)"
 
 sync: .PHONY
 	git commit -am "`date +%s`@$(hostname)" || true
