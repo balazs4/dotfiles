@@ -1,9 +1,6 @@
 [user]
   name  = balazs4
-  email = balazs4@users.noreply.github.com
-	; email = balazs4@noreply.codeberg.org
-	; email = 959395-balazs4@users.noreply.gitlab.com
-  signingkey = ~/.ssh/id_ed25519.pub
+  email = balazs4@{{hostname}}
 [gpg]
   format = ssh
 [commit]
@@ -24,3 +21,12 @@
   sort = version:refname
 [merge]
   conflictStyle = zdiff3
+  
+[includeIf "hasconfig:remote.*.url:*github.com*/**"]
+    path = ~/.gitconfig.github.com
+
+[includeIf "hasconfig:remote.*.url:*gitlab.com*/**"]
+    path = ~/.gitconfig.gitlab.com
+
+[includeIf "hasconfig:remote.*.url:*codeberg.org*/**"]
+    path = ~/.gitconfig.codeberg.org

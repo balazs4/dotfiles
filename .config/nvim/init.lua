@@ -50,6 +50,12 @@ vim.keymap.set('n', '<leader>g', function()
   vim.cmd(cmd)
 end)
 
+vim.api.nvim_create_autocmd('Signal', {
+  callback = function(args)
+    vim.cmd(string.format("source $MYVIMRC"))
+  end
+})
+
 local function update_statusline(args)
   vim.opt.statusline = '%<%f %h%w%m%r%=%-14.(%l,%c%V%) %P' -- :help statusline
   for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
