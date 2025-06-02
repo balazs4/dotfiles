@@ -721,7 +721,7 @@ function s() {
   /^$/             {next;}
   1                {print $0;}
   ' \
-    | more
+    | less
 }
 
 #mcbpro alias linear='make -f $HOME/src/linear/makefile'
