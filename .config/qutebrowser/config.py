@@ -1,7 +1,7 @@
 import time
 import threading
 
-config.load_autoconfig(False); # ignore autoconfig because mcbpro
+config.load_autoconfig(True);
 
 c.colors.webpage.darkmode.policy.images = 'never'
 c.colors.webpage.preferred_color_scheme = '{{variant}}'

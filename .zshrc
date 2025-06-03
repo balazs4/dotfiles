@@ -767,3 +767,8 @@ function narancs() {
     | tee /dev/stderr \
     | say -v Tünde -r 180 -f -
 }
+
+function q() {
+  input=${*:-$(cat -)}
+  qutebrowser ":open -t ${input}"
+}
