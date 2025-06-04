@@ -114,6 +114,7 @@ export FZF_CTRL_T_COMMAND="git ls-files || find . -type f -maxdepth 4"
 export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'"
 
 function _fzf(){
+  curl -LsSf https://github.com -o /dev/null -D /dev/stderr || { printf "github.com is down? do nothing\n"; return 42; }
   rm -rf $HOME/.fzf/ 2>/dev/null
   mkdir -p $HOME/.fzf/ 2>/dev/null
 #mcbpro  os="darwin"
@@ -123,7 +124,7 @@ function _fzf(){
     | grep "${os:-linux}" \
     | grep "${arch:-amd64}" \
     | grep -v sha \
-    | vipe \
+    | head -1 \
     | xurls \
     | xargs curl -LSso - \
     | tar xzv -C $HOME/.fzf
@@ -172,6 +173,7 @@ export DOTENV_CONFIG_DEBUG=true
 #lua
 export PATH=$HOME/.lua/bin:${PATH}
 function _lua(){
+  curl -LsSf https://github.com -o /dev/null -D /dev/stderr || { printf "github.com is down? do nothing\n"; return 42; }
 #mcbpro   os=darwin
   rm -rf $HOME/.lua/ 2>/dev/null
   mkdir -p $HOME/.lua/ 2>/dev/null
@@ -202,6 +204,7 @@ export EDITOR=nvim
 export MANPAGER='nvim +Man!' #https://www.visualmode.dev/a-better-man-page-viewer
 
 function _nvim(){
+  curl -LsSf https://github.com -o /dev/null -D /dev/stderr || { printf "github.com is down? do nothing\n"; return 42; }
 #mcbpro  os="macos 'tar.gz 'arm64"
   rm -rf $HOME/.nvim/ 2>/dev/null
   mkdir -p $HOME/.nvim/ 2>/dev/null
