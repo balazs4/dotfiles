@@ -33,7 +33,8 @@ config.bind(',m', 'spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort=
 config.bind(',M', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
 config.bind(',,', 'set colors.webpage.darkmode.enabled false')
 config.bind(',.', 'set colors.webpage.darkmode.enabled true')
-config.bind('\\\\', 'cmd-set-text :open -t !d')
+config.bind(',z', 'set tabs.show never')
+config.bind(',Z', 'set tabs.show multiple')
 
 
 c.colors.completion.fg = "#{{base05-hex}}"
@@ -66,7 +67,8 @@ c.fonts.tabs.selected = '900 default_size default_family'
 c.fonts.tabs.unselected = '500 default_size default_family'
 
 c.tabs.favicons.show = 'never'
-c.tabs.show = 'switching'
+c.tabs.show = 'multiple'
+c.tabs.position = 'left'
 
 config.set('input.mode_override', 'passthrough', 'https://web.whatsapp.com');
 

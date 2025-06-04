@@ -77,21 +77,28 @@ function TRAPUSR1(){
   source $HOME/.zshenv
 }
 
-function zz() {
-  local to=`{
+function z() {
+  local to=$({
     echo $HOME/.files;
     find $HOME/src -maxdepth 1 -type d;
 #mcbpro    find $HOME/src/api -maxdepth 2 -type d;
 #mcbpro    find $HOME/src/front/apps -maxdepth 1 -type d;
-  } | fzf --layout=reverse --height '40%' -q "${*:-$PWD} " -1`
+  } | fzf --layout=reverse --height '40%' -q "${*:-$PWD} " -1)
 
   [[ $TMUX ]] \
     && cd ${to:-$PWD} \
     || tmux new-session -A -s ${to:-$PWD} -c ${to:-$PWD}
 }
 
-alias z='TMUX=fake zz'
+alias zz=z
 alias x='tmux new-session -A -s $HOME -c $HOME'
+
+function chpwd(){
+  if test $TMUX
+  then
+    tmux rename-window -t:$(tmux display-message -p '#I') $(basename $PWD)
+  fi
+}
 
 #golang - https://github.com/stefanmaric/g
 export GOROOT=$HOME/.g
