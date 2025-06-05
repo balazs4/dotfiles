@@ -243,8 +243,7 @@ vim.lsp.config('vtsls', {
     pcall(vim.keymap.del, 'n', '<leader>p')
     vim.keymap.set('n', '<leader>p', function()
       local row = vim.api.nvim_win_get_cursor(0)[1]
-      vim.cmd(string.format('!bun x --bun @biomejs/biome format --write %s', vim.api.nvim_buf_get_name(0)),
-        { silent = true })
+      vim.cmd(string.format('!./node_modules/@biomejs/biome/bin/biome format --write %'))
       vim.cmd(string.format('%d', row));
     end, { buffer = bufnr })
   end

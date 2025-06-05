@@ -134,11 +134,11 @@ function _fzf(){
   curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/shell/completion.zsh?raw=true"    --output "$HOME/.fzf/completion.zsh"
   curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/shell/key-bindings.zsh?raw=true"  --output "$HOME/.fzf/key-bindings.zsh"
 
-  mkdir -p $HOME/.fzf/plugin 2>/dev/null
-  curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/plugin/fzf.vim?raw=true"          --output "$HOME/.fzf/plugin/fzf.vim"
-
   mkdir -p $HOME/.fzf/man/man1/ 2>/dev/null
   curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/man/man1/fzf.1?raw=true"          --output "$HOME/.fzf/man/man1/fzf.1"
+
+  mkdir -p $HOME/.fzf/plugin 2>/dev/null
+  curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/plugin/fzf.vim?raw=true"          --output "$HOME/.fzf/plugin/fzf.vim"
 
   fzf --version
 }
@@ -768,14 +768,6 @@ function sich() {
     | head -1 \
     | tee /dev/stderr \
     | say -v Anna -f -
-}
-
-function narancs() {
-  cat $HOME/.narancs \
-    | shuf \
-    | head -1 \
-    | tee /dev/stderr \
-    | say -v Tünde -r 180 -f -
 }
 
 function q() {
