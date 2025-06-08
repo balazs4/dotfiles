@@ -30,7 +30,7 @@
     m:0x4 + c:111
     Control + Up
 
-"xbacklight -set 100"
+"xrandr --output DP1 --off --output DP2 --off --output HDMI1 --off --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal --primary"
     m:0x0 + c:235
     XF86Display
 

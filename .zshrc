@@ -226,9 +226,12 @@ export PATH="$HOME/.zig:${PATH}"
 #carbon #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-x86_64-linux.tar.gz -L   | tar xvz -C $HOME/.local/bin
 #mcbpro #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-aarch64-darwin.tar.gz -L | tar xvz -C $HOME/.local/bin
 
+#dotnet
+export PATH="${PATH}:${HOME}/.dotnet/tools"
+
 function dotedit() {
   pushd $HOME/.files 1>/dev/null 2>/dev/null
-  target=$({git ls-files; printf '%s\n' 'all' 'sync';} | fzf -1 -q "'${*}")
+  target=$({git ls-files; printf '%s\n' 'all' 'sync';} | fzf -1 -m -q "'${*}")
   if test "$EDITOR"; then $EDITOR ${target}; fi
   make --always-make ${target}
   popd 1>/dev/null 2>/dev/null
@@ -472,15 +475,9 @@ function yt(){
 }
 alias yta="MPV='--ytdl-raw-options=format=bestaudio' yt"
 
-
-function pihole(){
-  curl -Lis http://192.168.178.42:9000/admin/api.php | $HOME/.local/bin/stdsplit
-}
-
-
-function qrdecode {
-  shotgun `hacksaw -f '-i %i -g %g'` - | zbarimg -q --raw -
-}
+#carbon function qrdecode {
+#carbon   shotgun $(hacksaw -f '-i %i -g %g') - | zbarimg -q --raw -
+#carbon }
 
 function archnews(){
   curl -s https://archlinux.org/feeds/news/ \
@@ -488,34 +485,12 @@ function archnews(){
     | fx 'x => x.rss.channel.item.map(xx => [`\x1b[2m${xx.link}\x1b[0m`, new Date(xx.pubDate).toJSON() + ` >> \x1b[1m${xx.title}\x1b[0m`, " "].join("\n")).join("\n")'
 }
 
-#carbon function dp1(){
-#carbon   xrandr \
-#carbon     --dpi 136 \
-#carbon     --output eDP1 --primary --mode 1920x1080 --pos 800x2160 --rotate normal --scale 1.4 \
-#carbon     --output DP2 --off \
-#carbon     --output DP1 --mode 3840x2160 --pos 0x0 --rotate normal \
-#carbon     --output HDMI1 --off
-#carbon
-#carbon    echo "Xft.dpi: 136" | xrdb -merge
-#carbon    i3-msg restart
-#carbon    imwheel >/dev/null &
-#carbon }
-#carbon
 #carbon function edp(){
 #carbon   xrandr \
-#carbon     --dpi 96 \
-#carbon     --output eDP1 --primary --mode 1920x1080 --rotate normal --scale 1.0 \
-#carbon     --output DP1 --off \
-#carbon     --output DP2 --off \
-#carbon     --output HDMI1 --off
-#carbon
-#carbon    echo "Xft.dpi: 96" | xrdb -merge
-#carbon    i3-msg restart
-#carbon    killall -9 imwheel >/dev/null
-#carbon }
-
-#carbon function hdmi(){
-#carbon   xrandr --output HDMI1 --mode 1920x1080 --pos 0x0 --rotate normal
+#carbon     --output DP1    --off \
+#carbon     --output DP2    --off \
+#carbon     --output HDMI1  --off \
+#carbon     --output eDP1   --mode 1920x1080 --pos 0x0 --rotate normal --primary
 #carbon }
 
 #carbon function yayfzf(){
@@ -537,8 +512,6 @@ function gb(){
 
 alias gbb='gb $USER'
 
-alias .env='set -o allexport; source .env; set +o allexport'
-
 function nr() {
   fx package.json 'x => Object.entries(x.scripts).map(xx => [xx[0].padEnd(16), xx[1]].join("\t")).join("\n")' \
     | fzf --height 10% --reverse -q"'${*}" -1 \
@@ -553,28 +526,6 @@ function nr() {
 #carbon function cool(){
 #carbon   echo level ${1:-7} | sudo tee /proc/acpi/ibm/fan
 #carbon }
-
-#mcbpro function ip() {
-#mcbpro   dig $1 | awk "/^$1/ {print \$NF}"
-#mcbpro }
-
-function countby(){
-   awk '{a[$1]++;} END{for(i in a) print i"  "a[i]}' | sort -k2 -r -h
-}
-
-function closest_packagejson(){
-  local git_root=`git rev-parse --show-toplevel`
-  local file='package.json'
-  local real_path=`realpath $1`
-  local dir=`dirname $real_path`
-  test -d $realpath && dir=$real_path
-  while true
-  do
-    test -f $dir/$file && { echo $dir; return 0; }
-    test "$dir" = "$git_root" && return 1;
-    dir=`dirname $dir`
-  done
-}
 
 #mcbpro function na(){
 #mcbpro   n auto

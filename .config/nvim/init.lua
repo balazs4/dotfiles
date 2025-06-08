@@ -177,6 +177,16 @@ vim.lsp.config('lua-language-server', {
   settings = { Lua = { workspace = { library = vim.api.nvim_list_runtime_paths() } } },
 })
 
+vim.lsp.enable('csharp-ls');
+vim.lsp.config('csharp-ls', {
+  cmd = { 'csharp-ls' },
+  root_markers = { 'obj' },
+  filetypes = { 'cs' },
+  init_options = {
+    AutomaticWorkspaceInit = true,
+  },
+})
+
 vim.lsp.enable('deno')
 vim.lsp.config('deno', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
