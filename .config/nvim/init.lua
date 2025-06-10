@@ -243,8 +243,10 @@ vim.lsp.config('vtsls', {
     vim.keymap.set('n', '<leader>r',
       function()
         local test_file = ts_test_ts('ensure_test_ts')
-        local cmd = string.format('!tmux split-window -h "$HOME/.local/bin/npmw %s"', test_file)
-        vim.cmd(cmd)
+        local cmd = string.format(
+        'while true; do LOG_LEVEL=info NPM_CONFIG_LOGLEVEL=error npm run test -- --verbose --forceExit %s; git ls-files | changing - && clear || break; done',
+          test_file);
+        vim.cmd(string.format('!tmux split-window -c $(dirname %s) -h "%s"', test_file, cmd))
       end, { buffer = bufnr })
 
     -- biome should format

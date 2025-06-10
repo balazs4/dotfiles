@@ -1,8 +1,0 @@
-#! /usr/bin/env bash
-
-# go install github.com/balazs4/changing@latest
-while true
-do
-  LOG_LEVEL=info NPM_CONFIG_LOGLEVEL=error npm --prefix $(dirname $1) run test -- --verbose --forceExit $1
-  git ls-files | changing - && clear || break
-done
