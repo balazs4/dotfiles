@@ -59,19 +59,14 @@ vim.api.nvim_create_autocmd('Signal', {
 local function update_statusline(args)
   vim.opt.statusline = '%<%f %h%w%m%r%=%-14.(%l,%c%V%) %P' -- :help statusline
   for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
-    if args and args.data.client_id == client.id and args.data.request.type
-    then
-      vim.opt.statusline:prepend(string.format('[%s:%-8s] ', client.name, args.data.request.type));
-    else
-      vim.opt.statusline:prepend(string.format('[%s] ', client.name));
-    end
+    vim.opt.statusline:prepend(string.format('[%s] ', client.name));
   end
 end
 
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
-    update_statusline() -- see LspDetach
+    update_statusline() -- see LspDetach, BufEnter
 
     vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(vim.lsp.get_clients())) end, {})
     vim.api.nvim_create_user_command("LspStop", function() vim.lsp.stop_client(vim.lsp.get_clients(), true) end, {})
@@ -113,12 +108,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.api.nvim_create_autocmd('LspDetach', {
   callback = function(args)
     update_statusline()
-  end
-})
-
-vim.api.nvim_create_autocmd('LspRequest', {
-  callback = function(args)
-    update_statusline(args)
   end
 })
 
@@ -244,7 +233,7 @@ vim.lsp.config('vtsls', {
       function()
         local test_file = ts_test_ts('ensure_test_ts')
         local cmd = string.format(
-        'while true; do LOG_LEVEL=info NPM_CONFIG_LOGLEVEL=error npm run test -- --verbose --forceExit %s; git ls-files | changing - && clear || break; done',
+          'while true; do LOG_LEVEL=info NPM_CONFIG_LOGLEVEL=error npm run test -- --verbose --forceExit %s; git ls-files | changing - && clear || break; done',
           test_file);
         vim.cmd(string.format('!tmux split-window -c $(dirname %s) -h "%s"', test_file, cmd))
       end, { buffer = bufnr })
