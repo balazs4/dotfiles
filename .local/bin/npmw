@@ -1,40 +1,8 @@
 #! /usr/bin/env bash
 
-script="${1:-test}"
-file=${2:-$PWD}
-
-shift; shift;
-git_root=$(git rev-parse --show-toplevel)
-real_path=$(realpath $file)
-dir=$(dirname $real_path)
-test -d $realpath && dir=$real_path
+# go install github.com/balazs4/changing@latest
 while true
 do
-  test -f "$dir/package.json" && break;
-  test "$dir" = "$git_root" && break;
-  dir=$(dirname $dir)
+  LOG_LEVEL=info NPM_CONFIG_LOGLEVEL=error npm --prefix $(dirname $1) run test -- --verbose --forceExit $1
+  git ls-files | changing - && clear || break
 done
-
-case $script in
-  "test")
-    if test -f "${file}"
-    then
-      script="${script} -- ${file} ${*}"
-    else
-      script="${script} -- ${*}"
-    fi
-    ;;
-
-  *)
-    script="${script} -- ${*}"
-    ;;
-esac
-
-# go install github.com/balazs4/changing@latest
-pushd $dir
-  while true
-  do
-    LOG_LEVEL=info NPM_CONFIG_LOGLEVEL=error npm run ${script}
-    changing $(git ls-files --modified) && clear || break
-  done
-popd

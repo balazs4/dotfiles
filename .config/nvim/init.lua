@@ -242,9 +242,8 @@ vim.lsp.config('vtsls', {
 
     vim.keymap.set('n', '<leader>r',
       function()
-        local cmd = string.format(
-          '!tmux split-window -h "while changing $(git ls-files --modified); do npm run test -- --verbose --forceExit %s"',
-          ts_test_ts('ensure_test_ts'))
+        local test_file = ts_test_ts('ensure_test_ts')
+        local cmd = string.format('!tmux split-window -h "$HOME/.local/bin/npmw %s"', test_file)
         vim.cmd(cmd)
       end, { buffer = bufnr })
 
