@@ -88,7 +88,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     })
 
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
-    vim.keymap.set('n', '<leader>p', vim.lsp.buf.format, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { buffer = args.buf })
     vim.keymap.set('n', '<leader>y', function() vim.lsp.buf.document_symbol({}) end, { buffer = args.buf })
     vim.keymap.set('n', '<leader>Y', function() vim.lsp.buf.workspace_symbol('', {}) end, { buffer = args.buf })
 
@@ -199,7 +199,7 @@ vim.lsp.config('deno', {
 vim.lsp.enable('biome')
 vim.lsp.config('biome', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
-  cmd = { 'bun', 'x', '--bun', '@biomejs/biome', 'lsp-proxy' },
+  cmd = { './node_modules/@biomejs/biome/bin/biome', 'lsp-proxy' },
   root_markers = { 'biome.json', 'biome.jsonc' },
   workspace_required = true
 })
@@ -219,7 +219,7 @@ vim.lsp.config('vtsls', {
   cmd = { 'bun', 'x', '--bun', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
   root_markers = { 'tsconfig.json', 'jsconfig.json' },
   workspace_required = true,
-  on_attach = function(_, bufnr)
+  on_attach = function(client, bufnr)
     ---toggle filename between .ts and test.ts
     ---@param mode? string
     ---@return string
@@ -247,14 +247,9 @@ vim.lsp.config('vtsls', {
         vim.cmd(cmd)
       end, { buffer = bufnr })
 
-
-    --- It should be set on biome.on_attach but currently only supports a single client. see vim.lsp.formatexpr
-    pcall(vim.keymap.del, 'n', '<leader>p')
-    vim.keymap.set('n', '<leader>p', function()
-      local row = vim.api.nvim_win_get_cursor(0)[1]
-      vim.cmd('!./node_modules/@biomejs/biome/bin/biome format --write %')
-      vim.cmd(string.format('%d', row));
-    end, { buffer = bufnr })
+    -- biome should format
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
   end
 })
 

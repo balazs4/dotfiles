@@ -1,3 +1,0 @@
-#! /usr/bin/env bash
-
-bun x @biomejs/biome format --stdin-file-path _.${1:-json} 2>/dev/null
