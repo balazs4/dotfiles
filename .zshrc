@@ -725,7 +725,7 @@ function stromberg() {
   curl https://www.stromberg-zitate.de/api/proxy -s \
     | fx .quote \
     | tee /dev/stderr \
-    | say -v Anna -f -
+    | say -v Anna -r 200 -f -
 }
 
 function q() {
