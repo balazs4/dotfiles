@@ -721,6 +721,13 @@ function sich() {
     | say -v Anna -f -
 }
 
+function stromberg() {
+  curl https://www.stromberg-zitate.de/api/proxy -s \
+    | fx .quote \
+    | tee /dev/stderr \
+    | say -v Anna -f -
+}
+
 function q() {
   input=${*:-$(cat -)}
   qutebrowser ":open -t ${input}"
