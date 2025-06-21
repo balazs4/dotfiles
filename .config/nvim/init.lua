@@ -37,6 +37,8 @@ vim.keymap.set('n', '<C-k>', ':cprevious<CR>zz');
 vim.keymap.set('n', '<leader>w', ':silent grep <cword>| copen <CR>')
 vim.keymap.set('n', '<leader>W', ':silent grep <cWORD> | copen <CR>')
 vim.keymap.set('n', '<leader>q', ':silent grep <cword> %:.:h | copen <CR>')
+vim.keymap.set('v', '<C-y>,', ':!emmet<CR> | ==')
+vim.keymap.set('i', '<C-z>,', '<C-o>V :!emmet<CR> <C-o>== <ESC> cit')
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
@@ -56,7 +58,7 @@ vim.api.nvim_create_autocmd('Signal', {
   end
 })
 
-local function update_statusline(args)
+local function update_statusline(_)
   vim.opt.statusline = '%<%f %h%w%m%r%=%-14.(%l,%c%V%) %P' -- :help statusline
   for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
     vim.opt.statusline:prepend(string.format('[%s] ', client.name));
