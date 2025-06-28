@@ -664,7 +664,12 @@ function sps() {
     | xargs spotify_player
 }
 
-function s() {
+function q() {
+  input=${*:-$(cat -)}
+  qutebrowser ":open -t ${input}"
+}
+
+function qq() {
   input=${*:-$(cat -)}
   search_term=$(echo "${input}" | tr ' ' '+')
   url="https://start.duckduckgo.com/lite/?q=${search_term}"
@@ -728,7 +733,3 @@ function stromberg() {
     | say -v Anna -r 200 -f -
 }
 
-function q() {
-  input=${*:-$(cat -)}
-  qutebrowser ":open -t ${input}"
-}
