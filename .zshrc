@@ -675,7 +675,7 @@ function qq() {
   url="https://start.duckduckgo.com/lite/?q=${search_term}"
 
     printf "%s\n" $url "https://start.duckduckgo.com/html/?q=${search_term}" "https://start.duckduckgo.com/?q=${search_term}"
-  curl -A "aun3Modeitoa9eequ2quooph7yoh4ohn" -D /dev/stderr -Ls "${url}" \
+  curl -A "aun3Modeitoa9eequ2quooph7yoh4ohn" -D /dev/null -Ls "${url}" \
     | tee /tmp/s.html \
     | sed "s|\(<span class='link-text'>\)|\1https://|g" \
     | pup 'table' \

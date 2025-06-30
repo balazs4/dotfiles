@@ -1,5 +1,5 @@
 --carbon vim.cmd('colorscheme base16')
---mcbpro vim.cmd('colorscheme retrobox')
+--mcbpro vim.cmd('colorscheme base16')
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
