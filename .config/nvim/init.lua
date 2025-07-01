@@ -38,7 +38,7 @@ vim.keymap.set('n', '<leader>w', ':silent grep <cword>| copen <CR>')
 vim.keymap.set('n', '<leader>W', ':silent grep <cWORD> | copen <CR>')
 vim.keymap.set('n', '<leader>q', ':silent grep <cword> %:.:h | copen <CR>')
 vim.keymap.set('v', '<C-y>,', ':!emmet<CR> | ==')
-vim.keymap.set('i', '<C-z>,', '<C-o>V :!emmet<CR> <C-o>== <ESC> cit')
+vim.keymap.set('i', '<C-z>,', '<C-o>V :!emmet<CR> <C-o>==')
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
