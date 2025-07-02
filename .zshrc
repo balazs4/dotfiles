@@ -460,9 +460,9 @@ function yt(){
             const video = [
               xx.videoRenderer.thumbnail?.thumbnails[0].url,
               xx.videoRenderer.videoId,
-              xx.videoRenderer.lengthText?.simpleText.padStart(8),
-              (xx.videoRenderer.viewCountText?.simpleText || "premier at").padStart(16),
-              (xx.videoRenderer.publishedTimeText?.simpleText || new Date(1000 * parseInt(xx.videoRenderer.upcomingEventData?.startTime || "0")).toJSON() ).padStart(24),
+              xx.videoRenderer.lengthText?.simpleText.padStart(2),
+              (xx.videoRenderer.viewCountText?.simpleText || "premier at").padStart(6),
+              (xx.videoRenderer.publishedTimeText?.simpleText || new Date(1000 * parseInt(xx.videoRenderer.upcomingEventData?.startTime || "0")).toJSON() ).padStart(6),
               xx.videoRenderer.title.runs[0].text,
             ].join("\t")
             require("node:process").stdout.write(video + "\n")
