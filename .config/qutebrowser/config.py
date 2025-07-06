@@ -4,12 +4,7 @@ import threading
 config.load_autoconfig(True);
 
 c.colors.webpage.darkmode.policy.images = 'never'
-c.colors.webpage.preferred_color_scheme = '{{variant}}'
-
-if c.colors.webpage.preferred_color_scheme == 'light':
-    c.colors.webpage.darkmode.enabled = False
-else:
-    c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.preferred_color_scheme = 'auto'
 
 c.url.default_page = 'about:blank'
 c.url.start_pages = 'qute://version'
@@ -31,8 +26,8 @@ c.completion.open_categories = ["searchengines", "quickmarks"]
 
 config.bind(',m', 'spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
 config.bind(',M', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
-config.bind(',,', 'set colors.webpage.darkmode.enabled false')
-config.bind(',.', 'set colors.webpage.darkmode.enabled true')
+config.bind(',,', 'set colors.webpage.darkmode.enabled true')
+config.bind(',.', 'set colors.webpage.darkmode.enabled false')
 config.bind(',z', 'set tabs.show never')
 config.bind(',Z', 'set tabs.show multiple')
 
