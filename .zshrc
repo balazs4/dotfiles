@@ -218,6 +218,25 @@ function _nvim(){
   nvim --version
 }
 
+function _opencode(){
+   # https://github.com/sst/opencode
+  curl -LsSf https://github.com -o /dev/null -D /dev/stderr || { printf "github.com is down? do nothing\n"; return 42; }
+#mcbpro  os="'darwin 'zip 'arm64"
+  rm -rf $HOME/.opencode/ 2>/dev/null
+  mkdir -p $HOME/.opencode/ 2>/dev/null
+  curl 'https://api.github.com/repos/sst/opencode/releases/latest?page=1&per_page=1' \
+    | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
+    | grep -v sha \
+    | fzf -q "${os:-'linux 'zip 'x64}" -1 \
+    | xurls \
+    | xargs curl -Lo - \
+    | bsdtar xzv -C $HOME/.opencode
+
+  chmod +x $HOME/.opencode/opencode
+  opencode --version
+}
+export PATH="$HOME/.opencode:${PATH}"
+
 #carbon #curl https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz  | tar xv -J -C $HOME/.zig --strip-components=1
 #mcbpro #curl https://ziglang.org/download/0.13.0/zig-macos-aarch64-0.13.0.tar.xz | tar xv -J -C $HOME/.zig --strip-components=1
 export PATH="$HOME/.zig:${PATH}"
