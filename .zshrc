@@ -246,7 +246,7 @@ export PATH="$HOME/.zig:${PATH}"
 #mcbpro #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-aarch64-darwin.tar.gz -L | tar xvz -C $HOME/.local/bin
 
 #dotnet
-export PATH="${PATH}:${HOME}/.dotnet/tools"
+export PATH="$HOME/.dotnet/tools:${PATH}"
 
 function dotedit() {
   pushd $HOME/.files 1>/dev/null 2>/dev/null
