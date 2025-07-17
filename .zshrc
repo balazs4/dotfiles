@@ -262,7 +262,7 @@ alias nvimrc='dotedit .config/nvim/init.lua'
 #carbon alias sx='dotedit .xbindkeysrc'
 alias so='vim $HOME/.zshenv; source $HOME/.zshenv'
 
-alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?format=3'"
+alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?T'"
 alias ls='ls --color=auto'
 alias grep='grep --color'
 alias :q='exit'
