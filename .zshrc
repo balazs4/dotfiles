@@ -218,6 +218,7 @@ function _nvim(){
   nvim --version
 }
 
+export PATH="$HOME/.opencode:${PATH}"
 function _opencode(){
    # https://github.com/sst/opencode
   curl -LsSf https://github.com -o /dev/null -D /dev/stderr || { printf "github.com is down? do nothing\n"; return 42; }
@@ -233,9 +234,16 @@ function _opencode(){
     | bsdtar xzv -C $HOME/.opencode
 
   chmod +x $HOME/.opencode/opencode
+  hash -r
   opencode --version
 }
-export PATH="$HOME/.opencode:${PATH}"
+
+function ai() {
+  local model=$(opencode models | fzf --sync -q"${MODEL:-gpt4.1}" -1)
+  local request=${*:-$(vipe)}
+  opencode run --model "$model" "${message}" --print-logs | glow -p -
+  printf "\n\n%s@%s: %s\n" "${USER}" "${model}" "${request}"
+}
 
 #carbon #curl https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz  | tar xv -J -C $HOME/.zig --strip-components=1
 #mcbpro #curl https://ziglang.org/download/0.13.0/zig-macos-aarch64-0.13.0.tar.xz | tar xv -J -C $HOME/.zig --strip-components=1
