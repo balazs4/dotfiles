@@ -225,7 +225,7 @@ function _opencode(){
 #mcbpro  os="'darwin 'zip 'arm64"
   rm -rf $HOME/.opencode/ 2>/dev/null
   mkdir -p $HOME/.opencode/ 2>/dev/null
-  curl 'https://api.github.com/repos/sst/opencode/releases/latest?page=1&per_page=1' \
+  curl "https://api.github.com/repos/sst/opencode/releases/${1:-latest}?page=1&per_page=1" \
     | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
     | grep -v sha \
     | fzf -q "${os:-'linux 'zip 'x64}" -1 \
@@ -239,9 +239,10 @@ function _opencode(){
 }
 
 function ai() {
+  /bin/rm -rf $HOME/.cache/opencode
   local model=$(opencode models | fzf --sync -q"${MODEL:-gpt4.1}" -1)
   local request=${*:-$(vipe)}
-  opencode run --model "$model" "${message}" --print-logs | glow -p -
+  opencode run --print-logs --model "$model" "${message}" | glow -p -
   printf "\n\n%s@%s: %s\n" "${USER}" "${model}" "${request}"
 }
 
