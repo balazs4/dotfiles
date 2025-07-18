@@ -348,7 +348,7 @@ function radio(){
 function dw(){
   local url="https://de.wiktionary.org/wiki/$1"
   local content=`curl -s "$url"`
-  echo "$content" | vipe | pup 'table.wikitable'  | vipe | w3m -dump -T text/html  | vipe | sed '/^$/d'
+  echo "$content" | pup 'table.wikitable' | w3m -dump -T text/html | sed '/^$/d'
   echo "$content" | pup 'table[title~="andere Sprachen"]' | w3m -dump -T text/html | sort | uniq | awk '/Englisch/ {print $0;} /Ungarisch/{print $0;}' | sed '/^$/d'
   echo $url
 }
