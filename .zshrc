@@ -767,3 +767,6 @@ function origin() {
     && git remote add origin ssh://$REMOTE/~/$name \
     && git push
 }
+
+
+alias note='make -f $HOME/src/notes/makefile'

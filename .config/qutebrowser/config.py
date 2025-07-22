@@ -22,6 +22,7 @@ c.url.searchengines = {
 }
 
 c.content.blocking.method = 'both'
+c.content.pdfjs = True
 c.completion.open_categories = ["searchengines", "quickmarks"]
 
 config.bind(',m', 'spawn --detach mpv {hint-url} --ytdl-raw-options=format-sort="res:720" --pause --cache-pause-initial=yes')
