@@ -22,12 +22,9 @@
   sort = version:refname
 [merge]
   conflictStyle = zdiff3
-  
 [includeIf "hasconfig:remote.*.url:*github.com*/**"]
-    path = ~/.gitconfig.github.com
-
+  path = ~/.gitconfig.github.com
 [includeIf "hasconfig:remote.*.url:*gitlab.com*/**"]
-    path = ~/.gitconfig.gitlab.com
-
+  path = ~/.gitconfig.gitlab.com
 [includeIf "hasconfig:remote.*.url:*codeberg.org*/**"]
-    path = ~/.gitconfig.codeberg.org
+  path = ~/.gitconfig.codeberg.org
