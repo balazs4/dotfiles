@@ -137,7 +137,10 @@ vim.lsp.config('terraform-ls', {
   cmd = { 'terraform-ls', 'serve' },
   filetypes = { 'terraform' },
   root_markers = { '.terrform.lock.hcl' },
-  workspace_required = true
+  workspace_required = false,
+  settings = {
+    ignoreSingleFileWarning = true
+  }
 })
 
 vim.lsp.enable('vscode-css-language-server');
