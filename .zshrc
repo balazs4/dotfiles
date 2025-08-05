@@ -741,4 +741,4 @@ function origin() {
 }
 
 
-alias note='make -f $HOME/src/notes/makefile'
+alias note='make -f $HOME/src/notes/makefile note push'
