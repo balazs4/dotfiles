@@ -1,6 +1,6 @@
 git_protocol: ssh
 aliases:
-  wchecks: >-
+  checksw: >-
       !gh pr checks --fail-fast --watch; gh pr checks --json 'name,link,state' --template '{{range .}}{{tablerow .state .name .link }}{{end}}' | sort -r | awk '1 {print $0 > "/dev/stderr";} /^FAILURE/{print $0 > "/dev/stdout";}' | xurls | xargs -t xdg-open
 
   checks: >-
