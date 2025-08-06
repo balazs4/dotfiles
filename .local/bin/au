@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+content=$(cat - | sed 's|"|\\"|g' )
+cmd="${*}"
+system_cmd="no explanation,short,compact reply only,no bullshit,no hallucination"
+
+printf '{ "stream": false, "model": "%s", "prompt":"%s;%s;content: %s" }' "${MODEL:-gpt-oss:20b}" "${cmd}" "${system_cmd}" "${content}" \
+  | curl -s -d@- ${OLLAMA_HOST:-http://localhost:11434}/api/generate \
+  | fx '.response'
+
