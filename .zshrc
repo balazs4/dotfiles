@@ -228,6 +228,7 @@ export PATH="$HOME/.zig:${PATH}"
 
 #dotnet
 export PATH="$HOME/.dotnet/tools:${PATH}"
+#mcbpro DOTNET_ROOT=/opt/homebrew/Cellar/dotnet/9.0.7/libexec
 
 function dotedit() {
   pushd $HOME/.files 1>/dev/null 2>/dev/null
@@ -742,3 +743,23 @@ function origin() {
 
 
 alias note='make -f $HOME/src/notes/makefile note push'
+
+
+export PATH="$HOME/.opencode:${PATH}"
+function _opencode(){
+  curl -LsSf https://github.com -o /dev/null -D /dev/stderr || { printf "github.com is down? do nothing\n"; return 42; }
+#mcbpro  os="'darwin 'zip 'arm64"
+  rm -rf $HOME/.opencode/ 2>/dev/null
+  mkdir -p $HOME/.opencode/ 2>/dev/null
+  curl "https://api.github.com/repos/sst/opencode/releases/${1:-latest}?page=1&per_page=1" \
+    | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
+    | grep -v sha \
+    | fzf -q "${os:-'linux 'zip 'x64}" -1 \
+    | xurls \
+    | xargs curl -Lo - \
+    | bsdtar xzv -C $HOME/.opencode
+
+  chmod +x $HOME/.opencode/opencode
+  hash -r
+  opencode --version
+}
