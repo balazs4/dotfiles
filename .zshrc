@@ -226,9 +226,12 @@ export PATH="$HOME/.zig:${PATH}"
 #carbon #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-x86_64-linux.tar.gz -L   | tar xvz -C $HOME/.local/bin
 #mcbpro #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-aarch64-darwin.tar.gz -L | tar xvz -C $HOME/.local/bin
 
-#dotnet
-export PATH="$HOME/.dotnet/tools:${PATH}"
-#mcbpro DOTNET_ROOT=/opt/homebrew/Cellar/dotnet/9.0.7/libexec
+#dotnet - wget https://dot.net/v1/dotnet-install.sh
+#dotnet-install.sh --verbose --channel 9.0
+export DOTNET_ROOT="$HOME/.dotnet/"
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+export PATH="${DOTNET_ROOT}:${DOTNET_ROOT}/tools:${PATH}:"
 
 function dotedit() {
   pushd $HOME/.files 1>/dev/null 2>/dev/null
