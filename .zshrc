@@ -100,6 +100,8 @@ function chpwd(){
   fi
 }
 
+alias is_down='curl -LsS --fail-with-body -o /dev/null -w "%{http_code}\t%{url}\n"'
+
 #golang - https://github.com/stefanmaric/g
 export GOROOT=$HOME/.g
 export GOPATH=$HOME/.go
@@ -114,7 +116,7 @@ export FZF_CTRL_T_COMMAND="git ls-files || find . -type f -maxdepth 4"
 export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)'"
 
 function _fzf(){
-  curl -LsSf https://github.com -o /dev/null -D /dev/stderr || { printf "github.com is down? do nothing\n"; return 42; }
+  is_down https://github.com || return 42
   rm -rf $HOME/.fzf/ 2>/dev/null
   mkdir -p $HOME/.fzf/ 2>/dev/null
 #mcbpro  os="darwin"
@@ -173,7 +175,7 @@ export DOTENV_CONFIG_DEBUG=true
 #lua
 export PATH=$HOME/.lua/bin:${PATH}
 function _lua(){
-  curl -LsSf https://github.com -o /dev/null -D /dev/stderr || { printf "github.com is down? do nothing\n"; return 42; }
+  is_down https://github.com || return 42
 #mcbpro   os=darwin
   rm -rf $HOME/.lua/ 2>/dev/null
   mkdir -p $HOME/.lua/ 2>/dev/null
@@ -204,6 +206,7 @@ export EDITOR=nvim
 export MANPAGER='nvim +Man!' #https://www.visualmode.dev/a-better-man-page-viewer
 
 function _nvim(){
+  is_down https://github.com || return 42
   curl -LsSf https://github.com -o /dev/null -D /dev/stderr || { printf "github.com is down? do nothing\n"; return 42; }
 #mcbpro  os="macos 'tar.gz 'arm64"
   rm -rf $HOME/.nvim/ 2>/dev/null
@@ -750,7 +753,7 @@ alias note='make -f $HOME/src/notes/makefile note push'
 
 export PATH="$HOME/.opencode/bin/:${PATH}"
 function _opencode(){
-  curl -LsSf https://github.com -o /dev/null -D /dev/stderr || { printf "github.com is down? do nothing\n"; return 42; }
+  is_down https://github.com || return 42
 #mcbpro  os="'darwin 'zip 'arm64"
   rm -rf $HOME/.opencode/bin/ 2>/dev/null
   mkdir -p $HOME/.opencode/bin/ 2>/dev/null
