@@ -11,6 +11,7 @@ c.url.start_pages = 'qute://version'
 
 c.url.searchengines = {
     'DEFAULT':  'https://start.duckduckgo.com/lite/?q={}',
+    '!aw':      'https://wiki.archlinux.org/index.php?search={}',
     '!d':       'https://start.duckduckgo.com/lite/?q={}',
     '!dd':      'https://start.duckduckgo.com/html/?q={}',
     '!ddg':     'https://start.duckduckgo.com/?q={}',
