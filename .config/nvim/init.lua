@@ -252,7 +252,7 @@ vim.lsp.config('vtsls', {
         local cmd = string.format(
           'while true; do LOG_LEVEL=info NPM_CONFIG_LOGLEVEL=error npm run test -- --verbose --forceExit %s; git ls-files | changing - && clear || break; done',
           test_file);
-        vim.cmd(string.format('!tmux split-window -c $(dirname %s) -h "%s"', test_file, cmd))
+        vim.cmd(string.format('!tmux split-window -d -c $(dirname %s) -h "%s"', test_file, cmd))
       end, { buffer = bufnr })
 
     -- biome should format
