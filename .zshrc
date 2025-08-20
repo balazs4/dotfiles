@@ -761,7 +761,7 @@ function stromberg() {
 
 function origin() {
   name=$(git rev-parse --show-toplevel | xargs basename)
-  ssh $REMOTE "mkdir -p ~/$name.git && cd ~/$name.git && git init --bare --initial-branch main" \
+  ssh $REMOTE "mkdir -p ~/$name.git && cd ~/$name.git && git init --bare --initial-branch main && touch git-daemon-export-NOT-ok" \
     && git remote add origin ssh://$REMOTE/~/$name.git \
     && git push
 }
