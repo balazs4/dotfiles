@@ -145,6 +145,25 @@ function _fzf(){
   fzf --version
 }
 
+# hurl
+export PATH=$HOME/.hurl/bin:/$HOME/.hurl/:${PATH}
+function _hurl(){
+  is_down https://github.com || return 42
+  rm -rf $HOME/.hurl/ 2>/dev/null
+  mkdir -p $HOME/.hurl/ 2>/dev/null
+
+#mcbpro  os="aarch64-apple-darwin.tar.gz"
+  curl -LSs 'https://api.github.com/repos/Orange-OpenSource/hurl/releases/latest?page=1&per_page=1' \
+    | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
+    | grep "${os:-x86_64-unknown-linux-gnu.tar.gz}" \
+    | grep -v sha \
+    | head -1 \
+    | xurls \
+    | xargs curl -LSso - \
+    | tar xzv -C $HOME/.hurl --strip-components 1
+}
+
+
 function _fx(){
   GOPROXY= go install github.com/antonmedv/fx@latest
 }
