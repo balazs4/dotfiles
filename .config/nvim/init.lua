@@ -161,6 +161,12 @@ vim.lsp.config('vscode-css-language-server', {
   filetypes = { 'css' },
 })
 
+vim.lsp.enable('vscode-json-language-server');
+vim.lsp.config('vscode-json-language-server', {
+  cmd = { 'bun', 'x', '--bun', '-p', 'vscode-langservers-extracted', 'vscode-json-language-server', '--stdio' },
+  filetypes = { 'json' },
+})
+
 vim.lsp.enable('svelteserver')
 vim.lsp.config('svelteserver', {
   cmd = { 'bun', 'x', '--bun', '-p', 'svelte-language-server', 'svelteserver', '--stdio' },
