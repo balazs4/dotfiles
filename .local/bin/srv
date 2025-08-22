@@ -4,6 +4,14 @@ process.env.PORT = process.env.PORT || 8000;
 
 require('node:http')
   .createServer(async (req, res) => {
+    let t = null;
+    req.on('aborted', () => {
+      if (t) {
+        clearTimeout(t)
+      }
+      process.stderr.write(`[aborted]\n`);
+    });
+
     process.stderr.write(`\n${req.method} ${req.url}\n`);
     for (const [key, value] of Object.entries(req.headers)) {
       process.stderr.write(`${key}: ${value}\n`);
@@ -22,10 +30,14 @@ require('node:http')
           process.stderr.write(err.toString());
         });
     }
-    res.statusCode = 200;
-    res.setHeader('content-type', 'text/plain');
-    res.end('{"hello": "world"}');
-    process.stderr.write('\n');
+
+    t = setTimeout(() => {
+      res.statusCode = 200;
+      res.setHeader('content-type', 'application/json');
+      res.end(JSON.stringify({"now": Date.now()}));
+      process.stderr.write('EOF\n');
+    }, process.env.TIMEOUT || 0);
+
   })
   .listen(process.env.PORT, () =>
     process.stderr.write(`http://localhost:${process.env.PORT}\n`),
