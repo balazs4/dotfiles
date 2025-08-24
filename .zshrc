@@ -499,7 +499,7 @@ function yt(){
             if (!xx.videoRenderer) continue;
             const video = [
               xx.videoRenderer.thumbnail?.thumbnails[0].url,
-              xx.videoRenderer.videoId,
+              "https://youtu.be/" + xx.videoRenderer.videoId,
               xx.videoRenderer.title?.accessibility?.accessibilityData?.label || "no title",
               xx.videoRenderer.publishedTimeText?.simpleText || "no publish date"
             ].join("\t")
@@ -508,9 +508,9 @@ function yt(){
         }
       })();' \
     | fzf --sync --height=50% --with-nth=3.. --delimiter="\t" --preview-window 'right,40%' --preview='wget {1} -O- 2>/dev/null | chafa --scale 2.0 -' \
-    | tee -a .ythistory \
+    | tee -a $HOME/.yt_history \
     | cut -f2 \
-    | xargs -t -I{} mpv ${MPV:---ytdl-raw-options=format-sort='res:1080'} --write-filename-in-watch-later-config  --save-position-on-quit https://youtu.be/{}
+    | xargs -t mpv ${MPV:---ytdl-raw-options=format-sort='res:1080'}
 }
 alias yta="MPV='--ytdl-raw-options=format=bestaudio' yt"
 
