@@ -151,18 +151,32 @@ function _hurl(){
   is_down https://github.com || return 42
   rm -rf $HOME/.hurl/ 2>/dev/null
   mkdir -p $HOME/.hurl/ 2>/dev/null
-
 #mcbpro  os="aarch64-apple-darwin.tar.gz"
   curl -LSs 'https://api.github.com/repos/Orange-OpenSource/hurl/releases/latest?page=1&per_page=1' \
     | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
-    | grep "${os:-x86_64-unknown-linux-gnu.tar.gz}" \
     | grep -v sha \
+    | fzf -1 -q "${os:-x86_64-unknown-linux-gnu.tar.gz}" \
     | head -1 \
     | xurls \
     | xargs curl -LSso - \
     | tar xzv -C $HOME/.hurl --strip-components 1
 }
 
+# cni - containerd + rootless + nerdctl
+export CNI_PATH=$HOME/.cni
+function _cni(){
+  is_down https://github.com || return 42
+  rm -rf $HOME/.cni/ 2>/dev/null
+  mkdir -p $HOME/.cni/ 2>/dev/null
+#mcbpro  os="aarch64-apple-darwin.tar.gz"
+  curl -LSs 'https://api.github.com/repos/containernetworking/plugins/releases/latest?page=1&per_page=1' \
+    | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
+    | grep -v sha \
+    | fzf -1 -q "${os:-'linux-amd64 '.tgz}" \
+    | xurls \
+    | xargs curl -LSso - \
+    | tar xzv -C $HOME/.cni
+}
 
 function _fx(){
   GOPROXY= go install github.com/antonmedv/fx@latest
@@ -486,16 +500,14 @@ function yt(){
             const video = [
               xx.videoRenderer.thumbnail?.thumbnails[0].url,
               xx.videoRenderer.videoId,
-              xx.videoRenderer.lengthText?.simpleText.padStart(2),
-              (xx.videoRenderer.viewCountText?.simpleText || "premier at").padStart(6),
-              (xx.videoRenderer.publishedTimeText?.simpleText || new Date(1000 * parseInt(xx.videoRenderer.upcomingEventData?.startTime || "0")).toJSON() ).padStart(6),
-              xx.videoRenderer.title.runs[0].text,
+              xx.videoRenderer.title?.accessibility?.accessibilityData?.label || "no title",
+              xx.videoRenderer.publishedTimeText?.simpleText || "no publish date"
             ].join("\t")
             require("node:process").stdout.write(video + "\n")
           }
         }
       })();' \
-    | fzf --sync --height=50% --with-nth=2.. --delimiter="\t" --preview-window 'right,40%' --preview='wget {1} -O- 2>/dev/null | chafa --scale 2.0 -' \
+    | fzf --sync --height=50% --with-nth=3.. --delimiter="\t" --preview-window 'right,40%' --preview='wget {1} -O- 2>/dev/null | chafa --scale 2.0 -' \
     | cut -f2 \
     | xargs -t -Iwatch mpv ${MPV:---ytdl-raw-options=format-sort='res:1080'} https://youtu.be/watch
 }
