@@ -113,7 +113,7 @@ source $HOME/.fzf/completion.zsh
 source $HOME/.fzf/key-bindings.zsh
 export FZF_DEFAULT_COMMAND="git ls-files || find . -type f -maxdepth 4"
 export FZF_CTRL_T_COMMAND="git ls-files || find . -type f -maxdepth 4"
-export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)' --preview 'cat {}'"
+export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)' --preview 'test -f {} && cat {} || true' --preview-window=hidden --bind 'ctrl-/:toggle-preview'"
 
 function _fzf(){
   is_down https://github.com || return 42
