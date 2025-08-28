@@ -269,14 +269,14 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 export PATH="${DOTNET_ROOT}:${DOTNET_ROOT}/tools:${PATH}:"
 
-function dotedit() {
+function makedotedit() {
   pushd $HOME/.files 1>/dev/null 2>/dev/null
   target=$({git ls-files; printf '%s\n' 'all' 'sync';} | fzf -1 -m -q "'${*}")
   if test "$EDITOR"; then $EDITOR ${target}; fi
   make --always-make ${target}
   popd 1>/dev/null 2>/dev/null
 }
-alias dot='EDITOR= dotedit'
+alias makedot='EDITOR= makedotedit'
 alias tmuxrc='dotedit .tmux.conf'
 alias zshrc='dotedit .zshrc'
 alias nvimrc='dotedit .config/nvim/init.lua'
