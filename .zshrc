@@ -93,13 +93,6 @@ function z() {
 alias zz=z
 alias x='tmux new-session -A -s $HOME -c $HOME'
 
-function chpwd(){
-  if test $TMUX
-  then
-    tmux rename-window -t:$(tmux display-message -p '#I') $(basename $PWD)
-  fi
-}
-
 alias is_down='curl -LsS --fail-with-body -o /dev/null -w "%{http_code}\t%{url}\t%header{content-length}b\n"'
 
 #golang - https://github.com/stefanmaric/g
