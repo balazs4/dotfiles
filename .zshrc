@@ -277,10 +277,10 @@ function makedotedit() {
   popd 1>/dev/null 2>/dev/null
 }
 alias makedot='EDITOR= makedotedit'
-alias tmuxrc='dotedit .tmux.conf'
-alias zshrc='dotedit .zshrc'
-alias nvimrc='dotedit .config/nvim/init.lua'
-#carbon alias sx='dotedit .xbindkeysrc'
+alias tmuxrc='makedotedit .tmux.conf'
+alias zshrc='makedotedit .zshrc'
+alias nvimrc='makedotedit .config/nvim/init.lua'
+#carbon alias sx='makedotedit .xbindkeysrc'
 alias so='vim $HOME/.zshenv; source $HOME/.zshenv'
 
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?T'"
