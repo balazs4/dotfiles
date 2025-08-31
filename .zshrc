@@ -263,17 +263,19 @@ export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 export PATH="${DOTNET_ROOT}:${DOTNET_ROOT}/tools:${PATH}:"
 
 function makedotedit() {
-  pushd $HOME/.files 1>/dev/null 2>/dev/null
-  target=$({git ls-files; printf '%s\n' 'all' 'sync';} | fzf -1 -m -q "'${*}")
-  if test "$EDITOR"; then $EDITOR ${target}; fi
-  make --always-make ${target}
-  popd 1>/dev/null 2>/dev/null
+  pushd $HOME/.files 1>/dev/null
+  if test ${EDITOR}
+  then
+    $EDITOR ${1:--c ':FZF'}
+  fi
+  make all -f $HOME/.files/makefile --silent
+  popd 1>/dev/null
 }
 alias makedot='EDITOR= makedotedit'
 alias tmuxrc='makedotedit .tmux.conf'
 alias zshrc='makedotedit .zshrc'
 alias nvimrc='makedotedit .config/nvim/init.lua'
-#carbon alias sx='makedotedit .xbindkeysrc'
+
 alias so='vim $HOME/.zshenv; source $HOME/.zshenv'
 
 alias wttr="curl -H 'cache-control: no-cache' -s 'http://wttr.in/91085?T'"
