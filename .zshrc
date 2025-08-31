@@ -654,6 +654,10 @@ export BUILDKIT_PROGRESS=plain
 #carbon   done
 #carbon }
 
+#carbon function thres() {
+#carbon   printf "%d" 80 | tee /dev/stderr | sudo tee /sys/class/power_supply/BAT0/charge_control_end_threshold
+#carbon }
+
 function focus(){
   mpv --no-video https://youtu.be/GUu8GW6H5Dw
 }
