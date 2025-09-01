@@ -1,11 +1,11 @@
 install:
 	@git ls-files | grep -v -E 'makefile|readme.md|.gitignore' | awk -v prefix=$(HOME) '{print prefix"/"$$0}' | xargs make
 
-$(HOME)/%: % .colors .hostname
+$(HOME)/%: %
 	@mkdir -p $$(dirname $(@))
 	@cat $(<) \
-		| sed -r "s/^[--;#\/\"\!]+$(file < .hostname) //g; /^#(carbon|mcbpro)/d; s/\{\{hostname\}\}/$(file < .hostname)/g;" \
-		| sed "$(file < .colors)" \
+		| sed -r "s/^[--;#\/\"\!]+$$(cat .hostname) //g; /^#(carbon|mcbpro)/d; s/\{\{hostname\}\}/$$(cat .hostname)/g;" \
+		| sed "$$(cat .colors)" \
 		| tee $(@) > /dev/null
 	@$(if $(filter $<, .zshrc),                        pgrep -a zsh         1>/dev/null 2>/dev/null && kill -USR1 `pgrep -a zsh  | awk '{print $$1}' | xargs`     || true)
 	@$(if $(filter $<, .config/nvim/init.lua),         pgrep -a nvim        1>/dev/null 2>/dev/null && kill -USR1 `pgrep -a nvim | awk '{print $$1}' | xargs`     || true)
@@ -17,7 +17,7 @@ $(HOME)/%: % .colors .hostname
 
 .PHONY: sync
 sync:
-	git commit -am "`date +%s`@$(file < .hostname)" || true
+	git commit -am "`date +%s`@$$(cat .hostname)" || true
 	git pull || true
 	git push || true
 
