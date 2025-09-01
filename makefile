@@ -1,6 +1,4 @@
-hostname=$(shell hostname -s)
-
-all:
+install:
 	@git ls-files | grep -v -E 'makefile|readme.md|.gitignore' | awk -v prefix=$(HOME) '{print prefix"/"$$0}' | xargs make
 
 $(HOME)/%: % .colors .hostname

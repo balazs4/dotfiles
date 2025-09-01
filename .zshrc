@@ -268,7 +268,7 @@ function makedotedit() {
   then
     $EDITOR ${1:--c ':FZF'}
   fi
-  make all -f $HOME/.files/makefile --silent
+  make -f $HOME/.files/makefile --silent
   popd 1>/dev/null
 }
 alias makedot='EDITOR= makedotedit'
