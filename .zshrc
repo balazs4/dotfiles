@@ -568,25 +568,12 @@ alias stars="xdg-open 'https://github.com/$USER?tab=stars'"
 
 #carbon alias xb='xbacklight -set'
 
-function color(){
-  if test ! -d $HOME/.cache/schemes; then git clone git@github.com:tinted-theming/schemes.git $HOME/.cache/schemes --depth=1; fi
-  colors=$(git -C $HOME/.cache/schemes ls-files | sort | fzf --no-sort --reverse -q"'yaml ${*} " -1 --preview 'make -C $HOME/.files .config/.colors/index.html colors_file=$HOME/.cache/schemes/{}; cat $HOME/.cache/schemes/{}')
-  cp $HOME/.cache/schemes/$colors $HOME/.colors
-  make -C $HOME/.files ${PREVIEW}
-  if test ${PREVIEW}
-  then
-    pgrep -a qutebrowser 1>/dev/null 2>/dev/null && qutebrowser ':set colors.webpage.darkmode.enabled false'
-  fi
-}
-
-function dark(){
-  color ${*}
-#mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" > /dev/null
-}
-
-function light(){
-  color ${*}
-#mcbpro   osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" > /dev/null
+function mode() {
+#mcbpro  m=$(test $1 == "light" && echo "false" || echo "true")
+#mcbpro  osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = ${m}" > /dev/null
+  pushd $HOME/.files/
+  make .colors all
+  popd
 }
 
 function parrot(){

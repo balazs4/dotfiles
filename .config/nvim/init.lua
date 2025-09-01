@@ -31,7 +31,7 @@ vim.keymap.set('n', 'H', '^')
 vim.keymap.set('n', 'L', '$')
 vim.keymap.set('n', '`', ':buffers<CR>:buffer ')
 vim.keymap.set('n', '<leader>`', ':bd<CR>')
-vim.keymap.set('n', '<leader><cr>', ':w | !make %<CR>') --TODO: set it only if $PWD === $HOME/.files and source $MYVIMRC only if % === .config/nvim/init.lua
+vim.keymap.set('n', '<leader><cr>', ':w | !make $HOME/%<CR>')
 vim.keymap.set('n', '<C-j>', ':cnext<CR>zz');
 vim.keymap.set('n', '<C-k>', ':cprevious<CR>zz');
 vim.keymap.set('n', '<leader>w', ':silent grep <cword>| copen <CR>')
