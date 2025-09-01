@@ -571,9 +571,7 @@ alias stars="xdg-open 'https://github.com/$USER?tab=stars'"
 function mode() {
 #mcbpro  m=$(test $1 == "light" && echo "false" || echo "true")
 #mcbpro  osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = ${m}" > /dev/null
-  pushd $HOME/.files/
-  make .colors all
-  popd
+  make -B -f $HOME/.files/makefile .colors_args="${1}"
 }
 
 function parrot(){

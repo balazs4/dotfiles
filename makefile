@@ -27,10 +27,10 @@ sync:
 .colors: $(HOME)/.cache/schemes
 	@git -C $(HOME)/.cache/schemes ls-files \
 		| sort \
-		| fzf --reverse \
+		| fzf --reverse -q"'base16 '$(.colors_args)" -1 \
 		| xargs -I{} cat $(HOME)/.cache/schemes/{} \
 		| tee /dev/stderr \
-		| awk -F: '/base[0|1].?/ {print $$1 $$2} /variant/ {print $$1 $$2} /name/ {print $$1 $$2}  /system/ {print $$1 $$2}' \
+		| awk -F: '/system/{next;} /base[0|1].?/ {print $$1 $$2} /variant/ {print $$1 $$2} /name/ {print $$1 $$2}' \
 		| tr -d '"|\#' \
 		| awk -F" " '{ print "s/{{" $$1 "}}/" tolower($$2) "/g"}' \
 		| sed -E 's/(base[0|1].?)/\1-hex/g' \
@@ -38,5 +38,5 @@ sync:
 		| tee .colors
 
 $(HOME)/.cache/schemes:
-	git clone git@github.com:tinted-theming/schemes.git $$HOME/.cache/schemes --depth=1
+	test -d $(HOME)/.cache/schemes || git clone git@github.com:tinted-theming/schemes.git $(HOME)/.cache/schemes --depth=1
 
