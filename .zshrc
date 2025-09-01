@@ -534,14 +534,11 @@ function archnews(){
 #carbon     --output eDP1   --mode 1920x1080 --pos 0x0 --rotate normal --primary
 #carbon }
 
-#carbon function yayfzf(){
+#carbon function yayf(){
 #carbon   yay -Sy
 #carbon   yay -Slq | fzf --preview 'yay -Si {1}' --query "'${1}" -1 | xargs yay -Sy --noconfirm 
 #carbon   hash -r
 #carbon }
-#carbon alias yf=yayfzf
-#carbon alias yzf=yayfzf
-#carbon alias yayf=yayfzf
 
 function gb(){
   git branch -a \
@@ -552,13 +549,6 @@ function gb(){
 }
 
 alias gbb='gb $USER'
-
-function nr() {
-  fx package.json 'x => Object.entries(x.scripts).map(xx => [xx[0].padEnd(16), xx[1]].join("\t")).join("\n")' \
-    | fzf --height 10% --reverse -q"'${*}" -1 \
-    | awk '{print $1}' \
-    | xargs -I{} -t npm run {}
-}
 
 #mcbpro export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
 #mcbpro export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
@@ -574,7 +564,7 @@ function nr() {
 #mcbpro   pnpm install ${*:---frozen-lockfile}
 #mcbpro }
 
-alias stars="xdg-open 'https://github.com/balazs4?tab=stars'"
+alias stars="xdg-open 'https://github.com/$USER?tab=stars'"
 
 #carbon alias xb='xbacklight -set'
 
