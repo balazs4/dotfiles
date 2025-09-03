@@ -1,7 +1,7 @@
 install:
 	@git ls-files | grep -v -E 'makefile|readme.md|.gitignore' | awk -v prefix=$(HOME) '{print prefix"/"$$0}' | xargs make
 
-$(HOME)/%: %
+$(HOME)/%: % .colors
 	@mkdir -p $$(dirname $(@))
 	@cat $(<) \
 		| sed -r "s/^[--;#\/\"\!]+$$(cat .hostname) //g; /^#(carbon|mcbpro)/d; s/\{\{hostname\}\}/$$(cat .hostname)/g;" \
@@ -13,7 +13,7 @@ $(HOME)/%: %
 	@$(if $(filter $<, .aerospace.toml),               which aerospace      1>/dev/null 2>/dev/null && aerospace reload-config --no-gui                           || true)
 	@$(if $(filter $<, .xbindkeysrc),                  pgrep -a xbindkeys   1>/dev/null 2>/dev/null && pkill -SIGKILL xbindkeys && xbindkeys                      || true)
 	@$(if $(filter $<, .config/qutebrowser/config.py), pgrep -a qutebrowser 1>/dev/null 2>/dev/null && qutebrowser ':config-source' 2>/dev/null                   || true)
-	@printf '[dot] %s\n' $(@)
+	@printf '[made] %s\n' $(@)
 
 .PHONY: sync
 sync:
