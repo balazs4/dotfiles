@@ -645,9 +645,7 @@ function focus(){
 #mcbpro }
 
 function re(){
-  pushd $(git rev-parse --show-toplevel)
-    nvim $(git ls-files --modified) $(gh pr diff --name-only)
-  popd
+  nvim $(git diff --name-only main)
 }
 
 #mcbpro function duration(){
@@ -785,4 +783,9 @@ function _opencode(){
   chmod +x $HOME/.opencode/bin/opencode
   hash -r
   opencode --version
+}
+
+function bro(){
+ curl -D /dev/stderr "$1" \
+   | w3m -dump -T text/html
 }
