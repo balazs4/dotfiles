@@ -664,7 +664,11 @@ function rfc(){
   curl -s "https://www.rfc-editor.org/rfc/rfc${1}.txt" | less -R
 }
 
-alias sp='spotify_player'
+function sp(){
+  spotify_player ${*}
+  test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') spotify_player
+}
+
 alias spp='spotify_player playback play-pause'
 alias spn='spotify_player playback next'
 alias spz='source <(spotify_player generate zsh)'
