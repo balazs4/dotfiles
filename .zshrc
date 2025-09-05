@@ -511,8 +511,8 @@ alias yta="MPV='--ytdl-raw-options=format=bestaudio' yt"
 
 function yt_history() {
   ssh $REMOTE 'cat $HOME/.yt_history' \
-    | fzf --sync --height=50% --with-nth=3.. --delimiter="\t" --preview-window 'right,40%' --preview='wget {1} -O- 2>/dev/null | chafa --scale 2.0 -' \
-    | cut -f2 \
+    | fzf --sync --height=50% --preview-window 'right,40%' \
+    | awk '{print $1}' \
     | xargs -t mpv ${MPV:---ytdl-raw-options=format-sort='res:1080'}
 }
 
