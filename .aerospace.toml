@@ -18,7 +18,6 @@ alt-shift-q = 'close --quit-if-last-window'
 alt-shift-e = 'enable toggle'
 alt-enter = 'exec-and-forget /Applications/Alacritty.app/Contents/MacOS/alacritty'
 alt-c = 'exec-and-forget /Applications/qutebrowser.app/Contents/MacOS/qutebrowser'
-alt-shift-c = 'exec-and-forget /Applications/qutebrowser.app/Contents/MacOS/qutebrowser ":set window.hide_decoration true"' #it needs to be set _AFTER_ aerospace has a running qutebrowser instance - grrrrrrrrrrrr - think different
 
 # Disable annoying and useless "hide application" shortcur
 # -- https://nikitabobko.github.io/AeroSpace/goodness#disable-hide-app
