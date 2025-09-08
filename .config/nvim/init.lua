@@ -216,7 +216,7 @@ vim.lsp.config('biome', {
   workspace_required = true
 })
 
-local tsgo_enabled = false
+
 vim.lsp.enable('tsgo', tsgo_enabled)
 vim.lsp.config('tsgo', {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
@@ -225,10 +225,23 @@ vim.lsp.config('tsgo', {
   workspace_required = true
 })
 
-vim.lsp.enable('vtsls', not tsgo_enabled)
-vim.lsp.config('vtsls', {
+
+local typescript_language_server = {
+  name = 'vtsls',
+  cmd = { 'bun', 'x', '--bun', '-p', '@vtsls/language-server', 'vtsls', '--stdio' }
+}
+
+if os.getenv('TYPESCRIPT_GO')
+  then
+    typescript_language_server.name = 'tsgo'
+    typescript_language_server.cmd = { vim.loop.os_homedir() .. '/src/typescript-go/built/local/tsgo', '--lsp', '--stdio' }
+  else
+end
+
+vim.lsp.enable(typescript_language_server.name, not tsgo_enabled)
+vim.lsp.config(typescript_language_server.name, {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
-  cmd = { 'bun', 'x', '--bun', '-p', '@vtsls/language-server', 'vtsls', '--stdio' },
+  cmd = typescript_language_server.cmd,
   root_markers = { 'tsconfig.json', 'jsconfig.json' },
   workspace_required = true,
   on_attach = function(client, bufnr)

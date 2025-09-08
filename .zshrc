@@ -230,6 +230,7 @@ export PATH="$HOME/.deno/bin:${PATH}"
 export PATH="$HOME/.nvim/bin:${PATH}"
 export EDITOR=nvim
 export MANPAGER='nvim +Man!' #https://www.visualmode.dev/a-better-man-page-viewer
+#mcbpro export TYPESCRIPT_GO=1
 
 function _nvim(){
   is_down https://github.com || return 42
