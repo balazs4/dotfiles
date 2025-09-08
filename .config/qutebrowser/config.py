@@ -31,7 +31,7 @@ config.bind(',M', 'hint links spawn --detach mpv {hint-url} --ytdl-raw-options=f
 config.bind(',,', 'set colors.webpage.darkmode.enabled true')
 config.bind(',.', 'set colors.webpage.darkmode.enabled false')
 config.bind(',z', 'set tabs.show never')
-config.bind(',Z', 'set tabs.show multiple')
+config.bind(',Z', 'set tabs.show always')
 
 
 c.colors.completion.fg = "#{{base05-hex}}"

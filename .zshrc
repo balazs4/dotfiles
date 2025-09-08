@@ -666,31 +666,13 @@ function rfc(){
 }
 
 function sp(){
-  spotify_player ${*}
   test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') spotify_player
+  spotify_player ${*}
 }
 
 alias spp='spotify_player playback play-pause'
 alias spn='spotify_player playback next'
 alias spz='source <(spotify_player generate zsh)'
-function sps() {
-  spotify_player search "$*" \
-    | fx 'x => [
-      ...x.artists.map(  xx => ["0000-00-00",    xx.id, "artist".padEnd(8), xx.name].join("\t")),
-      ...x.playlists.map(xx => ["0000-00-00",    xx.id, "playlist",         xx.name].join("\t")),
-      ...x.albums.map(   xx => [xx.release_date, xx.id, "album".padEnd(8),  xx.name].join("\t")),
-      ].join("\n")' \
-    | sort -r  \
-    | fzf --height=25% --reverse \
-    | tee /dev/stderr \
-    | awk '{printf "playback start context %s --id=%s", $3, $2}' \
-    | xargs spotify_player
-}
-
-function q() {
-  input=${*:-$(cat -)}
-  qutebrowser ":open -t ${input}"
-}
 
 function qq() {
   input=${*:-$(cat -)}
@@ -712,8 +694,6 @@ function qq() {
   ' \
     | less
 }
-
-#mcbpro alias linear='make -f $HOME/src/linear/makefile'
 
 #mcbpro function dpl() {
 #mcbpro   input=${1:-`cat -`}
@@ -791,6 +771,6 @@ function _opencode(){
 }
 
 function bro(){
- curl -D /dev/stderr "$1" \
+ curl -D /dev/stderr -LsSf "$1" \
    | w3m -dump -T text/html
 }
