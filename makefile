@@ -1,7 +1,7 @@
 install:
-	@git ls-files | grep -v -E 'makefile|readme.md|.gitignore' | awk -v prefix=$(HOME) '{print prefix"/"$$0}' | xargs make
+	@git ls-files | grep -v -E 'makefile|readme.md|.gitignore' | awk -v prefix=$(HOME) '{print prefix"/"$$0}' | xargs make --jobs 16
 
-$(HOME)/%: % .colors
+$(HOME)/%: % .colors .hostname
 	@mkdir -p $$(dirname $(@))
 	@cat $(<) \
 		| sed -r "s/^[--;#\/\"\!]+$$(cat .hostname) //g; /^#(carbon|mcbpro)/d; s/\{\{hostname\}\}/$$(cat .hostname)/g;" \
@@ -27,7 +27,7 @@ sync:
 .colors: $(HOME)/.cache/schemes
 	@git -C $(HOME)/.cache/schemes ls-files \
 		| sort \
-		| fzf --reverse -q"'base16 '$(.colors_args)" -1 \
+		| fzf --sync --reverse -q"'base16 '$(.colors_args)" -1 \
 		| xargs -I{} cat $(HOME)/.cache/schemes/{} \
 		| tee /dev/stderr \
 		| awk -F: '/system/{next;} /base[0|1].?/ {print $$1 $$2} /variant/ {print $$1 $$2} /name/ {print $$1 $$2}' \
