@@ -774,3 +774,5 @@ function bro(){
  curl -D /dev/stderr -LsSf "$1" \
    | w3m -dump -T text/html
 }
+
+alias now='bun x vercel deploy --prod -t $VC_TOKEN --scope $USER-$VC_RND --yes --logs; v'
