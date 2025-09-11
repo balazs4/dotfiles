@@ -217,21 +217,12 @@ vim.lsp.config('biome', {
 })
 
 
-vim.lsp.enable('tsgo', tsgo_enabled)
-vim.lsp.config('tsgo', {
-  filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
-  cmd = { vim.loop.os_homedir() .. '/src/typescript-go/built/local/tsgo', '--lsp', '--stdio' },
-  root_markers = { 'tsconfig.json', 'jsconfig.json' },
-  workspace_required = true
-})
-
-
 local typescript_language_server = {
   name = 'vtsls',
   cmd = { 'bun', 'x', '--bun', '-p', '@vtsls/language-server', 'vtsls', '--stdio' }
 }
 
-if os.getenv('TYPESCRIPT_GO')
+if os.getenv('TYPESCRIPT_GO') == 'true'
   then
     typescript_language_server.name = 'tsgo'
     typescript_language_server.cmd = { vim.loop.os_homedir() .. '/src/typescript-go/built/local/tsgo', '--lsp', '--stdio' }

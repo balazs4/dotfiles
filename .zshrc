@@ -93,7 +93,7 @@ function z() {
 alias zz=z
 alias x='tmux new-session -A -s $HOME -c $HOME'
 
-alias is_down='curl -LsS --fail-with-body -o /dev/null -w "%{http_code}\t%{url}\t%header{content-length}b\n"'
+alias is_up='curl -LsS --fail-with-body -o /dev/null -w "%{http_code}\t%{url}\t%header{content-length}b\n"'
 
 #golang - https://github.com/stefanmaric/g
 export GOROOT=$HOME/.g
@@ -109,7 +109,7 @@ export FZF_CTRL_T_COMMAND="git ls-files || find . -type f -maxdepth 4"
 export FZF_DEFAULT_OPTS="--no-separator --bind 'ctrl-x:execute-silent(echo {} | xurls | xargs xdg-open)' --preview 'test -f {} && cat {} || true' --preview-window=hidden --bind 'ctrl-/:toggle-preview'"
 
 function _fzf(){
-  is_down https://github.com || return 42
+  is_up https://github.com || return 42
   rm -rf $HOME/.fzf/ 2>/dev/null
   mkdir -p $HOME/.fzf/ 2>/dev/null
 #mcbpro  os="darwin"
@@ -141,7 +141,7 @@ function _fzf(){
 # hurl
 export PATH=$HOME/.hurl/bin:/$HOME/.hurl/:${PATH}
 function _hurl(){
-  is_down https://github.com || return 42
+  is_up https://github.com || return 42
   rm -rf $HOME/.hurl/ 2>/dev/null
   mkdir -p $HOME/.hurl/ 2>/dev/null
 #mcbpro  os="aarch64-apple-darwin.tar.gz"
@@ -158,7 +158,7 @@ function _hurl(){
 # cni - containerd + rootless + nerdctl
 export CNI_PATH=$HOME/.cni
 function _cni(){
-  is_down https://github.com || return 42
+  is_up https://github.com || return 42
   rm -rf $HOME/.cni/ 2>/dev/null
   mkdir -p $HOME/.cni/ 2>/dev/null
 #mcbpro  os="aarch64-apple-darwin.tar.gz"
@@ -201,7 +201,7 @@ export DOTENV_CONFIG_DEBUG=true
 #lua
 export PATH=$HOME/.lua/bin:${PATH}
 function _lua(){
-  is_down https://github.com || return 42
+  is_up https://github.com || return 42
 #mcbpro   os=darwin
   rm -rf $HOME/.lua/ 2>/dev/null
   mkdir -p $HOME/.lua/ 2>/dev/null
@@ -233,7 +233,7 @@ export MANPAGER='nvim +Man!' #https://www.visualmode.dev/a-better-man-page-viewe
 #mcbpro export TYPESCRIPT_GO=1
 
 function _nvim(){
-  is_down https://github.com || return 42
+  is_up https://github.com || return 42
   curl -LsSf https://github.com -o /dev/null -D /dev/stderr || { printf "github.com is down? do nothing\n"; return 42; }
 #mcbpro  os="macos 'tar.gz 'arm64"
   rm -rf $HOME/.nvim/ 2>/dev/null
@@ -753,7 +753,7 @@ function note() {
 
 export PATH="$HOME/.opencode/bin/:${PATH}"
 function _opencode(){
-  is_down https://github.com || return 42
+  is_up https://github.com || return 42
 #mcbpro  os="'darwin 'zip 'arm64"
   rm -rf $HOME/.opencode/bin/ 2>/dev/null
   mkdir -p $HOME/.opencode/bin/ 2>/dev/null
