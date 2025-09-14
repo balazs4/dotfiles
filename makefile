@@ -40,3 +40,7 @@ sync:
 $(HOME)/.cache/schemes:
 	test -d $(HOME)/.cache/schemes || git clone git@github.com:tinted-theming/schemes.git $(HOME)/.cache/schemes --depth=1
 
+$(HOME)/.nvim: .PHONY
+	/bin/rm -rf $(@) || true; mkdir -p $(@)
+	curl -LsSf -o- 'https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz' | tar xzv --strip-components=1 -C $(@)
+	$(@)/bin/nvim --version
