@@ -232,22 +232,6 @@ export EDITOR=nvim
 export MANPAGER='nvim +Man!' #https://www.visualmode.dev/a-better-man-page-viewer
 #mcbpro export TYPESCRIPT_GO=1
 
-function _nvim(){
-  is_up https://github.com || return 42
-  curl -LsSf https://github.com -o /dev/null -D /dev/stderr || { printf "github.com is down? do nothing\n"; return 42; }
-#mcbpro  os="macos 'tar.gz 'arm64"
-  rm -rf $HOME/.nvim/ 2>/dev/null
-  mkdir -p $HOME/.nvim/ 2>/dev/null
-  curl 'https://api.github.com/repos/neovim/neovim/releases/tags/nightly?page=1&per_page=1' \
-    | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
-    | grep -v sha \
-    | fzf -q "${os:-linux 'tar.gz 'x86_64}" -1 \
-    | xurls \
-    | xargs curl -Lo - \
-    | tar xzv --strip-components=1 -C $HOME/.nvim
-  nvim --version
-}
-
 #carbon #curl https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz  | tar xv -J -C $HOME/.zig --strip-components=1
 #mcbpro #curl https://ziglang.org/download/0.13.0/zig-macos-aarch64-0.13.0.tar.xz | tar xv -J -C $HOME/.zig --strip-components=1
 export PATH="$HOME/.zig:${PATH}"
