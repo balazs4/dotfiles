@@ -139,21 +139,7 @@ function _fzf(){
 }
 
 # hurl
-export PATH=$HOME/.hurl/bin:/$HOME/.hurl/:${PATH}
-function _hurl(){
-  is_up https://github.com || return 42
-  rm -rf $HOME/.hurl/ 2>/dev/null
-  mkdir -p $HOME/.hurl/ 2>/dev/null
-#mcbpro  os="aarch64-apple-darwin.tar.gz"
-  curl -LSs 'https://api.github.com/repos/Orange-OpenSource/hurl/releases/latest?page=1&per_page=1' \
-    | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
-    | grep -v sha \
-    | fzf -1 -q "${os:-x86_64-unknown-linux-gnu.tar.gz}" \
-    | head -1 \
-    | xurls \
-    | xargs curl -LSso - \
-    | tar xzv -C $HOME/.hurl --strip-components 1
-}
+export PATH=$HOME/src/hurl/target/release/:${PATH}
 
 # cni - containerd + rootless + nerdctl
 export CNI_PATH=$HOME/.cni
