@@ -1,4 +1,3 @@
-
 install:
 	@git ls-files | grep -v -E 'makefile|readme.md|.gitignore' | awk -v prefix=$(HOME) '{print prefix"/"$$0}' | xargs make --jobs 16
 
@@ -40,14 +39,3 @@ sync:
 
 $(HOME)/.cache/schemes:
 	test -d $(HOME)/.cache/schemes || git clone git@github.com:tinted-theming/schemes.git $(HOME)/.cache/schemes --depth=1
-
-hostname:=$(shell cat .hostname)
-
-.PHONY: $(HOME)/.nvim
-$(HOME)/.nvim: .hostname
-	$(if $(filter carbon, $(hostname)), $(eval url := https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz))
-	$(if $(filter mcbpro, $(hostname)), $(eval url := https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz ))
-	@rm -rf $@ || true && mkdir -p $@
-	@curl -LSf -o- $(url) | tar xz --strip-components=1 -C $@
-	@$(@)/bin/nvim --version
-

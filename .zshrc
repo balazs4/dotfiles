@@ -121,16 +121,16 @@ function _fzf(){
     | grep -v sha \
     | head -1 \
     | xurls \
-    | xargs curl -LSso - \
-    | tar xzv -C $HOME/.fzf
+    | xargs curl -LSo - \
+    | tar xz -C $HOME/.fzf
 
   tag_name="v$(fzf --version | awk '{print $1}')"
 
-  curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/shell/completion.zsh?raw=true"    --output "$HOME/.fzf/completion.zsh"
-  curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/shell/key-bindings.zsh?raw=true"  --output "$HOME/.fzf/key-bindings.zsh"
+  curl -LS "https://github.com/junegunn/fzf/blob/$tag_name/shell/completion.zsh?raw=true"    --output "$HOME/.fzf/completion.zsh"
+  curl -LS "https://github.com/junegunn/fzf/blob/$tag_name/shell/key-bindings.zsh?raw=true"  --output "$HOME/.fzf/key-bindings.zsh"
 
   mkdir -p $HOME/.fzf/man/man1/ 2>/dev/null
-  curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/man/man1/fzf.1?raw=true"          --output "$HOME/.fzf/man/man1/fzf.1"
+  curl -LS "https://github.com/junegunn/fzf/blob/$tag_name/man/man1/fzf.1?raw=true"          --output "$HOME/.fzf/man/man1/fzf.1"
 
   mkdir -p $HOME/.fzf/plugin 2>/dev/null
   curl -LSs "https://github.com/junegunn/fzf/blob/$tag_name/plugin/fzf.vim?raw=true"          --output "$HOME/.fzf/plugin/fzf.vim"
@@ -231,6 +231,21 @@ export PATH="$HOME/.nvim/bin:${PATH}"
 export EDITOR=nvim
 export MANPAGER='nvim +Man!' #https://www.visualmode.dev/a-better-man-page-viewer
 #mcbpro export TYPESCRIPT_GO=1
+
+function _nvim(){
+  is_up https://github.com || return 42
+#mcbpro  os="macos 'tar.gz 'arm64"
+  rm -rf $HOME/.nvim/ 2>/dev/null
+  mkdir -p $HOME/.nvim/ 2>/dev/null
+  curl 'https://api.github.com/repos/neovim/neovim/releases/tags/nightly?page=1&per_page=1' \
+    | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
+    | grep -v sha \
+    | fzf -q "${os:-linux 'tar.gz 'x86_64}" -1 \
+    | xurls \
+    | xargs curl -Lo - \
+    | tar xz --strip-components=1 -C $HOME/.nvim
+  nvim --version
+}
 
 #carbon #curl https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz  | tar xv -J -C $HOME/.zig --strip-components=1
 #mcbpro #curl https://ziglang.org/download/0.13.0/zig-macos-aarch64-0.13.0.tar.xz | tar xv -J -C $HOME/.zig --strip-components=1
