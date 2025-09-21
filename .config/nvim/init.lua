@@ -105,6 +105,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.cmd('vsplit')
       vim.lsp.buf.definition()
     end, { buffer = args.buf })
+
     vim.keymap.set('n', '<leader>b', function()
       vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
     end, { buffer = args.buf })
@@ -114,6 +115,20 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client:supports_method('textDocument/documentColor')
     then
       vim.lsp.document_color.enable(true, args.buf)
+    end
+
+    -- using preview-window instead of float window for hover (K)
+    vim.api.nvim_create_autocmd('ColorScheme', {
+      callback = function() vim.api.nvim_set_hl(0, 'LspReferenceTarget', {}) end
+    })
+    vim.lsp.util.open_floating_preview = function(contents, syntax)
+      local lines = vim.lsp.util.convert_input_to_markdown_lines(contents)
+      vim.api.nvim_command('pedit +setlocal\\ buftype=nofile\\ bufhidden=wipe\\ noswapfile preview')
+      vim.api.nvim_command('wincmd p')
+      local buf = vim.api.nvim_get_current_buf()
+      vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+      vim.bo[buf].filetype = 'markdown'
+      vim.api.nvim_command('wincmd w')
     end
   end,
 })
@@ -223,10 +238,10 @@ local typescript_language_server = {
 }
 
 if os.getenv('TYPESCRIPT_GO') == 'true'
-  then
-    typescript_language_server.name = 'tsgo'
-    typescript_language_server.cmd = { vim.loop.os_homedir() .. '/src/typescript-go/built/local/tsgo', '--lsp', '--stdio' }
-  else
+then
+  typescript_language_server.name = 'tsgo'
+  typescript_language_server.cmd = { vim.loop.os_homedir() .. '/src/typescript-go/built/local/tsgo', '--lsp', '--stdio' }
+else
 end
 
 vim.lsp.enable(typescript_language_server.name, not tsgo_enabled)
