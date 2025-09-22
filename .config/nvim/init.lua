@@ -118,17 +118,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     -- using preview-window instead of float window for hover (K)
-    vim.api.nvim_create_autocmd('ColorScheme', {
-      callback = function() vim.api.nvim_set_hl(0, 'LspReferenceTarget', {}) end
-    })
     vim.lsp.util.open_floating_preview = function(contents, syntax)
       local lines = vim.lsp.util.convert_input_to_markdown_lines(contents)
+      vim.api.nvim_command('set previewheight=4')
       vim.api.nvim_command('pedit +setlocal\\ buftype=nofile\\ bufhidden=wipe\\ noswapfile preview')
       vim.api.nvim_command('wincmd p')
       local buf = vim.api.nvim_get_current_buf()
       vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
       vim.bo[buf].filetype = 'markdown'
       vim.api.nvim_command('wincmd w')
+      vim.api.nvim_set_hl(0, 'LspReferenceTarget', {})
     end
   end,
 })
@@ -155,7 +154,27 @@ vim.lsp.config('gopls', {
   root_markers = { 'go.mod', 'go.work' },
   settings = { completeUnimported = true },
   on_attach = function(_, _)
-    vim.keymap.set('n', 'gxx', '"nyi\' :!xdg-open https://<C-R>n <CR>')
+    ---toggle filename between .ts and test.ts
+    ---@param mode? string
+    ---@return string
+    local function test(mode)
+      local ext = '.go'
+      local suffix = '_test'
+
+      local buffer = vim.api.nvim_buf_get_name(0)
+      local is_test = buffer:sub(- #'_test.go') == '_test.go'
+
+      if is_test and mode == 'ensure_test' then
+        return buffer
+      end
+
+      local filename = is_test
+          and string.gsub(buffer, "_test.go$", ".go")
+          or string.gsub(buffer, ".go$", "_test.go")
+
+      return filename
+    end
+    vim.keymap.set('n', '<leader>t', function() vim.cmd(string.format('vsplit %s', test())) end, { buffer = bufnr })
   end
 })
 
@@ -237,14 +256,14 @@ local typescript_language_server = {
   cmd = { 'bun', 'x', '--bun', '-p', '@vtsls/language-server', 'vtsls', '--stdio' }
 }
 
-if os.getenv('TYPESCRIPT_GO') == 'true'
+if os.getenv('NVIM_LSP_TSGO') == 'true'
 then
   typescript_language_server.name = 'tsgo'
   typescript_language_server.cmd = { vim.loop.os_homedir() .. '/src/typescript-go/built/local/tsgo', '--lsp', '--stdio' }
 else
 end
 
-vim.lsp.enable(typescript_language_server.name, not tsgo_enabled)
+vim.lsp.enable(typescript_language_server.name)
 vim.lsp.config(typescript_language_server.name, {
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
   cmd = typescript_language_server.cmd,
