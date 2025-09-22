@@ -145,6 +145,26 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end
 })
 
+---toggle filename between .ts and test.ts
+---@param suffix string non test suffix (e.g. .ts, .go)
+---@param test_suffix string test suffix (e.g. .test.ts, _test.go)
+---@param mode? string
+---@return string
+local function counterpart(suffix, test_suffix, mode)
+  local buffer = vim.api.nvim_buf_get_name(0)
+  local is_test_in_buffer = buffer:sub(- #test_suffix) == test_suffix
+
+  if is_test_in_buffer and mode == 'ensure_test' then
+    return buffer
+  end
+
+  local filename = is_test_in_buffer
+      and string.gsub(buffer, string.format("%s$", test_suffix), suffix)
+      or string.gsub(buffer, string.format("%s$", suffix), test_suffix)
+
+  return filename
+end
+
 vim.lsp.config('*', { root_markers = { '.git' } })
 
 vim.lsp.enable('gopls')
@@ -154,27 +174,11 @@ vim.lsp.config('gopls', {
   root_markers = { 'go.mod', 'go.work' },
   settings = { completeUnimported = true },
   on_attach = function(_, _)
-    ---toggle filename between .ts and test.ts
-    ---@param mode? string
-    ---@return string
-    local function test(mode)
-      local ext = '.go'
-      local suffix = '_test'
-
-      local buffer = vim.api.nvim_buf_get_name(0)
-      local is_test = buffer:sub(- #'_test.go') == '_test.go'
-
-      if is_test and mode == 'ensure_test' then
-        return buffer
-      end
-
-      local filename = is_test
-          and string.gsub(buffer, "_test.go$", ".go")
-          or string.gsub(buffer, ".go$", "_test.go")
-
-      return filename
-    end
-    vim.keymap.set('n', '<leader>t', function() vim.cmd(string.format('vsplit %s', test())) end, { buffer = bufnr })
+    vim.keymap.set('n', '<leader>t', function()
+      local filename = counterpart('.go', '_test.go')
+      local cmd = string.format('vsplit %s', filename)
+      vim.cmd(cmd)
+    end, { buffer = bufnr })
   end
 })
 
@@ -270,25 +274,11 @@ vim.lsp.config(typescript_language_server.name, {
   root_markers = { 'tsconfig.json', 'jsconfig.json' },
   workspace_required = true,
   on_attach = function(client, bufnr)
-    ---toggle filename between .ts and test.ts
-    ---@param mode? string
-    ---@return string
-    local function ts_test_ts(mode)
-      local buffer = vim.api.nvim_buf_get_name(0)
-      local is_test_ts = buffer:sub(- #'test.ts') == 'test.ts'
-
-      if is_test_ts and mode == 'ensure_test_ts' then
-        return buffer
-      end
-
-      local filename = is_test_ts
-          and string.gsub(buffer, ".test.ts$", ".ts")
-          or string.gsub(buffer, ".ts$", ".test.ts")
-
-      return filename
-    end
-
-    vim.keymap.set('n', '<leader>t', function() vim.cmd(string.format('vsplit %s', ts_test_ts())) end, { buffer = bufnr })
+    vim.keymap.set('n', '<leader>t', function()
+      local filename = counterpart('.ts', '.test.ts')
+      local cmd = string.format('vsplit %s', filename)
+      vim.cmd(cmd)
+    end, { buffer = bufnr })
 
     vim.keymap.set('n', '<leader>r',
       function()
