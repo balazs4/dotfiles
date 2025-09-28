@@ -247,3 +247,4 @@ vim.lsp.config(typescript_language_server.name, {
 
 vim.opt.runtimepath:append("~/.fzf")
 vim.keymap.set('n', '<leader><leader>', '<cmd>FZF<cr>')
+vim.opt.path:append('**')
