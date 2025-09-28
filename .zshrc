@@ -274,8 +274,6 @@ alias rm='rm -i'
 alias yolo='git add . && git commit -m "yolo" --no-verify && git push --no-verify || true'
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf --sync --reverse --height=25%"
 alias ssh='TERM=xterm-256color ssh'
-alias scpignore="scp -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
-alias sshignore="ssh -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
 alias gd='git diff'
 alias gst='git status'
 alias gco='git checkout'
@@ -286,9 +284,7 @@ alias gff="git ls-files"
 alias gtree='git ls-files | tree --fromfile'
 alias gmv='git ls-files | vidir - && git status'
 alias gpick='git log --oneline --color | fzf -m --ansi --preview "git show --color {1}" | awk "{print $1}"'
-alias shrug='curl -s http://shrug.io | xx'
 alias wipe='docker rm -f `docker ps -aq`'
-alias wipe-af='docker system prune -a -f'
 alias dco='docker compose'
 alias rg='rg --hidden'
 alias dmesg='sudo dmesg'
