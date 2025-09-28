@@ -28,11 +28,11 @@ vim.g.netrw_altv = 1
 
 vim.opt.grepprg = 'rg --vimgrep --hidden'
 
-vim.keymap.set('n', 'H', '^')
-vim.keymap.set('n', 'L', '$')
+if os.getenv('PWD') == string.format('%s/.files', os.getenv('HOME')) then
+  vim.keymap.set('n', '<leader><cr>', ':w | !make $HOME/%<CR>')
+end
+
 vim.keymap.set('n', '`', ':buffers<CR>:buffer ')
-vim.keymap.set('n', '<leader>`', ':bd<CR>')
-vim.keymap.set('n', '<leader><cr>', ':w | !make $HOME/%<CR>')
 vim.keymap.set('n', '<C-j>', ':cnext<CR>zz');
 vim.keymap.set('n', '<C-k>', ':cprevious<CR>zz');
 vim.keymap.set('n', '<leader>w', ':silent grep <cword>| copen <CR>')
@@ -40,18 +40,6 @@ vim.keymap.set('n', '<leader>W', ':silent grep <cWORD> | copen <CR>')
 vim.keymap.set('n', '<leader>q', ':silent grep <cword> %:.:h | copen <CR>')
 vim.keymap.set('v', '<C-y>,', ':!emmet<CR> | ==')
 vim.keymap.set('i', '<C-z>,', '<C-o>V :!emmet<CR> <C-o>==')
-
--- copied from https://yobibyte.github.io/vim.html
-vim.keymap.set("n", "<leader>c", function()
-  vim.ui.input({}, function(c)
-    if c and c ~= "" then
-      vim.cmd("noswapfile vnew")
-      vim.bo.buftype = "nofile"
-      vim.bo.bufhidden = "wipe"
-      vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.fn.systemlist(c))
-    end
-  end)
-end)
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
@@ -65,19 +53,16 @@ vim.keymap.set('n', '<leader>g', function()
   vim.cmd(cmd)
 end)
 
-vim.api.nvim_create_autocmd('Signal', {
-  callback = function(_)
-    vim.cmd(string.format("source $MYVIMRC"))
-  end
-})
+vim.api.nvim_create_autocmd('Signal', { callback = function(_) vim.cmd(string.format("source $MYVIMRC")) end })
 
 local function update_statusline(_)
   vim.opt.statusline = '%<%f %h%w%m%r%=%-14.(%l,%c%V%) %P' -- :help statusline
   for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
-    vim.opt.statusline:prepend(string.format('[%s] ', client.name));
+    local prefix = string.format('[%s] ', client.name)
+    ---@diagnostic disable-next-line
+    vim.opt.statusline:prepend(prefix);
   end
 end
-
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
@@ -94,22 +79,20 @@ vim.api.nvim_create_autocmd('LspAttach', {
       signs = false,
       underline = true,
       update_in_insert = false,
-      virtual_text = { spacing = 4, source = true },
+      virtual_text = { spacing = 4, source = true, severity = vim.diagnostic.severity.HINT }
     })
 
     vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
-    vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { buffer = args.buf })
     vim.keymap.set('n', '<leader>b', vim.diagnostic.setqflist, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { buffer = args.buf })
 
-    if client:supports_method('textDocument/documentColor')
-    then
+    if client:supports_method('textDocument/documentColor') then
       vim.lsp.document_color.enable(true, args.buf)
     end
   end,
 })
-
 
 vim.api.nvim_create_autocmd('LspDetach', { callback = function(_) update_statusline() end })
 vim.api.nvim_create_autocmd('BufEnter', { callback = function() update_statusline() end })
@@ -229,11 +212,9 @@ local typescript_language_server = {
   cmd = { 'bun', 'x', '--bun', '-p', '@vtsls/language-server', 'vtsls', '--stdio' }
 }
 
-if os.getenv('NVIM_LSP_TSGO') == 'true'
-then
+if os.getenv('NVIM_LSP_TSGO') == 'true' then
   typescript_language_server.name = 'tsgo'
   typescript_language_server.cmd = { vim.loop.os_homedir() .. '/src/typescript-go/built/local/tsgo', '--lsp', '--stdio' }
-else
 end
 
 vim.lsp.enable(typescript_language_server.name)
