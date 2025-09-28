@@ -6,7 +6,7 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.guicursor = 'i:block'
 vim.opt.termguicolors = true
-vim.opt.completeopt = 'menuone,noselect,popup'
+vim.opt.completeopt = 'fuzzy,menuone,noselect,popup'
 vim.opt.cursorline = false
 vim.opt.nu = true
 vim.opt.rnu = true
@@ -66,7 +66,7 @@ vim.keymap.set('n', '<leader>g', function()
 end)
 
 vim.api.nvim_create_autocmd('Signal', {
-  callback = function(args)
+  callback = function(_)
     vim.cmd(string.format("source $MYVIMRC"))
   end
 })
@@ -90,49 +90,29 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client == nil then return end
 
     vim.diagnostic.config({
-      update_in_insert = false,
+      severity_sort = true,
       signs = false,
-      underline = { severity = vim.diagnostic.severity.ERROR },
-      virtual_text = { severity = vim.diagnostic.severity.ERROR, spacing = 4, source = true },
-      severity_sort = true
+      underline = true,
+      update_in_insert = false,
+      virtual_text = { spacing = 4, source = true },
     })
+
+    vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 
     vim.keymap.set('n', '<leader>T', vim.diagnostic.open_float, { buffer = args.buf })
     vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format({ async = true }) end, { buffer = args.buf })
-    vim.keymap.set('n', '<leader>y', function() vim.lsp.buf.document_symbol({}) end, { buffer = args.buf })
-    vim.keymap.set('n', '<leader>Y', function() vim.lsp.buf.workspace_symbol('', {}) end, { buffer = args.buf })
-
-    vim.keymap.set('n', '<leader>d', function()
-      vim.cmd('vsplit')
-      vim.lsp.buf.definition()
-    end, { buffer = args.buf })
-
-    vim.keymap.set('n', '<leader>b', function()
-      vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
-    end, { buffer = args.buf })
-
-    vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+    vim.keymap.set('n', '<leader>b', vim.diagnostic.setqflist, { buffer = args.buf })
 
     if client:supports_method('textDocument/documentColor')
     then
       vim.lsp.document_color.enable(true, args.buf)
     end
-
   end,
 })
 
 
-vim.api.nvim_create_autocmd('LspDetach', {
-  callback = function(args)
-    update_statusline()
-  end
-})
-
-vim.api.nvim_create_autocmd('BufEnter', {
-  callback = function(args)
-    update_statusline()
-  end
-})
+vim.api.nvim_create_autocmd('LspDetach', { callback = function(_) update_statusline() end })
+vim.api.nvim_create_autocmd('BufEnter', { callback = function() update_statusline() end })
 
 ---toggle filename between .ts and test.ts
 ---@param suffix string non test suffix (e.g. .ts, .go)
@@ -162,7 +142,7 @@ vim.lsp.config('gopls', {
   filetypes = { 'go' },
   root_markers = { 'go.mod', 'go.work' },
   settings = { completeUnimported = true },
-  on_attach = function(_, _)
+  on_attach = function(_, bufnr)
     vim.keymap.set('n', '<leader>t', function()
       local filename = counterpart('.go', '_test.go')
       local cmd = string.format('vsplit %s', filename)
@@ -271,7 +251,7 @@ vim.lsp.config(typescript_language_server.name, {
 
     vim.keymap.set('n', '<leader>r',
       function()
-        local test_file = ts_test_ts('ensure_test_ts')
+        local test_file = counterpart('.ts', '.test.ts', 'ensure_test')
         local cmd = string.format(
           'while true; do LOG_LEVEL=info NPM_CONFIG_LOGLEVEL=error npm run test -- --verbose --forceExit %s; git ls-files | changing - && clear || break; done',
           test_file);
@@ -283,7 +263,6 @@ vim.lsp.config(typescript_language_server.name, {
     client.server_capabilities.documentRangeFormattingProvider = false
   end
 })
-
 
 vim.opt.runtimepath:append("~/.fzf")
 vim.keymap.set('n', '<leader><leader>', '<cmd>FZF<cr>')
