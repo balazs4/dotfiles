@@ -191,8 +191,7 @@ function _lua(){
 #mcbpro   os=darwin
   rm -rf $HOME/.lua/ 2>/dev/null
   mkdir -p $HOME/.lua/ 2>/dev/null
-  curl -Lis 'https://api.github.com/repos/LuaLS/lua-language-server/releases/latest?page=1&per_page=1' \
-    | stdsplit \
+  curl -D /dev/stderr -Lis 'https://api.github.com/repos/LuaLS/lua-language-server/releases/latest?page=1&per_page=1' \
     | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
     | grep -v sha \
     | fzf -q "${os:-linux}" -1 \
@@ -284,6 +283,7 @@ alias gff="git ls-files"
 alias gtree='git ls-files | tree --fromfile'
 alias gmv='git ls-files | vidir - && git status'
 alias gpick='git log --oneline --color | fzf -m --ansi --preview "git show --color {1}" | awk "{print $1}"'
+alias gconflict='git mergetool --tool=vimdiff'
 alias wipe='docker rm -f `docker ps -aq`'
 alias dco='docker compose'
 alias rg='rg --hidden'

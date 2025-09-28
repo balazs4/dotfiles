@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-node -e "
+bun -e "
   const [header, payload, signature] = '${1:-`cat`}'.split('.').map(x => Buffer.from(x, 'base64').toString());
   const jwt = {header: JSON.parse(header), payload: JSON.parse(payload)};
   process.stdout.write(JSON.stringify(jwt,null,2));

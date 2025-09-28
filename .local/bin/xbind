@@ -53,8 +53,7 @@ case "${1:-help}" in
 
     if [[ ! -f /tmp/$searchterm.png ]]
     then
-      curl -Lisk "https://api.deezer.com/search?strict=on&q=$searchterm" \
-        | stdsplit \
+      curl -D /dev/stderr -Lisk "https://api.deezer.com/search?strict=on&q=$searchterm" \
         | fx 'x => x.data.map(xx => xx.album.cover_medium).join("\n")' \
         | head -1 \
         | xargs -I{} curl -s {} -o /tmp/$searchterm.png

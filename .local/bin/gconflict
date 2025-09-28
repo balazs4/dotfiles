@@ -1,5 +1,0 @@
-#! /usr/bin/env bash
-
-pushd $(git rev-parse --show-toplevel)
-  git mergetool --tool=vimdiff $(git status --porcelain  | awk '/^UU/{print $NF}')
-popd
