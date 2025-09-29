@@ -22,7 +22,7 @@ setopt share_history
 #mcbpro export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 #mcbpro export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 #mcbpro export PATH="/Applications/SnowSQL.app/Contents/MacOS:$PATH"
-#mcbpro export DOCKER_HOST=unix://${HOME}/.colima/default/docker.sock
+#mcbpro export DOCKER_HOST=$(limactl list docker --format 'unix://{{.Dir}}/sock/docker.sock')
 #mcbpro function thinkdifferent() {
 #mcbpro   find /Applications -name '*.app' \
 #mcbpro     | fzf \
@@ -215,7 +215,7 @@ export PATH="$HOME/.deno/bin:${PATH}"
 export PATH="$HOME/.nvim/bin:${PATH}"
 export EDITOR=nvim
 export MANPAGER='nvim +Man!' #https://www.visualmode.dev/a-better-man-page-viewer
-#mcbpro export TYPESCRIPT_GO=1
+#mcbpro export NVIM_LSP_TSGO=1
 
 function _nvim(){
   is_up https://github.com || return 42
@@ -757,3 +757,5 @@ function bro(){
 }
 
 alias now='bun x vercel deploy --prod -t $VC_TOKEN --scope $USER-$VC_RND --yes --logs; v'
+
+#mcbpro eval "$(direnv hook zsh)"
