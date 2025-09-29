@@ -191,7 +191,7 @@ function _lua(){
 #mcbpro   os=darwin
   rm -rf $HOME/.lua/ 2>/dev/null
   mkdir -p $HOME/.lua/ 2>/dev/null
-  curl -D /dev/stderr -Lis 'https://api.github.com/repos/LuaLS/lua-language-server/releases/latest?page=1&per_page=1' \
+  curl -D /dev/stderr -Ls 'https://api.github.com/repos/LuaLS/lua-language-server/releases/latest?page=1&per_page=1' \
     | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
     | grep -v sha \
     | fzf -q "${os:-linux}" -1 \
