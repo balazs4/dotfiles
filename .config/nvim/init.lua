@@ -212,7 +212,7 @@ local typescript_language_server = {
   cmd = { 'bun', 'x', '--bun', '-p', '@vtsls/language-server', 'vtsls', '--stdio' }
 }
 
-if os.getenv('NVIM_LSP_TSGO') == 'true' then
+if os.getenv('NVIM_LSP_TSGO') == '1' then
   typescript_language_server.name = 'tsgo'
   typescript_language_server.cmd = { vim.loop.os_homedir() .. '/src/typescript-go/built/local/tsgo', '--lsp', '--stdio' }
 end
