@@ -326,9 +326,9 @@ function radio(){
     tmux rename-window -t:$target radio
   }
   term=$(echo $* | tr ' ' '+')
-  curl http://opml.radiotime.com/Search.ashx\?query\=$term -s \
-    | fxparser \
-    | fx 'xx => xx.opml.body.outline.filter(x => x["@_item"] === "station").map(x=>[ x["@_URL"], x["@_reliability"], x["@_text"], x["@_subtext"] ].join("\t")).join("\n")' \
+  curl "http://opml.radiotime.com/Search.ashx?query=$term" -s \
+    | xq -j \
+    | fx 'x => x.opml.body.outline.filter(xx => xx["@type"] === "audio" && xx["@item"] === "station").map(xx => [xx["@URL"], xx["@text"], xx["@playing"] || xx["@subtext"]].join("\t")).join("\n")' \
     | fzf --sync --reverse --height=50% \
     | cut -f1 \
     | mpv ${MPV} --playlist=-
@@ -455,47 +455,50 @@ function yt(){
 
   echo ${*:-$(cat -)} \
     | tr ' ' '+' \
-    | xargs -t -I{} curl -Lfs -H "accept-language: ${LNG:-en}" https://www.youtube.com/results\?search_query={} \
+    | xargs -t -I{} curl -Lfs -H "accept-language: ${LNG:-en}" "https://www.youtube.com/results?search_query={}" \
     | pup 'script:contains("var ytInitialData") text{}' \
     | sed 's/var ytInitialData = //g; s/};/}/' \
     | bun -e '
-      (async() => {
-        const lines = [];
-        for await (const line of require("node:readline").createInterface(process.stdin)) {
-          lines.push(line);
-        }
-        const yt = JSON.parse(lines.join("\n"));
+      const lines = [];
+      for await (const line of require("node:readline").createInterface(process.stdin)) {
+        lines.push(line);
+      }
+      const yt = JSON.parse(lines.join("\n"));
 
-        for (const x of yt.contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents) {
-          if (!x) continue;
-          if (!x.itemSectionRenderer) continue;
-          if (!x.itemSectionRenderer.contents) continue;
+      for (const x of yt.contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents) {
+        if (!x) continue;
+        if (!x.itemSectionRenderer) continue;
+        if (!x.itemSectionRenderer.contents) continue;
 
-          for (const xx of x.itemSectionRenderer.contents){
-            if (!xx) continue;
-            if (!xx.videoRenderer) continue;
-            const video = [
-              xx.videoRenderer.thumbnail?.thumbnails[0].url,
-              "https://youtu.be/" + xx.videoRenderer.videoId,
-              xx.videoRenderer.title?.accessibility?.accessibilityData?.label || "no title",
-              xx.videoRenderer.publishedTimeText?.simpleText || "no publish date"
-            ].join("\t")
-            require("node:process").stdout.write(video + "\n")
-          }
+        for (const xx of x.itemSectionRenderer.contents){
+          if (!xx) continue;
+          if (!xx.videoRenderer) continue;
+          const video = [
+            xx.videoRenderer.thumbnail?.thumbnails[0].url,
+            "https://youtu.be/" + xx.videoRenderer.videoId,
+            xx.videoRenderer.title?.accessibility?.accessibilityData?.label || "no title",
+            xx.videoRenderer.publishedTimeText?.simpleText || "no publish date"
+          ].join("\t")
+          require("node:process").stdout.write(video + "\n")
         }
-      })();' \
+      }' \
     | fzf --sync --height=50% --with-nth=3.. --delimiter="\t" --preview-window 'right,40%' --preview='wget {1} -O- 2>/dev/null | chafa --scale 2.0 -' \
-    | ssh $REMOTE 'tee -a $HOME/.yt_history' \
     | cut -f2 \
     | xargs -t mpv ${MPV:---ytdl-raw-options=format-sort='res:1080'}
 }
 alias yta="MPV='--ytdl-raw-options=format=bestaudio' yt"
 
-function yt_history() {
-  ssh $REMOTE 'cat $HOME/.yt_history' \
-    | fzf --sync --height=50% --preview-window 'right,40%' \
-    | awk '{print $1}' \
-    | xargs -t mpv ${MPV:---ytdl-raw-options=format-sort='res:1080'}
+function yt_rss() {
+  curl "https://www.youtube.com/@${1}" \
+    | xq -q 'link[rel="alternate"][type="application/rss+xml"]' -a "href" \
+    | xargs curl \
+    | xq -j \
+    | fx 'x => x.feed.entry.map(xx => [xx.group.thumbnail["@url"], xx.link["@href"], xx.published, x.feed.title, xx.title].join("\t") ).join("\n")' \
+    | grep -v "shorts" \
+    | sort -r -k2 \
+    | fzf --reverse --sync --height=50% --with-nth=2.. --delimiter="\t" --preview-window 'right,40%' --preview='wget {1} -O- 2>/dev/null | chafa --scale 2.0 -' \
+    | cut -f2 \
+    | xargs -t mpv ${MPV:---ytdl-raw-options=format-sort='res:720'}
 }
 
 #carbon function qrdecode {
@@ -504,8 +507,10 @@ function yt_history() {
 
 function archnews(){
   curl -s https://archlinux.org/feeds/news/ \
-    | fxparser \
-    | fx 'x => x.rss.channel.item.map(xx => [`\x1b[2m${xx.link}\x1b[0m`, new Date(xx.pubDate).toJSON() + ` >> \x1b[1m${xx.title}\x1b[0m`, " "].join("\n")).join("\n")'
+    | xq -j \
+    | fx 'x => x.rss.channel.item.map(xx => [xx.link, new Date(xx.pubDate).toJSON(), xx.title].join("\t")).join("\n")' \
+    | sort -r -k2 \
+    | fzf --reverse --no-sort --sync --with-nth=2.. --preview-window 'right' --preview='wget {1} -O- 2>/dev/null | w3m -dump -T text/html'
 }
 
 #carbon function edp(){
@@ -759,3 +764,4 @@ function bro(){
 alias now='bun x vercel deploy --prod -t $VC_TOKEN --scope $USER-$VC_RND --yes --logs; v'
 
 #mcbpro eval "$(direnv hook zsh)"
+
