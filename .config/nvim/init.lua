@@ -1,45 +1,45 @@
 --carbon vim.cmd('colorscheme base16')
 --mcbpro vim.cmd('colorscheme base16')
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.guicursor = 'i:block'
-vim.opt.termguicolors = true
+
+
+vim.opt.backup = false
+vim.opt.cmdheight = 1
 vim.opt.completeopt = 'fuzzy,menuone,noselect,popup'
 vim.opt.cursorline = false
-vim.opt.nu = true
-vim.opt.rnu = true
+vim.opt.cursorline = true
+vim.opt.expandtab = true
+vim.opt.grepprg = 'rg --vimgrep --hidden'
+vim.opt.guicursor = 'i:block'
 vim.opt.list = true
 vim.opt.listchars = "tab:  ,trail:·,eol: ,nbsp:_"
-vim.opt.cmdheight = 1
-vim.opt.cursorline = true
-vim.opt.undofile = false
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.writebackup = false
+vim.opt.nu = true
+vim.opt.path:append('**')
+vim.opt.rnu = true
+vim.opt.runtimepath:append("~/.fzf")
+vim.opt.shiftwidth = 2
 vim.opt.showcmd = false
-vim.opt.wrap = false
+vim.opt.softtabstop = 2
+vim.opt.swapfile = false
+vim.opt.tabstop = 2
+vim.opt.termguicolors = true
+vim.opt.undofile = false
 vim.opt.winborder = 'rounded'
+vim.opt.wrap = false
+vim.opt.writebackup = false
 
-vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3
-vim.g.netrw_altv = 1
-
-vim.opt.grepprg = 'rg --vimgrep --hidden'
+vim.keymap.set('i', '<C-z>,', '<C-o>V :!emmet<CR> <C-o>==')
+vim.keymap.set('n', '<C-j>', ':cnext<CR>zz');
+vim.keymap.set('n', '<C-k>', ':cprevious<CR>zz');
+vim.keymap.set('n', '<leader><leader>', '<cmd>FZF<cr>')
+vim.keymap.set('n', '<leader>W', ':silent grep <cWORD> | copen <CR>')
+vim.keymap.set('n', '<leader>q', ':silent grep <cword> %:.:h | copen <CR>')
+vim.keymap.set('n', '<leader>w', ':silent grep <cword>| copen <CR>')
+vim.keymap.set('n', '`', ':buffers<CR>:buffer ')
+vim.keymap.set('v', '<C-y>,', ':!emmet<CR> | ==')
 
 if os.getenv('PWD') == string.format('%s/.files', os.getenv('HOME')) then
   vim.keymap.set('n', '<leader><cr>', ':w | !make $HOME/%<CR>')
 end
-
-vim.keymap.set('n', '`', ':buffers<CR>:buffer ')
-vim.keymap.set('n', '<C-j>', ':cnext<CR>zz');
-vim.keymap.set('n', '<C-k>', ':cprevious<CR>zz');
-vim.keymap.set('n', '<leader>w', ':silent grep <cword>| copen <CR>')
-vim.keymap.set('n', '<leader>W', ':silent grep <cWORD> | copen <CR>')
-vim.keymap.set('n', '<leader>q', ':silent grep <cword> %:.:h | copen <CR>')
-vim.keymap.set('v', '<C-y>,', ':!emmet<CR> | ==')
-vim.keymap.set('i', '<C-z>,', '<C-o>V :!emmet<CR> <C-o>==')
 
 vim.keymap.set('n', '<leader>g', function()
   local git_root_dir = vim.fs.root(0, '.git')
@@ -52,6 +52,11 @@ vim.keymap.set('n', '<leader>g', function()
 
   vim.cmd(cmd)
 end)
+
+
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
+vim.g.netrw_altv = 1
 
 vim.api.nvim_create_autocmd('Signal', { callback = function(_) vim.cmd(string.format("source $MYVIMRC")) end })
 
@@ -67,19 +72,24 @@ end
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     update_statusline() -- see LspDetach, BufEnter
+    vim.opt.signcolumn = 'yes:1'
 
     vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(vim.lsp.get_clients())) end, {})
-    vim.api.nvim_create_user_command("LspStop", function() vim.lsp.stop_client(vim.lsp.get_clients(), true) end, {})
+    vim.api.nvim_create_user_command("LspStop", function()
+      vim.lsp.stop_client(vim.lsp.get_clients(), true)
+      update_statusline()
+      vim.opt.signcolumn = 'no'
+    end, {})
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then return end
 
     vim.diagnostic.config({
       severity_sort = true,
-      signs = false,
+      signs = true,
       underline = true,
       update_in_insert = false,
-      virtual_text = { spacing = 4, source = true, severity = vim.diagnostic.severity.HINT }
+      virtual_text = { spacing = 4, source = true }
     })
 
     vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
@@ -94,8 +104,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-vim.api.nvim_create_autocmd('LspDetach', { callback = function(_) update_statusline() end })
 vim.api.nvim_create_autocmd('BufEnter', { callback = function() update_statusline() end })
+vim.api.nvim_create_autocmd('LspDetach', { callback = function() update_statusline() end })
 
 ---toggle filename between .ts and test.ts
 ---@param suffix string non test suffix (e.g. .ts, .go)
@@ -244,7 +254,3 @@ vim.lsp.config(typescript_language_server.name, {
     client.server_capabilities.documentRangeFormattingProvider = false
   end
 })
-
-vim.opt.runtimepath:append("~/.fzf")
-vim.keymap.set('n', '<leader><leader>', '<cmd>FZF<cr>')
-vim.opt.path:append('**')
