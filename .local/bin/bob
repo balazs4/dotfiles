@@ -1,0 +1,12 @@
+#!/usr/bin/awk -f
+BEGIN { srand() }
+{
+    n = split($0, a, //)
+    for (i=1; i<=n; i++) {
+        c=a[i]
+        printf("%c", rand() < 0.5 ? toupper(c) : tolower(c))
+    }
+    print ""
+}
+
+# credits: https://blog.thechases.com/posts/cli/cli-tricks-spongebob-sarcasm-in-awk/
