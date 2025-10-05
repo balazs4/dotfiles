@@ -510,7 +510,7 @@ function archnews(){
     | xq -j \
     | fx 'x => x.rss.channel.item.map(xx => [xx.link, new Date(xx.pubDate).toJSON(), xx.title].join("\t")).join("\n")' \
     | sort -r -k2 \
-    | fzf --reverse --no-sort --sync --with-nth=2.. --preview-window 'right' --preview='wget {1} -O- 2>/dev/null | w3m -dump -T text/html'
+    | fzf --reverse --no-sort --sync --with-nth=2.. --preview-window 'right' --preview='wget {1} -O- 2>/dev/null | xq -q "div#content" -n | w3m -dump -T text/html'
 }
 
 #carbon function edp(){
