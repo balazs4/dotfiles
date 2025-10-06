@@ -335,10 +335,11 @@ function radio(){
 }
 
 function dw(){
-  local url="https://de.wiktionary.org/wiki/$1"
-  local content=`curl -s "$url"`
-  echo "$content" | pup 'table.wikitable' | w3m -dump -T text/html | sed '/^$/d'
-  echo "$content" | pup 'table[title~="andere Sprachen"]' | w3m -dump -T text/html | sort | uniq | awk '/Englisch/ {print $0;} /Ungarisch/{print $0;}' | sed '/^$/d'
+  url="https://de.wiktionary.org/wiki/$1"
+  content=$(curl -s "$url")
+  echo "$content" | pup 'table.wikitable' | w3m -dump -T text/html
+  echo "$content" | pup 'table[title~="andere Sprachen"]'   | w3m -dump -T text/html | sort | uniq | awk '/Englisch|Ungarisch/ {print $0;}'
+  echo "$content" | pup 'table[title~="Deutsche Dialekte"]' | w3m -dump -T text/html | sort | uniq | awk '/Bairisch|Berlinisch|Fränkisch/ {print $0;}'
   echo $url
 }
 
@@ -488,16 +489,10 @@ function yt(){
 }
 alias yta="MPV='--ytdl-raw-options=format=bestaudio' yt"
 
-function yt_rss() {
-  curl "https://www.youtube.com/@${1}" \
-    | xq -q 'link[rel="alternate"][type="application/rss+xml"]' -a "href" \
-    | xargs curl \
-    | xq -j \
-    | fx 'x => x.feed.entry.map(xx => [xx.group.thumbnail["@url"], xx.link["@href"], xx.published, x.feed.title, xx.title].join("\t") ).join("\n")' \
-    | grep -v "shorts" \
-    | sort -r -k2 \
-    | fzf --reverse --sync --height=50% --with-nth=2.. --delimiter="\t" --preview-window 'right,40%' --preview='wget {1} -O- 2>/dev/null | chafa --scale 2.0 -' \
-    | cut -f2 \
+function yt_play() {
+  cat - \
+    | fzf --no-sort --reverse --sync --height=50% \
+    | cut -f1 \
     | xargs -t mpv ${MPV:---ytdl-raw-options=format-sort='res:720'}
 }
 
