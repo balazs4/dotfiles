@@ -1,0 +1,3 @@
+audio/*; /usr/bin/mpv %s
+image/*; /usr/bin/feh %s
+application/pdf; /usr/bin/google-chrome-stable %s
