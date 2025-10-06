@@ -12,7 +12,4 @@ mailcap = [
 ]
 
 [page]
-':' = 'cmd.pager.enterCommand'
 C-k = '() => pager.load("ddg:")'
-o = '() => pager.load("ddg:")'
-yy = 'cmd.pager.copyURL'
