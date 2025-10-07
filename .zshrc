@@ -516,7 +516,7 @@ function archnews(){
     | xq -j \
     | fx 'x => x.rss.channel.item.map(xx => [xx.link, new Date(xx.pubDate).toJSON(), xx.title].join("\t")).join("\n")' \
     | sort -r -k2 \
-    | fzf --reverse --no-sort --sync --with-nth=2.. --preview-window 'right' --preview='rdrview {1} -H | w3m -dump -T text/html'
+    | fzf --reverse --no-sort --sync --with-nth=2.. --preview-window 'right' --preview='bro {1} -'
 }
 
 #carbon function edp(){
@@ -750,7 +750,7 @@ function news() {
       grep -v youtube $feeds \
         | feed 2>/dev/null \
         | sort -k2 -r \
-        | fzf --sync --reverse --no-sort --with-nth=2.. --preview 'rdrview {1} -H | cha -d -M -T text/html -' --bind 'ctrl-t:execute(echo {} | xurls | xargs cha -M)'
+        | fzf --sync --reverse --no-sort --with-nth=2.. --preview 'bro {1}' --bind 'ctrl-t:execute(echo {} | xurls | xargs cha -M)'
       ;;
 
     youtube)
@@ -762,8 +762,4 @@ function news() {
         | xargs -t mpv --ytdl-raw-options=format-sort='res:720'
       ;;
   esac
-}
-
-function bro(){
-  rdrview -H $1 | cha -M -T text/html
 }

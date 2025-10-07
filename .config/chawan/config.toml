@@ -13,3 +13,5 @@ mailcap = [
 
 [page]
 C-k = '() => pager.load("ddg:")'
+' f' = "pager.externFilterSource('fmt')"
+' r' = "pager.externFilterSource('rdrview -Hu \"$CHA_URL\"')"

@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+rdrview -T url,title,body -H $1 \
+| cha -M -T text/html
