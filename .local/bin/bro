@@ -1,4 +1,4 @@
 #! /usr/bin/env bash
 
 rdrview -T url,title,body -H $1 \
-| cha -M -T text/html
+  | cha -T text/html --opt 'buffer.styling=false' --opt 'display.color-mode=ansi'

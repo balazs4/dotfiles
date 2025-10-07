@@ -511,14 +511,6 @@ function yt_play() {
 #carbon   shotgun $(hacksaw -f '-i %i -g %g') - | zbarimg -q --raw -
 #carbon }
 
-function archnews(){
-  curl -s https://archlinux.org/feeds/news/ \
-    | xq -j \
-    | fx 'x => x.rss.channel.item.map(xx => [xx.link, new Date(xx.pubDate).toJSON(), xx.title].join("\t")).join("\n")' \
-    | sort -r -k2 \
-    | fzf --reverse --no-sort --sync --with-nth=2.. --preview-window 'right' --preview='bro {1} -'
-}
-
 #carbon function edp(){
 #carbon   xrandr \
 #carbon     --output DP1    --off \
@@ -744,13 +736,14 @@ alias now='bun x vercel deploy --prod -t $VC_TOKEN --scope $USER-$VC_RND --yes -
 #mcbpro eval "$(direnv hook zsh)"
 
 function news() {
-  feeds=$HOME/feeds
+  feeds=$HOME/.newsboat/urls
+
   case ${1:?first arg must be read|youtube} in
     read)
       grep -v youtube $feeds \
         | feed 2>/dev/null \
         | sort -k2 -r \
-        | fzf --sync --reverse --no-sort --with-nth=2.. --preview 'bro {1}' --bind 'ctrl-t:execute(echo {} | xurls | xargs cha -M)'
+        | fzf -q "'$(date +'%Y-%m-%d')" --sync --reverse --no-sort --with-nth=2.. --preview 'bro {1}' --bind 'ctrl-t:execute(echo {} | xurls | xargs cha)'
       ;;
 
     youtube)
