@@ -739,15 +739,9 @@ function _opencode(){
   opencode --version
 }
 
-function bro(){
- curl -D /dev/stderr -LsSf "$1" \
-   | w3m -dump -T text/html
-}
-
 alias now='bun x vercel deploy --prod -t $VC_TOKEN --scope $USER-$VC_RND --yes --logs; v'
 
 #mcbpro eval "$(direnv hook zsh)"
-
 
 function news() {
   feeds=$HOME/feeds
@@ -768,4 +762,8 @@ function news() {
         | xargs -t mpv --ytdl-raw-options=format-sort='res:720'
       ;;
   esac
+}
+
+function bro(){
+  rdrview -H $1 | cha -M -T text/html
 }
