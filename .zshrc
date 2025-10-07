@@ -236,6 +236,10 @@ function _nvim(){
 #mcbpro #curl https://ziglang.org/download/0.13.0/zig-macos-aarch64-0.13.0.tar.xz | tar xv -J -C $HOME/.zig --strip-components=1
 export PATH="$HOME/.zig:${PATH}"
 
+# nim
+export PATH="$HOME/.nimble/bin:$PATH"
+
+
 #emmet
 #carbon #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-x86_64-linux.tar.gz -L   | tar xvz -C $HOME/.local/bin
 #mcbpro #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-aarch64-darwin.tar.gz -L | tar xvz -C $HOME/.local/bin

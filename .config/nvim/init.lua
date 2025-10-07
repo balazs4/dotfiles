@@ -181,6 +181,12 @@ vim.lsp.config('yaml-language-server', {
   filetypes = { 'yaml' },
 })
 
+vim.lsp.enable('nimlangserver');
+vim.lsp.config('nimlangserver', {
+  cmd = { 'nimlangserver' },
+  filetypes = { 'nim' },
+})
+
 vim.lsp.enable('lua-language-server')
 vim.lsp.config('lua-language-server', {
   cmd = { 'lua-language-server' },
