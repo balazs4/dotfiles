@@ -305,9 +305,19 @@ alias cal='LC_ALL=de_DE.utf8 cal'
 #mcbpro alias sed='gsed'
 #mcbpro alias xargs='gxargs'
 alias less='less -r'
-#carbon alias xx='xclip -rmlastnl -selection clipboard'
-#mcbpro alias xx='pbcopy'
 
+function yy(){
+#carbon xclip -rmlastnl -selection clipboard
+#mcbpro pbcopy
+}
+
+function pp(){
+  filename=screenshot_$(date +'%FT%T').png
+#carbon  xclip -selection clipboard -o -T image/png > $filename
+  printf "%s/%s\n" $PWD $filename
+}
+# muscle memory
+alias xx=yy
 
 function srdrop(){
   if test "${1:-nothing}" = "reload"

@@ -19,3 +19,12 @@ mailcap = [
 C-k = "() => pager.load('ddg:')"
 ' f' = "pager.externFilterSource('fmt')"
 ' r' = "pager.externFilterSource('rdrview -Hu \"$CHA_URL\"')"
+
+[[siteconf]]
+url = '^https://hup.hu/.*'
+styling = false
+
+[[siteconf]]
+url = '^https://news.ycombinator.com/.*'
+styling = true
+color-mode = "true-color"
