@@ -530,7 +530,6 @@ function gb(){
   git branch -a \
     | grep -v HEAD \
     | fzf -1 -q "'${*} " \
-    | sed 's|remotes/origin/||g;s|^*||g' \
     | xargs -t git checkout
 }
 
@@ -555,13 +554,8 @@ alias stars="xdg-open 'https://github.com/$USER?tab=stars'"
 #carbon alias xb='xbacklight -set'
 
 function mode() {
-#mcbpro  m=$(test $1 == "light" && echo "false" || echo "true")
-#mcbpro  osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = ${m}" > /dev/null
+#mcbpro  osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = $(test $1 == "light" && echo "false" || echo "true")" > /dev/null
   make -B -f $HOME/.files/makefile .colors_args="${1}"
-}
-
-function parrot(){
-  curl --max-time ${1:-3} parrot.live 2>/dev/null
 }
 
 function a(){
@@ -617,26 +611,13 @@ export BUILDKIT_PROGRESS=plain
 #carbon   done
 #carbon }
 
-#carbon function thres() {
-#carbon   printf "%d" 80 | tee /dev/stderr | sudo tee /sys/class/power_supply/BAT0/charge_control_end_threshold
-#carbon }
-
 function focus(){
   mpv --no-video https://youtu.be/GUu8GW6H5Dw
 }
 
-#mcbpro function colima_start(){
-#mcbpro   # TODO: $HOME/.colima/default/colima.yaml
-#mcbpro   colima start --cpu 10 --memory 8 --disk 128 --arch aarch64 --vm-type=vz --vz-rosetta  --network-address
-#mcbpro }
-
 function re(){
   nvim $(git diff --name-only main)
 }
-
-#mcbpro function duration(){
-#mcbpro   datediff $(cat $1 | head -1 | awk '{print $1}') $(cat $1 | tail -1 | awk '{print $1}')
-#mcbpro }
 
 #https://mac-key-repeat.zaymon.dev/
 #mcbpro defaults write -g InitialKeyRepeat -int 12
@@ -728,13 +709,9 @@ function origin() {
     && git push
 }
 
-
 function note() {
-  pushd $HOME/src/notes/
-  make note tidy push
-  popd
+  pushd $HOME/src/notes/; make; popd
 }
-
 
 export PATH="$HOME/.opencode/bin/:${PATH}"
 function _opencode(){
@@ -764,3 +741,24 @@ alias now='bun x vercel deploy --prod -t $VC_TOKEN --scope $USER-$VC_RND --yes -
 
 #mcbpro eval "$(direnv hook zsh)"
 
+
+function news() {
+  feeds=$HOME/feeds
+  case ${1:?first arg must be read|youtube} in
+    read)
+      grep -v youtube $feeds \
+        | feed 2>/dev/null \
+        | sort -k2 -r \
+        | fzf --sync --reverse --no-sort --with-nth=2.. --preview 'rdrview {1} -H | cha -d -M -T text/html -' --bind 'ctrl-t:execute(echo {} | xurls | xargs cha -M)'
+      ;;
+
+    youtube)
+      grep youtube $feeds \
+        | feed 2>/dev/null \
+        | sort -k2 -r \
+        | fzf -m --sync --reverse --no-sort --with-nth=2.. \
+        | cut -f1 \
+        | xargs -t mpv --ytdl-raw-options=format-sort='res:720'
+      ;;
+  esac
+}
