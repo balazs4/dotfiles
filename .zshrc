@@ -231,7 +231,9 @@ function _nvim(){
 }
 
 function lsp(){
+  set -x
   tail -f $HOME/.local/state/nvim/lsp.log
+  set +x
 }
 
 #carbon #curl https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz  | tar xv -J -C $HOME/.zig --strip-components=1
