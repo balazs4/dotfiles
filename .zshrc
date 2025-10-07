@@ -199,7 +199,10 @@ function _lua(){
   lua-language-server --version
 }
 
+
 #bun
+#carbon # curl -L https://github.com/oven-sh/bun/releases/download/bun-v1.2.23/bun-linux-x64.zip       | bsdtar xzv --strip-components=1 -C $HOME/.bun/bin/
+#mcbpro # curl -L https://github.com/oven-sh/bun/releases/download/bun-v1.2.23/bun-darwin-aarch64.zip  | bsdtar xzv --strip-components=1 -C $HOME/.bun/bin/
 export PATH="$HOME/.bun/bin:${PATH}"
 export DO_NOT_TRACK=1
 
