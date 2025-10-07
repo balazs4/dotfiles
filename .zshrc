@@ -1,3 +1,4 @@
+set -o vi
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=10000
@@ -138,9 +139,6 @@ function _fzf(){
   fzf --version
 }
 
-# hurl
-export PATH=$HOME/src/hurl/target/release/:${PATH}
-
 # cni - containerd + rootless + nerdctl
 export CNI_PATH=$HOME/.cni
 function _cni(){
@@ -230,6 +228,10 @@ function _nvim(){
     | xargs curl -Lo - \
     | tar xz --strip-components=1 -C $HOME/.nvim
   nvim --version
+}
+
+function lsp(){
+  tail -f $HOME/.local/state/nvim/lsp.log
 }
 
 #carbon #curl https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz  | tar xv -J -C $HOME/.zig --strip-components=1
