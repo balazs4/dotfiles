@@ -751,15 +751,23 @@ function news() {
 
   case ${1:?first arg must be read|youtube} in
     read)
+      test $TMUX && {
+        local target=`tmux display-message -p '#I'`
+        tmux rename-window -t:$target "news:read"
+      }
       grep -v youtube $feeds \
-        | feed 2>/dev/null \
+        | feed \
         | sort -k2 -r \
         | fzf -q "'$(date +'%Y-%m-%d')" --sync --reverse --no-sort --with-nth=2.. --preview 'bro {1}' --bind 'ctrl-t:execute(echo {} | xurls | xargs cha)'
       ;;
 
     youtube)
+      test $TMUX && {
+        local target=`tmux display-message -p '#I'`
+        tmux rename-window -t:$target "news:youtube"
+      }
       grep youtube $feeds \
-        | feed 2>/dev/null \
+        | feed \
         | sort -k2 -r \
         | fzf -m --sync --reverse --no-sort --with-nth=2.. \
         | cut -f1 \
