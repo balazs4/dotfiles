@@ -27,3 +27,8 @@ styling = false
 [[siteconf]]
 url = '^https://news.ycombinator.com/.*'
 styling = true
+
+[[siteconf]]
+url = '^https://(www\.|[^old]\.)?reddit\.com/.*'
+rewrite-url = 'x => { x.host = "redlib.catsarch.com" }'
+
