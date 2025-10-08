@@ -758,7 +758,9 @@ function news() {
       grep -v youtube $feeds \
         | feed \
         | sort -k2 -r \
-        | fzf -q "'$(date +'%Y-%m-%d')" --sync --reverse --no-sort --with-nth=2.. --preview 'bro {1}' --bind 'ctrl-t:execute(echo {} | xurls | xargs cha)'
+        | fzf -q "'$(date +'%Y-%m-%d')" --sync --reverse --no-sort --with-nth=2.. \
+          --preview 'rdrview -T url,title,body -H {1} | cha -T text/html --opt "buffer.styling=false" --opt "display.color-mode=ansi"' \
+          --bind 'ctrl-t:execute(echo {} | xurls | xargs cha)'
       ;;
 
     youtube)
