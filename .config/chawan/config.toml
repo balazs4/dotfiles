@@ -27,4 +27,3 @@ styling = false
 [[siteconf]]
 url = '^https://news.ycombinator.com/.*'
 styling = true
-color-mode = "true-color"
