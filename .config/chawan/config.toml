@@ -6,7 +6,7 @@ styling = true
 
 [display]
 image-mode = "none"
-color-mode = "ansi"
+color-mode = "auto"
 
 [external]
 copy-cmd = "xclip -i -rmlastnl -selection clipboard"

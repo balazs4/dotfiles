@@ -166,13 +166,14 @@ else
   export TERM=xterm-256color
 fi
 
+export PATH=$HOME/.local/bin:${PATH}
 export LANG=en_US.UTF-8
 export TERMINAL=alacritty
-export BROWSER=xdg-open
+#mcbpro export BROWSER=open
 #carbon export BROWSER=qutebrowser
 export GPG_TTY=`tty`
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
-export PATH=$HOME/.local/bin:${PATH}
+export WWW_HOME="https://duckduckgo.com/lite"
 
 #node.js - https://github.com/tj/n
 export N_PREFIX=$HOME/.n/prefix
