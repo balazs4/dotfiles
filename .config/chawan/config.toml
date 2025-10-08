@@ -19,6 +19,7 @@ mailcap = [
 C-k = "() => pager.load('ddg:')"
 ' f' = "pager.externFilterSource('fmt')"
 ' r' = "pager.externFilterSource('rdrview -T url,title,body -Hu \"$CHA_URL\"')"
+o = "cmd.pager.loadEmpty"
 
 [[siteconf]]
 url = '^https://hup.hu/.*'
@@ -32,3 +33,6 @@ styling = true
 url = '^https://(www\.|[^old]\.)?reddit\.com/.*'
 rewrite-url = 'x => { x.host = "redlib.catsarch.com" }'
 
+[[siteconf]]
+url = '^https://x\.com/.*'
+rewrite-url = 'x => { x.host = "xcancel.com" }'
