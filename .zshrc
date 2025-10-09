@@ -756,7 +756,7 @@ function news() {
         tmux rename-window -t:$target "news:read"
       }
       grep -v youtube $feeds \
-        | feed \
+        | TIMEOUT=3000 feed \
         | sort -k2 -r \
         | fzf -q "'$(date +'%Y-%m-%d')" --sync --reverse --no-sort --with-nth=2.. \
           --preview 'rdrview -T url,title,body -H {1} | cha -T text/html --opt "buffer.styling=false" --opt "display.color-mode=ansi"' \
@@ -769,7 +769,7 @@ function news() {
         tmux rename-window -t:$target "news:youtube"
       }
       grep youtube $feeds \
-        | feed \
+        | TIMEOUT=1000 feed \
         | sort -k2 -r \
         | fzf -m --sync --reverse --no-sort --with-nth=2.. \
         | cut -f1 \

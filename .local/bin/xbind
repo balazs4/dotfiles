@@ -24,14 +24,11 @@ case "${1:-help}" in
     ;;
 
   "webapp")
-    webapp=$(printf '%s\n' "whatsapp" "microsoft" "google" "spotify" "bank" | dmenu -i -p webapp -sb "#{{base09-hex}}" -fn 'GeistMono-12')
+    webapp=$(printf '%s\n' "google" "bank" | dmenu -i -p webapp -sb "#{{base09-hex}}" -fn 'GeistMono-12')
 
     case "${webapp}" in
       "bank")      google-chrome-stable --user-data-dir=$HOME/.config/webapp/bank ;;
       "google")    google-chrome-stable --user-data-dir=$HOME/.config/webapp/google ;;
-      "microsoft") google-chrome-stable --user-data-dir=$HOME/.config/webapp/microsoft ;;
-      "spotify")   chromium --app=https://open.spotify.com ;;
-      "whatsapp")  qutebrowser ':quickmark-load whatsapp' ;;
     esac
     ;;
 

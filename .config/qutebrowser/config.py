@@ -67,8 +67,6 @@ c.tabs.favicons.show = 'never'
 c.tabs.show = 'switching'
 c.tabs.position = 'right'
 
-config.set('input.mode_override', 'passthrough', 'https://web.whatsapp.com');
-
 #mcbpro c.window.hide_decoration = False
 #mcbpro def thinkdifferent():
 #mcbpro     time.sleep(1)
