@@ -24,11 +24,12 @@ case "${1:-help}" in
     ;;
 
   "webapp")
-    webapp=$(printf '%s\n' "chromium" "google" "bank" | dmenu -i -p webapp -sb "#{{base09-hex}}" -fn 'GeistMono-12')
+    webapp=$(printf '%s\n' "whatsapp" "chromium" "google" "bank" | dmenu -i -p webapp -sb "#{{base09-hex}}" -fn 'GeistMono-12')
 
     case "${webapp}" in
       "bank")      google-chrome-stable --user-data-dir=$HOME/.config/webapp/bank ;;
       "google")    google-chrome-stable --user-data-dir=$HOME/.config/webapp/google ;;
+      "whatsapp")  google-chrome-stable --user-data-dir=$HOME/.config/webapp/google --app=https://web.whatsapp.com ;;
       "chromium")  chromium ;;
     esac
     ;;
