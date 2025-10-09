@@ -759,7 +759,7 @@ function news() {
         | TIMEOUT=3000 feed \
         | sort -k2 -r \
         | fzf -q "'$(date +'%Y-%m-%d')" --sync --reverse --no-sort --with-nth=2.. \
-          --preview 'rdrview -T url,title,body -H {1} | cha -T text/html --opt "buffer.styling=false" --opt "display.color-mode=ansi"' \
+          --preview 'rdrview -T url,title,body -H {1} | cha -d -T text/html --opt "buffer.styling=false" --opt "display.color-mode=ansi" --opt "buffer.mark-links=true"' \
           --bind 'ctrl-t:execute(cha {1})'
       ;;
 
