@@ -36,3 +36,7 @@ rewrite-url = 'x => { x.host = "redlib.catsarch.com" }'
 [[siteconf]]
 url = '^https://x\.com/.*'
 rewrite-url = 'x => { x.host = "xcancel.com" }'
+
+[[siteconf]]
+url = '^https://github.com/.*/blob/'
+rewrite-url = 'x => { x.search = "raw=true" }'
