@@ -1,5 +1,5 @@
 install:
-	@git ls-files | grep -v -E 'makefile|readme.md|.gitignore' | awk -v prefix=$(HOME) '{print prefix"/"$$0}' | xargs make --jobs 16
+	@git ls-files | grep -v -E 'makefile|readme.md|.gitignore' | awk -v prefix=$(HOME) '{print prefix"/"$$0}' | xargs $(MAKE) --jobs 16
 
 $(HOME)/%: % .colors .hostname
 	@mkdir -p $$(dirname $(@))
