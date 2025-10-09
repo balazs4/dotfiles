@@ -1,6 +1,6 @@
 install: targets:=$(shell git ls-files | grep -v -E 'makefile|readme.md|.gitignore' | awk -v prefix=$(HOME) '{print prefix"/"$$0}')
 install:
-	$(MAKE) --jobs 16 $(targets)
+	@$(MAKE) --jobs 16 $(targets)
 
 $(HOME)/%: %
 	@mkdir -p $$(dirname $(@))

@@ -749,25 +749,21 @@ alias now='bun x vercel deploy --prod -t $VC_TOKEN --scope $USER-$VC_RND --yes -
 function news() {
   feeds=$HOME/.newsboat/urls
 
+  test $TMUX && {
+    local target=`tmux display-message -p '#I'`
+      tmux rename-window -t:$target "feed"
+    }
   case ${1:?first arg must be read|youtube} in
     read)
-      test $TMUX && {
-        local target=`tmux display-message -p '#I'`
-        tmux rename-window -t:$target "news:read"
-      }
       grep -v youtube $feeds \
         | TIMEOUT=3000 feed \
         | sort -k2 -r \
         | fzf -q "'$(date +'%Y-%m-%d')" --sync --reverse --no-sort --with-nth=2.. \
           --preview 'rdrview -T url,title,body -H {1} | cha -T text/html --opt "buffer.styling=false" --opt "display.color-mode=ansi"' \
-          --bind 'ctrl-t:execute(echo {} | xurls | xargs cha)'
+          --bind 'ctrl-t:execute(cha {1})'
       ;;
 
     youtube)
-      test $TMUX && {
-        local target=`tmux display-message -p '#I'`
-        tmux rename-window -t:$target "news:youtube"
-      }
       grep youtube $feeds \
         | TIMEOUT=1000 feed \
         | sort -k2 -r \
