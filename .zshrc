@@ -644,6 +644,7 @@ function rfc(){
 function sp(){
   test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') spotify_player
   spotify_player ${*}
+  test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') zsh
 }
 
 alias spp='spotify_player playback play-pause'
