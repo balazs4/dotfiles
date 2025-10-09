@@ -774,3 +774,7 @@ function news() {
       ;;
   esac
 }
+
+function hn(){
+  rdrview -T url,title,body -H https://news.ycombinator.com | cha -T text/html
+}
