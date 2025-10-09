@@ -1,7 +1,8 @@
+install: targets:=$(shell git ls-files | grep -v -E 'makefile|readme.md|.gitignore' | awk -v prefix=$(HOME) '{print prefix"/"$$0}')
 install:
-	@git ls-files | grep -v -E 'makefile|readme.md|.gitignore' | awk -v prefix=$(HOME) '{print prefix"/"$$0}' | xargs $(MAKE) --jobs 16
+	$(MAKE) --jobs 16 $(targets)
 
-$(HOME)/%: % .colors .hostname
+$(HOME)/%: %
 	@mkdir -p $$(dirname $(@))
 	@cat $(<) \
 		| sed -r "s/^[--;#\/\"\!]+$$(cat .hostname) //g; /^#(carbon|mcbpro)/d; s/\{\{hostname\}\}/$$(cat .hostname)/g;" \
