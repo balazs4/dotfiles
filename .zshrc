@@ -57,6 +57,13 @@ function zsh-git() {
     | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|\[different\]|%B%F{red}! %f%b|g'
 }
 
+function chpwd(){
+  if test -z $TMUX; then return; fi
+  repo_name=$(git rev-parse --show-toplevel 2>/dev/null | xargs basename 2>/dev/null)
+  if test -z $repo_name; then return; fi
+  tmux rename-window -t:$(tmux display-message -p '#I') ${repo_name}
+}
+
 
 setopt PROMPT_SUBST
 function zle-line-init zle-keymap-select {
