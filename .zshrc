@@ -747,7 +747,7 @@ function news() {
     local target=`tmux display-message -p '#I'`
       tmux rename-window -t:$target "feed"
     }
-  case ${1:?first arg must be read|youtube} in
+  case ${1:-read} in
     read)
       grep -v youtube $feeds \
         | TIMEOUT=3000 feed \
