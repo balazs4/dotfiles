@@ -768,6 +768,5 @@ function news() {
   esac
 }
 
-function hn(){
-  rdrview -T url,title,body -H https://news.ycombinator.com | cha -T text/html
-}
+alias nue="bun x nuekit@2.0.0-beta.2"
+

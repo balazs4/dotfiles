@@ -18,6 +18,7 @@ vim.opt.rnu = true
 vim.opt.runtimepath:append("~/.fzf")
 vim.opt.shiftwidth = 2
 vim.opt.showcmd = false
+vim.opt.signcolumn = 'yes:1'
 vim.opt.softtabstop = 2
 vim.opt.swapfile = false
 vim.opt.tabstop = 2
@@ -72,7 +73,6 @@ end
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     update_statusline() -- see LspDetach, BufEnter
-    vim.opt.signcolumn = 'yes:1'
 
     vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(vim.lsp.get_clients())) end, {})
     vim.api.nvim_create_user_command("LspStop", function()
@@ -159,12 +159,6 @@ vim.lsp.enable('vscode-css-language-server');
 vim.lsp.config('vscode-css-language-server', {
   cmd = { 'bun', 'x', '--bun', '-p', 'vscode-langservers-extracted', 'vscode-css-language-server', '--stdio' },
   filetypes = { 'css' },
-})
-
-vim.lsp.enable('vscode-json-language-server');
-vim.lsp.config('vscode-json-language-server', {
-  cmd = { 'bun', 'x', '--bun', '-p', 'vscode-langservers-extracted', 'vscode-json-language-server', '--stdio' },
-  filetypes = { 'json' },
 })
 
 vim.lsp.enable('svelteserver')
