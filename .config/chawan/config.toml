@@ -1,25 +1,24 @@
 [buffer]
 cookie = false
 images = false
+meta-refresh = "always"
 scripting = false
 styling = true
 
 [display]
-image-mode = "none"
 color-mode = "auto"
+image-mode = "none"
 
 [external]
 copy-cmd = "xclip -i -rmlastnl -selection clipboard"
 paste-cmd = "xclip -o -selection clipboard"
-mailcap = [
-  "~/.config/chawan/mailcap"
-]
+mailcap = [ "~/.config/chawan/mailcap" ]
 
 [page]
-C-k = "() => pager.load('ddg:')"
+' d' = "pager.externFilterSource('reader \"$CHA_URL\" --raw')"
 ' f' = "pager.externFilterSource('fmt')"
 ' r' = "pager.externFilterSource('rdrview -T url,title,body -H \"$CHA_URL\"')"
-' d' = "pager.externFilterSource('reader \"$CHA_URL\" --raw')"
+C-k = "() => pager.load('ddg:')"
 o = "loadEmpty"
 
 [[siteconf]]

@@ -266,19 +266,17 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 export PATH="${DOTNET_ROOT}:${DOTNET_ROOT}/tools:${PATH}:"
 
-function makedotedit() {
+function dotedit() {
   pushd $HOME/.files 1>/dev/null
-  if test ${EDITOR}
-  then
-    $EDITOR ${1:--c ':FZF'}
-  fi
-  make -f $HOME/.files/makefile --silent
+  $EDITOR ${1:--c ':FZF'}
+  make -f $HOME/.files/makefile --silent ${1:-install}
   popd 1>/dev/null
 }
-alias makedot='EDITOR= makedotedit'
-alias tmuxrc='makedotedit .tmux.conf'
-alias zshrc='makedotedit .zshrc'
-alias nvimrc='makedotedit .config/nvim/init.lua'
+
+alias tmuxrc='dotedit .tmux.conf'
+alias zshrc='dotedit .zshrc'
+alias nvimrc='dotedit .config/nvim/init.lua'
+alias charc='dotedit .config/chawan/config.toml'
 
 alias so='vim $HOME/.zshenv; source $HOME/.zshenv'
 
