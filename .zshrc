@@ -364,18 +364,10 @@ function radio(){
 }
 
 function dw(){
-  url="https://de.wiktionary.org/wiki/$1"
-  content=$(curl -s "$url")
-  echo "$content" | pup 'table.wikitable' | w3m -dump -T text/html
-  echo "$content" | pup 'table[title~="andere Sprachen"]'   | w3m -dump -T text/html | sort | uniq | awk '/Englisch|Ungarisch/ {print $0;}'
-  echo "$content" | pup 'table[title~="Deutsche Dialekte"]' | w3m -dump -T text/html | sort | uniq | awk '/Bairisch|Berlinisch|Fränkisch/ {print $0;}'
-  echo $url
-}
-
-function wiki(){
-  url="https://en.wikipedia.org/wiki/`echo $* | sed 's/\s/+/g'`"
-  reader -o "$url" | glow -p -
-  >&2 echo $url
+  content=$(curl -s "https://de.wiktionary.org/wiki/$1" -w "%{stderr}%{url}\t%{http_code}\n")
+  echo "$content" | xq --node -q 'table.wikitable'                   | cha --dump -T text/html
+  echo "$content" | xq --node -q 'table[title~="andere Sprachen"]'   | cha --dump -T text/html | sort | uniq | awk '/Englisch|Ungarisch/            {print $0;}'
+  echo "$content" | xq --node -q 'table[title~="Deutsche Dialekte"]' | cha --dump -T text/html | sort | uniq | awk '/Bairisch|Berlinisch|Fränkisch/ {print $0;}'
 }
 
 function track(){
