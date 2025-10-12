@@ -658,12 +658,10 @@ alias spp='spotify_player playback play-pause'
 alias spn='spotify_player playback next'
 alias spz='source <(spotify_player generate zsh)'
 
-function qq() {
-  input=${*:-$(cat -)}
-  search_term=$(echo "${input}" | tr ' ' '+')
-  url="https://start.duckduckgo.com/lite/?q=${search_term}"
-  cha "$url"
+function ddg() {
+  cha "https://start.duckduckgo.com/lite/?q=${*:-$(cat -)}"
 }
+alias qq=ddg
 
 #mcbpro function dpl() {
 #mcbpro   input=${1:-`cat -`}
@@ -757,7 +755,7 @@ function news() {
           --bind 'ctrl-t:execute(cha {1})'
       ;;
 
-    youtube)
+    watch)
       grep youtube $feeds \
         | TIMEOUT=1000 feed \
         | sort -k2 -r \
