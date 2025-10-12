@@ -267,9 +267,10 @@ export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 export PATH="${DOTNET_ROOT}:${DOTNET_ROOT}/tools:${PATH}:"
 
 function dotedit() {
+  f=${1:?relative path to $HOME/.files is needed}
   pushd $HOME/.files 1>/dev/null
-  $EDITOR ${1:--c ':FZF'}
-  make -f $HOME/.files/makefile --silent ${1:-install}
+  $EDITOR ${f}
+  make $HOME/${f}
   popd 1>/dev/null
 }
 
@@ -362,10 +363,9 @@ function radio(){
 }
 
 function dw(){
-  content=$(curl -s "https://de.wiktionary.org/wiki/$1" -w "%{stderr}%{url}\t%{http_code}\n")
-  echo "$content" | xq --node -q 'table.wikitable'                   | cha --dump -T text/html
-  echo "$content" | xq --node -q 'table[title~="andere Sprachen"]'   | cha --dump -T text/html | sort | uniq | awk '/Englisch|Ungarisch/            {print $0;}'
-  echo "$content" | xq --node -q 'table[title~="Deutsche Dialekte"]' | cha --dump -T text/html | sort | uniq | awk '/Bairisch|Berlinisch|Fränkisch/ {print $0;}'
+  curl -s "https://de.wiktionary.org/wiki/$1" -w "%{stderr}%{url}\t%{http_code}\n" \
+    | xq --node -q 'table.wikitable' \
+    | cha --dump -T text/html
 }
 
 function track(){
