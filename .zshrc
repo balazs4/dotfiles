@@ -759,7 +759,7 @@ function news() {
 
     read)
       test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') 'news:read'
-      grep -v youtube $$HOME/.newsboat/urls \
+      grep -v youtube $HOME/.newsboat/urls \
         | TIMEOUT=3000 feed \
         | sort -k2 -r \
         | fzf -q "'$(date +'%Y-%m-%d')" --sync --reverse --no-sort --with-nth=2.. \
@@ -769,7 +769,7 @@ function news() {
 
     watch)
       test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') 'news:watch'
-      grep youtube $$HOME/.newsboat/urls \
+      grep youtube $HOME/.newsboat/urls \
         | TIMEOUT=1000 feed \
         | sort -k2 -r \
         | fzf -m --sync --reverse --no-sort --with-nth=2.. \
