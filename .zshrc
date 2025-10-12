@@ -748,15 +748,18 @@ alias now='bun x vercel deploy --prod -t $VC_TOKEN --scope $USER-$VC_RND --yes -
 #mcbpro eval "$(direnv hook zsh)"
 
 function news() {
-  feeds=$HOME/.newsboat/urls
-
-  test $TMUX && {
-    local target=`tmux display-message -p '#I'`
-      tmux rename-window -t:$target "feed"
-    }
   case ${1:-read} in
+    add|sub)
+      echo "${2:-$(cat -)}" \
+        | xurls \
+        | tee -a $HOME/.files/.newsboat/urls
+
+      sort $HOME/.files/.newsboat/urls -o $HOME/.files/.newsboat/urls
+      ;;
+
     read)
-      grep -v youtube $feeds \
+      test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') 'news:read'
+      grep -v youtube $$HOME/.newsboat/urls \
         | TIMEOUT=3000 feed \
         | sort -k2 -r \
         | fzf -q "'$(date +'%Y-%m-%d')" --sync --reverse --no-sort --with-nth=2.. \
@@ -765,7 +768,8 @@ function news() {
       ;;
 
     watch)
-      grep youtube $feeds \
+      test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') 'news:watch'
+      grep youtube $$HOME/.newsboat/urls \
         | TIMEOUT=1000 feed \
         | sort -k2 -r \
         | fzf -m --sync --reverse --no-sort --with-nth=2.. \
