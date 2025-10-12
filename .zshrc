@@ -661,7 +661,26 @@ alias spz='source <(spotify_player generate zsh)'
 function ddg() {
   cha "https://start.duckduckgo.com/lite/?q=${*:-$(cat -)}"
 }
-alias qq=ddg
+function qq() {
+   input=${*:-$(cat -)}
+   search_term=$(echo "${input}" | tr ' ' '+')
+   url="https://start.duckduckgo.com/lite/?q=${search_term}"
+
+   printf "%s\n" $url "https://start.duckduckgo.com/html/?q=${search_term}" "https://start.duckduckgo.com/?q=${search_term}"
+   curl -A "aun3Modeitoa9eequ2quooph7yoh4ohn" -D /dev/null -Ls "${url}" \
+     | sed "s|\(<span class='link-text'>\)|\1https://|g" \
+     | pup 'table' \
+     | w3m -dump -T text/html -cols $COLUMNS \
+     | awk '
+        /^[0-9]+\./      {print "\033[97;1m"$0"\033[0m";   next;}
+        /    https:\/\// {print "\033[93;1m"$0"\033[0m\n"; next;}
+        /\[Next Page /   {next;}
+        /^$/             {next;}
+        1                {print $0;}
+        ' \
+    | less
+}
+
 
 #mcbpro function dpl() {
 #mcbpro   input=${1:-`cat -`}
