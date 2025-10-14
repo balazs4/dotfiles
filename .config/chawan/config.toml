@@ -27,16 +27,8 @@ cookie = true
 share-cookie-jar = 'sr.ht'
 
 [[siteconf]]
-url = '^https://hup.hu/.*'
-styling = false
-
-[[siteconf]]
-url = '^https://news.ycombinator.com/.*'
-styling = true
-
-[[siteconf]]
 url = '^https://(www\.|[^old]\.)?reddit\.com/.*'
-rewrite-url = 'x => { x.host = "redlib.catsarch.com" }'
+rewrite-url = 'x => { x.host = "old.reddit.com" }'
 
 [[siteconf]]
 url = '^https://github.com/.*/blob/.*'

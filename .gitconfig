@@ -28,3 +28,5 @@
   path = ~/.gitconfig.gitlab.com
 [includeIf "hasconfig:remote.*.url:*codeberg.org*/**"]
   path = ~/.gitconfig.codeberg.org
+[includeIf "hasconfig:remote.*.url:ssh://git@git.sr.ht*/**"]
+  path = ~/.gitconfig.sr.ht

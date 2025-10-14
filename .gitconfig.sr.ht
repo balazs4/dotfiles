@@ -1,0 +1,5 @@
+[user]
+  email = code@balazs4.de
+
+[sendemail]
+  sendEmailCmd = "aerc -a code@balazs4.de -c compose -f %F -t %T -s %S"
