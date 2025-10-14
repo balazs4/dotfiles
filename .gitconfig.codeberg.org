@@ -1,2 +1,3 @@
+; vim: ft=gitconfig
 [user]
 	email = balazs4@noreply.codeberg.org
