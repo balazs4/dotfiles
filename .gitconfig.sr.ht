@@ -1,5 +1,10 @@
+; vim: ft=gitconfig
 [user]
   email = code@balazs4.de
 
 [sendemail]
-  sendEmailCmd = "aerc -a code@balazs4.de -c compose -f %F -t %T -s %S"
+  confirm = auto
+  smtpEncryption = tls
+  smtpUser = code@balazs4.de
+  smtpServer = mail.your-server.de
+  smtpServerPort = 587
