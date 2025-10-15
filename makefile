@@ -14,6 +14,7 @@ $(HOME)/%: %
 	@$(if $(filter $<, .aerospace.toml),               which aerospace      1>/dev/null 2>/dev/null && aerospace reload-config --no-gui                           || true)
 	@$(if $(filter $<, .xbindkeysrc),                  pgrep -a xbindkeys   1>/dev/null 2>/dev/null && pkill -SIGKILL xbindkeys && xbindkeys                      || true)
 	@$(if $(filter $<, .config/qutebrowser/config.py), pgrep -a qutebrowser 1>/dev/null 2>/dev/null && qutebrowser ':config-source' 2>/dev/null                   || true)
+	@$(if $(filter $<, .config/nvim/lsp/bun.lock),     bun install --cwd $(HOME)/.config/nvim/lsp/ --frozen-lockfile --ignore-scripts                             || true)
 	@printf 'made[.]: "%s" is now up to date.\n' $(@)
 
 .PHONY: sync

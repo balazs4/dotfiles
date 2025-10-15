@@ -157,21 +157,13 @@ vim.lsp.config('terraform-ls', {
 
 vim.lsp.enable('vscode-css-language-server');
 vim.lsp.config('vscode-css-language-server', {
-  cmd = { 'bun', 'x', '--bun', '-p', 'vscode-langservers-extracted', 'vscode-css-language-server', '--stdio' },
+  cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/node_modules/.bin/' .. 'vscode-css-language-server', '--stdio' },
   filetypes = { 'css' },
-})
-
-vim.lsp.enable('svelteserver')
-vim.lsp.config('svelteserver', {
-  cmd = { 'bun', 'x', '--bun', '-p', 'svelte-language-server', 'svelteserver', '--stdio' },
-  filetypes = { 'svelte' },
-  root_markers = { 'svelte.config.js' },
-  workspace_required = true
 })
 
 vim.lsp.enable('yaml-language-server');
 vim.lsp.config('yaml-language-server', {
-  cmd = { 'bun', 'x', '--bun', 'yaml-language-server', '--stdio' },
+  cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/node_modules/.bin/' .. 'yaml-language-server', '--stdio' },
   filetypes = { 'yaml' },
 })
 
@@ -219,7 +211,7 @@ vim.lsp.config('biome', {
 
 local typescript_language_server = {
   name = 'vtsls',
-  cmd = { 'bun', 'x', '--bun', '-p', '@vtsls/language-server', 'vtsls', '--stdio' }
+  cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/node_modules/.bin/' .. 'vtsls', '--stdio' }
 }
 
 if os.getenv('NVIM_LSP_TSGO') == '1' then
