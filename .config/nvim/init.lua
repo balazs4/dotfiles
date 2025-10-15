@@ -134,7 +134,7 @@ vim.lsp.config('gopls', {
   cmd = { 'gopls' },
   filetypes = { 'go' },
   root_markers = { 'go.mod', 'go.work' },
-  settings = { completeUnimported = true },
+  settings = { completeUnimported = true, gopls = { env = { GOOS = "linux" } } },
   on_attach = function(_, bufnr)
     vim.keymap.set('n', '<leader>t', function()
       local filename = counterpart('.go', '_test.go')
