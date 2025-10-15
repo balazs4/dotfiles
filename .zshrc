@@ -191,20 +191,19 @@ export DOTENV_CONFIG_DEBUG=true
 #mcbpro export PNPM_HOME=$HOME/.pnpm
 
 #lua
-export PATH=$HOME/.lua/bin:${PATH}
 function _lua(){
   is_up https://github.com || return 42
 #mcbpro   os=darwin
-  rm -rf $HOME/.lua/ 2>/dev/null
-  mkdir -p $HOME/.lua/ 2>/dev/null
+  rm -rf $HOME/.config/nvim/lsp/lua/ 2>/dev/null
+  mkdir -p $HOME/.config/nvim/lsp/lua/ 2>/dev/null
   curl -D /dev/stderr -Ls 'https://api.github.com/repos/LuaLS/lua-language-server/releases/latest?page=1&per_page=1' \
     | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
     | grep -v sha \
     | fzf -q "${os:-linux}" -1 \
     | xurls \
     | xargs curl -Lo - \
-    | tar xzv  -C $HOME/.lua
-  lua-language-server --version
+    | tar xzv  -C  $HOME/.config/nvim/lsp/lua
+ $HOME/.config/nvim/lsp/lua/bin/lua-language-server --version
 }
 
 
@@ -247,13 +246,8 @@ function lsp(){
   set +x
 }
 
-#carbon #curl https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz  | tar xv -J -C $HOME/.zig --strip-components=1
-#mcbpro #curl https://ziglang.org/download/0.13.0/zig-macos-aarch64-0.13.0.tar.xz | tar xv -J -C $HOME/.zig --strip-components=1
-export PATH="$HOME/.zig:${PATH}"
-
 # nim
 export PATH="$HOME/.nimble/bin:$PATH"
-
 
 #emmet
 #carbon #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-x86_64-linux.tar.gz -L   | tar xvz -C $HOME/.local/bin

@@ -157,25 +157,25 @@ vim.lsp.config('terraform-ls', {
 
 vim.lsp.enable('vscode-css-language-server');
 vim.lsp.config('vscode-css-language-server', {
-  cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/node_modules/.bin/' .. 'vscode-css-language-server', '--stdio' },
+  cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/node_modules/.bin/vscode-css-language-server', '--stdio' },
   filetypes = { 'css' },
 })
 
 vim.lsp.enable('yaml-language-server');
 vim.lsp.config('yaml-language-server', {
-  cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/node_modules/.bin/' .. 'yaml-language-server', '--stdio' },
+  cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/node_modules/.bin/yaml-language-server', '--stdio' },
   filetypes = { 'yaml' },
 })
 
 vim.lsp.enable('nimlangserver');
 vim.lsp.config('nimlangserver', {
-  cmd = { 'nimlangserver' },
+  cmd = { vim.loop.os_homedir() .. '/.nimble/bin/nimlangserver' },
   filetypes = { 'nim' },
 })
 
 vim.lsp.enable('lua-language-server')
 vim.lsp.config('lua-language-server', {
-  cmd = { 'lua-language-server' },
+  cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/lua/bin/lua-language-server' },
   filetypes = { 'lua' },
   root_markers = { '.luarc.json' },
   settings = { Lua = { workspace = { library = vim.api.nvim_list_runtime_paths() } } },
@@ -211,7 +211,7 @@ vim.lsp.config('biome', {
 
 local typescript_language_server = {
   name = 'vtsls',
-  cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/node_modules/.bin/' .. 'vtsls', '--stdio' }
+  cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/node_modules/.bin/vtsls', '--stdio' }
 }
 
 if os.getenv('NVIM_LSP_TSGO') == '1' then
