@@ -296,7 +296,8 @@ alias gtree='git ls-files | tree --fromfile'
 alias gmv='git ls-files | vidir - && git status'
 alias gpick='git log --oneline --color | fzf -m --ansi --preview "git show --color {1}" | awk "{print $1}"'
 alias gconflict='git mergetool --tool=vimdiff'
-alias wipe='nerdctl rm -f $(nerdctl ps -aq)'
+#carbon alias wipe='nerdctl rm -f $(nerdctl ps -aq)'
+#mcbpro alias wipe='docker rm -f $(docker ps -aq)'
 alias dco='nerdctl compose'
 alias rg='rg --hidden'
 alias dmesg='sudo dmesg'
@@ -765,6 +766,7 @@ function news() {
       test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') 'news:watch'
       grep youtube $HOME/.newsboat/urls \
         | TIMEOUT=1000 feed \
+        | grep -v shorts \
         | sort -k2 -r \
         | fzf -m --sync --reverse --no-sort --with-nth=2.. \
         | cut -f1 \
