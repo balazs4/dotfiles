@@ -24,3 +24,10 @@
   path = ~/.gitconfig.codeberg.org
 [includeIf "hasconfig:remote.*.url:**/git.sr.ht/**"]
   path = ~/.gitconfig.sr.ht
+
+[mergetool]
+  tool = vimdiff
+
+[alias]
+  pull = pull --prune --tags
+  browse = ~/.local/bin/git-browse

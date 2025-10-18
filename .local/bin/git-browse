@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+git config --get remote.${1:-origin}.url \
+  | sed 's|ssh://||; s|:|/|; s|git@||; s|\.git$||' \
+  | xargs -t -I{} ${BROWSER:-xdg-open} https://{}
+
+#TODO: handle $REMOTE
