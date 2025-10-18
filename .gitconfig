@@ -16,6 +16,11 @@
   sort = version:refname
 [merge]
   conflictStyle = zdiff3
+[mergetool]
+  tool = vimdiff
+[alias]
+  pull = pull --prune --tags
+  browse = ~/.local/bin/git-browse
 [includeIf "hasconfig:remote.*.url:*github.com*/**"]
   path = ~/.gitconfig.github.com
 [includeIf "hasconfig:remote.*.url:*gitlab.com*/**"]
@@ -24,10 +29,3 @@
   path = ~/.gitconfig.codeberg.org
 [includeIf "hasconfig:remote.*.url:**/git.sr.ht/**"]
   path = ~/.gitconfig.sr.ht
-
-[mergetool]
-  tool = vimdiff
-
-[alias]
-  pull = pull --prune --tags
-  browse = ~/.local/bin/git-browse
