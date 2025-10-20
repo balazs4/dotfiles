@@ -89,3 +89,10 @@ esc = 'mode main'
 [gaps]
 inner.horizontal = 12
 inner.vertical =   12
+
+
+[workspace-to-monitor-force-assignment]
+1 = 'main'
+2 = 'secondary'
+3 = 'main'
+4 = 'secondary'
