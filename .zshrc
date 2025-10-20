@@ -736,14 +736,14 @@ function news() {
     add|sub)
       echo "${2:-$(cat -)}" \
         | xurls \
-        | tee -a $HOME/.files/.newsboat/urls
+        | tee -a $HOME/.files/.feeds
 
-      sort $HOME/.files/.newsboat/urls -o $HOME/.files/.newsboat/urls
+      sort $HOME/.files/.feeds -o $HOME/.files/.feeds
       ;;
 
     read)
       test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') 'news:read'
-      grep -v youtube $HOME/.newsboat/urls \
+      grep -v youtube $HOME/.feeds \
         | TIMEOUT=3000 feed \
         | sort -k2 -r \
         | fzf -q "'$(date +'%Y-%m-%d')" --sync --reverse --no-sort --with-nth=2.. \
@@ -753,7 +753,7 @@ function news() {
 
     watch)
       test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') 'news:watch'
-      grep youtube $HOME/.newsboat/urls \
+      grep youtube $HOME/.feeds \
         | TIMEOUT=1000 feed \
         | grep -v shorts \
         | sort -k2 -r \
