@@ -733,12 +733,21 @@ alias now='bun x vercel deploy --prod -t $VC_TOKEN --scope $USER-$VC_RND --yes -
 
 function news() {
   case ${1:-read} in
-    add|sub)
+    add)
       echo "${2:-$(cat -)}" \
         | xurls \
         | tee -a $HOME/.files/.feeds
 
       sort $HOME/.files/.feeds -o $HOME/.files/.feeds
+      ;;
+
+    sub)
+      curl -L "${2:-$(cat -)}" \
+        | xq -q 'html > head > link[type="application/rss+xml"]' -a 'href' \
+        | xurls \
+        | tee -a $HOME/.files/.feeds
+
+      sort -u $HOME/.files/.feeds -o $HOME/.files/.feeds
       ;;
 
     read)
