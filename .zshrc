@@ -545,8 +545,11 @@ alias stars="xdg-open 'https://github.com/$USER?tab=stars'"
 #carbon alias xb='xbacklight -set'
 
 function mode() {
-#mcbpro  osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = $(test $1 == "light" && echo "false" || echo "true")" > /dev/null
-  make -B -f $HOME/.files/makefile .colors_args="${1}"
+#mcbpro  osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = $(test "$1" = "light" && echo "false" || echo "true")" > /dev/null
+
+  pushd $HOME/.files/
+  trap popd EXIT
+  make -B .colors .colors_args="${1}" install
 }
 
 function a(){
@@ -733,21 +736,18 @@ alias now='bun x vercel deploy --prod -t $VC_TOKEN --scope $USER-$VC_RND --yes -
 
 function news() {
   case ${1:-read} in
-    add)
-      echo "${2:-$(cat -)}" \
-        | xurls \
-        | tee -a $HOME/.files/.feeds
-
-      sort $HOME/.files/.feeds -o $HOME/.files/.feeds
-      ;;
-
     sub)
-      curl -L "${2:-$(cat -)}" \
-        | xq -q 'html > head > link[type="application/rss+xml"]' -a 'href' \
-        | xurls \
-        | tee -a $HOME/.files/.feeds
-
-      sort -u $HOME/.files/.feeds -o $HOME/.files/.feeds
+      pushd $HOME/.files/
+      trap popd EXIT
+      url="${2:-$(cat -)}"
+      if $(echo "$url" | grep -q "https://www.youtube.com")
+      then
+        url=$(curl -L ${url} | xq -q 'html > head > link[type="application/rss+xml"]' -a 'href')
+      fi
+      echo $url | xurls | tee -a .feeds
+      sort -u .feeds -o .feeds
+      git add .feeds && git commit -m "add ${1}" && git push
+      make $HOME/.feeds
       ;;
 
     read)
