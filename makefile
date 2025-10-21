@@ -22,6 +22,7 @@ sync:
 	git commit -am "`date +%s`@$$(cat .hostname)" || true
 	git pull || true
 	git push || true
+	$(MAKE) install
 
 .hostname:
 	@hostname -s | tee .hostname
