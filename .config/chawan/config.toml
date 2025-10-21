@@ -22,7 +22,7 @@ C-k = "() => pager.load('ddg:')"
 o = "loadEmpty"
 
 [[siteconf]]
-url = '^https://(.*\.)?sr.ht'
+url = '^https://(.*\.)?sr.ht/.*'
 cookie = true
 share-cookie-jar = 'sr.ht'
 
@@ -33,3 +33,8 @@ rewrite-url = 'x => { x.host = "old.reddit.com" }'
 [[siteconf]]
 url = '^https://github.com/.*/blob/.*'
 rewrite-url = 'x => { x.search = "raw=true" }'
+
+[[siteconf]]
+url = "https://hup.hu/.*"
+styling = false
+
