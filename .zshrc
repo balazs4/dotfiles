@@ -680,7 +680,7 @@ function qq() {
 
 
 #carbon function say() {
-#carbon   dunstify "$(cat -)"
+#carbon   espeak-ng "$(cat -)"
 #carbon }
 
 function sich() {
