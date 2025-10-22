@@ -16,7 +16,7 @@
   sort = version:refname
 [merge]
   conflictStyle = zdiff3
-[mergetool]
+[merge]
   tool = vimdiff
 [alias]
   pull = pull --prune --tags
