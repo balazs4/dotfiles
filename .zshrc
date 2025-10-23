@@ -33,6 +33,10 @@ autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 
+autoload edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
 export KEYTIMEOUT=1
 
 autoload -U history-search-end
