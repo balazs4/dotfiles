@@ -771,7 +771,9 @@ function news() {
         | grep -v shorts \
         | sort -k2 -r \
         | fzf -m --sync --reverse --no-sort --with-nth=2.. \
-          --bind 'ctrl-t:execute(mpv --ytdl-raw-options=format-sort="res:720" {1})'
+          --bind 'ctrl-t:execute(mpv --ytdl-raw-options=format-sort="res:720" {1})' \
+        | cut -f1 \
+        | xargs mpv --ytdl-raw-options=format-sort="res:720"
       ;;
   esac
 }
