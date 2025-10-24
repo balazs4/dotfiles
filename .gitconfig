@@ -1,3 +1,5 @@
+[advice]
+  defaultBranchName = false
 [user]
   name  = balazs4
   email = balazs4@{{hostname}}
