@@ -23,7 +23,6 @@
 [merge]
   tool = vimdiff
 [alias]
-  pull = pull --prune --tags
   browse = ~/.local/bin/git-browse
 [includeIf "hasconfig:remote.*.url:*github.com*/**"]
   path = ~/.gitconfig.github.com
