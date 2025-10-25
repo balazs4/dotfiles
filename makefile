@@ -12,6 +12,8 @@ $(HOME)/%: %
 	@$(if $(filter $<, .config/nvim/init.lua),         pgrep -a nvim        1>/dev/null 2>/dev/null && kill -USR1 `pgrep -a nvim | awk '{print $$1}' | xargs`     || true)
 	@$(if $(filter $<, .tmux.conf),                    pgrep -a tmux        1>/dev/null 2>/dev/null && tmux source-file $(HOME)/.tmux.conf                        || true)
 	@$(if $(filter $<, .aerospace.toml),               which aerospace      1>/dev/null 2>/dev/null && aerospace reload-config --no-gui                           || true)
+	@$(if $(filter $<, .config/i3/config),             which i3-msg         1>/dev/null 2>/dev/null && i3-msg restart                                             || true)
+	@$(if $(filter $<, .i3blocks.conf),                which i3-msg         1>/dev/null 2>/dev/null && i3-msg restart                                             || true)
 	@$(if $(filter $<, .xbindkeysrc),                  pgrep -a xbindkeys   1>/dev/null 2>/dev/null && pkill -SIGKILL xbindkeys && xbindkeys                      || true)
 	@$(if $(filter $<, .config/qutebrowser/config.py), pgrep -a qutebrowser 1>/dev/null 2>/dev/null && qutebrowser ':config-source' 2>/dev/null                   || true)
 	@$(if $(filter $<, .config/nvim/lsp/bun.lock),     bun install --cwd $(HOME)/.config/nvim/lsp/ --frozen-lockfile --ignore-scripts                             || true)

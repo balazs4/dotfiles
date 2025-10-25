@@ -93,4 +93,4 @@ smart_gaps on
 gaps inner 2
 gaps outer 2
 
-#carbon exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/UExx0KnnkjY/download?force=true&w=1920
+exec_always feh --no-fehbg --bg-fill https://unsplash.com/photos/UExx0KnnkjY/download?force=true&w=1920
