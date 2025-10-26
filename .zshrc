@@ -757,24 +757,22 @@ function news() {
     read)
       test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') 'news:read'
       grep -v youtube $HOME/.feed \
-        | TIMEOUT=3000 feed \
+        | feed -timeout=3000 -format=tsv \
         | sort -k2 -r \
         | fzf -q "'$(date +'%Y-%m-%d')" --sync --reverse --no-sort --with-nth=2.. \
           --preview 'rdrview -T url,title,body -H {1} | cha -d -T text/html --opt "buffer.styling=false" --opt "display.color-mode=ansi" --opt "buffer.mark-links=true"' \
-          --bind 'ctrl-t:execute(cha {1})'
+          --bind 'enter:execute(cha {1})'
       ;;
 
     watch)
       test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') 'news:watch'
       grep youtube $HOME/.feed \
-        | TIMEOUT=1000 feed \
+        | feed -timeout=1000 -format=tsv \
         | grep -v shorts \
         | sort -k2 -r \
         | fzf -m --sync --reverse --no-sort --with-nth=2.. \
-          --bind 'ctrl-v:execute(mpv --ytdl-raw-options=format-sort="res:720" {1})' \
-          --bind 'ctrl-p:execute(mpv --ytdl-raw-options=format=bestaudio      {1})' \
-        | cut -f1 \
-        | xargs mpv --ytdl-raw-options=format-sort="res:720"
+          --bind 'enter:execute(mpv --ytdl-raw-options=format-sort="res:720" {1})' \
+          --bind 'ctrl-t:execute(mpv --ytdl-raw-options=format=bestaudio      {1})'
       ;;
   esac
 }
