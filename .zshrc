@@ -748,15 +748,15 @@ function news() {
       then
         url=$(curl -L ${url} | xq -q 'html > head > link[type="application/rss+xml"]' -a 'href')
       fi
-      echo $url | xurls | tee -a .feeds
-      sort -u .feeds -o .feeds
-      git add .feeds && git commit -m "add ${1}" && git push
-      make $HOME/.feeds
+      echo $url | xurls | tee -a .feed
+      sort -u .feed -o .feed
+      git add .feed && git commit -m "add ${1}" && git push
+      make $HOME/.feed
       ;;
 
     read)
       test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') 'news:read'
-      grep -v youtube $HOME/.feeds \
+      grep -v youtube $HOME/.feed \
         | TIMEOUT=3000 feed \
         | sort -k2 -r \
         | fzf -q "'$(date +'%Y-%m-%d')" --sync --reverse --no-sort --with-nth=2.. \
@@ -766,7 +766,7 @@ function news() {
 
     watch)
       test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') 'news:watch'
-      grep youtube $HOME/.feeds \
+      grep youtube $HOME/.feed \
         | TIMEOUT=1000 feed \
         | grep -v shorts \
         | sort -k2 -r \
