@@ -6,11 +6,11 @@ aliases:
   hive: >-
     !GH_TOKEN=$GH_TOKEN_HIVE gh cs ssh -c $(GH_TOKEN=$GH_TOKEN_HIVE gh cs ls --json name --jq '.[0].name' | fzf -1)
 
-  checksw: >-
-    !gh pr checks --fail-fast --watch; gh pr checks --json 'name,link,state' --template '{{range .}}{{tablerow .state .name .link }}{{end}}' | sort -r | awk '1 {print $0 > "/dev/stderr";} /^FAILURE/{print $0 > "/dev/stdout";}' | xurls | xargs -t xdg-open
-
   checks: >-
     !gh pr checks --json 'name,link,state' --template '{{range .}}{{tablerow .state .name .link }}{{end}}' | sort -r
+
+  checksw: >-
+    !gh pr checks --watch; say "pr checks are done for $(git remote get-url origin)"
 
   prs: >-
     !gh api graphql -f query="
