@@ -17,7 +17,7 @@ mailcap = [ "~/.config/chawan/mailcap" ]
 [page]
 ' d' = "pager.externFilterSource('reader \"$CHA_URL\" --raw')"
 ' f' = "pager.externFilterSource('fmt')"
-' r' = "pager.externFilterSource('rdrview -T url,title,body -H \"$CHA_URL\"')"
+' r' = "pager.externFilterSource('rdrview -T url,title,body -H \"$CHA_URL\" | fmt')"
 C-k = "() => pager.load('ddg:')"
 o = "loadEmpty"
 
