@@ -553,7 +553,7 @@ function mode() {
 
   pushd $HOME/.files/
   trap popd EXIT
-  make -B .colors .colors_args="${1}" install
+  make -B .colors .colors_args="${*}" install
 }
 
 function a(){
