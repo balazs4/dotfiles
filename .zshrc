@@ -779,3 +779,9 @@ function news() {
 
 alias nue="bun x nuekit@2.0.0-beta.2"
 
+function mfa(){
+  pass -c ${1}
+  printf "ready for otp?\n"
+  read
+  pass otp -c ${1}
+}
