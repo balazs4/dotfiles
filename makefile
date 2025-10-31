@@ -19,6 +19,10 @@ $(HOME)/%: %
 	@$(if $(filter $<, .config/nvim/lsp/bun.lock),     which bun            1>/dev/null 2>/dev/null && bun install --cwd $(HOME)/.config/nvim/lsp/ --frozen-lockfile --ignore-scripts   || true)
 	@printf 'made[.]: "%s" is now up to date.\n' $(@)
 
+.PHONY:
+chmod:
+	find $(HOME)/.local/bin/ -type f -exec chmod 744 {} +
+
 .PHONY: sync
 sync:
 	@cat .hostname | xargs -t -I{} git commit -am "{}" || true
