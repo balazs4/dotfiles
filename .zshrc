@@ -428,8 +428,8 @@ function co(){
 }
 
 #carbon function mirrorlist() {
-#carbon   COUNTRIES=`echo ${*:-DE NL}| xargs -d" " -I{} echo -n "&country={}"`
-#carbon   curl -s "https://archlinux.org/mirrorlist/?protocol=https&ip_version=4${COUNTRIES}" \
+#carbon   is_up https://archlinux.org || return 42
+#carbon   curl -s "https://archlinux.org/mirrorlist/?protocol=https&ip_version=4&country=${1:-DE}" \
 #carbon     | sed "s/#Server/Server/g" \
 #carbon     | sudo tee /etc/pacman.d/mirrorlist
 #carbon }
@@ -492,16 +492,9 @@ function yt(){
       }' \
     | fzf --sync --height=50% --with-nth=3.. --delimiter="\t" --preview-window 'right,40%' --preview='wget {1} -O- 2>/dev/null | chafa --scale 2.0 -' \
     | cut -f2 \
-    | xargs -t mpv ${MPV:---ytdl-raw-options=format-sort='res:1080'}
+    | xargs -t mpv ${MPV}
 }
 alias yta="MPV='--ytdl-raw-options=format=bestaudio' yt"
-
-function yt_play() {
-  cat - \
-    | fzf --no-sort --reverse --sync --height=50% \
-    | cut -f1 \
-    | xargs -t mpv ${MPV:---ytdl-raw-options=format-sort='res:720'}
-}
 
 #carbon function qrdecode {
 #carbon   shotgun $(hacksaw -f '-i %i -g %g') - | zbarimg -q --raw -
@@ -771,13 +764,12 @@ function news() {
         | grep -v shorts \
         | sort -k2 -r \
         | fzf -m --sync --reverse --no-sort --with-nth=2.. \
-          --bind 'enter:execute(mpv --ytdl-raw-options=format-sort="res:720" {1})' \
-          --bind 'ctrl-t:execute(mpv --ytdl-raw-options=format=bestaudio      {1})'
+        | tee /dev/stderr \
+        | xurls \
+        | xargs -t -I{} bash -c 'yt-dlp {} -S "height:720" -o - | mpv  -'
       ;;
   esac
 }
-
-alias nue="bun x nuekit@2.0.0-beta.2"
 
 function mfa(){
   pass -c ${1}
