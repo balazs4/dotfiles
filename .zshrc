@@ -766,7 +766,7 @@ function news() {
         | fzf -m --sync --reverse --no-sort --with-nth=2.. \
         | tee /dev/stderr \
         | xurls \
-        | xargs -t -I{} bash -c 'yt-dlp {} -S "height:720" -o - | mpv  -'
+        | xargs -t -I{} bash -c 'printf "%s\n" {} | tee -a $HOME/.watched; yt-dlp {} -S "height:720" -o - | mpv  -'
       ;;
   esac
 }
