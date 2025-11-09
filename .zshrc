@@ -779,7 +779,7 @@ function news() {
         | while read -r url
          do
           yt-dlp $url \
-            -f 'bv*[height<=1080]+ba/b[height<=1080]' \
+            -f 'bv*[height<1080]+ba' \
             -o - | mpv -
          done
       ;;
