@@ -755,7 +755,16 @@ function news() {
         | fzf --sync --reverse --no-sort --with-nth=2.. -q "'$(date +'%Y-%m-%d')" \
           --preview 'rdrview -T url,title,body -H {1} | cha -d -T text/html --opt "buffer.styling=false" --opt "display.color-mode=ansi" --opt "buffer.mark-links=true"' \
           --bind 'enter:execute(cha {1})' \
-          --bind 'ctrl-d:execute(echo {1} | tee -a $HOME/.read_later)'
+          --bind 'ctrl-d:execute(echo {} | tee -a $HOME/.read_later)'
+      ;;
+
+    read_later)
+      test $TMUX && tmux rename-window -t:$(tmux display-message -p '#I') 'news:read_later'
+      cat $HOME/.read_later \
+        | sort -k2 -r \
+        | fzf --sync --reverse --no-sort --with-nth=2.. \
+          --preview 'rdrview -T url,title,body -H {1} | cha -d -T text/html --opt "buffer.styling=false" --opt "display.color-mode=ansi" --opt "buffer.mark-links=true"' \
+          --bind 'enter:execute(cha {1})' \
       ;;
 
     watch)
