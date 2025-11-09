@@ -752,9 +752,10 @@ function news() {
       grep -v youtube $HOME/.feed \
         | feed -timeout=3000 -format=tsv \
         | sort -k2 -r \
-        | fzf -q "'$(date +'%Y-%m-%d')" --sync --reverse --no-sort --with-nth=2.. \
+        | fzf --sync --reverse --no-sort --with-nth=2.. -q "'$(date +'%Y-%m-%d')" \
           --preview 'rdrview -T url,title,body -H {1} | cha -d -T text/html --opt "buffer.styling=false" --opt "display.color-mode=ansi" --opt "buffer.mark-links=true"' \
-          --bind 'enter:execute(cha {1})'
+          --bind 'enter:execute(cha {1})' \
+          --bind 'ctrl-d:execute(echo {1} | tee -a $HOME/.read_later)'
       ;;
 
     watch)
@@ -763,7 +764,7 @@ function news() {
         | feed -timeout=1000 -format=tsv \
         | grep -v shorts \
         | sort -k2 -r \
-        | fzf -m --sync --reverse --no-sort --with-nth=2.. \
+        | fzf --sync --reverse --no-sort --with-nth=2.. -m \
         | tee /dev/stderr \
         | xurls \
         | while read -r url
