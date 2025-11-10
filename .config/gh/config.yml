@@ -3,6 +3,10 @@ aliases:
   iss: >-
     !gh issue list ${*} | fzf --reverse --no-sort --preview 'printf "%s\n" {}; gh issue view {1} --comments' --preview-window=right,75%
 
+  r: >-
+    !gh run list --workflow .github/workflows/main.yaml | fzf --reverse --no-sort --preview 'gh run view --log --job {8}'
+     # gh run view --log --job
+
   hive: >-
     !GH_TOKEN=$GH_TOKEN_HIVE gh cs ssh -c $(GH_TOKEN=$GH_TOKEN_HIVE gh cs ls --json name --jq '.[0].name' | fzf -1)
 
