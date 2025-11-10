@@ -461,7 +461,7 @@ function yt(){
     tmux rename-window -t:$target youtube
   fi
 
-  echo ${*:-$(cat -)} \
+  url=$(echo ${*:-$(cat -)} \
     | tr ' ' '+' \
     | xargs -t -I{} curl -Lfs -H "accept-language: ${LNG:-en}" "https://www.youtube.com/results?search_query={}" \
     | pup 'script:contains("var ytInitialData") text{}' \
@@ -491,10 +491,11 @@ function yt(){
         }
       }' \
     | fzf --sync --height=50% --with-nth=3.. --delimiter="\t" --preview-window 'right,40%' --preview='wget {1} -O- 2>/dev/null | chafa --scale 2.0 -' \
-    | cut -f2 \
-    | xargs -t mpv ${MPV}
+    | cut -f2)
+
+    yt-dlp $url -f ${YT_DLP_FORMAT:-'bv*[height<1080]+ba'} -o - | mpv -
 }
-alias yta="MPV='--ytdl-raw-options=format=bestaudio' yt"
+alias yta="YT_DLP_FORMAT='ba' yt"
 
 #carbon function qrdecode {
 #carbon   shotgun $(hacksaw -f '-i %i -g %g') - | zbarimg -q --raw -
