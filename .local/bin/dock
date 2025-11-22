@@ -1,0 +1,29 @@
+#! /usr/bin/env bash
+
+case ${1:-off} in
+  on)
+    xrandr \
+      --dpi 136 \
+      --output DP1   --mode 3840x2160 --pos 0x0 --rotate normal \
+      --output DP2   --off \
+      --output HDMI1 --off \
+      --output eDP1  --off
+
+    echo "Xft.dpi: 136" | xrdb -merge
+    i3-msg restart
+    imwheel >/dev/null &
+    ;;
+
+  off)
+    xrandr \
+      --dpi 96 \
+      --output DP1   --off \
+      --output DP2   --off \
+      --output HDMI1 --off \
+      --output eDP1  --primary --mode 1920x1080 --rotate normal --scale 1.0
+
+    echo "Xft.dpi: 96" | xrdb -merge
+    i3-msg restart
+    killall -9 imwheel >/dev/null
+    ;;
+esac

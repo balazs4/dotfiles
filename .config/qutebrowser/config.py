@@ -65,7 +65,7 @@ c.fonts.tabs.unselected = '500 default_size default_family'
 
 c.tabs.favicons.show = 'never'
 c.tabs.show = 'switching'
-c.tabs.position = 'right'
+c.tabs.position = 'bottom'
 
 #mcbpro c.window.hide_decoration = False
 #mcbpro def thinkdifferent():
