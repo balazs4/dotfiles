@@ -10,6 +10,7 @@ case ${1:-off} in
       --output eDP1  --off
 
     echo "Xft.dpi: 136" | xrdb -merge
+    xinput set-prop 'Logitech G502 HERO Gaming Mouse' 'libinput Accel Speed' 1.0
     i3-msg restart
     imwheel >/dev/null &
     ;;
