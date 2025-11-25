@@ -427,12 +427,13 @@ function co(){
   for handle in "$@"; do echo "Co-authored-by: $handle <$handle@users.noreply.github.com>"; done
 }
 
-#carbon function mirrorlist() {
-#carbon   is_up https://archlinux.org || return 42
-#carbon   curl -s "https://archlinux.org/mirrorlist/?protocol=https&ip_version=4&country=${1:-DE}" \
-#carbon     | sed "s/#Server/Server/g" \
-#carbon     | sudo tee /etc/pacman.d/mirrorlist
-#carbon }
+function mirrorlist() {
+  is_up https://archlinux.org || return 42
+  curl -s "https://archlinux.org/mirrorlist/?protocol=https&ip_version=4&country=${1:-DE}" \
+    | sed "s/#Server/Server/g" \
+    | tee /dev/stderr \
+    | sudo tee /etc/pacman.d/mirrorlist
+}
 
 
 function touchd(){
