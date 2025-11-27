@@ -794,3 +794,9 @@ function mfa(){
   read
   pass otp -c ${1}
 }
+
+function manf(){
+  find /usr/share/man/man{1,2,3,4,5,6,7} -type f -name '*.gz' \
+    | sort \
+    | fzf --reverse --sync --no-sort --preview 'gunzip -ck {}'
+}
