@@ -170,6 +170,10 @@ function _fx(){
   GOPROXY= go install github.com/antonmedv/fx@latest
 }
 
+function _gopls(){
+  GOPROXY= go install golang.org/x/tools/gopls@latest
+}
+
 if test $TMUX
 then
   export TERM=tmux-256color
