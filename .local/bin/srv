@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#! /usr/bin/env bun
 
 process.env.PORT = process.env.PORT || 8000;
 
@@ -33,6 +33,7 @@ require('node:http')
 
     t = setTimeout(() => {
       res.statusCode = 200;
+      res.setHeader('set-cookie', 'foo=bar; HttpOnly');
       res.setHeader('content-type', 'application/json');
       res.end(JSON.stringify({"now": Date.now()}));
       process.stderr.write('EOF\n');

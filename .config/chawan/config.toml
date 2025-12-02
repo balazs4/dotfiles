@@ -1,5 +1,5 @@
 [buffer]
-cookie = false
+cookie = "save"
 images = false
 meta-refresh = "always"
 scripting = false
@@ -13,6 +13,10 @@ image-mode = "none"
 copy-cmd = "xclip -i -rmlastnl -selection clipboard"
 paste-cmd = "xclip -o -selection clipboard"
 mailcap = [ "~/.config/chawan/mailcap" ]
+bookmark = "~/.local/share/chawan/bookmark.md"
+history-file = "~/.local/share/chawan/history.uri"
+history-size = 10000
+cookie-file = "~/.local/share/chawan/cookies.txt"
 
 [page]
 ' d' = "pager.externFilterSource('reader \"$CHA_URL\" --raw')"
