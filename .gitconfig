@@ -23,10 +23,14 @@
 [merge]
   tool = vimdiff
 [alias]
+  a = add
+  c = commit
   browse = ~/.local/bin/git-browse
   d = diff
-  st = status
+  ds = diff --staged
+  s = status
   tree = "!git ls-files | tree --fromfile"
+  vidir = "!git ls-files | vidir -"
 [includeIf "hasconfig:remote.*.url:*github.com*/**"]
   path = ~/.gitconfig.github.com
 [includeIf "hasconfig:remote.*.url:*gitlab.com*/**"]
