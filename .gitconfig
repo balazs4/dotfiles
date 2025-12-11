@@ -24,6 +24,8 @@
   tool = vimdiff
 [alias]
   browse = ~/.local/bin/git-browse
+  d = diff
+  st = status
   tree = "!git ls-files | tree --fromfile"
 [includeIf "hasconfig:remote.*.url:*github.com*/**"]
   path = ~/.gitconfig.github.com
