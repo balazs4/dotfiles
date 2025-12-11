@@ -24,6 +24,7 @@
   tool = vimdiff
 [alias]
   browse = ~/.local/bin/git-browse
+  tree = "!git ls-files | tree --fromfile"
 [includeIf "hasconfig:remote.*.url:*github.com*/**"]
   path = ~/.gitconfig.github.com
 [includeIf "hasconfig:remote.*.url:*gitlab.com*/**"]

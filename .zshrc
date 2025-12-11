@@ -435,7 +435,6 @@ function mirrorlist() {
   is_up https://archlinux.org || return 42
   curl -s "https://archlinux.org/mirrorlist/?protocol=https&ip_version=4&country=${1:-DE}" \
     | sed "s/#Server/Server/g" \
-    | tee /dev/stderr \
     | sudo tee /etc/pacman.d/mirrorlist
 }
 
@@ -717,13 +716,12 @@ function note() {
 export PATH="$HOME/.opencode/bin/:${PATH}"
 function _opencode(){
   is_up https://github.com || return 42
-#mcbpro  os="'darwin 'zip 'arm64"
   rm -rf $HOME/.opencode/bin/ 2>/dev/null
   mkdir -p $HOME/.opencode/bin/ 2>/dev/null
   curl "https://api.github.com/repos/sst/opencode/releases/${1:-latest}?page=1&per_page=1" \
     | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
     | grep -v sha \
-    | fzf -q "${os:-'linux 'zip 'x64}" -1 \
+    | fzf -q "${os:-'linux-x64.tar.gz}" -1 \
     | xurls \
     | xargs curl -Lo - \
     | bsdtar xzv -C $HOME/.opencode/bin/
@@ -804,3 +802,6 @@ function manf(){
     | sort \
     | fzf --reverse --sync --no-sort --preview 'gunzip -ck {}'
 }
+
+alias ai="opencode -m 'opencode/big-pickle' run "
+alias f="find . -type f"
