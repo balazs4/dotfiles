@@ -111,6 +111,10 @@ alias is_up='curl -LsS --fail-with-body -o /dev/null -w "%{http_code}\t%{url}\t%
 export GOROOT=$HOME/.g
 export GOPATH=$HOME/.go
 export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
+function _g(){
+  mkdir -p $HOME/.g || true
+  curl https://raw.githubusercontent.com/stefanmaric/g/refs/heads/next/bin/g -o $GOROOT/g
+}
 
 # fzf
 export PATH=$HOME/.fzf:${PATH}
@@ -174,6 +178,14 @@ function _gopls(){
   GOPROXY= go install golang.org/x/tools/gopls@latest
 }
 
+function _xurls(){
+  GOPROXY= go install github.com/mvdan/xurls/cmd/xurls@latest
+}
+
+function _xq(){
+  GOPROXY= go install github.com/sibprogrammer/xq@latest
+}
+
 if test $TMUX
 then
   export TERM=tmux-256color
@@ -184,8 +196,7 @@ fi
 export PATH=$HOME/.local/bin:${PATH}
 export LANG=en_US.UTF-8
 export TERMINAL=alacritty
-#mcbpro export BROWSER=open
-#carbon export BROWSER=qutebrowser
+export BROWSER=qutebrowser
 export GPG_TTY=`tty`
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 export WWW_HOME="https://duckduckgo.com/lite"
@@ -196,7 +207,6 @@ export N_PRESERVE_NPM=1
 export PATH=$HOME/.n:$N_PREFIX/bin:${PATH}
 export NPM_CONFIG_LOGLEVEL=http
 export DOTENV_CONFIG_DEBUG=true
-#mcbpro export PNPM_HOME=$HOME/.pnpm
 
 #lua
 function _lua(){
@@ -513,11 +523,11 @@ alias yta="YT_DLP_FORMAT='ba' yt"
 #carbon     --output eDP1   --mode 1920x1080 --pos 0x0 --rotate normal --primary
 #carbon }
 
-#carbon function yayf(){
-#carbon   yay -Sy
-#carbon   yay -Slq | fzf --preview 'yay -Si {1}' --query "'${1}" -1 | xargs yay -Sy --noconfirm 
-#carbon   hash -r
-#carbon }
+function yayf(){
+  yay -Sy
+  yay -Slq | fzf --preview 'yay -Si {1}' --query "'${1}" -1 | xargs yay -Sy --noconfirm 
+  hash -r
+}
 
 function gb(){
   git branch -a \
@@ -528,48 +538,31 @@ function gb(){
 
 alias gbb='gb $USER'
 
-#mcbpro export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
-#mcbpro export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
-#mcbpro export BUILD_LIBRDKAFKA=0
-
 #carbon function cool(){
 #carbon   echo level ${1:-7} | sudo tee /proc/acpi/ibm/fan
 #carbon }
-
-#mcbpro function na(){
-#mcbpro   n auto
-#mcbpro   grep private $HOME/.npmrc > /dev/null || $HOME/.local/bin/npmrc
-#mcbpro   pnpm install ${*:---frozen-lockfile}
-#mcbpro }
 
 alias stars="xdg-open 'https://github.com/$USER?tab=stars'"
 
 #carbon alias xb='xbacklight -set'
 
 function mode() {
-#mcbpro  osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = $(test "$1" = "light" && echo "false" || echo "true")" > /dev/null
-
   pushd $HOME/.files/
   trap popd EXIT
   make -B .colors .colors_args="${*}" install
 }
 
 function a(){
-#carbon  picom --daemon --backend xrender 2> /dev/null
+ picom --daemon --backend xrender 2> /dev/null
  opacity=$(bc <<< "scale=2; x=$1/100; if(x<1) print 0; x")
  sed "s/^opacity = .*/opacity = ${opacity}/" -i "$HOME/.alacritty.toml"
 }
 
-#carbon function nyc(){
-#carbon   if test ! -f "$HOME/.cache/macos_newyork.webm"; then yt-dlp "https://www.youtube.com/watch?v=Gx6NVCRyMzk" -o "$HOME/.cache/macos_newyork.webm"; fi
-#carbon   mpv "$HOME/.cache/macos_newyork.webm" --no-audio --frames=1 --start=+$(($RANDOM % 236)) -o "$HOME/.cache/macos_newyork.png" 
-#carbon   feh --no-fehbg --bg-fill "$HOME/.cache/macos_newyork.png"
-#carbon }
-
-#mcbpro function dog(){
-#mcbpro   local service=`git -C $HOME/src/api ls-files | grep services | grep package.json | awk -F/ '{print $2}' | fzf -1 --height '25%' -q"${*}"`
-#mcbpro   open "https://app.datadoghq.com/logs/livetail?query=service%3A${service}%20&cols=host%2Cservice&index=%2A&messageDisplay=inline&refresh_mode=sliding&storage=live&stream_sort=desc&view=spans&viz=stream&live=true"
-#mcbpro }
+function nyc(){
+  if test ! -f "$HOME/.cache/macos_newyork.webm"; then yt-dlp "https://www.youtube.com/watch?v=Gx6NVCRyMzk" -o "$HOME/.cache/macos_newyork.webm"; fi
+  mpv "$HOME/.cache/macos_newyork.webm" --no-audio --frames=1 --start=+$(($RANDOM % 236)) -o "$HOME/.cache/macos_newyork.png" 
+  feh --no-fehbg --bg-fill "$HOME/.cache/macos_newyork.png"
+}
 
 export BUILDKIT_PROGRESS=plain
 
@@ -614,10 +607,6 @@ function focus(){
 function re(){
   nvim $(git diff --name-only main)
 }
-
-#https://mac-key-repeat.zaymon.dev/
-#mcbpro defaults write -g InitialKeyRepeat -int 12
-#mcbpro defaults write -g KeyRepeat -int 2
 
 function rfc(){
   test $TMUX && {

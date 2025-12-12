@@ -1,11 +1,15 @@
 [general]
-#carbon working_directory = "/home/balazs4/"
-#mcbpro working_directory = "/Users/balazs4/"
+working_directory = "/home/balazs4/"
 
 [font]
-#mcbpro normal = { family = "Geist Mono", style = "Medium" }
-#mcbpro size = 14.0
 #carbon size = 11.0
+#aspire size = 12.0
+#aspire #normal = { family = "DejaVu Sans Mono", style = "Regular" }
+#aspire #normal = { family = "Noto Sans Mono", style = "Regular" }
+#aspire #normal = { family = "JetBrains Mono", style = "Regular" }
+#aspire #normal = { family = "Geist Mono Nerd Font", style = "Regular" }
+#aspire #normal = { family = "Hack Nerd Font Mono", style = "Regular" }
+#aspire #normal = { family = "Roboto Mono Nerd Font", style = "Regular" }
 
 [window]
 opacity = 0.96

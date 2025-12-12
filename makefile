@@ -5,7 +5,7 @@ install:
 $(HOME)/%: %
 	@mkdir -p $$(dirname $(@))
 	@cat $(<) \
-		| sed -r "s/^[--;#\/\"\!]+$$(cat .hostname) //g; /^#(carbon|mcbpro)/d; s/\{\{hostname\}\}/$$(cat .hostname)/g;" \
+		| sed -r "s/^[--;#\/\"\!]+$$(cat /etc/hostname) //g; /^#(carbon|mcbpro|aspire)/d; s/\{\{hostname\}\}/$$(cat /etc/hostname)/g;" \
 		| sed "$$(cat .colors)" \
 		| tee $(@) > /dev/null
 	@$(if $(filter $<, .zshrc),                        pgrep -a zsh         1>/dev/null 2>/dev/null && kill -USR1 `pgrep -a zsh  | awk '{print $$1}' | xargs`                           || true)
@@ -25,17 +25,15 @@ chmod:
 
 .PHONY: sync
 sync:
-	@cat .hostname | xargs -t -I{} git commit -am "{}" || true
+	@cat /etc/hostname | xargs -t -I{} git commit -am "{}" || true
 	git pull || true
 	git push || true
 
-.hostname:
-	@hostname -s | tee .hostname
 
 .colors: $(HOME)/.cache/schemes
 	@git -C $(HOME)/.cache/schemes ls-files \
 		| sort \
-		| fzf --sync --reverse -q"'base16 '$(.colors_args)" -1 \
+		| vipe \
 		| xargs -I{} cat $(HOME)/.cache/schemes/{} \
 		| tee /dev/stderr \
 		| awk -F: '/system/{next;} /base[0|1].?/ {print $$1 $$2} /variant/ {print $$1 $$2} /name/ {print $$1 $$2}' \
@@ -46,4 +44,4 @@ sync:
 		| tee .colors
 
 $(HOME)/.cache/schemes:
-	test -d $(HOME)/.cache/schemes || git clone git@github.com:tinted-theming/schemes.git $(HOME)/.cache/schemes --depth=1
+	test -d $(HOME)/.cache/schemes || git clone https://github.com/tinted-theming/schemes.git $(HOME)/.cache/schemes --depth=1

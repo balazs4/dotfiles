@@ -58,7 +58,7 @@ c.colors.tabs.odd.fg = "#999999"
 c.colors.tabs.selected.even.fg = "#ffffff"
 c.colors.tabs.selected.odd.fg = "#ffffff"
 
-#mcbpro c.fonts.default_size = "14pt"
+#aspire c.fonts.default_size = "12pt"
 
 c.fonts.tabs.selected = '900 default_size default_family'
 c.fonts.tabs.unselected = '500 default_size default_family'
@@ -66,10 +66,3 @@ c.fonts.tabs.unselected = '500 default_size default_family'
 c.tabs.favicons.show = 'never'
 c.tabs.show = 'switching'
 c.tabs.position = 'bottom'
-
-#mcbpro c.window.hide_decoration = False
-#mcbpro def thinkdifferent():
-#mcbpro     time.sleep(1)
-#mcbpro     c.window.hide_decoration = True
-#mcbpro
-#mcbpro threading.Thread(target = thinkdifferent, args=[]).start()

@@ -1,13 +1,11 @@
---carbon vim.cmd('colorscheme base16')
---mcbpro vim.cmd('colorscheme base16')
-
+vim.cmd('colorscheme base16')
 
 vim.opt.backup = false
 vim.opt.cmdheight = 1
 vim.opt.completeopt = 'fuzzy,menuone,noselect,popup'
 vim.opt.cursorline = false
 vim.opt.cursorline = true
-vim.opt.expandtab = true
+vim.opt.expandtab = false
 vim.opt.grepprg = 'rg --vimgrep --hidden'
 vim.opt.guicursor = 'i:block'
 vim.opt.list = true
