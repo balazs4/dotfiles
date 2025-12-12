@@ -316,13 +316,12 @@ alias cal='LC_ALL=de_DE.utf8 cal'
 alias less='less -r'
 
 function yy(){
-#carbon xclip -rmlastnl -selection clipboard
-#mcbpro pbcopy
+	xclip -rmlastnl -selection clipboard
 }
 
 function pp(){
   filename=screenshot_$(date +'%FT%T').png
-#carbon  xclip -selection clipboard -o -T image/png > $filename
+	xclip -selection clipboard -o -T image/png > $filename
   printf "%s/%s\n" $PWD $filename
 }
 # muscle memory
@@ -700,7 +699,7 @@ function origin() {
 
 function clone() {
 	pushd ~/src
-	name=$(ssh $REMOTE 'find . -maxdepth 1 -type d -name "*.git"' | sort | fzf --height 25% --no-sort --reverse | sed -e 's|^./||')
+	name=$(ssh $REMOTE 'find . -maxdepth 1 -type d -name "*.git"' | sort | fzf --height 25% --no-sort --reverse -1 -q"'{1}" | sed -e 's|^./||')
   git clone ssh://git.$REMOTE/~/$name
 	popd ~/src
 }
@@ -800,4 +799,7 @@ function manf(){
 }
 
 alias ai="opencode -m 'opencode/big-pickle' run "
+function bear() {
+	ai "no code change; just explain: ${*}"
+}
 alias f="find . -type f"
