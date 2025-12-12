@@ -698,6 +698,13 @@ function origin() {
     && git push origin
 }
 
+function clone() {
+	pushd ~/src
+	name=$(ssh $REMOTE 'find . -maxdepth 1 -type d -name "*.git"' | sort | fzf --height 25% --no-sort --reverse | sed -e 's|^./||')
+  git clone ssh://git.$REMOTE/~/$name
+	popd ~/src
+}
+
 function note() {
   pushd $HOME/src/notes/; make; popd
 }
