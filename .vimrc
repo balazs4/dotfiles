@@ -35,7 +35,6 @@ set complete+=kspell
 set list
 set listchars=tab:\ \ ,trail:·,eol:\ ,nbsp:_
 set guicursor=
-"mcbpro set re=2
 nnoremap <C-j> :m .+1<CR>==
 nnoremap <C-k> :m .-2<CR>==
 vnoremap <C-j> :m '>+1<CR>gv=gv

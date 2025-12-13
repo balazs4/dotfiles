@@ -11,24 +11,6 @@ setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_verify
 setopt share_history
-#mcbpro export HOMEBREW_PREFIX="/opt/homebrew";
-#mcbpro export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
-#mcbpro export HOMEBREW_REPOSITORY="/opt/homebrew";
-#mcbpro export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
-#mcbpro export PATH="/opt/homebrew/opt/curl/bin:$PATH"
-#mcbpro export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
-#mcbpro export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
-#mcbpro FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-#mcbpro export PATH="$HOME/.luarocks/bin:${PATH}"
-#mcbpro export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-#mcbpro export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
-#mcbpro export PATH="/Applications/SnowSQL.app/Contents/MacOS:$PATH"
-#mcbpro export DOCKER_HOST=$(limactl list docker --format 'unix://{{.Dir}}/sock/docker.sock')
-#mcbpro function thinkdifferent() {
-#mcbpro   find /Applications -name '*.app' \
-#mcbpro     | fzf \
-#mcbpro     | xargs -t -I{} xattr -d com.apple.quarantine {}
-#mcbpro }
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
@@ -93,8 +75,6 @@ function z() {
   local to=$({
     echo $HOME/.files;
     find $HOME/src -maxdepth 1 -type d;
-#mcbpro    find $HOME/src/api -maxdepth 2 -type d;
-#mcbpro    find $HOME/src/front/apps -maxdepth 1 -type d;
   } | fzf --layout=reverse --height '40%' -q "${*:-$PWD} " -1)
 
   [[ $TMUX ]] \
@@ -128,8 +108,6 @@ function _fzf(){
   is_up https://github.com || return 42
   rm -rf $HOME/.fzf/ 2>/dev/null
   mkdir -p $HOME/.fzf/ 2>/dev/null
-#mcbpro  os="darwin"
-#mcbpro  arch="arm64"
   curl -LSs 'https://api.github.com/repos/junegunn/fzf/releases/latest?page=1&per_page=1' \
     | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
     | grep "${os:-linux}" \
@@ -160,7 +138,6 @@ function _cni(){
   is_up https://github.com || return 42
   rm -rf $HOME/.cni/ 2>/dev/null
   mkdir -p $HOME/.cni/ 2>/dev/null
-#mcbpro  os="aarch64-apple-darwin.tar.gz"
   curl -LSs 'https://api.github.com/repos/containernetworking/plugins/releases/latest?page=1&per_page=1' \
     | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
     | grep -v sha \
@@ -211,7 +188,6 @@ export DOTENV_CONFIG_DEBUG=true
 #lua
 function _lua(){
   is_up https://github.com || return 42
-#mcbpro   os=darwin
   rm -rf $HOME/.config/nvim/lsp/lua/ 2>/dev/null
   mkdir -p $HOME/.config/nvim/lsp/lua/ 2>/dev/null
   curl -D /dev/stderr -Ls 'https://api.github.com/repos/LuaLS/lua-language-server/releases/latest?page=1&per_page=1' \
@@ -227,7 +203,6 @@ function _lua(){
 
 #bun
 #carbon # curl -L https://github.com/oven-sh/bun/releases/download/bun-v1.2.23/bun-linux-x64.zip       | bsdtar xzv --strip-components=1 -C $HOME/.bun/bin/
-#mcbpro # curl -L https://github.com/oven-sh/bun/releases/download/bun-v1.2.23/bun-darwin-aarch64.zip  | bsdtar xzv --strip-components=1 -C $HOME/.bun/bin/
 export PATH="$HOME/.bun/bin:${PATH}"
 export DO_NOT_TRACK=1
 
@@ -235,17 +210,14 @@ export DO_NOT_TRACK=1
 export PATH="$HOME/.deno/bin:${PATH}"
 
 #rust
-#mcbpro export PATH="$HOME/.cargo/bin:${PATH}"
 
 #neovim
 export PATH="$HOME/.nvim/bin:${PATH}"
 export EDITOR=nvim
 export MANPAGER='nvim +Man!' #https://www.visualmode.dev/a-better-man-page-viewer
-#mcbpro export NVIM_LSP_TSGO=1
 
 function _nvim(){
   is_up https://github.com || return 42
-#mcbpro  os="macos 'tar.gz 'arm64"
   rm -rf $HOME/.nvim/ 2>/dev/null
   mkdir -p $HOME/.nvim/ 2>/dev/null
   curl 'https://api.github.com/repos/neovim/neovim/releases/tags/nightly?page=1&per_page=1' \
@@ -269,7 +241,6 @@ export PATH="$HOME/.nimble/bin:$PATH"
 
 #emmet
 #carbon #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-x86_64-linux.tar.gz -L   | tar xvz -C $HOME/.local/bin
-#mcbpro #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-aarch64-darwin.tar.gz -L | tar xvz -C $HOME/.local/bin
 
 #dotnet - wget https://dot.net/v1/dotnet-install.sh
 #dotnet-install.sh --verbose --channel 9.0
@@ -303,16 +274,11 @@ alias rm='rm -i'
 alias yolo='git add . && git commit -m "yolo" --no-verify && git push --no-verify || true'
 alias http="node -p \"Object.entries(require('http').STATUS_CODES).map(x=> x.join('\t')).join('\n')\" | fzf --sync --reverse --height=25%"
 alias ssh='TERM=xterm-256color ssh'
-#carbon alias wipe='nerdctl rm -f $(nerdctl ps -aq)'
-#mcbpro alias wipe='docker rm -f $(docker ps -aq)'
 alias dco='nerdctl compose'
 alias rg='rg --hidden'
 alias dmesg='sudo dmesg'
 alias cal='LC_ALL=de_DE.utf8 cal'
 #carbon alias yay='yay --editmenu'
-#mcbpro alias awk='gawk'
-#mcbpro alias sed='gsed'
-#mcbpro alias xargs='gxargs'
 alias less='less -r'
 
 function yy(){
@@ -388,8 +354,7 @@ function track(){
       -o $HOME/.cache/spotify
   }
 
-#carbon  local last_changed=`stat --format=%Y $HOME/.cache/spotify`
-#mcbpro  local last_changed=`stat -f %m $HOME/.cache/spotify`
+  local last_changed=`stat --format=%Y $HOME/.cache/spotify`
   local now=`date +%s`
   local expires_in=`cat $HOME/.cache/spotify | fx .expires_in`
 
@@ -649,29 +614,9 @@ function qq() {
 }
 
 
-#mcbpro function dpl() {
-#mcbpro   input=${1:-`cat -`}
-#mcbpro   chunk=$(printf '%s' $input | gawk -F/ '{print $NF}')
-#mcbpro   if test -z "${chunk}"; then chunk=${input}; fi
-#mcbpro   printf "%s\n" \
-#mcbpro     "${VC_ADMIN_DPL}/${chunk}" \
-#mcbpro     "${VC_ADMIN_DPL}/dpl_${chunk}" \
-#mcbpro     | fzf -1 -q '!dpl_dpl_ dpl_' \
-#mcbpro     | xargs xdg-open
-#mcbpro }
-
-
-#mcbpro function slack() {
-#mcbpro   # fu hdr!
-#mcbpro   killall -9 Slack;
-#mcbpro   sleep 2;
-#mcbpro   open /Applications/Slack.app/ --args --force-color-profile=srgb
-#mcbpro }
-
-
-#carbon function say() {
-#carbon   espeak-ng "$(cat -)"
-#carbon }
+function say() {
+  espeak-ng "$(cat -)"
+}
 
 function sich() {
   curl https://raw.githubusercontent.com/bezufache/Betonieren/refs/heads/master/README.md -s \
@@ -708,7 +653,6 @@ function note() {
   pushd $HOME/src/notes/; make; popd
 }
 
-export PATH="$HOME/.opencode/bin/:${PATH}"
 function _opencode(){
   is_up https://github.com || return 42
   rm -rf $HOME/.opencode/bin/ 2>/dev/null
@@ -726,9 +670,12 @@ function _opencode(){
   opencode --version
 }
 
-alias now='bun x vercel deploy --prod -t $VC_TOKEN --scope $USER-$VC_RND --yes --logs; v'
+function explain() {
+  nerdctl run --rm -it -v $HOME/.opencode:/opencode:ro archlinux:latest /opencode/bin/opencode -m 'opencode/big-pickle' run "no codesearch; just explain: ${*}"
+}
+alias ai=explain
 
-#mcbpro eval "$(direnv hook zsh)"
+alias now='bun x vercel deploy --prod -t $VC_TOKEN --scope $USER-$VC_RND --yes --logs; v'
 
 function news() {
   case ${1:-read} in
@@ -798,10 +745,6 @@ function manf(){
     | fzf --reverse --sync --no-sort --preview 'gunzip -ck {}'
 }
 
-alias ai="opencode -m 'opencode/big-pickle' run "
-function bear() {
-	ai "no code change; just explain: ${*}"
-}
 alias f="find . -type f -not -path '*/.git/*'"
 alias ff="find . -type f -not -path '*/.git/*' | vidir -"
 

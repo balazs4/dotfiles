@@ -5,7 +5,7 @@ install:
 $(HOME)/%: %
 	@mkdir -p $$(dirname $(@))
 	@cat $(<) \
-		| sed -r "s/^[--;#\/\"\!]+$$(cat /etc/hostname) //g; /^#(carbon|mcbpro|aspire)/d; s/\{\{hostname\}\}/$$(cat /etc/hostname)/g;" \
+		| sed -r "s/^[--;#\/\"\!]+$$(cat /etc/hostname) //g; /^#(carbon|aspire)/d; s/\{\{hostname\}\}/$$(cat /etc/hostname)/g;" \
 		| sed "$$(cat .colors)" \
 		| tee $(@) > /dev/null
 	@$(if $(filter $<, .zshrc),                        pgrep -a zsh         1>/dev/null 2>/dev/null && kill -USR1 `pgrep -a zsh  | awk '{print $$1}' | xargs`                           || true)
