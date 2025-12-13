@@ -84,6 +84,7 @@ function z() {
 
 alias zz=z
 alias x='tmux new-session -A -s $HOME -c $HOME'
+alias wipe='nerdctl rm -f $(nerdctl ps -aq)'
 
 alias is_up='curl -LsS --fail-with-body -o /dev/null -w "%{http_code}\t%{url}\t%header{content-length}b\n"'
 
@@ -671,7 +672,8 @@ function _opencode(){
 }
 
 function ai() {
-  nerdctl run --rm -it -v $HOME/.opencode:/opencode:ro archlinux:latest /opencode/bin/opencode -m 'opencode/big-pickle' run "short answer; ${*}"
+  nerdctl run --rm -it -v $HOME/.config/opencode:/root/.config/opencode:ro  -v $HOME/.opencode:/opencode:ro archlinux:latest \
+		bash -c "/opencode/bin/opencode --print-logs -m 'opencode/big-pickle' run 'short answer; code only if possible; ${*}'  2> >(while IFS= read -r line; do printf '%s' '.' ; done) 1>/result; cat /result"
 }
 
 function news() {
