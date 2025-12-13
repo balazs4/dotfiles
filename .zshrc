@@ -670,12 +670,9 @@ function _opencode(){
   opencode --version
 }
 
-function explain() {
-  nerdctl run --rm -it -v $HOME/.opencode:/opencode:ro archlinux:latest /opencode/bin/opencode -m 'opencode/big-pickle' run "no codesearch; just explain: ${*}"
+function ai() {
+  nerdctl run --rm -it -v $HOME/.opencode:/opencode:ro archlinux:latest /opencode/bin/opencode -m 'opencode/big-pickle' run "short answer; ${*}"
 }
-alias ai=explain
-
-alias now='bun x vercel deploy --prod -t $VC_TOKEN --scope $USER-$VC_RND --yes --logs; v'
 
 function news() {
   case ${1:-read} in
