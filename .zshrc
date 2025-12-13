@@ -802,4 +802,12 @@ alias ai="opencode -m 'opencode/big-pickle' run "
 function bear() {
 	ai "no code change; just explain: ${*}"
 }
-alias f="find . -type f"
+alias f="find . -type f -not -path '*/.git/*'"
+alias ff="find . -type f -not -path '*/.git/*' | vidir -"
+
+function csv() {
+  csv_file=${1:?csv_file is missing}
+  sql=${2:-'SELECT * FROM t;'}
+  printf '%s: %s\n' $csv_file "$sql" 1>/dev/stderr
+  sqlite3 :memory: ".mode csv" ".import ${csv_file} t" "${sql}"
+}

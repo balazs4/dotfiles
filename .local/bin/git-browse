@@ -1,7 +1,17 @@
 #! /usr/bin/env bash
 
-git config --get remote.${1:-origin}.url \
-  | sed 's|ssh://||; s|:|/|; s|git@||; s|\.git$||' \
-  | xargs -t -I{} ${BROWSER:-xdg-open} https://{}
+git_url=$(git config --get remote.${1:-origin}.url)
+url=$git_url
 
-#TODO: handle $REMOTE
+case "$git_url" in
+  *${REMOTE:-gitweb}*)
+    url=$(printf '%s;a=tree' $(echo $git_url | sed 's|ssh://|https://|; s|~/|?p=|'))
+    ;;
+
+  *)
+    url=$(printf 'http://%s' $(echo $git_url | sed 's|ssh://||; s|:|/|; s|git@||; s|\.git$||'))
+    ;;
+esac
+
+printf "%s\n" $git_url $url
+$BROWSER $url
