@@ -9,7 +9,7 @@ case "$git_url" in
     ;;
 
   *)
-    url=$(printf 'http://%s' $(echo $git_url | sed 's|ssh://||; s|:|/|; s|git@||; s|\.git$||'))
+    url=$(printf 'https://%s' $(echo $git_url | sed 's|https://||; s|ssh://||; s|:|/|; s|git@||; s|\.git$||'))
     ;;
 esac
 
