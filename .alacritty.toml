@@ -4,12 +4,10 @@ working_directory = "/home/balazs4/"
 [font]
 #carbon size = 11.0
 #aspire size = 12.0
-#aspire #normal = { family = "DejaVu Sans Mono", style = "Regular" }
-#aspire #normal = { family = "Noto Sans Mono", style = "Regular" }
-#aspire #normal = { family = "JetBrains Mono", style = "Regular" }
-#aspire #normal = { family = "Geist Mono Nerd Font", style = "Regular" }
-#aspire #normal = { family = "Hack Nerd Font Mono", style = "Regular" }
-#aspire #normal = { family = "Roboto Mono Nerd Font", style = "Regular" }
+normal = { style = "Regular", family = "DejaVu Sans Mono" }
+# normal = { style = "Regular", family = "JetBrains Mono"   }
+# normal = { style = "Regular", family = "Noto Sans Mono"   }
+# normal = { style = "Regular", family = "Ubuntu Mono"   }
 
 [window]
 opacity = 0.96
