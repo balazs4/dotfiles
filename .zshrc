@@ -241,7 +241,10 @@ function lsp(){
 export PATH="$HOME/.nimble/bin:$PATH"
 
 #emmet
-#carbon #curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-x86_64-linux.tar.gz -L   | tar xvz -C $HOME/.local/bin
+function _emmet() {
+ curl https://gitlab.com/balazs4/emmet/-/releases/2024-10-03-5811a53e/downloads/emmet-x86_64-linux.tar.gz -L \
+	 | tar xvz -C $HOME/.local/bin
+}
 
 #dotnet - wget https://dot.net/v1/dotnet-install.sh
 #dotnet-install.sh --verbose --channel 9.0
@@ -602,8 +605,8 @@ function qq() {
    printf "%s\n" $url "https://start.duckduckgo.com/html/?q=${search_term}" "https://start.duckduckgo.com/?q=${search_term}"
    curl -A "aun3Modeitoa9eequ2quooph7yoh4ohn" -D /dev/null -Ls "${url}" \
      | sed "s|\(<span class='link-text'>\)|\1https://|g" \
-     | pup 'table' \
-     | w3m -dump -T text/html -cols $COLUMNS \
+     | xq --node -q 'table' \
+     | cha --dump -T text/html \
      | awk '
         /^[0-9]+\./      {print "\033[97;1m"$0"\033[0m";   next;}
         /    https:\/\// {print "\033[93;1m"$0"\033[0m\n"; next;}
