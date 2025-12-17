@@ -1,4 +1,4 @@
-vim.cmd('colorscheme base16')
+vim.cmd('colorscheme default')
 
 vim.opt.backup = false
 vim.opt.cmdheight = 1
