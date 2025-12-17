@@ -648,7 +648,7 @@ function origin() {
 
 function clone() {
 	pushd ~/src
-	name=$(ssh $REMOTE 'find . -maxdepth 1 -type d -name "*.git"' | sort | fzf --height 25% --no-sort --reverse -1 -q"'{1}" | sed -e 's|^./||')
+	name=$(ssh $REMOTE 'find . -maxdepth 1 -type d -name "*.git"' | sort | fzf --height 25% --no-sort --reverse -1 -q"'${1}" | sed -e 's|^./||')
   git clone ssh://git.$REMOTE/~/$name
 	popd ~/src
 }
