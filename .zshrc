@@ -670,8 +670,7 @@ function _opencode(){
     | bsdtar xzv -C $HOME/.opencode/bin/
 
   chmod +x $HOME/.opencode/bin/opencode
-  hash -r
-  opencode --version
+  $HOME/.opencode/bin/opencode --version
 }
 
 function ai() {
