@@ -10,8 +10,9 @@ pulsemixer --list-sinks | cut -d":" -f3 | cut -d"," -f1 | xargs -I{} pulsemixer 
 #carbon sudo iw wlan0 set power_save off
 
 #aspire xinput set-prop 10 'libinput Accel Speed' 0.5
-#aspire xinput set-prop 13 'libinput Accel Speed' 1.0
-#aspire xinput set-prop 13 'libinput Accel Custom Scroll Step' 1.0
+#aspire xinput set-prop 11 'libinput Accel Speed' 0.1
+#aspire xinput set-prop 11 'libinput Accel Profile Enabled' 0 0 1
+#aspire xinput set-prop 11 'libinput Accel Custom Scroll Step' 1.0
 
 xrdb -merge $HOME/.Xresources
 xset r rate 250 100
