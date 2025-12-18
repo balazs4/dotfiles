@@ -1,5 +1,6 @@
 vim.cmd('colorscheme default')
 
+vim.opt.background = '{{variant}}'
 vim.opt.backup = false
 vim.opt.cmdheight = 1
 vim.opt.completeopt = 'fuzzy,menuone,noselect,popup'
