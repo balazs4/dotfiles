@@ -341,8 +341,8 @@ function dw(){
 
 function track(){
   test -e $HOME/.cache/spotify || {
-    local url="https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:8000/&scope=playlist-modify-public"
-    xdg-open $url
+    local url="https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=http://127.0.0.1:8000/&scope=playlist-modify-public"
+    xdg-open $url & 
     local spotify_code=`node -e "
     require('node:http').createServer((req, res) => {
       res.end('you can close this tab');
@@ -354,7 +354,7 @@ function track(){
     curl "https://accounts.spotify.com/api/token" \
       -XPOST \
       -H "Content-Type: application/x-www-form-urlencoded" \
-      -d "grant_type=authorization_code&code=$spotify_code&client_id=$SPOTIFY_CLIENT_ID&client_secret=$SPOTIFY_CLIENT_SECRET&redirect_uri=http://localhost:8000/" \
+      -d "grant_type=authorization_code&code=$spotify_code&client_id=$SPOTIFY_CLIENT_ID&client_secret=$SPOTIFY_CLIENT_SECRET&redirect_uri=http://127.0.0.1:8000/" \
       -o $HOME/.cache/spotify
   }
 
@@ -675,7 +675,13 @@ function _opencode(){
 
 function ai() {
   nerdctl run --rm -it -v $HOME/.config/opencode:/root/.config/opencode:ro  -v $HOME/.opencode:/opencode:ro archlinux:latest \
-		bash -c "/opencode/bin/opencode --print-logs -m 'opencode/big-pickle' run 'short answer; code only if possible; ${*}'  2> >(while IFS= read -r line; do printf '%s' 'ai' ; done) 1>/result; cat /result"
+		bash -c "/opencode/bin/opencode --print-logs -m 'opencode/big-pickle' run 'short answer; code only if possible; ${*}'  2> >(while IFS= read -r line; do printf '.'; done) 1>/result; cat /result"
+}
+
+function agent() {
+	printf "it will mount read-write %s, do you want this? [Enter: yes | Ctrl-C: no]" $PWD
+	read
+  nerdctl run --rm -it -v $HOME/.config/opencode:/root/.config/opencode:ro  -v $HOME/.opencode:/opencode:ro -v $PWD:/app -w /app archlinux:latest /opencode/bin/opencode
 }
 
 function news() {
