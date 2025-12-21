@@ -1,0 +1,21 @@
+#! /usr/bin/env bash
+
+set -eu
+
+printf "args=%s\n" ${*}
+
+if test "${1}" == "refs/heads/master"
+then
+	branch=$(echo ${1} | sed 's|^refs/heads/||')
+	repo=$(basename $PWD | sed 's|.git$||')
+	work_tree="/home/$USER/.post-update/${repo}";
+	mkdir -p ${work_tree} || true
+	git --work-tree=${work_tree} checkout -f ${branch} 2>/dev/null
+	sha=$(git --work-tree=$work_tree rev-parse HEAD)
+
+	# implemantation  goes here
+	tree ${work_tree}
+
+	printf "repo=%s branch=%s sha=%s\n" ${repo} ${branch} ${sha}
+fi
+

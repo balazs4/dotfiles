@@ -23,9 +23,10 @@
 [merge]
   tool = vimdiff
 [alias]
+	ops = ~/.local/bin/git-ops
   a = add
-  c = commit
   browse = ~/.local/bin/git-browse
+  c = commit
   d = diff
   ds = diff --staged
   s = status

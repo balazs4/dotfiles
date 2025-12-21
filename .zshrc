@@ -644,13 +644,15 @@ function origin() {
   ssh $REMOTE "mkdir -p ~/$name.git && cd ~/$name.git && git init --bare --initial-branch ${1:-main} && touch NO-git-daemon-export-ok" \
     && git remote add origin ssh://git.$REMOTE/~/$name.git \
     && git push origin
-}
 
-function clone() {
-	pushd ~/src
-	name=$(ssh $REMOTE 'find . -maxdepth 1 -type d -name "*.git"' | sort | fzf --height 25% --no-sort --reverse -1 -q"'${1}" | sed -e 's|^./||')
-  git clone ssh://git.$REMOTE/~/$name
-	popd ~/src
+		# #!/bin/sh
+		# printf "args=%s\n" ${*}
+		# if test "${1}" == "refs/heads/master"
+		# then
+		# 	git --git-dir=~/${name}.git --work-tree=~/.post-update/${name} checkout -f master 2>/dev/null
+		# 	rsync -v --recursive --delete /home/balazs4/www/prod/ /var/www/balazs4.dev/
+		# 	printf "deployed: %s\n" $(git --work-tree=/home/balazs4/www rev-parse HEAD)
+		# fi
 }
 
 function note() {
@@ -675,7 +677,7 @@ function _opencode(){
 
 function ai() {
   nerdctl run --rm -it -v $HOME/.config/opencode:/root/.config/opencode:ro  -v $HOME/.opencode:/opencode:ro archlinux:latest \
-		bash -c "/opencode/bin/opencode --print-logs -m 'opencode/big-pickle' run 'short answer; code only if possible; ${*}'  2> >(while IFS= read -r line; do printf '.'; done) 1>/result; cat /result"
+		bash -c "/opencode/bin/opencode --print-logs -m 'opencode/big-pickle' run 'short answer; code only if possible; ${*}'  2> >(while IFS= read -r line; do printf '.'; done) 1>/result; cat /result;"
 }
 
 function agent() {

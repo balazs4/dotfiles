@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+
+set -eu
+
+case ${1} in
+	post-update)
+		remote_file=$(git config --get remote.origin.url | sed "s|^ssh://|scp://|; s|/~/|//home/$USER/|")/hooks/post-update
+		scp -q $remote_file /dev/null 2>/dev/null 1>/dev/null || scp $HOME/.config/git-ops/post-update ${remote_file}
+		printf "Editing %s\n" $remote_file
+		${EDITOR:-nvim} $remote_file
+		echo ${remote_file} | awk -F"//" '{print "ssh " $2" chmod +x /"$3}' | bash
+		;;
+esac
+
