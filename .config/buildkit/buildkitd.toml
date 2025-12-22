@@ -1,0 +1,2 @@
+[worker.containerd]
+cniBinaryPath = "/home/balazs4/.cni/"

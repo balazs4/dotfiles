@@ -135,17 +135,18 @@ function _fzf(){
 
 # cni - containerd + rootless + nerdctl
 export CNI_PATH=$HOME/.cni
+export PATH="${CNI_PATH}:${PATH}"
 function _cni(){
   is_up https://github.com || return 42
-  rm -rf $HOME/.cni/ 2>/dev/null
-  mkdir -p $HOME/.cni/ 2>/dev/null
+  rm -rf ${CNI_PATH} 2>/dev/null
+  mkdir -p ${CNI_PATH} 2>/dev/null
   curl -LSs 'https://api.github.com/repos/containernetworking/plugins/releases/latest?page=1&per_page=1' \
     | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
     | grep -v sha \
     | fzf -1 -q "${os:-'linux-amd64 '.tgz}" \
     | xurls \
     | xargs curl -LSso - \
-    | tar xzv -C $HOME/.cni
+    | tar xzv -C ${CNI_PATH}
 }
 
 function _fx(){
