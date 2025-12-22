@@ -23,12 +23,13 @@
 [merge]
   tool = vimdiff
 [alias]
-	ops = ~/.local/bin/git-ops
   a = add
   browse = ~/.local/bin/git-browse
   c = commit
   d = diff
   ds = diff --staged
+  ops = ~/.local/bin/git-ops
+  post-update = "!git ops post-update"
   s = status
   tree = "!git ls-files | tree --fromfile"
   vidir = "!git ls-files | vidir -"
