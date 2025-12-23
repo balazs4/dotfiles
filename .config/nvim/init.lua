@@ -81,15 +81,21 @@ local function update_statusline(_)
   end
 end
 
+local function stop_client(clients, force) for _, client in ipairs(clients) do _ = pcall(function() client:stop(force) end) end end
+
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     update_statusline() -- see LspDetach, BufEnter
 
     vim.api.nvim_create_user_command("LspInfo", function() print(vim.inspect(vim.lsp.get_clients())) end, {})
     vim.api.nvim_create_user_command("LspStop", function()
-      vim.lsp.stop_client(vim.lsp.get_clients(), true)
+      stop_client(vim.lsp.get_clients(), true)
       update_statusline()
       vim.opt.signcolumn = 'no'
+    end, {})
+    vim.api.nvim_create_user_command("Lsp", function()
+      stop_client(vim.lsp.get_clients(), true)
+      vim.cmd('e %')
     end, {})
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)
