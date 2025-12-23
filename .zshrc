@@ -660,31 +660,8 @@ function note() {
   pushd $HOME/src/notes/; make; popd
 }
 
-function _opencode(){
-  is_up https://github.com || return 42
-  rm -rf $HOME/.opencode/bin/ 2>/dev/null
-  mkdir -p $HOME/.opencode/bin/ 2>/dev/null
-  curl "https://api.github.com/repos/sst/opencode/releases/${1:-latest}?page=1&per_page=1" \
-    | fx 'x => x.assets.map(xx => [xx.created_at, xx.browser_download_url].join("\t")).join("\n")' \
-    | grep -v sha \
-    | fzf -q "${os:-'linux-x64.tar.gz}" -1 \
-    | xurls \
-    | xargs curl -Lo - \
-    | bsdtar xzv -C $HOME/.opencode/bin/
-
-  chmod +x $HOME/.opencode/bin/opencode
-  $HOME/.opencode/bin/opencode --version
-}
-
 function ai() {
-  nerdctl run --rm -it -v $HOME/.config/opencode:/root/.config/opencode:ro  -v $HOME/.opencode:/opencode:ro archlinux:latest \
-		bash -c "/opencode/bin/opencode --print-logs -m 'opencode/big-pickle' run 'short answer; code only if possible; ${*}'  2> >(while IFS= read -r line; do printf '.'; done) 1>/result; cat /result;"
-}
-
-function agent() {
-	printf "it will mount read-write %s, do you want this? [Enter: yes | Ctrl-C: no]" $PWD
-	read
-  nerdctl run --rm -it -v $HOME/.config/opencode:/root/.config/opencode:ro  -v $HOME/.opencode:/opencode:ro -v $PWD:/app -w /app archlinux:latest /opencode/bin/opencode
+  nerdctl run -t --rm ghcr.io/sst/opencode  -m "opencode/big-pickle" run "short answer; code only if possible; ${*}"
 }
 
 function news() {
