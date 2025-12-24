@@ -25,7 +25,7 @@ chmod:
 
 .PHONY: sync
 sync:
-	printf "%s@%s" $(date +%s) $(cat /etc/hostname) | xargs -t -I{} git commit -am "{}" || true
+	printf "%s@%s" $(shell date +%s) $(shell cat /etc/hostname) | xargs -t -I{} git commit -am "{}" || true
 	git pull || true
 	git push || true
 
