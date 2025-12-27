@@ -595,9 +595,7 @@ alias spp='spotify_player playback play-pause'
 alias spn='spotify_player playback next'
 alias spz='source <(spotify_player generate zsh)'
 
-function ddg() {
-  cha "https://start.duckduckgo.com/lite/?q=${*:-$(cat -)}"
-}
+
 function qq() {
    input=${*:-$(cat -)}
    search_term=$(echo "${input}" | tr ' ' '+')
@@ -618,10 +616,10 @@ function qq() {
     | less
 }
 
-
-function say() {
-  espeak-ng "$(cat -)"
+function qqi() {
+  cha "https://start.duckduckgo.com/lite/?q=${*:-$(cat -)}"
 }
+
 
 function sich() {
   curl https://raw.githubusercontent.com/bezufache/Betonieren/refs/heads/master/README.md -s \
@@ -630,30 +628,21 @@ function sich() {
     | shuf \
     | head -1 \
     | tee /dev/stderr \
-    | say -v Anna -f -
+    | espeak-ng -
 }
 
 function stromberg() {
   curl https://www.stromberg-zitate.de/api/proxy -s \
     | fx .quote \
     | tee /dev/stderr \
-    | say -v Anna -r 200 -f -
+    | espeak-ng -
 }
 
 function origin() {
   name=$(git rev-parse --show-toplevel | xargs basename)
-  ssh $REMOTE "mkdir -p ~/$name.git && cd ~/$name.git && git init --bare --initial-branch ${1:-main} && touch NO-git-daemon-export-ok" \
+  ssh $REMOTE "mkdir -p ~/$name.git && cd ~/$name.git && git init --bare --initial-branch ${1:-master} && touch NO-git-daemon-export-ok" \
     && git remote add origin ssh://git.$REMOTE/~/$name.git \
     && git push origin
-
-		# #!/bin/sh
-		# printf "args=%s\n" ${*}
-		# if test "${1}" == "refs/heads/master"
-		# then
-		# 	git --git-dir=~/${name}.git --work-tree=~/.post-update/${name} checkout -f master 2>/dev/null
-		# 	rsync -v --recursive --delete /home/balazs4/www/prod/ /var/www/balazs4.dev/
-		# 	printf "deployed: %s\n" $(git --work-tree=/home/balazs4/www rev-parse HEAD)
-		# fi
 }
 
 function note() {
@@ -661,7 +650,7 @@ function note() {
 }
 
 function ai() {
-  nerdctl run -t --rm ghcr.io/sst/opencode  -m "opencode/big-pickle" run "short answer; code only if possible; ${*}"
+  nerdctl run -it --rm ghcr.io/sst/opencode  -m "opencode/big-pickle" run "short answer; code only if possible; ${*}"
 }
 
 function news() {
