@@ -646,7 +646,11 @@ function origin() {
 }
 
 function note() {
-  pushd $HOME/src/notes/; make; popd
+  pushd $HOME/src/notes/; make note; popd
+}
+
+function notes() {
+  pushd $HOME/src/notes/; make notes; popd
 }
 
 function ai() {
