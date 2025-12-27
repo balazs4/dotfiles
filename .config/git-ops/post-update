@@ -8,7 +8,7 @@ if test "${1}" == "refs/heads/master"
 then
 	branch=$(echo ${1} | sed 's|^refs/heads/||')
 	repo=$(basename $PWD | sed 's|.git$||')
-	work_tree="${PWD}/_/";
+	work_tree="${PWD}/_/${1}";
 
 	mkdir -p ${work_tree} || true
 	git --work-tree=${work_tree} checkout -f ${branch} 2>/dev/null
