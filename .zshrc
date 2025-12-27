@@ -616,7 +616,7 @@ function qq() {
     | less
 }
 
-function qqi() {
+function q() {
   cha "https://start.duckduckgo.com/lite/?q=${*:-$(cat -)}"
 }
 
