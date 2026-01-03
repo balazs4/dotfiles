@@ -656,13 +656,13 @@ function notes() {
 function ai() {
   case ${1:-nothing} in
     chat)
-      nerdctl run -it --rm ghcr.io/sst/opencode -m "opencode/big-pickle"
+      nerdctl run -it --rm -v opencode-config:/root/.config/opencode -v opencode-cache:/root/.cache/opencode              ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
       ;;
     agent)
-      nerdctl run -it --rm -v $PWD:/src -w /src ghcr.io/sst/opencode -m "opencode/big-pickle"
+      nerdctl run -it --rm -v opencode-config:/root/.config/opencode -v opencode-cache:/root/.cache/opencode -v $PWD:/src ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
       ;;
     *)
-      nerdctl run -it --rm ghcr.io/sst/opencode -m "opencode/big-pickle" run "short answer; code only if possible; ${*}"
+      nerdctl run -it --rm -v opencode-config:/root/.config/opencode -v opencode-cache:/root/.cache/opencode              ghcr.io/anomalyco/opencode -m "opencode/big-pickle" run "short answer; code only if possible; ${*}"
       ;;
   esac
 }
