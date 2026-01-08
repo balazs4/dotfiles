@@ -1,5 +1,14 @@
 #!/bin/sh
 
+# content=/etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+# href=https://bbs.archlinux.org/viewtopic.php?id=294417
+# reason=otherwise chrome cannot open file dialog, meh
+systemctl --user import-environment DISPLAY XAUTHORITY
+
+if command -v dbus-update-activation-environment >/dev/null 2>&1; then
+    dbus-update-activation-environment DISPLAY XAUTHORITY
+fi
+
 pulseaudio --start
 pulsemixer --list-sources | cut -d":" -f3 | cut -d"," -f1 | xargs -I{} pulsemixer --mute --id {}
 #carbon pulsemixer --list-sinks | cut -d":" -f3 | cut -d"," -f1 | xargs -I{} pulsemixer --mute --id {}
