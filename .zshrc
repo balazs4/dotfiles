@@ -148,7 +148,7 @@ function _cni(){
     | xargs curl -LSso - \
     | tar xzv -C ${CNI_PATH}
 
-  sudo iptables -t nat -S --wait
+  lsmod | grep ip_tables
 }
 
 function _fx(){
@@ -337,7 +337,7 @@ function radio(){
 }
 
 function dw(){
-  curl -s "https://de.wiktionary.org/wiki/$1" -w "%{stderr}%{url}\t%{http_code}\n" \
+  curl "https://de.wiktionary.org/wiki/$1" \
     | xq --node -q 'table.wikitable' \
     | cha --dump -T text/html
 }
@@ -655,17 +655,16 @@ function notes() {
   pushd $HOME/src/notes/; make notes; popd
 }
 
-export SUPPRESS_BOLTDB_WARNING=1
 function ai() {
   case ${1:-nothing} in
     chat)
-      podman run -it --rm                      ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
+      nerdctl run -it --rm                      ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
       ;;
     agent)
-      podman run -it --rm -v $PWD:/src -w /src ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
+      nerdctl run -it --rm -v $PWD:/src -w /src ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
       ;;
     *)
-      podman run -it --rm                      ghcr.io/anomalyco/opencode -m "opencode/big-pickle" run "short answer; print everything to stdout; no file creation; code only if possible; ${*}"
+      nerdctl run -it --rm                      ghcr.io/anomalyco/opencode -m "opencode/big-pickle" run "short answer; print everything to stdout; no file creation; code only if possible; ${*}"
       ;;
   esac
 }
