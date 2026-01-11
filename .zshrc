@@ -147,6 +147,8 @@ function _cni(){
     | xurls \
     | xargs curl -LSso - \
     | tar xzv -C ${CNI_PATH}
+
+  sudo iptables -t nat -S --wait
 }
 
 function _fx(){
@@ -653,16 +655,17 @@ function notes() {
   pushd $HOME/src/notes/; make notes; popd
 }
 
+export SUPPRESS_BOLTDB_WARNING=1
 function ai() {
   case ${1:-nothing} in
     chat)
-      nerdctl run -it --rm                      ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
+      podman run -it --rm                      ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
       ;;
     agent)
-      nerdctl run -it --rm -v $PWD:/src -w /src ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
+      podman run -it --rm -v $PWD:/src -w /src ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
       ;;
     *)
-      nerdctl run -it --rm                      ghcr.io/anomalyco/opencode -m "opencode/big-pickle" run "short answer; print everything to stdout; no file creation; code only if possible; ${*}"
+      podman run -it --rm                      ghcr.io/anomalyco/opencode -m "opencode/big-pickle" run "short answer; print everything to stdout; no file creation; code only if possible; ${*}"
       ;;
   esac
 }

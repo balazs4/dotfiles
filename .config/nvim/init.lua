@@ -34,19 +34,7 @@ vim.keymap.set('n', '<leader><leader>', '<cmd>FZF<cr>')
 vim.keymap.set('n', '<leader>W', ':silent grep <cWORD> | copen <CR>')
 vim.keymap.set('n', '<leader>q', ':silent grep <cword> %:.:h | copen <CR>')
 vim.keymap.set('n', '<leader>w', ':silent grep <cword>| copen <CR>')
-vim.keymap.set('n', '`', ':buffers<CR>:buffer ')
 vim.keymap.set('v', '<C-y>,', ':!emmet<CR> | ==')
-
-vim.keymap.set('n', '<leader>a', function()
-  vim.cmd("argadd %")
-  vim.cmd("argdedup")
-end)
-vim.keymap.set('n', '<leader>e', function() vim.cmd.args() end)
-vim.keymap.set('n', '<C-1>', function() vim.cmd("silent! 1argument") end)
-vim.keymap.set('n', '<C-2>', function() vim.cmd("silent! 2argument") end)
-vim.keymap.set('n', '<C-3>', function() vim.cmd("silent! 3argument") end)
-vim.keymap.set('n', '<C-4>', function() vim.cmd("silent! 4argument") end)
-
 
 if os.getenv('PWD') == string.format('%s/.files', os.getenv('HOME')) then
   vim.keymap.set('n', '<leader><cr>', ':w | !make $HOME/%<CR>')
