@@ -9,14 +9,34 @@ then
 	branch=$(echo ${1} | sed 's|^refs/heads/||')
 	repo=$(basename $PWD | sed 's|.git$||')
 	work_tree="${PWD}/_/${1}";
-
 	mkdir -p ${work_tree} || true
 	git --work-tree=${work_tree} checkout -f ${branch} 2>/dev/null
 	sha=$(git --work-tree=$work_tree rev-parse HEAD)
-
 	printf "work_tree=%s branch=%s sha=%s\n" ${work_tree} ${branch} ${sha}
 
-	# implemantation  goes here
-	tree -a ${work_tree}
+  oss "${work_tree}" "/var/www/__domain__/${repo}"
 fi
+
+
+function oss() {
+  work_tree=${1:?missing arg; work_tree}
+  target=${2:?missing arg; /var/www/__domain__/repo}
+
+  if test ! -e $PWD/git-daemon-export-ok
+  then
+    printf "no git-daemon-export-ok found..."
+    if test -d $target
+    then
+      printf "cleaning up... %s\n" $target
+      rm -rfv $target
+      printf "\ncleanup done\n"
+    else
+      printf "do nothing\n"
+    fi
+    return
+  fi
+
+  printf "no git-daemon-export-ok found..."
+  rsync --verbose --recursive --delete ${work_tree}/ ${target}
+}
 
