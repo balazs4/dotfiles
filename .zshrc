@@ -177,7 +177,7 @@ fi
 export PATH=$HOME/.local/bin:${PATH}
 export LANG=en_US.UTF-8
 export TERMINAL=alacritty
-export BROWSER=chromium
+export BROWSER=qutebrowser
 export GPG_TTY=`tty`
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 export WWW_HOME="https://duckduckgo.com/lite"
