@@ -747,3 +747,11 @@ function csv() {
   printf '%s: %s\n' $csv_file "$sql" 1>/dev/stderr
   sqlite3 :memory: ".mode csv" ".import ${csv_file} t" "${sql}"
 }
+
+export PATH="$HOME/.speedtest:${PATH}"
+function _speedtest(){
+  /bin/rm -rfv $HOME/.speedtest/ || true
+  mkdir -p $HOME/.speedtest/man/man5
+  curl https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz -o - | tar xzf - -C $HOME/.speedtest/
+  mv $HOME/.speedtest/speedtest.5 $HOME/.speedtest/man/man5/
+}
