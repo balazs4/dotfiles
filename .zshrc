@@ -664,7 +664,8 @@ function ai() {
       nerdctl run -it --rm -v $PWD:/src -w /src ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
       ;;
     *)
-      nerdctl run -it --rm                      ghcr.io/anomalyco/opencode -m "opencode/big-pickle" run "short answer; print everything to stdout; no file creation; code only if possible; ${*}"
+      meta="short answer; print everything to stdout; no file creation; code only if possible; include source links references; do not hallucinate; if you did not find specific thing; just write: i do not know"
+      nerdctl run -it --rm                      ghcr.io/anomalyco/opencode -m "opencode/big-pickle" run "${meta}: ${*}"
       ;;
   esac
 }
