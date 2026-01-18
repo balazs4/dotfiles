@@ -1,4 +1,4 @@
-clinet_id = "__CLIENT_ID__"
+client_id = "__CLIENT_ID__"
 theme = "dracula"
 client_port = 8080
 login_redirect_uri = "http://127.0.0.1:8989/login"
