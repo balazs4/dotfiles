@@ -215,13 +215,13 @@ vim.lsp.config('biome', {
 
 
 local typescript_language_server = {
-  name = 'vtsls',
-  cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/node_modules/.bin/vtsls', '--stdio' }
+  name = 'tsgo',
+  cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/node_modules/.bin/tsgo', '--lsp', '--stdio' }
 }
 
-if os.getenv('NVIM_LSP_TSGO') == '1' then
+if os.getenv('NVIM_LSP_TSGO') == '0' then
   typescript_language_server.name = 'tsgo'
-  typescript_language_server.cmd = { vim.loop.os_homedir() .. '/src/typescript-go/built/local/tsgo', '--lsp', '--stdio' }
+  typescript_language_server.cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/node_modules/.bin/vtsls', '--stdio' }
 end
 
 vim.lsp.enable(typescript_language_server.name)

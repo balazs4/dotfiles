@@ -2,6 +2,9 @@ install: targets:=$(shell git ls-files | grep -v -E 'makefile|readme.md|.gitigno
 install:
 	@$(MAKE) --jobs 16 $(targets)
 
+.config/nvim/lsp/bun.lock: .config/nvim/lsp/package.json
+	bun install --cwd .config/nvim/lsp/ --lockfile-only --ignore-scripts
+
 $(HOME)/%: %
 	@mkdir -p $$(dirname $(@))
 	@cat $(<) \
