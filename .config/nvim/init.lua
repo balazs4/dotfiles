@@ -149,11 +149,10 @@ vim.lsp.config('gopls', {
   end
 })
 
---mcbpro vim.lsp.enable('terraform-ls')
+vim.lsp.enable('terraform-ls')
 vim.lsp.config('terraform-ls', {
   cmd = { 'terraform-ls', 'serve' },
   filetypes = { 'terraform' },
-  root_markers = { '.terrform.lock.hcl' },
   workspace_required = false,
   settings = {
     ignoreSingleFileWarning = true
