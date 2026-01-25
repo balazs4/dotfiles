@@ -64,5 +64,5 @@ c.fonts.tabs.selected = '900 default_size default_family'
 c.fonts.tabs.unselected = '500 default_size default_family'
 
 c.tabs.favicons.show = 'never'
-c.tabs.show = 'switching'
-c.tabs.position = 'bottom'
+c.tabs.show = 'always'
+c.tabs.position = 'right'
