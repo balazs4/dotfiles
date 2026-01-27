@@ -219,7 +219,7 @@ local typescript_language_server = {
 }
 
 if os.getenv('NVIM_LSP_TSGO') == '0' then
-  typescript_language_server.name = 'tsgo'
+  typescript_language_server.name = 'vtsls'
   typescript_language_server.cmd = { vim.loop.os_homedir() .. '/.config/nvim/lsp/node_modules/.bin/vtsls', '--stdio' }
 end
 
