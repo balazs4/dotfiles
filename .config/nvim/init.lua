@@ -152,7 +152,8 @@ vim.lsp.config('gopls', {
 vim.lsp.enable('terraform-ls')
 vim.lsp.config('terraform-ls', {
   cmd = { 'terraform-ls', 'serve' },
-  filetypes = { 'terraform' },
+  filetypes = { "terraform", "terraform-vars" },
+  root_markers = { '.terraform', '.terraform.lock.hcl' },
   workspace_required = false,
   settings = {
     ignoreSingleFileWarning = true
