@@ -1,4 +1,4 @@
-vim.cmd('colorscheme default')
+vim.cmd('colorscheme base16')
 
 vim.opt.background = '{{variant}}'
 vim.opt.backup = false
@@ -147,6 +147,18 @@ vim.lsp.config('gopls', {
       vim.cmd(cmd)
     end, { buffer = bufnr })
   end
+})
+
+vim.pack.add({
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" }
+})
+require("nvim-treesitter.configs").setup({
+  auto_install = false,
+  ensure_installed = { "go" },
+  highlight = { enable = true },
+  ignore_install = {},
+  modules = {},
+  sync_install = false
 })
 
 vim.lsp.enable('terraform-ls')
