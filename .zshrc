@@ -655,6 +655,10 @@ function notes() {
   pushd $HOME/src/notes/; make notes; popd
 }
 
+function _ai() {
+  nerdctl pull ghcr.io/anomalyco/opencode:latest
+}
+
 function ai() {
   case ${1:-nothing} in
     chat)
