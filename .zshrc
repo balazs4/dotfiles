@@ -182,6 +182,10 @@ function _xq(){
   GOPROXY= go install github.com/sibprogrammer/xq@latest
 }
 
+function _golazo(){
+  GOPROXY= go install github.com/0xjuanma/golazo@latest
+}
+
 if test $TMUX
 then
   export TERM=tmux-256color
@@ -686,10 +690,10 @@ function _ai() {
 function ai() {
   case ${1:-nothing} in
     chat)
-      nerdctl run -it --rm                      ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
+      nerdctl run -it --rm -v $PWD:/src:ro -w /src ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
       ;;
     agent)
-      nerdctl run -it --rm -v $PWD:/src -w /src ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
+      nerdctl run -it --rm -v $PWD:/src    -w /src ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
       ;;
     *)
       meta="short answer; print everything to stdout; no file creation; code only if possible; include source links references; do not hallucinate; if you did not find specific thing; just write: i do not know"
