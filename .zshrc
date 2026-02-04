@@ -43,22 +43,24 @@ function zsh-git() {
     | sed 's|%B%F{green}0%f%b|0|g;s|%B%F{red}0%f%b|0|g;s|\[different\]|%B%F{red}! %f%b|g'
 }
 
-function chpwd(){
-  if test -z $TMUX; then return; fi
-  repo_name=$(git rev-parse --show-toplevel 2>/dev/null | xargs basename 2>/dev/null)
-  if test -z $repo_name; then return; fi
-  tmux rename-window -t:$(tmux display-message -p '#I') ${repo_name}
-}
-
 
 setopt PROMPT_SUBST
 function zle-line-init zle-keymap-select {
-  test $COLUMNS -lt 80 && NEWLINE=$'\n' || NEWLINE=''
-  PROMPT="%B%F{#{{base07-hex}}} %~%f%b$(zsh-git &) %B%F{#{{base07-hex}}}${NEWLINE}»%f%b "
-  RPROMPT="%(?.%F{#{{base07-hex}}}.%F{red})%?%f `[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
-  if test ${SSH_CLIENT}; then
-    PROMPT="[%m] ${PROMPT}"
+  if test $? -eq 0
+  then
+    unset exitcode
+  else
+    exitcode="(%F{#{{base09-hex}}}%?%f)"
   fi
+
+  test $COLUMNS -lt 80 && NEWLINE=$'\n' || NEWLINE=''
+  PROMPT="%B%F{#{{base07-hex}}} %~%f%b${NEWLINE}$(zsh-git &) %B%F{#{{base07-hex}}}»%f%b "
+  RPROMPT="`[[ $KEYMAP == 'vicmd' ]] && echo '[normal]'`"
+  if test ${exitcode}; then
+    PROMPT="${exitcode} ${PROMPT}"
+  fi
+
+
   zle reset-prompt
 }
 
@@ -72,17 +74,26 @@ function TRAPUSR1(){
 }
 
 function z() {
-  local to=$({
-    echo $HOME/.files;
-    find $HOME/src -maxdepth 1 -type d;
-  } | fzf --layout=reverse --height '40%' -q "${*:-$PWD} " -1)
+  to=$(find $HOME -maxdepth 2 -type d | fzf --layout=reverse --height '40%' -q "${*}" -1)
+  if test -z $to; then return; fi
 
-  [[ $TMUX ]] \
-    && cd ${to:-$PWD} \
-    || tmux new-session -A -s ${to:-$PWD} -c ${to:-$PWD}
+  if test -z $TMUX
+  then
+    tmux new-session -A -s ${to} -c ${to}
+  else
+    cd ${to}
+  fi
+
+  pane_count=$(tmux list-panes | wc -l)
+  if test $pane_count -gt 1; then return; fi
+
+  repo_name=$(git rev-parse --show-toplevel 2>/dev/null | xargs basename 2>/dev/null)
+  if test ! -z $repo_name
+  then
+    tmux rename-window -t:$(tmux display-message -p '#I') ${repo_name}
+  fi
 }
 
-alias zz=z
 alias x='tmux new-session -A -s $HOME -c $HOME'
 alias wipe='nerdctl rm -f $(nerdctl ps -aq)'
 
@@ -95,6 +106,10 @@ export PATH=${GOROOT}:${GOPATH}/bin:${PATH}
 function _g(){
   mkdir -p $HOME/.g || true
   curl https://raw.githubusercontent.com/stefanmaric/g/refs/heads/next/bin/g -o $GOROOT/g
+}
+function _go(){
+  g install latest
+  g prune
 }
 
 # fzf
@@ -188,6 +203,11 @@ export N_PRESERVE_NPM=1
 export PATH=$HOME/.n:$N_PREFIX/bin:${PATH}
 export NPM_CONFIG_LOGLEVEL=http
 export DOTENV_CONFIG_DEBUG=true
+function _node(){
+  n latest
+  npm i -g npm@latest
+  n prune
+}
 
 #lua
 function _lua(){
@@ -209,11 +229,15 @@ function _lua(){
 #carbon # curl -L https://github.com/oven-sh/bun/releases/download/bun-v1.2.23/bun-linux-x64.zip       | bsdtar xzv --strip-components=1 -C $HOME/.bun/bin/
 export PATH="$HOME/.bun/bin:${PATH}"
 export DO_NOT_TRACK=1
+function _bun(){
+  bun upgrade
+}
 
 #deno
 export PATH="$HOME/.deno/bin:${PATH}"
-
-#rust
+function _deno() {
+  deno upgrade
+}
 
 #neovim
 export PATH="$HOME/.nvim/bin:${PATH}"
