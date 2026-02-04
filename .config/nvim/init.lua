@@ -154,7 +154,7 @@ vim.pack.add({
 })
 require("nvim-treesitter.configs").setup({
   auto_install = false,
-  ensure_installed = { "go" },
+  ensure_installed = { "go", "lua" },
   highlight = { enable = true },
   ignore_install = {},
   modules = {},
