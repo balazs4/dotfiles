@@ -2,8 +2,12 @@ install: targets:=$(shell git ls-files | grep -v -E 'makefile|readme.md|.gitigno
 install:
 	@$(MAKE) --jobs 16 $(targets)
 
-.config/nvim/lsp/bun.lock: .config/nvim/lsp/package.json
-	bun install --cwd .config/nvim/lsp/ --lockfile-only --ignore-scripts
+.PHONY: lsp
+lsp:
+	fx .config/nvim/lsp/package.json 'x => Object.keys(x.dependencies).join("\n")' \
+		| xargs -I{} -t npm search {} --json --searchlimit 1 \
+		| fx 'x => x[0].name + "@" + x[0].version' \
+		| xargs bun install --lockfile-only --cwd .config/nvim/lsp
 
 $(HOME)/%: %
 	@mkdir -p $$(dirname $(@))
