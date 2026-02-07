@@ -278,7 +278,7 @@ function _emmet() {
 }
 
 #dotnet - wget https://dot.net/v1/dotnet-install.sh
-#dotnet-install.sh --verbose --channel 9.0
+#dotnet-install.sh --verbose --channel 10.0
 export DOTNET_ROOT="$HOME/.dotnet/"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
