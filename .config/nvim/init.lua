@@ -149,18 +149,6 @@ vim.lsp.config('gopls', {
   end
 })
 
-vim.pack.add({
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" }
-})
-require("nvim-treesitter.configs").setup({
-  auto_install = false,
-  ensure_installed = { "go", "lua" },
-  highlight = { enable = true },
-  ignore_install = {},
-  modules = {},
-  sync_install = false
-})
-
 vim.lsp.enable('terraform-ls')
 vim.lsp.config('terraform-ls', {
   cmd = { 'terraform-ls', 'serve' },
