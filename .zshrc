@@ -186,6 +186,10 @@ function _golazo(){
   go install github.com/0xjuanma/golazo@latest
 }
 
+function _dlv(){
+  go install github.com/go-delve/delve/cmd/dlv@latest
+}
+
 if test $TMUX
 then
   export TERM=tmux-256color
