@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+print_block() {
+    local hex=$1
+    hex=${hex#\#}
+
+    if [[ ${#hex} -ne 6 || ! $hex =~ ^[0-9A-Fa-f]{6}$ ]]; then
+        printf "Invalid hex color: %s\n" "$1" >&2
+        return
+    fi
+
+    local r=$((16#${hex:0:2}))
+    local g=$((16#${hex:2:2}))
+    local b=$((16#${hex:4:2}))
+
+    local idx
+    if (( r == g && g == b )); then
+        # Grayscale (232‑255)
+        local gray=$(( (r * 23 + 127) / 255 ))
+        idx=$((232 + gray))
+    else
+        local r6=$(( r * 5 / 255 ))
+        local g6=$(( g * 5 / 255 ))
+        local b6=$(( b * 5 / 255 ))
+        idx=$((16 + r6*36 + g6*6 + b6))
+    fi
+
+    printf "\e[48;5;%sm    \e[0m  %s\n" "$idx" "[$2]: $1"
+}
+
+i=0
+for color in "$@"; do
+  print_block "$color" "$i"
+  ((i++))
+done
+
+

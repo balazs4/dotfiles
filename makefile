@@ -41,7 +41,7 @@ sync:
 .colors: $(HOME)/.cache/schemes
 	@git -C $(HOME)/.cache/schemes ls-files \
 		| sort \
-		| fzf \
+		| fzf --reverse --height=45% --ansi --preview-window=nohidden --preview 'cat $(HOME)/.cache/schemes/{} | yq ".palette[]" | xargs bash .local/bin/hex2ansi' \
 		| xargs -I{} cat $(HOME)/.cache/schemes/{} \
 		| tee /dev/stderr \
 		| awk -F: '/system/{next;} /base[0|1].?/ {print $$1 $$2} /variant/ {print $$1 $$2} /name/ {print $$1 $$2}' \
