@@ -167,23 +167,23 @@ function _cni(){
 }
 
 function _fx(){
-  GOPROXY= go install github.com/antonmedv/fx@latest
+  go install github.com/antonmedv/fx@latest
 }
 
 function _gopls(){
-  GOPROXY= go install golang.org/x/tools/gopls@latest
+  go install golang.org/x/tools/gopls@latest
 }
 
 function _xurls(){
-  GOPROXY= go install github.com/mvdan/xurls/cmd/xurls@latest
+  go install github.com/mvdan/xurls/cmd/xurls@latest
 }
 
 function _xq(){
-  GOPROXY= go install github.com/sibprogrammer/xq@latest
+  go install github.com/sibprogrammer/xq@latest
 }
 
 function _golazo(){
-  GOPROXY= go install github.com/0xjuanma/golazo@latest
+  go install github.com/0xjuanma/golazo@latest
 }
 
 if test $TMUX
