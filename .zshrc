@@ -50,7 +50,7 @@ function zle-line-init zle-keymap-select {
   then
     unset exitcode
   else
-    exitcode="(%F{#{{base09-hex}}}%?%f)"
+    exitcode="(%F{#{{base08-hex}}}%?%f)"
   fi
 
   test $COLUMNS -lt 80 && NEWLINE=$'\n' || NEWLINE=''
@@ -283,6 +283,9 @@ export DOTNET_ROOT="$HOME/.dotnet/"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 export PATH="${DOTNET_ROOT}:${DOTNET_ROOT}/tools:${PATH}:"
+function _csharp-ls(){
+  dotnet tool install -g csharp-ls
+}
 
 function dotedit() {
   f=${1:?relative path to $HOME/.files is needed}
