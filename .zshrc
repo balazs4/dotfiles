@@ -288,7 +288,8 @@ export PATH="${DOTNET_ROOT}:${DOTNET_ROOT}/tools:${PATH}:"
 function _dotnet(){
   #curl -sSLf https://dot.net/v1/dotnet-install.sh --output-dir ${DOTNET_ROOT} --remote-name
   touch /tmp/.curlrc
-  CURL_HOME=/tmp dotnet-install.sh --verbose --channel 10.0
+  CURL_HOME=/tmp dotnet-install.sh --verbose --channel ${1:-10.0}
+  dotnet --list-runtimes
 }
 function _csharp-ls(){
   dotnet tool install -g csharp-ls
