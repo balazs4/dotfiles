@@ -706,6 +706,12 @@ function ai() {
     agent)
       nerdctl run -it --rm -v $PWD:/src    -w /src ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
       ;;
+    tmp)
+      cwd=$(mktemp -d -t ai.XXXXXXXX)
+      pushd $cwd
+      trap "popd; printf "output=%s\n" $cwd" EXIT
+      nerdctl run -it --rm -v $PWD:/src    -w /src ghcr.io/anomalyco/opencode -m "opencode/big-pickle"
+      ;;
     *)
       meta="short answer; print everything to stdout; no file creation; code only if possible; include source links references; do not hallucinate; if you did not find specific thing; just write: i do not know"
       nerdctl run -it --rm                      ghcr.io/anomalyco/opencode -m "opencode/big-pickle" run "${meta}: ${*}"
