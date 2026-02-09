@@ -646,7 +646,7 @@ function qq() {
    curl -A "aun3Modeitoa9eequ2quooph7yoh4ohn" -D /dev/null -Ls "${url}" \
      | sed "s|\(<span class='link-text'>\)|\1https://|g" \
      | xq --node -q 'table' \
-     | cha --dump -T text/html \
+     | w3m -dump -T text/html -cols $COLUMNS \
      | awk '
         /^[0-9]+\./      {print "\033[97;1m"$0"\033[0m";   next;}
         /    https:\/\// {print "\033[93;1m"$0"\033[0m\n"; next;}
@@ -803,4 +803,14 @@ function _speedtest(){
   mkdir -p $HOME/.speedtest/man/man5
   curl https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz -o - | tar xzf - -C $HOME/.speedtest/
   mv $HOME/.speedtest/speedtest.5 $HOME/.speedtest/man/man5/
+}
+
+function hotspot(){
+  sudo iwctl station wlan0 disconnect
+  ip address show wlan0
+  sudo iwctl station wlan0 connect "$USER@iphone"
+  ip address show wlan0
+  sudo vim /etc/resolv.conf.head
+  sudo systemctl restart dhcpcd.service
+  ping google.com
 }
